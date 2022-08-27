@@ -15,7 +15,7 @@ import {
 
 export const ArtboardPage = () => {
     const [cameraType, setCameraType] = useState(CameraType.back);
-    const { glRef, cameraRef, onContextCreate } = useArtboardContext(vertexShaderSource, fragmentShaderSource);
+    const { glRef, cameraRef, onContextCreate } = useArtboardContext(vertexShaderSource, kaleidoscopeShaderSource);
 
     const switchCameraType = useCallback(() => {
         setCameraType(type => (type === CameraType.back ? CameraType.front : CameraType.back));

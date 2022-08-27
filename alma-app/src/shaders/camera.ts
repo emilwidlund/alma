@@ -26,7 +26,22 @@ in vec2 fragCoord;
 out vec4 fragColor;
 
 void main() {
-    vec2 uv = fragCoord / resolution;
+	float textureAspect = cameraTextureResolution.x / cameraTextureResolution.y;
+	float frameAspect = resolution.x / resolution.y;
+	float textureFrameRatio = textureAspect / frameAspect;
+	vec2 scale = vec2(1.0, 1.0);
+
+	if (frameAspect < 1.0) {
+		scale.x = 1.0 / textureFrameRatio;
+		// FIT scale.y = textureFrameRatio;
+	} else {
+		scale.y = textureFrameRatio;
+		// FIT scale.x = 1.0 / textureFrameRatio;
+	}
+
+	vec2 uv = fragCoord / resolution;
+	uv = uv * scale;
+	uv.y += (textureFrameRatio - 1.0) / 2.0;
 
     fragColor = vec4(texture(cameraTexture, uv).rgb, 1.0);
 }`);
@@ -35,6 +50,7 @@ export const KALEIDOSCOPE = glslify(`#version 300 es
 precision highp float;
 
 uniform sampler2D cameraTexture;
+uniform vec2 cameraTextureResolution;
 uniform vec2 resolution;
 uniform float time;
 
@@ -65,7 +81,24 @@ vec4 scene(vec2 at) {
 }
 
 void main() {
-	vec2 uv = fragCoord / resolution + 1.;
+	float textureAspect = cameraTextureResolution.x / cameraTextureResolution.y;
+	float frameAspect = resolution.x / resolution.y;
+	float textureFrameRatio = textureAspect / frameAspect;
+	vec2 scale = vec2(1.0, 1.0);
+
+	if (frameAspect < 1.0) {
+		// scale.x = 1.0 / textureFrameRatio;
+		scale.y = textureFrameRatio;
+	} else {
+		// scale.y = textureFrameRatio;
+		scale.x = 1.0 / textureFrameRatio;
+	}
+
+	vec2 uv = fragCoord / resolution;
+	uv *= scale;
+	uv.y += (textureFrameRatio - 1.0) / 2.0;
+
+	uv += 1.0;
     uv.x = mix(-1.0, 1.0, uv.x);
 	uv.y = mix(-1.0, 1.0, uv.y);
 	uv.y *= resolution.y / resolution.x;

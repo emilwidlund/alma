@@ -87,8 +87,7 @@ export const useArtboardContext = (vertexShaderSource: string, fragmentShaderSou
 
         gl.uniform2fv(gl.getUniformLocation(program, 'cameraTextureResolution'), [1080, 1920]);
 
-        const { width, height } = Dimensions.get('screen');
-        gl.uniform2fv(gl.getUniformLocation(program, 'resolution'), [width, height]);
+        gl.uniform2fv(gl.getUniformLocation(program, 'resolution'), [gl.drawingBufferWidth, gl.drawingBufferHeight]);
 
         gl.uniform1f(gl.getUniformLocation(program, 'time'), 0);
 
