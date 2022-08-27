@@ -13,6 +13,7 @@ export const RecordButton = ({ size, strokeWidth = 5, onStart, onEnd }: IRecordB
         }
     >(null);
     const animatedProgress = useRef(new Animated.Value(0)).current;
+    const animatedProgressOpacity = useRef(new Animated.Value(0)).current;
     const longPressDelayHandle = useRef<NodeJS.Timeout>();
 
     const clickSize = size - strokeWidth - 20;
@@ -20,20 +21,35 @@ export const RecordButton = ({ size, strokeWidth = 5, onStart, onEnd }: IRecordB
     const circum = radius * 2 * Math.PI;
 
     const startProgress = useCallback(() => {
-        Animated.timing(animatedProgress, {
-            toValue: 1,
-            duration: 5000,
-            easing: val => val,
-            useNativeDriver: true
-        }).start();
+        Animated.sequence([
+            Animated.timing(animatedProgress, {
+                toValue: 0,
+                duration: 0,
+                useNativeDriver: true
+            }),
+            Animated.parallel([
+                Animated.timing(animatedProgressOpacity, {
+                    toValue: 1,
+                    duration: 250,
+                    useNativeDriver: true
+                }),
+                Animated.timing(animatedProgress, {
+                    toValue: 1,
+                    duration: 5000,
+                    easing: val => val,
+                    useNativeDriver: true
+                })
+            ])
+        ]).start();
     }, []);
 
     const endProgress = useCallback(() => {
         animatedProgress.stopAnimation();
+        animatedProgressOpacity.stopAnimation();
 
-        Animated.timing(animatedProgress, {
+        Animated.timing(animatedProgressOpacity, {
             toValue: 0,
-            duration: 0,
+            duration: 250,
             useNativeDriver: true
         }).start();
     }, []);
@@ -59,7 +75,7 @@ export const RecordButton = ({ size, strokeWidth = 5, onStart, onEnd }: IRecordB
     );
 
     useEffect(() => {
-        const handle = animatedProgress.addListener(progress => {
+        const progressHandle = animatedProgress.addListener(progress => {
             if (progress.value === 1) {
                 endProgress();
             }
@@ -69,7 +85,16 @@ export const RecordButton = ({ size, strokeWidth = 5, onStart, onEnd }: IRecordB
             });
         });
 
-        return () => animatedProgress.removeListener(handle);
+        const progressOpacityHandle = animatedProgressOpacity.addListener(opacity => {
+            progressCircleRef.current?.setNativeProps({
+                opacity: opacity.value
+            });
+        });
+
+        return () => {
+            animatedProgress.removeListener(progressHandle);
+            animatedProgressOpacity.removeListener(progressOpacityHandle);
+        };
     }, []);
 
     return (

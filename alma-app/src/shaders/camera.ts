@@ -32,11 +32,11 @@ void main() {
 	vec2 scale = vec2(1.0, 1.0);
 
 	if (frameAspect < 1.0) {
-		scale.x = 1.0 / textureFrameRatio;
-		// FIT scale.y = textureFrameRatio;
-	} else {
+		// scale.x = 1.0 / textureFrameRatio;
 		scale.y = textureFrameRatio;
-		// FIT scale.x = 1.0 / textureFrameRatio;
+	} else {
+		// scale.y = textureFrameRatio;
+		scale.x = 1.0 / textureFrameRatio;
 	}
 
 	vec2 uv = fragCoord / resolution;
@@ -105,3 +105,34 @@ void main() {
     fragColor = scene(kaleido(uv));
 }
 `);
+
+export const INVERT = glslify(`#version 300 es
+precision highp float;
+
+uniform sampler2D cameraTexture;
+uniform vec2 cameraTextureResolution;
+uniform vec2 resolution;
+
+in vec2 fragCoord;
+out vec4 fragColor;
+
+void main() {
+	float textureAspect = cameraTextureResolution.x / cameraTextureResolution.y;
+	float frameAspect = resolution.x / resolution.y;
+	float textureFrameRatio = textureAspect / frameAspect;
+	vec2 scale = vec2(1.0, 1.0);
+
+	if (frameAspect < 1.0) {
+		// scale.x = 1.0 / textureFrameRatio;
+		scale.y = textureFrameRatio;
+	} else {
+		// scale.y = textureFrameRatio;
+		scale.x = 1.0 / textureFrameRatio;
+	}
+
+	vec2 uv = fragCoord / resolution;
+	uv = uv * scale;
+	uv.y += (textureFrameRatio - 1.0) / 2.0;
+
+    fragColor = vec4(1.0 - texture(cameraTexture, uv).rgb, 1.0);
+}`);

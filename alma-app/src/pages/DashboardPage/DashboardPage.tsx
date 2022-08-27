@@ -8,7 +8,8 @@ import { IProjectListItemProps } from '../../containers/ProjectList/ProjectList.
 import {
     VERTEX as vertexShaderSource,
     FRAGMENT as fragmentShaderSource,
-    KALEIDOSCOPE as kaleidoscopeShaderSource
+    KALEIDOSCOPE as kaleidoscopeShaderSource,
+    INVERT as invertShaderSource
 } from '../../shaders/camera';
 
 const PROJECTS: IProjectListItemProps[] = [
@@ -25,6 +26,13 @@ const PROJECTS: IProjectListItemProps[] = [
         media: '',
         vertexShaderSource,
         fragmentShaderSource: kaleidoscopeShaderSource
+    },
+    {
+        title: 'Invert',
+        lastModified: '1 week ago',
+        media: '',
+        vertexShaderSource,
+        fragmentShaderSource: invertShaderSource
     }
 ];
 

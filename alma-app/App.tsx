@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { DashboardPage } from './src/pages/DashboardPage/DashboardPage';
 import { ArtboardPage } from './src/pages/ArtboardPage/ArtboardPage';
+import { View } from 'react-native';
 
 export type RootStackParamList = {
     Dashboard: undefined;
@@ -20,7 +21,11 @@ export default function App() {
             <NavigationContainer>
                 <Stack.Navigator>
                     <Stack.Screen name="Dashboard" component={DashboardPage} />
-                    <Stack.Screen name="Artboard" component={ArtboardPage} />
+                    <Stack.Screen
+                        name="Artboard"
+                        component={ArtboardPage}
+                        options={{ header: () => <View style={{ position: 'absolute' }} /> }}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         </>
