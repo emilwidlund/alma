@@ -4,18 +4,16 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         height: 240,
-        backgroundColor: '#fff',
+        backgroundColor: '#f8f8f8',
         margin: 10,
         maxWidth: '45%',
         borderRadius: 14,
-        shadowRadius: 10,
-        shadowOpacity: 0.2,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 0 }
+        borderWidth: 1,
+        borderColor: 'rgba(0, 0, 0, .05)'
     },
     media: {
         flexGrow: 1,
-        backgroundColor: '#eee',
+        backgroundColor: '#fff',
         borderTopLeftRadius: 14,
         borderTopRightRadius: 14
     },

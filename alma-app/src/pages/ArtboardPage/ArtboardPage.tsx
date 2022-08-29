@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { GLView } from 'expo-gl';
 import { Camera, CameraType } from 'expo-camera';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import { styles } from './ArtboardPage.styles';
 import { useArtboardContext } from '../../hooks/useArtboardContext/useArtboardContext';
@@ -31,21 +32,24 @@ export const ArtboardPage = ({
                     style={{
                         width: 40,
                         height: 40,
-                        borderRadius: 20,
-                        backgroundColor: '#fff'
+                        alignItems: 'center',
+                        justifyContent: 'center'
                     }}
-                    onPress={switchCameraType}
-                />
+                >
+                    <MaterialIcons name="lightbulb" size={32} color="#fff" />
+                </TouchableOpacity>
                 <RecordButton size={100} />
                 <TouchableOpacity
                     style={{
                         width: 40,
                         height: 40,
-                        borderRadius: 20,
-                        backgroundColor: '#fff'
+                        alignItems: 'center',
+                        justifyContent: 'center'
                     }}
                     onPress={switchCameraType}
-                />
+                >
+                    <MaterialIcons name="sync" size={32} color="#fff" />
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );

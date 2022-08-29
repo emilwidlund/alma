@@ -39,7 +39,6 @@ const PROJECTS: IProjectListItemProps[] = [
 export const DashboardPage = ({ navigation }: DashboardPageProps) => {
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.projectsTitle}>My Projects</Text>
             <ProjectListContainer projects={PROJECTS} />
         </SafeAreaView>
     );
