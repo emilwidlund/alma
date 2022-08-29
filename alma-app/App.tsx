@@ -36,6 +36,14 @@ const ProjectStack = () => {
 
 const Tab = createBottomTabNavigator();
 
+const Mid = () => {
+    return (
+        <View>
+            <Text>Mid</Text>
+        </View>
+    );
+};
+
 const Test = () => {
     return (
         <View>
@@ -62,6 +70,7 @@ export default function App() {
             <NavigationContainer theme={theme}>
                 <Tab.Navigator tabBar={TabNavigator} screenOptions={{ headerShown: false }}>
                     <Tab.Screen name="ProjectStack" component={ProjectStack} />
+                    <Tab.Screen name="Mid" component={Mid} />
                     <Tab.Screen name="ABC" component={Test} />
                 </Tab.Navigator>
             </NavigationContainer>
