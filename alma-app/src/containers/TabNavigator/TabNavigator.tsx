@@ -18,7 +18,7 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
             <View style={styles.container}>
                 {state.routes.map((route, index) => (
                     <TouchableOpacity key={route.key} onPress={routePressHandler(route)}>
-                        <MaterialIcons name="face" size={24} color={index === state.index ? '#4444ff' : '#000'} />
+                        <MaterialIcons name="face" size={24} color={index === state.index ? '#000' : '#ccc'} />
                     </TouchableOpacity>
                 ))}
             </View>

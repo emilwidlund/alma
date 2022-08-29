@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32,
-        fontWeight: '700',
-        marginLeft: 14
+        fontWeight: '600',
+        marginLeft: 16
     }
 });

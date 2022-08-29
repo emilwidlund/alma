@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useFonts } from 'expo-font';
 
 import { DashboardPage } from './src/pages/DashboardPage/DashboardPage';
 import { ArtboardPage } from './src/pages/ArtboardPage/ArtboardPage';
@@ -26,9 +27,9 @@ const theme = {
 
 const ProjectStack = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Dashboard" component={DashboardPage} />
-            <Stack.Screen name="Artboard" component={ArtboardPage} options={{ headerShown: false }} />
+            <Stack.Screen name="Artboard" component={ArtboardPage} />
         </Stack.Navigator>
     );
 };
@@ -44,7 +45,18 @@ const Test = () => {
 };
 
 export default function App() {
-    return (
+    const [fontsLoaded] = useFonts({
+        'Inter-ExtraLight': require('./assets/fonts/Inter-ExtraLight.otf'),
+        'Inter-Thin': require('./assets/fonts/Inter-Thin.otf'),
+        'Inter-Regular': require('./assets/fonts/Inter-Regular.otf'),
+        'Inter-Medium': require('./assets/fonts/Inter-Medium.otf'),
+        'Inter-SemiBold': require('./assets/fonts/Inter-SemiBold.otf'),
+        'Inter-Bold': require('./assets/fonts/Inter-SemiBold.otf'),
+        'Inter-ExtraBold': require('./assets/fonts/Inter-ExtraBold.otf'),
+        'Inter-Black': require('./assets/fonts/Inter-Black.otf')
+    });
+
+    return fontsLoaded ? (
         <>
             <StatusBar style="dark" />
             <NavigationContainer theme={theme}>
@@ -54,5 +66,5 @@ export default function App() {
                 </Tab.Navigator>
             </NavigationContainer>
         </>
-    );
+    ) : null;
 }
