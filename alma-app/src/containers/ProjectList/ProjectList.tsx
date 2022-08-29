@@ -23,6 +23,7 @@ export const ProjectListContainer = ({ projects }: IProjectListContainerProps) =
 
     return (
         <FlatList
+            contentInset={{ bottom: 120 }}
             ListHeaderComponent={
                 <View style={styles.headingContainer}>
                     <MaterialIcons name="stream" size={28} />

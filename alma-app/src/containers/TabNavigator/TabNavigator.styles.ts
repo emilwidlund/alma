@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
     },
     itemContainer: {
         paddingVertical: 6,
+        paddingHorizontal: 12,
         borderRadius: 40
     },
     itemContainerCTA: {

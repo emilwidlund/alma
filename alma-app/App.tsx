@@ -68,7 +68,7 @@ export default function App() {
         <>
             <StatusBar style="dark" />
             <NavigationContainer theme={theme}>
-                <Tab.Navigator tabBar={TabNavigator} screenOptions={{ headerShown: false }}>
+                <Tab.Navigator tabBar={props => <TabNavigator {...props} />} screenOptions={{ headerShown: false }}>
                     <Tab.Screen name="ProjectStack" component={ProjectStack} />
                     <Tab.Screen name="Mid" component={Mid} />
                     <Tab.Screen name="ABC" component={Test} />
