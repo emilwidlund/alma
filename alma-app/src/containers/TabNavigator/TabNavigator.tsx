@@ -62,6 +62,7 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
                 // The most recent move distance is gestureState.move{X,Y}
                 // The accumulated gesture distance since becoming responder is
                 // gestureState.d{x,y}
+
                 animatedHeight.setValue(height - 100 - gestureState.dy);
 
                 return true;
@@ -93,9 +94,9 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
         Animated.spring(animatedHeight, {
             toValue: height - 100,
             useNativeDriver: false
-        }).start(({ finished }) => {
-            setNavigatorMode(false);
-        });
+        }).start();
+
+        setNavigatorMode(false);
     }, []);
 
     const navigatorIcon = useCallback((route: Route<any>) => {
@@ -169,6 +170,7 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
                         </Animated.View>
                     ) : (
                         <Animated.View
+                            {...panResponder.panHandlers}
                             style={{
                                 flex: 1,
                                 opacity: animatedHeight.interpolate({
@@ -176,7 +178,6 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
                                     outputRange: [0, 1]
                                 })
                             }}
-                            {...panResponder.panHandlers}
                         >
                             <ArtboardPage
                                 navigation={navigation}
