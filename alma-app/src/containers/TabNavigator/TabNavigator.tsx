@@ -43,6 +43,8 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
     const animatedHeight = useRef(new Animated.Value(76)).current;
     const [navigatorMode, setNavigatorMode] = useState(true);
 
+    const { height } = Dimensions.get('screen');
+
     const panResponder = React.useRef(
         PanResponder.create({
             // Ask to be the responder:
@@ -60,20 +62,27 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
                 // The most recent move distance is gestureState.move{X,Y}
                 // The accumulated gesture distance since becoming responder is
                 // gestureState.d{x,y}
+                animatedHeight.setValue(height - 100 - gestureState.dy);
+
+                return true;
             },
-            onPanResponderTerminationRequest: (evt, gestureState) => true,
             onPanResponderRelease: (evt, gestureState) => {
                 // The user has released all touches while this view is the
                 // responder. This typically means a gesture has succeeded
-            },
-            onPanResponderTerminate: (evt, gestureState) => {
-                // Another component has become the responder, so this gesture
-                // should be cancelled
-            },
-            onShouldBlockNativeResponder: (evt, gestureState) => {
-                // Returns whether this component should block native components from becoming the JS
-                // responder. Returns true by default. Is currently only supported on android.
-                return true;
+
+                if (gestureState.vy > 0) {
+                    Animated.spring(animatedHeight, {
+                        toValue: 76,
+                        useNativeDriver: false
+                    }).start();
+
+                    setNavigatorMode(true);
+                } else {
+                    Animated.spring(animatedHeight, {
+                        toValue: height - 100,
+                        useNativeDriver: false
+                    }).start();
+                }
             }
         })
     ).current;
@@ -81,10 +90,8 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
     const expand = useCallback(() => {
         const { height } = Dimensions.get('screen');
 
-        Animated.timing(animatedHeight, {
+        Animated.spring(animatedHeight, {
             toValue: height - 100,
-            duration: 600,
-            easing: Easing.bezier(0.77, 0.0, 0.175, 1.0),
             useNativeDriver: false
         }).start(({ finished }) => {
             setNavigatorMode(false);
@@ -134,8 +141,6 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
         [state]
     );
 
-    const { height } = Dimensions.get('screen');
-
     return (
         <SafeAreaView style={styles.safeAreaContainer}>
             <Animated.View
@@ -144,15 +149,18 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
                     ...styles.container,
                     height: animatedHeight
                 }}
-                {...panResponder}
             >
                 <View style={styles.innerContainer}>
                     {navigatorMode ? (
                         <Animated.View
                             style={{
                                 ...styles.navigatorContainer,
+                                paddingBottom: animatedHeight.interpolate({
+                                    inputRange: [76, height - 100],
+                                    outputRange: [0, 20]
+                                }),
                                 opacity: animatedHeight.interpolate({
-                                    inputRange: [80, height - 100],
+                                    inputRange: [76, height - 100],
                                     outputRange: [1, 0]
                                 })
                             }}
@@ -160,20 +168,26 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
                             {renderRoutes(state.routes)}
                         </Animated.View>
                     ) : (
-                        <ScrollView>
-                            <View style={{ flex: 1 }}>
-                                <ArtboardPage
-                                    navigation={navigation}
-                                    route={{
-                                        key: 'artboard',
-                                        name: 'Artboard',
-                                        path: '/artboard',
-                                        params: { vertexShaderSource, fragmentShaderSource }
-                                    }}
-                                />
-                                <Text>More contwnt</Text>
-                            </View>
-                        </ScrollView>
+                        <Animated.View
+                            style={{
+                                flex: 1,
+                                opacity: animatedHeight.interpolate({
+                                    inputRange: [76, height - 100],
+                                    outputRange: [0, 1]
+                                })
+                            }}
+                            {...panResponder.panHandlers}
+                        >
+                            <ArtboardPage
+                                navigation={navigation}
+                                route={{
+                                    key: 'artboard',
+                                    name: 'Artboard',
+                                    path: '/artboard',
+                                    params: { vertexShaderSource, fragmentShaderSource }
+                                }}
+                            />
+                        </Animated.View>
                     )}
                 </View>
             </Animated.View>
