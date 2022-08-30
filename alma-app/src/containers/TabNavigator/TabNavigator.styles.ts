@@ -8,17 +8,25 @@ export const styles = StyleSheet.create({
         left: 0
     },
     container: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        padding: 20,
+        flex: 1,
         marginHorizontal: 20,
         backgroundColor: '#fff',
-        borderRadius: 100,
+        borderRadius: 60,
         shadowRadius: 10,
         shadowOpacity: 0.1,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 0 }
+    },
+    innerContainer: {
+        flex: 1,
+        borderRadius: 60,
+        overflow: 'hidden'
+    },
+    navigatorContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        padding: 20
     },
     itemContainer: {
         paddingVertical: 6,

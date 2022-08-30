@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useState } from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { GLView } from 'expo-gl';
 import { Camera, CameraType } from 'expo-camera';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -23,8 +22,7 @@ export const ArtboardPage = ({
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar style="light" />
+        <View style={styles.container}>
             <Camera ref={cameraRef} style={{ display: 'none' }} type={cameraType} pictureSize="1920x1080" />
             <GLView ref={glRef} style={StyleSheet.absoluteFill} onContextCreate={onContextCreate} />
             <View style={styles.actions}>
@@ -51,6 +49,6 @@ export const ArtboardPage = ({
                     <MaterialIcons name="sync" size={32} color="#fff" />
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
