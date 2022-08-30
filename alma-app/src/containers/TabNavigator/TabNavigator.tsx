@@ -63,7 +63,11 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
                 // The accumulated gesture distance since becoming responder is
                 // gestureState.d{x,y}
 
-                animatedHeight.setValue(height - 100 - gestureState.dy);
+                if (gestureState.dy > 0) {
+                    animatedHeight.setValue(height - 100 - gestureState.dy);
+                } else {
+                    animatedHeight.setValue(height - 100 - gestureState.dy / 8);
+                }
 
                 return true;
             },
@@ -71,7 +75,7 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
                 // The user has released all touches while this view is the
                 // responder. This typically means a gesture has succeeded
 
-                if (gestureState.vy > 0) {
+                if (gestureState.vy > 1 || (gestureState.dy > height / 4 && gestureState.vy > 0)) {
                     Animated.spring(animatedHeight, {
                         toValue: 76,
                         useNativeDriver: false
@@ -148,7 +152,16 @@ export const TabNavigator = ({ navigation, state }: BottomTabBarProps) => {
                 ref={ref}
                 style={{
                     ...styles.container,
-                    height: animatedHeight
+                    height: animatedHeight,
+                    transform: [
+                        {
+                            translateY: animatedHeight.interpolate({
+                                inputRange: [50, 76],
+                                outputRange: [20, 0],
+                                extrapolate: 'clamp'
+                            })
+                        }
+                    ]
                 }}
             >
                 <View style={styles.innerContainer}>

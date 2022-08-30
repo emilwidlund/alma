@@ -15,10 +15,5 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: 20,
         marginVertical: 30
-    },
-    title: {
-        fontSize: 32,
-        fontWeight: '600',
-        marginLeft: 16
     }
 });

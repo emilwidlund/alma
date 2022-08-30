@@ -6,5 +6,6 @@ export interface IProjectListItemProps extends IProjectCardProps {
 }
 
 export interface IProjectListContainerProps {
+    header?: JSX.Element;
     projects: IProjectListItemProps[];
 }

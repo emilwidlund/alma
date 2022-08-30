@@ -9,7 +9,7 @@ import { styles } from './ProjectList.styles';
 
 import { IProjectListContainerProps, IProjectListItemProps } from './ProjectList.types';
 
-export const ProjectListContainer = ({ projects }: IProjectListContainerProps) => {
+export const ProjectListContainer = ({ header, projects }: IProjectListContainerProps) => {
     const { navigate } = useNavigation<NavigationProp<RootStackParamList>>();
 
     const createProjectItemPressHandler = useCallback(
@@ -24,12 +24,7 @@ export const ProjectListContainer = ({ projects }: IProjectListContainerProps) =
     return (
         <FlatList
             contentInset={{ bottom: 120 }}
-            ListHeaderComponent={
-                <View style={styles.headingContainer}>
-                    <MaterialIcons name="stream" size={28} />
-                    <Text style={styles.title}>My Projects</Text>
-                </View>
-            }
+            ListHeaderComponent={<View style={styles.headingContainer}>{header}</View>}
             style={styles.container}
             columnWrapperStyle={{ justifyContent: 'space-between' }}
             numColumns={2}

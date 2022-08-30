@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
         left: 0
     },
     container: {
+        position: 'relative',
         flex: 1,
         marginHorizontal: 20,
         backgroundColor: '#fff',

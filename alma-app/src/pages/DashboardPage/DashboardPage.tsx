@@ -11,6 +11,7 @@ import {
     KALEIDOSCOPE as kaleidoscopeShaderSource,
     INVERT as invertShaderSource
 } from '../../shaders/camera';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const PROJECTS: IProjectListItemProps[] = [
     {
@@ -53,7 +54,15 @@ const PROJECTS: IProjectListItemProps[] = [
 export const DashboardPage = ({ navigation }: DashboardPageProps) => {
     return (
         <SafeAreaView style={styles.container}>
-            <ProjectListContainer projects={PROJECTS} />
+            <ProjectListContainer
+                header={
+                    <>
+                        <MaterialIcons name="stream" size={28} />
+                        <Text style={styles.title}>My Projects</Text>
+                    </>
+                }
+                projects={PROJECTS}
+            />
         </SafeAreaView>
     );
 };

@@ -9,10 +9,12 @@ import { useFonts } from 'expo-font';
 import { DashboardPage } from './src/pages/DashboardPage/DashboardPage';
 import { ArtboardPage } from './src/pages/ArtboardPage/ArtboardPage';
 import { TabNavigator } from './src/containers/TabNavigator/TabNavigator';
+import { ProfilePage } from './src/pages/ProfilePage/ProfilePage';
 
 export type RootStackParamList = {
     Dashboard: undefined;
     Artboard: { fragmentShaderSource: string; vertexShaderSource: string };
+    Profile: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -36,14 +38,6 @@ const ProjectStack = () => {
 
 const Tab = createBottomTabNavigator();
 
-const Test = () => {
-    return (
-        <View>
-            <Text>HELLO</Text>
-        </View>
-    );
-};
-
 export default function App() {
     const [fontsLoaded] = useFonts({
         'Inter-ExtraLight': require('./assets/fonts/Inter-ExtraLight.otf'),
@@ -62,7 +56,7 @@ export default function App() {
             <NavigationContainer theme={theme}>
                 <Tab.Navigator tabBar={props => <TabNavigator {...props} />} screenOptions={{ headerShown: false }}>
                     <Tab.Screen name="ProjectStack" component={ProjectStack} />
-                    <Tab.Screen name="ABC" component={Test} />
+                    <Tab.Screen name="Profile" component={ProfilePage} />
                 </Tab.Navigator>
             </NavigationContainer>
         </>
