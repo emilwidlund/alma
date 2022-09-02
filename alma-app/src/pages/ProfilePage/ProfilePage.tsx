@@ -82,6 +82,7 @@ export const ProfilePage = ({ navigation }: ProfilePageProps) => {
                             />
                         </View>
                         <Text style={{ fontSize: 32, marginTop: 30 }}>Emil Widlund</Text>
+                        <Text style={{ fontSize: 18, marginTop: 5, fontWeight: '500' }}>@emilwidlund</Text>
                         <Text style={{ fontSize: 18, marginTop: 20, lineHeight: 26 }}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae mattis diam, at
                             efficitur magna. Suspendisse hendrerit turpis diam.
