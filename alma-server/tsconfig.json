@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "outDir": "build",
+    "strict": true,
+    "sourceMap": true,
+    "esModuleInterop": true
+  },
+  "include": ["./src", "./types"]
+}
