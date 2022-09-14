@@ -1,10 +1,16 @@
 {
-  "compilerOptions": {
-    "lib": ["ESNext"],
-    "outDir": "build",
-    "strict": true,
-    "sourceMap": true,
-    "esModuleInterop": true
-  },
-  "include": ["./src", "./types"]
+    "compilerOptions": {
+        "lib": ["esnext"],
+        "module": "commonjs",
+        "outDir": "build",
+        "strict": true,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "paths": {
+            "~": ["./src/"]
+        }
+    },
+    "include": ["./src", "./types"]
 }

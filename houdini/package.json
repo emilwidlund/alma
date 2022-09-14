@@ -1,0 +1,17 @@
+{
+  "name": "houdini",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@thi.ng/shader-ast": "^0.12.19",
+    "@thi.ng/shader-ast-glsl": "^0.4.19",
+    "@thi.ng/webgl": "^6.2.3"
+  }
+}

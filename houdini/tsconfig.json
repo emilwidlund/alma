@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "lib": ["es2021"],
+        "target": "ES5",
+        "outDir": "build",
+        "strict": true,
+        "moduleResolution": "node",
+        "paths": {
+            "~models/*": ["./src/models/*"]
+        }
+    },
+    "include": ["./src"]
+}

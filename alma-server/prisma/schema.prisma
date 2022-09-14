@@ -15,6 +15,7 @@ model User {
   email       String    @unique
   name        String
   username    String
+  media       String?
   posts       Post[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt @default(now())
