@@ -3,10 +3,9 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: 240,
+        height: 400,
         backgroundColor: '#f8f8f8',
         margin: 10,
-        maxWidth: '45%',
         borderRadius: 14,
         borderWidth: 1,
         borderColor: 'rgba(0, 0, 0, .05)'
@@ -18,14 +17,13 @@ export const styles = StyleSheet.create({
         borderTopRightRadius: 14
     },
     textContent: {
-        paddingHorizontal: 15,
-        paddingVertical: 15,
+        padding: 20,
         flexShrink: 1
     },
     title: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: '600',
-        marginBottom: 8
+        marginBottom: 14
     },
     subTitle: {
         color: '#888'

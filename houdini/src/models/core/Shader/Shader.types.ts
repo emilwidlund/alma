@@ -1,6 +1,7 @@
-import { BaseNode } from '~models/nodes/BaseNode/BaseNode';
+import { Type } from '@thi.ng/shader-ast';
+import { BaseNode } from '../../nodes/BaseNode/BaseNode';
 
-export interface IShaderProps<T> {
+export interface IShaderProps {
     gl: WebGL2RenderingContext;
-    node: BaseNode<T>;
+    node: BaseNode<'uvec3'>;
 }

@@ -1,13 +1,12 @@
 {
     "compilerOptions": {
-        "lib": ["es2021"],
-        "target": "ES5",
-        "outDir": "build",
+        "lib": ["es2021", "DOM"],
+        "target": "ES6",
+        "module": "commonjs",
         "strict": true,
         "moduleResolution": "node",
-        "paths": {
-            "~models/*": ["./src/models/*"]
-        }
+        "esModuleInterop": true,
+        "outDir": "build"
     },
-    "include": ["./src"]
+    "include": ["src"]
 }

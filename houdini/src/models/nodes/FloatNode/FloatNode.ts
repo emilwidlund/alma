@@ -1,7 +1,8 @@
 import { float, Lit } from '@thi.ng/shader-ast';
-import { ValueNode } from '~models/nodes/ValueNode/ValueNode';
+import { ShaderContext } from '../../core/ShaderContext/ShaderContext';
+import { ValueNode } from '../ValueNode/ValueNode';
 
-export class FloatNode extends ValueNode<number, Lit<'float'>> {
+export class FloatNode extends ValueNode<number, 'float'> {
     /** Float Value */
     value: number;
 
@@ -13,5 +14,9 @@ export class FloatNode extends ValueNode<number, Lit<'float'>> {
 
     get output(): Lit<'float'> {
         return float(this.value);
+    }
+
+    build(context: ShaderContext): this {
+        return this;
     }
 }

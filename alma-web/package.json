@@ -38,6 +38,7 @@
     "devDependencies": {
         "@types/color": "^3.0.3",
         "@types/jest": "^27.4.1",
+        "@types/node": "^18.7.18",
         "@types/react-transition-group": "^4.4.5",
         "jest": "^27.5.1",
         "jest-webgl-canvas-mock": "^0.2.3",

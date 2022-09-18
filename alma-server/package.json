@@ -24,11 +24,13 @@
         "apollo-server": "^3.10.2",
         "apollo-server-core": "^3.10.2",
         "apollo-server-express": "^3.10.2",
+        "class-validator": "^0.13.2",
         "express": "^4.18.1",
         "graphql": "^15.8.0",
         "graphql-scalars": "^1.18.0",
         "tslib": "^2.4.0",
         "type-graphql": "^1.1.1",
+        "typedi": "^0.10.0",
         "uuid": "^8.3.2"
     },
     "prisma": {

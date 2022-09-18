@@ -26,8 +26,6 @@ export const ProjectListContainer = ({ header, projects }: IProjectListContainer
             contentInset={{ bottom: 120 }}
             ListHeaderComponent={<View style={styles.headingContainer}>{header}</View>}
             style={styles.container}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
-            numColumns={2}
             data={projects}
             renderItem={({ item }) => <ProjectCard {...item} onPress={createProjectItemPressHandler(item)} />}
             keyExtractor={item => item.title.replaceAll(' ', '-')}
