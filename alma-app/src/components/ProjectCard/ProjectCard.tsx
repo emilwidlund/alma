@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
-import { styles } from './ProjectCard.styles';
 
+import { styles } from './ProjectCard.styles';
 import { IProjectCardProps } from './ProjectCard.types';
 
 export const ProjectCard = ({ title, lastModified, media, onPress }: IProjectCardProps) => {

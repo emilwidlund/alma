@@ -1,8 +1,6 @@
-import { ExpoWebGLRenderingContext, GLView } from 'expo-gl';
 import { Camera, PermissionStatus } from 'expo-camera';
+import { ExpoWebGLRenderingContext, GLView } from 'expo-gl';
 import { useCallback, useEffect, useRef } from 'react';
-import { Dimensions } from 'react-native';
-import { mat4 } from 'gl-matrix';
 
 export const useArtboardContext = (vertexShaderSource: string, fragmentShaderSource: string) => {
     const glRef = useRef<GLView>(null);

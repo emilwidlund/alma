@@ -1,4 +1,5 @@
 import { css } from '@emotion/css';
+
 import { IButtonProps } from './Button.types';
 
 export const buttonWrapperStyles = (size: IButtonProps['size']) => css`

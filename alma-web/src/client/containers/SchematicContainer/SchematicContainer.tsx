@@ -1,12 +1,12 @@
-import * as React from 'react';
 import { observer } from 'mobx-react-lite';
+import * as React from 'react';
 
-import { Schematic } from '../../components/Schematic/Schematic';
-import { NodeContainer } from '../NodeContainer/NodeContainer';
-import { useSchematic } from '../../hooks/useSchematic/useSchematic';
-import { Connection } from '../../components/Connection/Connection';
-import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { Artboard } from '../../components/Artboard/Artboard';
+import { Connection } from '../../components/Connection/Connection';
+import { Schematic } from '../../components/Schematic/Schematic';
+import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
+import { useSchematic } from '../../hooks/useSchematic/useSchematic';
+import { NodeContainer } from '../NodeContainer/NodeContainer';
 
 export const SchematicContainer = observer(() => {
     const svgRef = React.useRef<SVGSVGElement>(null);

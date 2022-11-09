@@ -1,19 +1,20 @@
-import { v4 as uuid } from "uuid";
 import { assign, defMain, Sym, Type } from "@thi.ng/shader-ast";
-import { makeObservable, observable } from "mobx";
 import { defaults } from "lodash";
-import { IContextProps } from "./Context.types";
+import { makeObservable, observable } from "mobx";
+import { v4 as uuid } from "uuid";
+
 import { ArtboardNode } from "../../nodes/core/ArtboardNode/ArtboardNode";
-import { Node } from "../Node/Node";
-import { Connection } from "../Connection/Connection";
-import { Input } from "../Input/Input";
-import { Output } from "../Output/Output";
-import { INodeSerialized, NodeType } from "../Node/Node.types";
-import { IConnectionSerialized } from "../Connection/Connection.types";
-import { SimplexNoiseNode } from "../../nodes/noise/SimplexNoiseNode/SimplexNoiseNode";
-import { Port } from "../Port/Port";
-import { UVNode } from "../../nodes/core/UVNode/UVNode";
 import { TimeNode } from "../../nodes/core/TimeNode/TimeNode";
+import { UVNode } from "../../nodes/core/UVNode/UVNode";
+import { SimplexNoiseNode } from "../../nodes/noise/SimplexNoiseNode/SimplexNoiseNode";
+import { Connection } from "../Connection/Connection";
+import { IConnectionSerialized } from "../Connection/Connection.types";
+import { Input } from "../Input/Input";
+import { Node } from "../Node/Node";
+import { INodeSerialized, NodeType } from "../Node/Node.types";
+import { Output } from "../Output/Output";
+import { Port } from "../Port/Port";
+import { IContextProps } from "./Context.types";
 
 export class Context {
   /** Unique Identifier */

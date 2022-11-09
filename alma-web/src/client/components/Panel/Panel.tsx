@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { Enable, Resizable } from 're-resizable';
+import * as React from 'react';
 
 import {
     panelContentStyles,

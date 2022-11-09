@@ -1,4 +1,5 @@
 import { MouseEventHandler } from 'react';
+
 import { Size } from '../../types';
 
 export interface IButtonProps {

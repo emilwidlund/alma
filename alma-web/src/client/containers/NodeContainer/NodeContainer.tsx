@@ -1,10 +1,10 @@
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { DraggableEventHandler } from 'react-draggable';
-import { observer } from 'mobx-react-lite';
 
-import { INodeContainerProps } from './NodeContainer.types';
 import { Node } from '../../components/Node/Node';
 import { useSchematic } from '../../hooks/useSchematic/useSchematic';
+import { INodeContainerProps } from './NodeContainer.types';
 
 export const NodeContainer = observer(({ node }: INodeContainerProps) => {
     const schematic = useSchematic();

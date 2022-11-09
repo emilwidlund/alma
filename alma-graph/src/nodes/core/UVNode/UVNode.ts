@@ -1,11 +1,12 @@
 import { $xy } from '@thi.ng/shader-ast';
 import { defaults } from 'lodash';
-import { INodeInputs, NodeType } from '../../../core/Node/Node.types';
-import { Node } from '../../../core/Node/Node';
+
 import { Artboard } from '../../../core/Context/Context';
-import { IUVNodeOutputs, IUVNodeProps } from './UVNode.types';
+import { Node } from '../../../core/Node/Node';
+import { INodeInputs, NodeType } from '../../../core/Node/Node.types';
 import { Output } from '../../../core/Output/Output';
 import { IOutputProps } from '../../../core/Output/Output.types';
+import { IUVNodeOutputs, IUVNodeProps } from './UVNode.types';
 
 export class UVNode extends Node {
     type = NodeType.UV;

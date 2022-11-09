@@ -1,12 +1,13 @@
-import { v4 as uuid } from 'uuid';
+import { Type } from '@thi.ng/shader-ast';
 import { defaultsDeep, lowerCase, startCase } from 'lodash';
 import { makeObservable, observable } from 'mobx';
-import { Type } from '@thi.ng/shader-ast';
-import { INodeData, INodeInputs, INodeOutputs, INodeProps, INodeSerialized, NodeType } from './Node.types';
-import { Output } from '../Output/Output';
-import { ComputedInputValue, IInputSerialized, InputValue, SerializableInputValue } from '../Input/Input.types';
-import { IOutputSerialized } from '../Output/Output.types';
+import { v4 as uuid } from 'uuid';
+
 import { Context } from '../Context/Context';
+import { ComputedInputValue, IInputSerialized, InputValue, SerializableInputValue } from '../Input/Input.types';
+import { Output } from '../Output/Output';
+import { IOutputSerialized } from '../Output/Output.types';
+import { INodeData, INodeInputs, INodeOutputs, INodeProps, INodeSerialized, NodeType } from './Node.types';
 
 export abstract class Node {
     /** Associated Context */

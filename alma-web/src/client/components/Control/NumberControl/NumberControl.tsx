@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { observer } from 'mobx-react-lite';
+import * as React from 'react';
 
-import { INumberControlProps } from './NumberControl.types';
-import { numberControlInputStyles, numberControlNameStyles, numberControlRangeStyles } from './NumberControl.styles';
+import { BaseOutput } from '../../../../core/api/Port/Port';
 import { Input } from '../../Input/Input';
 import { BaseControl } from '../BaseControl/BaseControl';
-import { BaseOutput } from '../../../../core/api/Port/Port';
+import { numberControlInputStyles, numberControlNameStyles, numberControlRangeStyles } from './NumberControl.styles';
+import { INumberControlProps } from './NumberControl.types';
 
 export const NumberControl = observer(({ port }: INumberControlProps) => {
     const onChange = React.useCallback(

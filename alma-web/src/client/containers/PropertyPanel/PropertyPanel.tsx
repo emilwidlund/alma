@@ -1,14 +1,13 @@
-import * as React from 'react';
 import { observer } from 'mobx-react-lite';
+import * as React from 'react';
 
-import { Artboard } from '../../components/Artboard/Artboard';
+import { NumberInput, NumberOutput } from '../../../core/api/Port/NumberPort/NumberPort';
+import { ValueType } from '../../../core/api/types/values';
+import { NumberControl } from '../../components/Control/NumberControl/NumberControl';
+import { Heading } from '../../components/Heading/Heading';
 import { Panel } from '../../components/Panel/Panel';
 import { ResizeHandlePosition } from '../../components/Panel/Panel.types';
 import { useSchematic } from '../../hooks/useSchematic/useSchematic';
-import { ValueType } from '../../../core/api/types/values';
-import { NumberControl } from '../../components/Control/NumberControl/NumberControl';
-import { NumberInput, NumberOutput } from '../../../core/api/Port/NumberPort/NumberPort';
-import { Heading } from '../../components/Heading/Heading';
 import { Size } from '../../types';
 
 export const PropertyPanel = observer(() => {

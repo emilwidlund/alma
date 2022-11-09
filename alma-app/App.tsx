@@ -1,14 +1,13 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useFonts } from 'expo-font';
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 
-import { DashboardPage } from './src/pages/DashboardPage/DashboardPage';
-import { ArtboardPage } from './src/pages/ArtboardPage/ArtboardPage';
 import { TabNavigator } from './src/containers/TabNavigator/TabNavigator';
+import { ArtboardPage } from './src/pages/ArtboardPage/ArtboardPage';
+import { DashboardPage } from './src/pages/DashboardPage/DashboardPage';
 import { ProfilePage } from './src/pages/ProfilePage/ProfilePage';
 
 export type RootStackParamList = {

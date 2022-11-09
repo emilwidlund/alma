@@ -1,8 +1,11 @@
 import { cx } from '@emotion/css';
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Draggable from 'react-draggable';
-import { observer } from 'mobx-react-lite';
 
+import { Input, Output } from '../../../core/api/Port';
+import { useHover } from '../../hooks/useHover/useHover';
+import { Icon } from '../Icon/Icon';
 import {
     nodeHeaderWrapperStyles,
     nodeContentWrapperStyles,
@@ -13,9 +16,6 @@ import {
 } from './Node.styles';
 import { INodeActionProps, INodePortsProps, INodeProps } from './Node.types';
 import { Port } from './Port/Port';
-import { Icon } from '../Icon/Icon';
-import { useHover } from '../../hooks/useHover/useHover';
-import { Input, Output } from '../../../core/api/Port';
 
 const ConstructorNameSeparation = new RegExp(/([a-z])(?=[A-Z])/);
 const getDisplayNameFromString = (value: string) =>

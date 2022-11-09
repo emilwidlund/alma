@@ -1,12 +1,11 @@
-import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, View } from 'react-native';
 
-import { styles } from './ProjectList.styles';
-import { IProjectListContainerProps, IProjectListItemProps } from './ProjectList.types';
 import { RootStackParamList } from '../../../App';
 import { ProjectCard } from '../../components/ProjectCard/ProjectCard';
+import { styles } from './ProjectList.styles';
+import { IProjectListContainerProps, IProjectListItemProps } from './ProjectList.types';
 
 
 export const ProjectListContainer = ({ header, projects }: IProjectListContainerProps) => {

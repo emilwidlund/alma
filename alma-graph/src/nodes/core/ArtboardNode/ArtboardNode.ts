@@ -1,11 +1,12 @@
 import { vec4 } from '@thi.ng/shader-ast';
 import { defaults } from 'lodash';
-import { IArtboardNodeInputs, IArtboardNodeProps } from './ArtboardNode.types';
-import { INodeOutputs, NodeType } from '../../../core/Node/Node.types';
-import { Node } from '../../../core/Node/Node';
-import { Input } from '../../../core/Input/Input';
+
 import { Artboard } from '../../../core/Context/Context';
+import { Input } from '../../../core/Input/Input';
 import { IInputProps } from '../../../core/Input/Input.types';
+import { Node } from '../../../core/Node/Node';
+import { INodeOutputs, NodeType } from '../../../core/Node/Node.types';
+import { IArtboardNodeInputs, IArtboardNodeProps } from './ArtboardNode.types';
 
 export class ArtboardNode extends Node {
     type = NodeType.ARTBOARD;

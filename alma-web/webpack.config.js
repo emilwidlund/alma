@@ -1,8 +1,9 @@
 /*eslint-env node*/
 
-const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const dotenv = require('dotenv');
+const webpack = require('webpack');
+
 const path = require('path');
 
 module.exports = env => ({

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Image, SafeAreaView, Text, View } from 'react-native';
 
-import { styles } from './ProfilePage.styles';
-import { ProfilePageProps } from './ProfilePage.types';
 import { ProjectListContainer } from '../../containers/ProjectList/ProjectList';
 import { IProjectListItemProps } from '../../containers/ProjectList/ProjectList.types';
 import {
@@ -11,6 +9,8 @@ import {
     KALEIDOSCOPE as kaleidoscopeShaderSource,
     INVERT as invertShaderSource
 } from '../../shaders/camera';
+import { styles } from './ProfilePage.styles';
+import { ProfilePageProps } from './ProfilePage.types';
 
 const PROJECTS: IProjectListItemProps[] = [
     {

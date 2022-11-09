@@ -1,5 +1,4 @@
 import { Connection } from '../../../core/api/Connection/Connection';
-import { INode } from '../../../core/api/Node';
 import { Output } from '../../../core/api/Port';
 
 export interface Point {

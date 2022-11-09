@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { TouchableOpacity, View, Animated, GestureResponderEvent } from 'react-native';
 import Svg, { Circle, CircleProps } from 'react-native-svg';
 

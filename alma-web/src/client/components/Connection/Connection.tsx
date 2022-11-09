@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { get, autorun } from 'mobx';
+import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
+import * as React from 'react';
 
+import { useSchematic } from '../../hooks/useSchematic/useSchematic';
 import { IConnectionProps } from './Connection.types';
 import { quadraticCurve } from './Connection.utils';
-import { useSchematic } from '../../hooks/useSchematic/useSchematic';
 
 const INPUT_PORT_OFFSET_X = 12;
 const INPUT_PORT_OFFSET_Y = 12;

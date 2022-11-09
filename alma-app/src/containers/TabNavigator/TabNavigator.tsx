@@ -1,24 +1,21 @@
-import React, { useCallback, useRef, useState } from 'react';
+import { MaterialIcons } from '@expo/vector-icons';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { Route } from '@react-navigation/native';
+import React, { useCallback, useRef, useState } from 'react';
 import {
     Animated,
     Dimensions,
-    Easing,
     GestureResponderEvent,
     PanResponder,
     SafeAreaView,
-    ScrollView,
-    Text,
     TouchableOpacity,
     View
 } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 
-import { Route } from '@react-navigation/native';
-import { styles } from './TabNavigator.styles';
-import { ITabNavigatorItemProps } from './TabNavigator.types';
 import { ArtboardPage } from '../../pages/ArtboardPage/ArtboardPage';
 import { VERTEX as vertexShaderSource, FRAGMENT as fragmentShaderSource } from '../../shaders/camera';
+import { styles } from './TabNavigator.styles';
+import { ITabNavigatorItemProps } from './TabNavigator.types';
 
 const TabNavigatorItem = ({ navigation, route, active, icon, onPress }: ITabNavigatorItemProps) => {
     const routePressHandler = useCallback(

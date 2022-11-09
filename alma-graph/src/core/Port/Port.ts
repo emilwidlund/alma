@@ -1,6 +1,7 @@
-import { v4 as uuid } from 'uuid';
-import { makeObservable, observable, IReactionDisposer, computed } from 'mobx';
 import { Type } from '@thi.ng/shader-ast';
+import { makeObservable, observable, IReactionDisposer, computed } from 'mobx';
+import { v4 as uuid } from 'uuid';
+
 import { Node } from '../Node/Node';
 import { IPortProps, IPortSerialized } from './Port.types';
 

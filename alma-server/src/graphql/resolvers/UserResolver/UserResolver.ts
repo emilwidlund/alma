@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { Arg, Query, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
+
 import { User } from '../../models/User/User';
 
 @Service()

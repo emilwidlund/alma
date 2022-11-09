@@ -1,10 +1,11 @@
 import { defaults } from 'lodash';
-import { INodeInputs, NodeType } from '../../../core/Node/Node.types';
-import { Node } from '../../../core/Node/Node';
+
 import { Artboard } from '../../../core/Context/Context';
-import { ITimeNodeOutputs, ITimeNodeProps } from './TimeNode.types';
+import { Node } from '../../../core/Node/Node';
+import { INodeInputs, NodeType } from '../../../core/Node/Node.types';
 import { Output } from '../../../core/Output/Output';
 import { IOutputProps } from '../../../core/Output/Output.types';
+import { ITimeNodeOutputs, ITimeNodeProps } from './TimeNode.types';
 
 export class TimeNode extends Node {
     type = NodeType.TIME;

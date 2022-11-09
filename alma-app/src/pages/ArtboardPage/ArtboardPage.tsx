@@ -1,13 +1,13 @@
+import { MaterialIcons } from '@expo/vector-icons';
+import { Camera, CameraType } from 'expo-camera';
+import { GLView } from 'expo-gl';
 import React, { useCallback, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { GLView } from 'expo-gl';
-import { Camera, CameraType } from 'expo-camera';
-import { MaterialIcons } from '@expo/vector-icons';
 
+import { RecordButton } from '../../components/RecordButton/RecordButton';
+import { useArtboardContext } from '../../hooks/useArtboardContext/useArtboardContext';
 import { styles } from './ArtboardPage.styles';
 import { ArtboardPageProps } from './ArtboardPage.types';
-import { useArtboardContext } from '../../hooks/useArtboardContext/useArtboardContext';
-import { RecordButton } from '../../components/RecordButton/RecordButton';
 
 export const ArtboardPage = ({
     route: {

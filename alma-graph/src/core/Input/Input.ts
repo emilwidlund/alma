@@ -1,5 +1,6 @@
-import { makeObservable, observable } from 'mobx';
 import { Type } from '@thi.ng/shader-ast';
+import { makeObservable, observable } from 'mobx';
+
 import { Node } from '../Node/Node';
 import { Port } from '../Port/Port';
 import { IInputProps, IInputSerialized, InputValue, SerializableInputValue, ValidatorFunction } from './Input.types';

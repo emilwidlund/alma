@@ -1,15 +1,15 @@
-import * as React from 'react';
 import { observer } from 'mobx-react-lite';
+import * as React from 'react';
 
-import { portTypeStyles, portWrapperStyles } from './Port.styles';
-import { IPortProps } from './Port.types';
-import { useSchematic } from '../../../hooks/useSchematic/useSchematic';
+import { Input, Output } from '../../../../core/api/Port';
 import { BaseOutput } from '../../../../core/api/Port/Port';
 import { useHover } from '../../../hooks/useHover/useHover';
+import { useSchematic } from '../../../hooks/useSchematic/useSchematic';
+import { Icon } from '../../Icon/Icon';
 import { Tooltip } from '../../Tooltip/Tooltip';
 import { TooltipPosition } from '../../Tooltip/Tooltip.types';
-import { Input, Output } from '../../../../core/api/Port';
-import { Icon } from '../../Icon/Icon';
+import { portTypeStyles, portWrapperStyles } from './Port.styles';
+import { IPortProps } from './Port.types';
 
 export const Port = observer(({ port }: IPortProps) => {
     const ref = React.useRef<HTMLDivElement>(null);

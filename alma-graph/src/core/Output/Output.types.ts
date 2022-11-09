@@ -1,4 +1,5 @@
 import { TaggedFn0, Term, Type } from '@thi.ng/shader-ast';
+
 import { IPortProps, IPortSerialized } from '../Port/Port.types';
 
 export type SerializableOutputValue<TType extends Type> = Term<TType>;
@@ -9,7 +10,7 @@ export interface IOutputProps<TType extends Type> extends IPortProps<TType> {
     value: () => OutputValue<TType>;
 }
 
-export interface IOutputSerialized<TType extends Type> extends IPortSerialized<TType> {}
+export type IOutputSerialized<TType extends Type> = IPortSerialized<TType>
 
 export type FloatOutputProps = IOutputProps<'float'>;
 export type Vector2OutputProps = IOutputProps<'vec2'>;

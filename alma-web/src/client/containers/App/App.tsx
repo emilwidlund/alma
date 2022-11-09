@@ -3,10 +3,9 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import './App.styles';
-import { SchematicRoute } from '../../routes/SchematicRoute/SchematicRoute';
-import { LandingRoute } from '../../routes/LandingRoute/LandingRoute';
 import { Scene } from '../../components/Scene/Scene';
-import { SchematicProvider } from '../../providers/SchematicProvider/SchematicProvider';
+import { LandingRoute } from '../../routes/LandingRoute/LandingRoute';
+import { SchematicRoute } from '../../routes/SchematicRoute/SchematicRoute';
 
 export const App = () => {
     return (

@@ -1,14 +1,15 @@
 import { defn, float, FloatSym, ret, sym, vec2, Vec2Sym, vec3, vec4 } from '@thi.ng/shader-ast';
 import { additive, aspectCorrectedUV, fit1101, snoise2 } from '@thi.ng/shader-ast-stdlib';
 import { defaults } from 'lodash';
-import { ISimplexNoiseNodeInputs, ISimplexNoiseNodeOutputs, ISimplexNoiseNodeProps } from './SimplexNoiseNode.types';
-import { NodeType } from '../../../core/Node/Node.types';
-import { Node } from '../../../core/Node/Node';
-import { Input } from '../../../core/Input/Input';
-import { Output } from '../../../core/Output/Output';
+
 import { Artboard } from '../../../core/Context/Context';
+import { Input } from '../../../core/Input/Input';
 import { IInputProps } from '../../../core/Input/Input.types';
+import { Node } from '../../../core/Node/Node';
+import { NodeType } from '../../../core/Node/Node.types';
+import { Output } from '../../../core/Output/Output';
 import { IOutputProps } from '../../../core/Output/Output.types';
+import { ISimplexNoiseNodeInputs, ISimplexNoiseNodeOutputs, ISimplexNoiseNodeProps } from './SimplexNoiseNode.types';
 
 export class SimplexNoiseNode extends Node {
     type = NodeType.PERLIN_NOISE;

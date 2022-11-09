@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { ITooltipNodeProps, ITooltipProps } from './Tooltip.types';
-import { tooltipWrapperStyles, tooltipNodeWrapperStyles } from './Tooltip.styles';
 import { useHover } from '../../hooks/useHover/useHover';
+import { tooltipWrapperStyles, tooltipNodeWrapperStyles } from './Tooltip.styles';
+import { ITooltipNodeProps, ITooltipProps } from './Tooltip.types';
 
 const TooltipNode = ({ text, position, offset }: ITooltipNodeProps) => {
     const ref = React.useRef<HTMLSpanElement>(null);

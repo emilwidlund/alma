@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
+import { Context } from '../../../core/api/Context/Context';
+import { CircleNode } from '../../../core/api/Node/CircleNode/CircleNode';
+import { ColorNode } from '../../../core/api/Node/ColorNode/ColorNode';
+import { Vector2Node } from '../../../core/api/Node/Vector2Node/Vector2Node';
+import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
-import { Context } from '../../../core/api/Context/Context';
+import { SchematicContainer } from '../../containers/SchematicContainer/SchematicContainer';
 import { RendererType } from '../../lib/Renderer/Renderer.types';
 import { CanvasNode } from '../../nodes/CanvasNode/CanvasNode';
-import { SchematicContainer } from '../../containers/SchematicContainer/SchematicContainer';
-import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { SchematicProvider } from '../../providers/SchematicProvider/SchematicProvider';
-import { CircleNode } from '../../../core/api/Node/CircleNode/CircleNode';
-import { Vector2Node } from '../../../core/api/Node/Vector2Node/Vector2Node';
-import { ColorNode } from '../../../core/api/Node/ColorNode/ColorNode';
+import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
 
 export const SchematicRoute = () => {
     const context = new Context({ rendererType: RendererType.CANVAS });

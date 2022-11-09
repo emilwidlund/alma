@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { Button } from '../../components/Button/Button';
+import { Heading } from '../../components/Heading/Heading';
+import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
+import { Scene } from '../../components/Scene/Scene';
+import { Size } from '../../types';
 import {
     landingRouteContentStyles,
     landingRouteContentOuterStyles,
     landingRouteHeroStyles
 } from './LandingRoute.styles';
-import { Button } from '../../components/Button/Button';
-import { Heading } from '../../components/Heading/Heading';
-import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
-
-import { Scene } from '../../components/Scene/Scene';
-import { Size } from '../../types';
 
 export const LandingRoute = () => {
     const navigate = useNavigate();
