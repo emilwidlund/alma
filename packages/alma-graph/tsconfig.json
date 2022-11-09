@@ -6,7 +6,9 @@
         "strict": true,
         "moduleResolution": "node",
         "esModuleInterop": true,
-        "outDir": "build"
+        "skipLibCheck": true,
+        "outDir": "build",
+        "declaration": true
     },
     "include": ["./src"]
 }

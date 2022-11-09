@@ -5,7 +5,7 @@
     "main": "build/index.js",
     "types": "build/index.d.ts",
     "scripts": {
-        "build": "tsc ."
+        "build": "tsc --project ."
     },
     "keywords": [],
     "author": "",

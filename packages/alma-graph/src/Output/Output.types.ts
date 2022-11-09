@@ -10,7 +10,7 @@ export interface IOutputProps<TType extends Type> extends IPortProps<TType> {
     value: () => OutputValue<TType>;
 }
 
-export type IOutputSerialized<TType extends Type> = IPortSerialized<TType>
+export type IOutputSerialized<TType extends Type> = IPortSerialized<TType>;
 
 export type FloatOutputProps = IOutputProps<'float'>;
 export type Vector2OutputProps = IOutputProps<'vec2'>;

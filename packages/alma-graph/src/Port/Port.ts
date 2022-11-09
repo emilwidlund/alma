@@ -37,7 +37,7 @@ export class Port<TType extends Type, TNode extends Node> {
     get connected(): boolean {
         let isConnected = false;
 
-        this.node.artboard.connections.forEach(connection => {
+        this.node.context.connections.forEach(connection => {
             if (connection.from.id === this.id || connection.to.id === this.id) {
                 isConnected = true;
             }

@@ -12,7 +12,7 @@ import { Output } from '../Output/Output';
 import { Port } from '../Port/Port';
 import { IContextProps } from './Context.types';
 
-export abstract class Context<TRoot extends Node> {
+export abstract class Context<TRoot extends Node = Node> {
     /** Unique Identifier */
     id: string;
     /** Context Name */

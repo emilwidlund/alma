@@ -26,6 +26,6 @@ export class Output<TType extends Type, TNode extends Node> extends Port<TType, 
 
     /** Connects output with input */
     public connect<TInputNode extends Node, TInput extends Input<TType, TInputNode>>(input: TInput) {
-        this.node.artboard.connect(this, input);
+        this.node.context.connect(this, input);
     }
 }
