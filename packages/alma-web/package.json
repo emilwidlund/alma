@@ -1,5 +1,5 @@
 {
-    "name": "alma",
+    "name": "alma-web",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -16,6 +16,7 @@
         "@types/react": "^17.0.39",
         "@types/react-dom": "^17.0.11",
         "@types/uuid": "^8.3.4",
+        "alma-graph": "*",
         "color": "^4.2.3",
         "copy-webpack-plugin": "^10.2.4",
         "dotenv": "^16.0.0",

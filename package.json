@@ -2,7 +2,7 @@
     "name": "alma",
     "version": "1.0.0",
     "description": "Alma",
-    "main": ".eslintrc.js",
+    "private": true,
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "npm run lint -- --fix"
