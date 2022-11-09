@@ -1,3 +1,6 @@
 node_modules
+build
+.env
+
 # macOS
 .DS_Store
