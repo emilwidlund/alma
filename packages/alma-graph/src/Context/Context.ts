@@ -76,7 +76,7 @@ export abstract class Context<TRoot extends Node = Node> {
     }
 
     /** Resolve Node */
-    abstract resolveNode(props: INodeSerialized): Node;
+    abstract resolveNode<TNode extends Node>(props: INodeSerialized): TNode;
 
     /** Resolve Root Node */
     abstract resolveRootNode(nodes: Node[]): TRoot;

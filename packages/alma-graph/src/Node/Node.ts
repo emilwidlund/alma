@@ -7,7 +7,7 @@ import { Context } from '../Context/Context';
 import { ComputedInputValue, IInputSerialized, InputValue, SerializableInputValue } from '../Input/Input.types';
 import { Output } from '../Output/Output';
 import { IOutputSerialized } from '../Output/Output.types';
-import { INodeData, INodeInputs, INodeOutputs, INodeProps, INodeSerialized, NodeType } from './Node.types';
+import { INodeData, INodeInputs, INodeOutputs, INodeProps, INodeSerialized } from './Node.types';
 
 export abstract class Node {
     /** Associated Context */
@@ -17,7 +17,7 @@ export abstract class Node {
     /** Node Name */
     public name: string;
     /** Node Type */
-    public abstract type: NodeType;
+    public abstract type: string;
     /** Node Inputs */
     public abstract inputs: INodeInputs;
     /** Node Outputs */

@@ -3,13 +3,6 @@ import { IInputSerialized } from '../Input/Input.types';
 import { Output } from '../Output/Output';
 import { IOutputSerialized } from '../Output/Output.types';
 
-export enum NodeType {
-    ARTBOARD = 'ARTBOARD',
-    PERLIN_NOISE = 'PERLIN_NOISE',
-    TIME = 'TIME',
-    UV = 'UV'
-}
-
 export interface INodeData {
     position: {
         x: number;
@@ -33,7 +26,7 @@ export interface INodeProps {
 export interface INodeSerialized {
     id: string;
     name: string;
-    type: NodeType;
+    type: string;
     data: INodeData;
     inputs: Record<string, IInputSerialized<any>>;
     outputs: Record<string, IOutputSerialized<any>>;
