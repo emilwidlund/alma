@@ -8,11 +8,7 @@
         "jsx": "react",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "downlevelIteration": true,
-        "baseUrl": "../",
-        "paths": {
-            "@alma-graph/*": ["./alma-graph/src/*"]
-        }
+        "downlevelIteration": true
     },
     "include": ["./src"]
 }

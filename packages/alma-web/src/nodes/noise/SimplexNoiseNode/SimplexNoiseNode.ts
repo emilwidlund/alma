@@ -2,13 +2,13 @@ import { defn, float, FloatSym, ret, sym, vec2, Vec2Sym, vec3, vec4 } from '@thi
 import { additive, aspectCorrectedUV, fit1101, snoise2 } from '@thi.ng/shader-ast-stdlib';
 import { defaults } from 'lodash';
 
-import { Artboard } from '../../../core/Context/Context';
-import { Input } from '../../../core/Input/Input';
-import { IInputProps } from '../../../core/Input/Input.types';
-import { Node } from '../../../core/Node/Node';
-import { NodeType } from '../../../core/Node/Node.types';
-import { Output } from '../../../core/Output/Output';
-import { IOutputProps } from '../../../core/Output/Output.types';
+import { Artboard } from '../../../../../alma-graph/src/core/Context/Context';
+import { Input } from '../../../../../alma-graph/src/core/Input/Input';
+import { IInputProps } from '../../../../../alma-graph/src/core/Input/Input.types';
+import { Node } from '../../../../../alma-graph/src/core/Node/Node';
+import { NodeType } from '../../../../../alma-graph/src/core/Node/Node.types';
+import { Output } from '../../../../../alma-graph/src/core/Output/Output';
+import { IOutputProps } from '../../../../../alma-graph/src/core/Output/Output.types';
 import { ISimplexNoiseNodeInputs, ISimplexNoiseNodeOutputs, ISimplexNoiseNodeProps } from './SimplexNoiseNode.types';
 
 export class SimplexNoiseNode extends Node {
@@ -70,7 +70,7 @@ export class SimplexNoiseNode extends Node {
                                 (uv = sym(
                                     aspectCorrectedUV(
                                         this.resolveValue(this.inputs.uv.value),
-                                        this.artboard.uniforms.resolution
+                                        this.context.uniforms.resolution
                                     )
                                 )),
                                 // dynamically create a multi-octave version of `snoise2`

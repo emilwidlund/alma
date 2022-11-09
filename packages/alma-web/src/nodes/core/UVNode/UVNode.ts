@@ -1,11 +1,11 @@
 import { $xy } from '@thi.ng/shader-ast';
 import { defaults } from 'lodash';
 
-import { Artboard } from '../../../core/Context/Context';
-import { Node } from '../../../core/Node/Node';
-import { INodeInputs, NodeType } from '../../../core/Node/Node.types';
-import { Output } from '../../../core/Output/Output';
-import { IOutputProps } from '../../../core/Output/Output.types';
+import { Artboard } from '../../../../../alma-graph/src/core/Context/Context';
+import { Node } from '../../../../../alma-graph/src/core/Node/Node';
+import { INodeInputs, NodeType } from '../../../../../alma-graph/src/core/Node/Node.types';
+import { Output } from '../../../../../alma-graph/src/core/Output/Output';
+import { IOutputProps } from '../../../../../alma-graph/src/core/Output/Output.types';
 import { IUVNodeOutputs, IUVNodeProps } from './UVNode.types';
 
 export class UVNode extends Node {

@@ -1,6 +1,6 @@
-import { INodeProps } from '../../../core/Node/Node.types';
-import { Output } from '../../../core/Output/Output';
-import { IOutputProps } from '../../../core/Output/Output.types';
+import { INodeProps } from '../../../../../alma-graph/src/core/Node/Node.types';
+import { Output } from '../../../../../alma-graph/src/core/Output/Output';
+import { IOutputProps } from '../../../../../alma-graph/src/core/Output/Output.types';
 import { TimeNode } from './TimeNode';
 
 export interface ITimeNodeOutputs {
