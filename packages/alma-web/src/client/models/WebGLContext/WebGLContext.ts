@@ -23,7 +23,10 @@ export class WebGLContext extends Context<WebGLContextNode> {
         const root = nodes.find(node => node instanceof WebGLContextNode) as WebGLContextNode | undefined;
 
         if (!root) {
-            throw new Error(`Root Node for WebGLContext could not be found`);
+            const root = new WebGLContextNode(this);
+            this.add(root);
+
+            return root;
         }
 
         return root;
