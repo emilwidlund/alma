@@ -1,11 +1,11 @@
 import { vec4 } from '@thi.ng/shader-ast';
 import { defaults } from 'lodash';
 import { IArtboardNodeInputs, IArtboardNodeProps } from './ArtboardNode.types';
-import { INodeOutputs, NodeType } from '../../../../../alma-graph/src/core/Node/Node.types';
-import { Node } from '../../../../../alma-graph/src/core/Node/Node';
-import { Input } from '../../../../../alma-graph/src/core/Input/Input';
-import { Artboard } from '../../../../../alma-graph/src/core/Context/Context';
-import { IInputProps } from '../../../../../alma-graph/src/core/Input/Input.types';
+import { INodeOutputs, NodeType } from '../../../core/Node/Node.types';
+import { Node } from '../../../core/Node/Node';
+import { Input } from '../../../core/Input/Input';
+import { Artboard } from '../../../core/Context/Context';
+import { IInputProps } from '../../../core/Input/Input.types';
 
 export class ArtboardNode extends Node {
     type = NodeType.ARTBOARD;

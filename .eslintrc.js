@@ -1,3 +1,5 @@
+/*eslint-env node*/
+
 module.exports = {
     extends: [
         'eslint:recommended',
@@ -7,7 +9,7 @@ module.exports = {
         'prettier'
     ],
     parser: '@typescript-eslint/parser',
-    plugins: ['@typescript-eslint'],
+    plugins: ['@typescript-eslint', 'unused-imports'],
     root: true,
     settings: {
         'import/resolver': {
@@ -16,7 +18,29 @@ module.exports = {
         }
     },
     rules: {
-        'import/order': [1, { groups: ['external', 'builtin', 'internal', 'sibling', 'parent', 'index'] }],
-        'object-curly-spacing': ['error', 'always']
+        '@typescript-eslint/no-var-requires': 'off',
+        'import/order': [
+            1,
+            {
+                'newlines-between': 'always',
+                groups: ['external', 'builtin', ['internal', 'sibling', 'parent', 'index']],
+                alphabetize: {
+                    order: 'asc' /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */,
+                    caseInsensitive: true /* ignore case. Options: [true, false] */
+                }
+            }
+        ],
+        'object-curly-spacing': ['error', 'always'],
+        'no-unused-vars': 'off',
+        'unused-imports/no-unused-imports': 'error',
+        'unused-imports/no-unused-vars': [
+            'warn',
+            {
+                vars: 'all',
+                varsIgnorePattern: '^_',
+                args: 'after-used',
+                argsIgnorePattern: '^_'
+            }
+        ]
     }
 };

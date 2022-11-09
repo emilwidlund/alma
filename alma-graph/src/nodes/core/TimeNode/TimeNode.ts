@@ -1,10 +1,10 @@
 import { defaults } from 'lodash';
-import { INodeInputs, NodeType } from '../../../../../alma-graph/src/core/Node/Node.types';
-import { Node } from '../../../../../alma-graph/src/core/Node/Node';
-import { Artboard } from '../../../../../alma-graph/src/core/Context/Context';
+import { INodeInputs, NodeType } from '../../../core/Node/Node.types';
+import { Node } from '../../../core/Node/Node';
+import { Artboard } from '../../../core/Context/Context';
 import { ITimeNodeOutputs, ITimeNodeProps } from './TimeNode.types';
-import { Output } from '../../../../../alma-graph/src/core/Output/Output';
-import { IOutputProps } from '../../../../../alma-graph/src/core/Output/Output.types';
+import { Output } from '../../../core/Output/Output';
+import { IOutputProps } from '../../../core/Output/Output.types';
 
 export class TimeNode extends Node {
     type = NodeType.TIME;

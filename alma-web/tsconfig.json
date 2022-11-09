@@ -4,12 +4,15 @@
         "target": "ES5",
         "outDir": "build",
         "strict": true,
-        "strictPropertyInitialization": false,
         "moduleResolution": "node",
         "jsx": "react",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "downlevelIteration": true
+        "downlevelIteration": true,
+        "baseUrl": "../",
+        "paths": {
+            "@alma-graph/*": ["./alma-graph/src/*"]
+        }
     },
     "include": ["./src"]
 }

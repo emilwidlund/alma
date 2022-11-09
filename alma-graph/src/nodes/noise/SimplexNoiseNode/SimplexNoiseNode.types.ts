@@ -1,8 +1,8 @@
-import { Input } from '../../../../../alma-graph/src/core/Input/Input';
-import { IInputProps } from '../../../../../alma-graph/src/core/Input/Input.types';
-import { INodeProps } from '../../../../../alma-graph/src/core/Node/Node.types';
-import { Output } from '../../../../../alma-graph/src/core/Output/Output';
-import { IOutputProps } from '../../../../../alma-graph/src/core/Output/Output.types';
+import { Input } from '../../../core/Input/Input';
+import { IInputProps } from '../../../core/Input/Input.types';
+import { INodeProps } from '../../../core/Node/Node.types';
+import { Output } from '../../../core/Output/Output';
+import { IOutputProps } from '../../../core/Output/Output.types';
 import { SimplexNoiseNode } from './SimplexNoiseNode';
 
 export interface ISimplexNoiseNodeInputs {

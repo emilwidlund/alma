@@ -1,6 +1,6 @@
-import { Input } from '../../../../../alma-graph/src/core/Input/Input';
-import { IInputProps } from '../../../../../alma-graph/src/core/Input/Input.types';
-import { INodeProps } from '../../../../../alma-graph/src/core/Node/Node.types';
+import { Input } from '../../../core/Input/Input';
+import { IInputProps } from '../../../core/Input/Input.types';
+import { INodeProps } from '../../../core/Node/Node.types';
 import { ArtboardNode } from './ArtboardNode';
 
 export interface IArtboardNodeInputs {

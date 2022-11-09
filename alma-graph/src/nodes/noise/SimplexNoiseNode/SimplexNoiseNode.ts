@@ -2,13 +2,13 @@ import { defn, float, FloatSym, ret, sym, vec2, Vec2Sym, vec3, vec4 } from '@thi
 import { additive, aspectCorrectedUV, fit1101, snoise2 } from '@thi.ng/shader-ast-stdlib';
 import { defaults } from 'lodash';
 import { ISimplexNoiseNodeInputs, ISimplexNoiseNodeOutputs, ISimplexNoiseNodeProps } from './SimplexNoiseNode.types';
-import { NodeType } from '../../../../../alma-graph/src/core/Node/Node.types';
-import { Node } from '../../../../../alma-graph/src/core/Node/Node';
-import { Input } from '../../../../../alma-graph/src/core/Input/Input';
-import { Output } from '../../../../../alma-graph/src/core/Output/Output';
-import { Artboard } from '../../../../../alma-graph/src/core/Context/Context';
-import { IInputProps } from '../../../../../alma-graph/src/core/Input/Input.types';
-import { IOutputProps } from '../../../../../alma-graph/src/core/Output/Output.types';
+import { NodeType } from '../../../core/Node/Node.types';
+import { Node } from '../../../core/Node/Node';
+import { Input } from '../../../core/Input/Input';
+import { Output } from '../../../core/Output/Output';
+import { Artboard } from '../../../core/Context/Context';
+import { IInputProps } from '../../../core/Input/Input.types';
+import { IOutputProps } from '../../../core/Output/Output.types';
 
 export class SimplexNoiseNode extends Node {
     type = NodeType.PERLIN_NOISE;
