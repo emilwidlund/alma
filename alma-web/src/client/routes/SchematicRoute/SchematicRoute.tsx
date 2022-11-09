@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
 import { Scene } from '../../components/Scene/Scene';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { Context } from '../../../core/api/Context/Context';
@@ -7,7 +8,6 @@ import { RendererType } from '../../lib/Renderer/Renderer.types';
 import { CanvasNode } from '../../nodes/CanvasNode/CanvasNode';
 import { SchematicContainer } from '../../containers/SchematicContainer/SchematicContainer';
 import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
-import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
 import { SchematicProvider } from '../../providers/SchematicProvider/SchematicProvider';
 import { CircleNode } from '../../../core/api/Node/CircleNode/CircleNode';
 import { Vector2Node } from '../../../core/api/Node/Vector2Node/Vector2Node';

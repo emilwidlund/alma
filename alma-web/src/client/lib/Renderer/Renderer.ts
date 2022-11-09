@@ -13,11 +13,11 @@ export class Renderer<TType extends RendererType> {
 
     /** Canvas Width */
     @observable
-    width: number = 500;
+    width = 500;
 
     /** Canvas Height */
     @observable
-    height: number = 400;
+    height = 400;
 
     constructor(type: TType) {
         this.type = type;

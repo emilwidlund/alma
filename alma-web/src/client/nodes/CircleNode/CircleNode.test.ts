@@ -1,7 +1,7 @@
+import { CircleNode } from './CircleNode';
 import { Context } from '../../Context/Context';
 import { NumberOutput } from '../../Port/NumberPort/NumberPort';
 import { RendererType } from '../../Renderer/Renderer.types';
-import { CircleNode } from './CircleNode';
 
 describe('CircleNode', () => {
     let context: Context;

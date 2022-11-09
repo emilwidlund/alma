@@ -1,12 +1,12 @@
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import express from 'express';
-import Container from 'typedi';
+import { Container } from 'typedi';
 import { PrismaClient } from '@prisma/client';
 
 import { requestId } from './middlewares/requestId/requestId';
-import { IContext } from '../types';
 import { schema } from './graphql/schema';
+import { IContext } from '../types';
 
 /** Starts the Alma Server */
 export const start = async (db: PrismaClient) => {
@@ -30,7 +30,7 @@ export const start = async (db: PrismaClient) => {
             }
         ],
         context: ({ req, res }) => {
-            const container = Container.of(req.id);
+            const container = Container.of((req as Express.Request).id);
             const context: IContext = {
                 requestId: req.id,
                 db,

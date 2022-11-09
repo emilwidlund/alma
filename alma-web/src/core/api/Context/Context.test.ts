@@ -1,8 +1,8 @@
+import { Context } from './Context';
 import { BaseNode } from '../Node/BaseNode/BaseNode';
 import { Renderer } from '../../../client/lib/Renderer/Renderer';
 import { RendererType } from '../../../client/lib/Renderer/Renderer.types';
 import { ValueType } from '../types/values';
-import { Context } from './Context';
 
 describe('Context', () => {
     it('should initialize with empty collections', () => {

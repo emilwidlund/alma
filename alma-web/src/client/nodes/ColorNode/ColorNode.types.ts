@@ -1,9 +1,9 @@
+import type { ColorNode } from './ColorNode';
 import type { INodeData, INodeProps, INodeSerialized } from '../../../core/api/Node/Node.types';
 import type { ColorOutput } from '../../ports/ColorPort/ColorPort';
 import type { IColorOutputSerialized } from '../../ports/ColorPort/ColorPort.types';
 import type { NumberInput } from '../../ports/NumberPort/NumberPort';
 import type { INumberInputSerialized } from '../../ports/NumberPort/NumberPort.types';
-import type { ColorNode } from './ColorNode';
 
 export interface IColorNodeInputs {
     [index: string]: NumberInput<ColorNode>;
@@ -31,9 +31,8 @@ export interface IColorNodeSerializedOutputs {
     out: IColorOutputSerialized;
 }
 
-export interface IColorNodeData extends INodeData {}
+export type IColorNodeData = INodeData
 
-export interface IColorNodeSerialized
-    extends INodeSerialized<IColorNodeSerializedInputs, IColorNodeSerializedOutputs> {}
+export type IColorNodeSerialized = INodeSerialized<IColorNodeSerializedInputs, IColorNodeSerializedOutputs>
 
-export interface IColorNodeProps extends INodeProps<IColorNodeSerialized> {}
+export type IColorNodeProps = INodeProps<IColorNodeSerialized>

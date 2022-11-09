@@ -2,8 +2,8 @@ import { defaults } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
-import type { Connection } from '../Connection/Connection';
 import type { IPortProps, IPortSerialized } from './Port.types';
+import type { Connection } from '../Connection/Connection';
 import type { Node } from '../Node/Node';
 import { Input } from '../Input/Input';
 import { Output } from '../Output/Output';

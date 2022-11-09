@@ -1,8 +1,8 @@
+import { BooleanInput, BooleanOutput } from './BooleanPort';
 import { Context } from '../../../core/api/Context/Context';
 import { Node } from '../../../core/api/Node/Node';
 import { RendererType } from '../../lib/Renderer/Renderer.types';
 import { ValueType } from '../../lib/types';
-import { BooleanInput, BooleanOutput } from './BooleanPort';
 
 class DummyNode extends Node {}
 

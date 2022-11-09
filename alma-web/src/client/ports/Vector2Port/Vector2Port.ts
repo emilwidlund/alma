@@ -1,9 +1,9 @@
+import type { Vector2SerializedValue } from './Vector2Port.types';
 import { Input } from '../../../core/api/Input/Input';
 import { Output } from '../../../core/api/Output/Output';
 import { ValueType } from '../../lib/types';
 import { Vector2 } from '../../lib/Vector2/Vector2';
 import type { Node } from '../../../core/api/Node/Node';
-import type { Vector2SerializedValue } from './Vector2Port.types';
 
 export class Vector2Input<TNode extends Node> extends Input<ValueType, Vector2, Vector2SerializedValue, TNode> {
     type = ValueType.VECTOR2;

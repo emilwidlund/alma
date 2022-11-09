@@ -9,7 +9,7 @@ export type NodeOutputs = Record<string, Output>;
 export type NodeSerializedInputs = Record<string, IInputProps<unknown, unknown>>;
 export type NodeSerializedOutputs = Record<string, IOutputProps<unknown, unknown>>;
 
-export interface INodeData extends Record<string, unknown> {}
+export type INodeData = Record<string, unknown>
 
 export interface INodeSerialized<
     TNodeSerializedInputs extends NodeSerializedInputs = NodeSerializedInputs,

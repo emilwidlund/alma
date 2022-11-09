@@ -1,7 +1,7 @@
-const path = require('path');
 const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const dotenv = require('dotenv');
+const path = require('path');
 
 module.exports = env => ({
     entry: './src/client/index.tsx',

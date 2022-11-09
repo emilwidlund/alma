@@ -15,7 +15,7 @@ export type NodeConstructors =
 
 export type INode = CanvasNode | CircleNode;
 
-export interface INodesCollection extends Record<string, NodeConstructors> {}
+export type INodesCollection = Record<string, NodeConstructors>
 
 export const Nodes: INodesCollection = {
     CanvasNode,

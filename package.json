@@ -4,7 +4,8 @@
     "description": "Alma",
     "main": ".eslintrc.js",
     "scripts": {
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "lint:fix": "npm run lint -- --fix"
     },
     "repository": {
         "type": "git",

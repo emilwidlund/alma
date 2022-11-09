@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Input } from '../../Input/Input';
-import { BaseControl } from '../BaseControl/BaseControl';
 import { INumberControlProps } from './NumberControl.types';
 import { numberControlInputStyles, numberControlNameStyles, numberControlRangeStyles } from './NumberControl.styles';
+import { Input } from '../../Input/Input';
+import { BaseControl } from '../BaseControl/BaseControl';
 import { BaseOutput } from '../../../../core/api/Port/Port';
 
 export const NumberControl = observer(({ port }: INumberControlProps) => {

@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 
-export const landingRouteContentOuterStyles = (accentBackground: boolean = false) => css`
+export const landingRouteContentOuterStyles = (accentBackground = false) => css`
     display: flex;
     flex-direction: column;
     padding: 0 64px;
@@ -12,7 +12,7 @@ export const landingRouteContentOuterStyles = (accentBackground: boolean = false
         : ''}
 `;
 
-export const landingRouteContentStyles = (padding: boolean = true) => css`
+export const landingRouteContentStyles = (padding = true) => css`
     display: flex;
     flex-direction: column;
     margin: 0 auto;

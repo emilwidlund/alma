@@ -1,9 +1,9 @@
+import { Node } from './Node';
 import { INode } from '..';
 import { Context } from '../Context/Context';
 import { NumberInput, NumberOutput } from '../../Port/NumberPort/NumberPort';
 import { RendererType } from '../../../client/lib/Renderer/Renderer.types';
 import { ValueType } from '../types/values';
-import { Node } from './Node';
 
 describe('Node', () => {
     let context: Context;

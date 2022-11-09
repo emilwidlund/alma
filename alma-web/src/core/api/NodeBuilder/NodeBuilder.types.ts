@@ -14,8 +14,7 @@ export interface IInput<TValue, TSerializedValue, TValueType> extends IPort<TVal
     valueSerializer: (value: TValue) => TSerializedValue;
 }
 
-export interface IInputProps<TValue, TSerializedValue, TValueType>
-    extends Optional<IInput<TValue, TSerializedValue, TValueType>, 'id' | 'name' | 'value' | 'validator'> {}
+export type IInputProps<TValue, TSerializedValue, TValueType> = Optional<IInput<TValue, TSerializedValue, TValueType>, 'id' | 'name' | 'value' | 'validator'>
 
 export interface IInputSerialized<TSerializedValue, TValueType> {
     id: string;
@@ -29,7 +28,7 @@ export interface IOutput<TValue, TValueType> extends IPort<TValueType> {
     get value(): TValue;
 }
 
-export interface IOutputProps<TValue, TValueType> extends Optional<IOutput<TValue, TValueType>, 'id' | 'name'> {}
+export type IOutputProps<TValue, TValueType> = Optional<IOutput<TValue, TValueType>, 'id' | 'name'>
 
 export interface IOutputSerialized<TValueType> {
     id: string;

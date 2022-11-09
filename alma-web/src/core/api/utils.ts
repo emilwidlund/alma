@@ -1,13 +1,15 @@
-import type { INode } from './Node';
-import type { InputProps, OutputProps } from './Port';
-import { BooleanInput, BooleanOutput } from '../../client/ports/BooleanPort/BooleanPort';
-import { ColorInput, ColorOutput } from './Port/ColorPort/ColorPort';
-import { NumberInput, NumberOutput } from './Port/NumberPort/NumberPort';
-import { StringInput, StringOutput } from './Port/StringPort/StringPort';
-import { Vector2Input, Vector2Output } from './Port/Vector2Port/Vector2Port';
-import { ValueType } from './types/values';
 
-export const getInputByProps = (node: INode, props: InputProps) => {
+import { IInputProps } from './Input/Input.types';
+import { IOutputProps } from './Output/Output.types';
+import { BooleanInput, BooleanOutput } from '../../client/ports/BooleanPort/BooleanPort';
+import { NumberInput, NumberOutput } from '../../client/ports/NumberPort/NumberPort';
+import { StringInput, StringOutput } from '../../client/ports/StringPort/StringPort';
+import { ColorInput, ColorOutput } from '../../client/ports/ColorPort/ColorPort';
+import { Vector2Input, Vector2Output } from '../../client/ports/Vector2Port/Vector2Port';
+import { ValueType } from '../../client/lib/types';
+import { INode } from '../../client/nodes';
+
+export const getInputByProps = <TValue, TValueType extends ValueType>(node: INode, props: IInputProps<TValue, TValueType>) => {
     const { type } = props;
 
     switch (type) {
@@ -26,7 +28,7 @@ export const getInputByProps = (node: INode, props: InputProps) => {
     }
 };
 
-export const getOutputByProps = (node: INode, props: OutputProps) => {
+export const getOutputByProps = <TValue, TValueType extends ValueType>(node: INode, props: IOutputProps<TValue, TValueType>) => {
     const { type } = props;
 
     switch (type) {

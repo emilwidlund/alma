@@ -1,7 +1,7 @@
+import type { CanvasNode } from './CanvasNode';
 import type { INodeSerialized, INodeProps, INodeData } from '../../../core/api/Node/Node.types';
 import type { NumberOutput } from '../../ports/NumberPort/NumberPort';
 import type { INumberOutputSerialized } from '../../ports/NumberPort/NumberPort.types';
-import type { CanvasNode } from './CanvasNode';
 
 export interface ICanvasNodeOutputs {
     [index: string]: NumberOutput<CanvasNode>;
@@ -15,8 +15,8 @@ export interface ICanvasNodeSerializedOutputs {
     height: INumberOutputSerialized;
 }
 
-export interface ICanvasNodeData extends INodeData {}
+export type ICanvasNodeData = INodeData
 
-export interface ICanvasNodeSerialized extends INodeSerialized<never, ICanvasNodeSerializedOutputs> {}
+export type ICanvasNodeSerialized = INodeSerialized<never, ICanvasNodeSerializedOutputs>
 
-export interface ICanvasNodeProps extends INodeProps<ICanvasNodeSerialized> {}
+export type ICanvasNodeProps = INodeProps<ICanvasNodeSerialized>

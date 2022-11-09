@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { SafeAreaView, Text } from 'react-native';
 
+import { MaterialIcons } from '@expo/vector-icons';
 import { styles } from './DashboardPage.styles';
-import { ProjectListContainer } from '../../containers/ProjectList/ProjectList';
 import { DashboardPageProps } from './DashboardPage.types';
+import { ProjectListContainer } from '../../containers/ProjectList/ProjectList';
 import { IProjectListItemProps } from '../../containers/ProjectList/ProjectList.types';
 import {
     VERTEX as vertexShaderSource,
@@ -11,7 +12,6 @@ import {
     KALEIDOSCOPE as kaleidoscopeShaderSource,
     INVERT as invertShaderSource
 } from '../../shaders/camera';
-import { MaterialIcons } from '@expo/vector-icons';
 
 const PROJECTS: IProjectListItemProps[] = [
     {

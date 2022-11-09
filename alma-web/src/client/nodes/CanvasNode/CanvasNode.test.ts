@@ -1,7 +1,7 @@
+import { CanvasNode } from './CanvasNode';
 import { Context } from '../../../core/api/Context/Context';
 import { NumberOutput } from '../../Port/NumberPort/NumberPort';
 import { RendererType } from '../../lib/Renderer/Renderer.types';
-import { CanvasNode } from './CanvasNode';
 import { Circuit } from '../../lib/Circuit/Circuit';
 
 describe('CanvasNode', () => {

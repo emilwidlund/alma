@@ -8,5 +8,4 @@ export interface IPortSerialized<TValue, TValueType> {
     type: TValueType;
 }
 
-export interface IPortProps<TValue, TValueType>
-    extends Optional<IPortSerialized<TValue, TValueType>, 'id' | 'name' | 'value'> {}
+export type IPortProps<TValue, TValueType> = Optional<IPortSerialized<TValue, TValueType>, 'id' | 'name' | 'value'>

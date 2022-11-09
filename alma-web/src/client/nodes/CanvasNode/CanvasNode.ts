@@ -1,9 +1,9 @@
 import { defaultsDeep } from 'lodash';
 import { autorun, IReactionDisposer } from 'mobx';
 
+import type { ICanvasNodeData, ICanvasNodeOutputs, ICanvasNodeProps, ICanvasNodeSerialized } from './CanvasNode.types';
 import { Node } from '../../../core/api/Node/Node';
 import { ValueType } from '../../lib/types';
-import type { ICanvasNodeData, ICanvasNodeOutputs, ICanvasNodeProps, ICanvasNodeSerialized } from './CanvasNode.types';
 import type { Circuit } from '../../lib/Circuit/Circuit';
 
 export class CanvasNode extends Node<never, ICanvasNodeOutputs, ICanvasNodeData, ICanvasNodeSerialized> {

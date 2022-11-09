@@ -16,6 +16,7 @@ module.exports = {
         }
     },
     rules: {
-        'import/order': [1, { groups: ['external', 'builtin', 'internal', 'sibling', 'parent', 'index'] }]
+        'import/order': [1, { groups: ['external', 'builtin', 'internal', 'sibling', 'parent', 'index'] }],
+        'object-curly-spacing': ['error', 'always']
     }
 };

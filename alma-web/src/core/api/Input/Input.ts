@@ -1,6 +1,6 @@
+import type { IInputProps } from './Input.types';
 import { Port } from '../Port/Port';
 import type { Node } from '../Node/Node';
-import type { IInputProps } from './Input.types';
 
 export abstract class Input<
     TValueType = unknown,

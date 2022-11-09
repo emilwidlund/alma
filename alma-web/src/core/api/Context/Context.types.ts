@@ -7,4 +7,4 @@ export interface IContextSerialized {
     nodes?: INodeProps<INodeSerialized>[];
     connections?: IConnectionProps[];
 }
-export interface IContextProps extends Optional<IContextSerialized, 'id' | 'nodes' | 'connections'> {}
+export type IContextProps = Optional<IContextSerialized, 'id' | 'nodes' | 'connections'>

@@ -2,12 +2,12 @@ import { defaults } from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
+import type { IContextProps } from './Context.types';
 import { Node } from '../Node/Node';
 import { Connection } from '../Connection/Connection';
 import { Output } from '../Output/Output';
 import { Input } from '../Input/Input';
 import type { IConnectionProps } from '../Connection/Connection.types';
-import type { IContextProps } from './Context.types';
 import type { INodeSerialized, NodeConstructor } from '../Node/Node.types';
 
 export class Context<

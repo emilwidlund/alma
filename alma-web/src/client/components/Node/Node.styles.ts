@@ -61,7 +61,7 @@ export const nodeContentWrapperStyles = css`
     background-color: var(--light-background);
 `;
 
-export const nodePortsWrapperStyles = (isOutputWrapper: boolean = false) => css`
+export const nodePortsWrapperStyles = (isOutputWrapper = false) => css`
     display: flex;
     flex-direction: column;
     flex-grow: 1;

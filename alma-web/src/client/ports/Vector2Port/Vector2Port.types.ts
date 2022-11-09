@@ -5,5 +5,5 @@ import { Vector2 } from '../../lib/Vector2/Vector2';
 
 export type Vector2SerializedValue = [number, number];
 
-export interface IVector2InputSerialized extends IInputSerialized<Vector2, ValueType.VECTOR2> {}
-export interface IVector2OutputSerialized extends IOutputSerialized<Vector2, ValueType.STRING> {}
+export type IVector2InputSerialized = IInputSerialized<Vector2, ValueType.VECTOR2>
+export type IVector2OutputSerialized = IOutputSerialized<Vector2, ValueType.STRING>

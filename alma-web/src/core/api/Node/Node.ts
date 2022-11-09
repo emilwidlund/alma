@@ -3,6 +3,7 @@ import { action, computed, makeObservable, observable, set } from 'mobx';
 import { v4 as uuid } from 'uuid';
 import 'reflect-metadata';
 
+import type { NodeInputs, NodeOutputs, INodeProps, INodeData, INodeSerialized } from './Node.types';
 import { getInputByProps, getOutputByProps } from '../utils';
 import type { Connection } from '../Connection/Connection';
 import type { Context } from '../Context/Context';
@@ -10,7 +11,6 @@ import type { Input } from '../Input/Input';
 import type { IInputProps } from '../Input/Input.types';
 import type { Output } from '../Output/Output';
 import type { IOutputProps } from '../Output/Output.types';
-import type { NodeInputs, NodeOutputs, INodeProps, INodeData, INodeSerialized } from './Node.types';
 import { IInput } from '../../../client/ports';
 import { NumberInput } from '../../../client/ports/NumberPort/NumberPort';
 

@@ -14,9 +14,9 @@ import {
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
+import { Route } from '@react-navigation/native';
 import { styles } from './TabNavigator.styles';
 import { ITabNavigatorItemProps } from './TabNavigator.types';
-import { Route } from '@react-navigation/native';
 import { ArtboardPage } from '../../pages/ArtboardPage/ArtboardPage';
 import { VERTEX as vertexShaderSource, FRAGMENT as fragmentShaderSource } from '../../shaders/camera';
 

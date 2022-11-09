@@ -1,16 +1,16 @@
 import { defaults } from 'lodash';
 import { makeObservable, observable } from 'mobx';
 
-import { Input } from '../../../core/api/Input/Input';
-import { Output } from '../../../core/api/Output/Output';
-import { ValueType } from '../../lib/types';
-import type { Node } from '../../../core/api/Node/Node';
 import type {
     INumberInputProps,
     INumberInputSerialized,
     INumberOutputProps,
     INumberOutputSerialized
 } from './NumberPort.types';
+import { Input } from '../../../core/api/Input/Input';
+import { Output } from '../../../core/api/Output/Output';
+import { ValueType } from '../../lib/types';
+import type { Node } from '../../../core/api/Node/Node';
 
 export class NumberInput<TNode extends Node> extends Input<ValueType, number, number, TNode> {
     type = ValueType.NUMBER;

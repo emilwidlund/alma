@@ -2,7 +2,6 @@ import { defaults } from 'lodash';
 import { makeAutoObservable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
-import { MergeIntersection } from '../types/helpers';
 import {
     IInput,
     IInputProps,
@@ -15,6 +14,7 @@ import {
     IOutputPropsInitializer,
     IOutputSerialized
 } from './NodeBuilder.types';
+import { MergeIntersection } from '../types/helpers';
 
 export class NodeBuilder<TNode extends INode = INode> implements INodeBuilder<TNode> {
     /** Node being constructed */

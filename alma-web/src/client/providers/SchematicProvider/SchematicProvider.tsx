@@ -1,11 +1,11 @@
 import * as React from 'react';
 
+import type { ISchematicContextValue, ISchematicProviderProps } from './SchematicProvider.types';
 import { Context } from '../../../core/api/Context/Context';
 import { INode } from '../../../core/api/Node';
 import { Input, Output } from '../../../core/api/Port';
 import { RendererType } from '../../lib/Renderer/Renderer.types';
 
-import type { ISchematicContextValue, ISchematicProviderProps } from './SchematicProvider.types';
 
 const defaultSchematicValue: ISchematicContextValue = {
     context: new Context({ rendererType: RendererType.CANVAS }),

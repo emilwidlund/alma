@@ -1,10 +1,10 @@
 import * as Color from 'color';
 
+import { ColorInput, ColorOutput } from './ColorPort';
 import { Context } from '../../Context/Context';
 import { BaseNode } from '../../Node/BaseNode/BaseNode';
 import { RendererType } from '../../Renderer/Renderer.types';
 import { ValueType } from '../../types/values';
-import { ColorInput, ColorOutput } from './ColorPort';
 
 describe('ColorInput', () => {
     let context: Context;

@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Image, SafeAreaView, Text, View } from 'react-native';
 
 import { styles } from './ProfilePage.styles';
-import { ProjectListContainer } from '../../containers/ProjectList/ProjectList';
 import { ProfilePageProps } from './ProfilePage.types';
+import { ProjectListContainer } from '../../containers/ProjectList/ProjectList';
 import { IProjectListItemProps } from '../../containers/ProjectList/ProjectList.types';
 import {
     VERTEX as vertexShaderSource,

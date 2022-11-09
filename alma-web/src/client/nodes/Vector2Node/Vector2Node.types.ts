@@ -1,9 +1,9 @@
+import { Vector2Node } from './Vector2Node';
 import { INodeData, INodeProps, INodeSerialized } from '../../../core/api/Node/Node.types';
 import { NumberInput, NumberOutput } from '../../ports/NumberPort/NumberPort';
 import { INumberInputSerialized, INumberOutputSerialized } from '../../ports/NumberPort/NumberPort.types';
 import { Vector2Output } from '../../ports/Vector2Port/Vector2Port';
 import { IVector2OutputSerialized } from '../../ports/Vector2Port/Vector2Port.types';
-import { Vector2Node } from './Vector2Node';
 
 export interface IVector2NodeInputs {
     [index: string]: NumberInput<Vector2Node>;
@@ -31,9 +31,8 @@ export interface IVector2NodeSerializedOutputs {
     angle: INumberOutputSerialized;
 }
 
-export interface IVector2NodeData extends INodeData {}
+export type IVector2NodeData = INodeData
 
-export interface IVector2NodeSerialized
-    extends INodeSerialized<IVector2NodeSerializedInputs, IVector2NodeSerializedOutputs> {}
+export type IVector2NodeSerialized = INodeSerialized<IVector2NodeSerializedInputs, IVector2NodeSerializedOutputs>
 
-export interface IVector2NodeProps extends INodeProps<IVector2NodeSerialized> {}
+export type IVector2NodeProps = INodeProps<IVector2NodeSerialized>

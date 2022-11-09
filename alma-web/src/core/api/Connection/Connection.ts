@@ -2,8 +2,8 @@ import { action, autorun, computed, IReactionDisposer, makeObservable, observabl
 import { v4 as uuid } from 'uuid';
 import { defaults } from 'lodash';
 
-import type { Context } from '../Context/Context';
 import type { IConnectionProps } from './Connection.types';
+import type { Context } from '../Context/Context';
 import type { Output } from '../Output/Output';
 import type { Input } from '../Input/Input';
 

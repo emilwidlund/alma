@@ -1,6 +1,6 @@
 import { Sym } from '@thi.ng/shader-ast';
-import { BaseNode } from '../../nodes/BaseNode/BaseNode';
 import { ShaderFunction } from './ShaderContext.types';
+import { BaseNode } from '../../nodes/BaseNode/BaseNode';
 
 export class ShaderContext {
     /** Root Node */

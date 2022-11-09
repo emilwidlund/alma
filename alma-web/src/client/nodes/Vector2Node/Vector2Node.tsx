@@ -1,11 +1,6 @@
 import { defaultsDeep } from 'lodash';
 import { autorun, IReactionDisposer } from 'mobx';
 
-import { Circuit } from '../../lib/Circuit/Circuit';
-import { Node } from '../../../core/api/Node/Node';
-import { ValueType } from '../../lib/types';
-import { Vector2 } from '../../lib/Vector2/Vector2';
-
 import {
     IVector2NodeData,
     IVector2NodeInputs,
@@ -13,6 +8,11 @@ import {
     IVector2NodeProps,
     IVector2NodeSerialized
 } from './Vector2Node.types';
+import { Circuit } from '../../lib/Circuit/Circuit';
+import { Node } from '../../../core/api/Node/Node';
+import { ValueType } from '../../lib/types';
+import { Vector2 } from '../../lib/Vector2/Vector2';
+
 
 export class Vector2Node extends Node<
     IVector2NodeInputs,

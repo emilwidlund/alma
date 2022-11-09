@@ -5,11 +5,11 @@ import { clamp } from '../../utils/utils';
 export class Vector2 {
     /** X component */
     @observable
-    x: number = 0;
+    x = 0;
 
     /** Y component */
     @observable
-    y: number = 0;
+    y = 0;
 
     /** Vector's magnitude */
     @computed
@@ -88,7 +88,7 @@ export class Vector2 {
         return new Vector2(-1, 0);
     }
 
-    constructor(x: number = 0, y: number = 0) {
+    constructor(x = 0, y = 0) {
         makeObservable(this);
 
         this.set(x, y);

@@ -2,10 +2,10 @@ import { defaultsDeep } from 'lodash';
 import { autorun, IReactionDisposer } from 'mobx';
 import * as Color from 'color';
 
+import { ICircleNodeData, ICircleNodeInputs, ICircleNodeProps, ICircleNodeSerialized } from './CircleNode.types';
 import { Node } from '../../../core/api/Node/Node';
 import { Circuit } from '../../lib/Circuit/Circuit';
 import { ValueType } from '../../lib/types';
-import { ICircleNodeData, ICircleNodeInputs, ICircleNodeProps, ICircleNodeSerialized } from './CircleNode.types';
 import { Renderer } from '../../lib/Renderer/Renderer';
 import { RendererType } from '../../lib/Renderer/Renderer.types';
 

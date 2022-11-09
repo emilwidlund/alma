@@ -1,8 +1,8 @@
+import type { IOutputProps } from './Output.types';
 import { Port } from '../Port/Port';
 import type { Connection } from '../Connection/Connection';
 import type { Input } from '../Input/Input';
 import type { Node } from '../Node/Node';
-import type { IOutputProps } from './Output.types';
 
 export abstract class Output<
     TValueType = unknown,

@@ -4,5 +4,5 @@ import { IInputSerialized } from '../../../core/api/Input/Input.types';
 import { IOutputSerialized } from '../../../core/api/Output/Output.types';
 import { ValueType } from '../../lib/types';
 
-export interface IBooleanInputSerialized extends IInputSerialized<Boolean, ValueType.BOOLEAN> {}
-export interface IBooleanOutputSerialized extends IOutputSerialized<Boolean, ValueType.BOOLEAN> {}
+export type IBooleanInputSerialized = IInputSerialized<boolean, ValueType.BOOLEAN>
+export type IBooleanOutputSerialized = IOutputSerialized<boolean, ValueType.BOOLEAN>

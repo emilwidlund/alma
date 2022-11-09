@@ -5,9 +5,9 @@ import { Camera, CameraType } from 'expo-camera';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { styles } from './ArtboardPage.styles';
+import { ArtboardPageProps } from './ArtboardPage.types';
 import { useArtboardContext } from '../../hooks/useArtboardContext/useArtboardContext';
 import { RecordButton } from '../../components/RecordButton/RecordButton';
-import { ArtboardPageProps } from './ArtboardPage.types';
 
 export const ArtboardPage = ({
     route: {

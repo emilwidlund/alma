@@ -1,5 +1,5 @@
 import { IPortProps, IPortSerialized } from '../Port/Port.types';
 
-export interface IInputSerialized<TValue, TValueType> extends IPortSerialized<TValue, TValueType> {}
+export type IInputSerialized<TValue, TValueType> = IPortSerialized<TValue, TValueType>
 
-export interface IInputProps<TValue, TValueType> extends IPortProps<TValue, TValueType> {}
+export type IInputProps<TValue, TValueType> = IPortProps<TValue, TValueType>
