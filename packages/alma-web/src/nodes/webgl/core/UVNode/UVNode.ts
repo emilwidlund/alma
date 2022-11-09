@@ -1,21 +1,19 @@
 import { $xy } from '@thi.ng/shader-ast';
+import { Node, INodeInputs, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { Artboard } from '../../../../../alma-graph/src/core/Context/Context';
-import { Node } from '../../../../../alma-graph/src/core/Node/Node';
-import { INodeInputs, NodeType } from '../../../../../alma-graph/src/core/Node/Node.types';
-import { Output } from '../../../../../alma-graph/src/core/Output/Output';
-import { IOutputProps } from '../../../../../alma-graph/src/core/Output/Output.types';
+import { WebGLNodeType } from '../..';
+import { WebGLContext } from '../../../../client/models/WebGLContext/WebGLContext';
 import { IUVNodeOutputs, IUVNodeProps } from './UVNode.types';
 
 export class UVNode extends Node {
-    type = NodeType.UV;
+    type = WebGLNodeType.UV;
 
     inputs: INodeInputs;
     outputs: IUVNodeOutputs;
 
-    constructor(artboard: Artboard, props: IUVNodeProps = {}) {
-        super(artboard, props);
+    constructor(context: WebGLContext, props: IUVNodeProps = {}) {
+        super(context, props);
 
         this.inputs = {};
 
@@ -26,7 +24,7 @@ export class UVNode extends Node {
                     name: 'UV',
                     type: 'vec2',
                     value: () => {
-                        return $xy(this.artboard.target.gl_FragCoord);
+                        return $xy(context.target.gl_FragCoord);
                     }
                 })
             )

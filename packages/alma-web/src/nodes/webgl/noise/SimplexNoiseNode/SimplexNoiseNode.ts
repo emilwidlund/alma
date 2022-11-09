@@ -1,24 +1,20 @@
 import { defn, float, FloatSym, ret, sym, vec2, Vec2Sym, vec3, vec4 } from '@thi.ng/shader-ast';
 import { additive, aspectCorrectedUV, fit1101, snoise2 } from '@thi.ng/shader-ast-stdlib';
+import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { Artboard } from '../../../../../alma-graph/src/core/Context/Context';
-import { Input } from '../../../../../alma-graph/src/core/Input/Input';
-import { IInputProps } from '../../../../../alma-graph/src/core/Input/Input.types';
-import { Node } from '../../../../../alma-graph/src/core/Node/Node';
-import { NodeType } from '../../../../../alma-graph/src/core/Node/Node.types';
-import { Output } from '../../../../../alma-graph/src/core/Output/Output';
-import { IOutputProps } from '../../../../../alma-graph/src/core/Output/Output.types';
+import { WebGLNodeType } from '../..';
+import { WebGLContext } from '../../../../client/models/WebGLContext/WebGLContext';
 import { ISimplexNoiseNodeInputs, ISimplexNoiseNodeOutputs, ISimplexNoiseNodeProps } from './SimplexNoiseNode.types';
 
 export class SimplexNoiseNode extends Node {
-    type = NodeType.PERLIN_NOISE;
+    type = WebGLNodeType.SIMPLEX_NOISE;
 
     inputs: ISimplexNoiseNodeInputs;
     outputs: ISimplexNoiseNodeOutputs;
 
-    constructor(artboard: Artboard, props: ISimplexNoiseNodeProps = {}) {
-        super(artboard, props);
+    constructor(context: WebGLContext, props: ISimplexNoiseNodeProps = {}) {
+        super(context, props);
 
         this.inputs = {
             octaves: new Input(
@@ -70,7 +66,7 @@ export class SimplexNoiseNode extends Node {
                                 (uv = sym(
                                     aspectCorrectedUV(
                                         this.resolveValue(this.inputs.uv.value),
-                                        this.context.uniforms.resolution
+                                        context.uniforms.resolution
                                     )
                                 )),
                                 // dynamically create a multi-octave version of `snoise2`

@@ -1,20 +1,18 @@
+import { Node, INodeInputs, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { Artboard } from '../../../../../alma-graph/src/core/Context/Context';
-import { Node } from '../../../../../alma-graph/src/core/Node/Node';
-import { INodeInputs, NodeType } from '../../../../../alma-graph/src/core/Node/Node.types';
-import { Output } from '../../../../../alma-graph/src/core/Output/Output';
-import { IOutputProps } from '../../../../../alma-graph/src/core/Output/Output.types';
+import { WebGLNodeType } from '../..';
+import { WebGLContext } from '../../../../client/models/WebGLContext/WebGLContext';
 import { ITimeNodeOutputs, ITimeNodeProps } from './TimeNode.types';
 
 export class TimeNode extends Node {
-    type = NodeType.TIME;
+    type = WebGLNodeType.TIME;
 
     inputs: INodeInputs;
     outputs: ITimeNodeOutputs;
 
-    constructor(artboard: Artboard, props: ITimeNodeProps = {}) {
-        super(artboard, props);
+    constructor(context: WebGLContext, props: ITimeNodeProps = {}) {
+        super(context, props);
 
         this.inputs = {};
 
@@ -25,7 +23,7 @@ export class TimeNode extends Node {
                     name: 'Time',
                     type: 'float',
                     value: () => {
-                        return this.artboard.uniforms.time;
+                        return context.uniforms.time;
                     }
                 })
             )

@@ -1,6 +1,5 @@
-import { INodeProps } from '../../../../../alma-graph/src/core/Node/Node.types';
-import { Output } from '../../../../../alma-graph/src/core/Output/Output';
-import { IOutputProps } from '../../../../../alma-graph/src/core/Output/Output.types';
+import { INodeProps, IOutputProps, Output } from 'alma-graph';
+
 import { UVNode } from './UVNode';
 
 export interface IUVNodeOutputs {

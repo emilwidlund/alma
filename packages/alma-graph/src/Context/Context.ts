@@ -1,4 +1,4 @@
-import { assign, defMain, Sym, Type } from '@thi.ng/shader-ast';
+import { Sym, Type } from '@thi.ng/shader-ast';
 import { defaults } from 'lodash';
 import { makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
@@ -99,11 +99,7 @@ export abstract class Context<TRoot extends Node = Node> {
     }
 
     /** Render Context */
-    public render(outs: Record<string, Sym<any>>) {
-        const value = this.root.resolveValue(this.root.inputs.color.value);
-
-        return [defMain(() => [assign(outs.fragColor, 'args' in value ? value() : value)])];
-    }
+    abstract render(outs: Record<string, Sym<any>>): void;
 
     /** Serializes Context */
     public toJSON() {
