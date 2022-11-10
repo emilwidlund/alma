@@ -56,7 +56,7 @@ injectGlobal`
         --font-size-lg: 2.5em;
         --font-size-md: 2em;
         --font-size-sm: 1em;
-        --font-size-xs: .7em;
+        --font-size-xs: .8em;
 
         // Colors
         --light-background: #fff;

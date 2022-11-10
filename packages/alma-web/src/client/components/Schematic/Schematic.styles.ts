@@ -5,4 +5,5 @@ export const schematicWrapperStyles = css`
     width: 100%;
     height: 100%;
     background-color: var(--schematic-background-color);
+    overflow: hidden;
 `;

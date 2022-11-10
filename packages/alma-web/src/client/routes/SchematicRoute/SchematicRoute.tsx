@@ -40,8 +40,7 @@ export const SchematicRoute = () => {
                     <NavBarItem to="/dashboard" children="Dashboard" />
                 </NavBar>
                 <div className={schematicRouteWrapperStyles}>
-                    <canvas ref={ref} />
-                    <SchematicContainer />
+                    <SchematicContainer ref={ref} />
                     <PropertyPanel />
                 </div>
             </Scene>

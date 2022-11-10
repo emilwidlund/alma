@@ -27,13 +27,15 @@ export const nodeHeaderWrapperStyles = (active: boolean) => css`
     align-items: center;
     justify-content: space-between;
     padding: 8px 12px;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
     font-weight: 500;
     background-color: var(--light-background);
     color: ${active ? `var(--accent-color)` : `var(--text-dark-color)`};
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     border-bottom: 2px solid ${active ? `var(--accent-color)` : `#eee`};
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 `;
 
 export const nodeHeaderActionsStyles = (active: boolean) => css`
