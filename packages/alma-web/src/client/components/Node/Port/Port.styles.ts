@@ -5,10 +5,11 @@ export const portWrapperStyles = (connected: boolean, reverseDirection: boolean,
     display: flex;
     flex-direction: row;
     flex-grow: 1;
-    align-items: baseline;
+    align-items: center;
     padding: 4px 0;
     font-size: var(--font-size-xs);
     text-transform: uppercase;
+    line-height: 1;
     letter-spacing: 0.1em;
     cursor: pointer;
     user-select: none;
@@ -27,7 +28,7 @@ export const portTypeStyles = (connected: boolean, isOutput: boolean, isHovered:
     justify-content: center;
     font-size: 10px;
     font-weight: 500;
-    line-height: 1em;
+    line-height: 1;
     letter-spacing: 0;
     border-radius: 4px;
     background-color: ${connected
