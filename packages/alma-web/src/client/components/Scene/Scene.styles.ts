@@ -1,8 +1,6 @@
 import { css } from '@emotion/css';
 
 export const sceneWrapperStyles = css`
-    --schematic-background-color: var(--neutral-background);
-
     display: flex;
     flex-direction: column;
     height: 100%;

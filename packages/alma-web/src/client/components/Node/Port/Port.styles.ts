@@ -17,7 +17,7 @@ export const portWrapperStyles = (connected: boolean, reverseDirection: boolean,
 
     ${reverseDirection ? 'padding-left' : 'padding-right'}: 16px;
     flex-direction: ${reverseDirection ? 'row-reverse' : 'row'};
-    color: var(--text-dark-color);
+    color: ${connected ? 'var(--text-light-color)' : 'var(--text-neutral-color)'};
     opacity: ${disabled ? 0.33 : 1};
 `;
 
@@ -37,8 +37,8 @@ export const portTypeStyles = (connected: boolean, isOutput: boolean, isHovered:
             : 'var(--accent-color)'
         : isHovered
         ? 'var(--accent-color)'
-        : 'rgba(0, 0, 0, 0.1)'};
-    color: ${connected || isHovered ? 'var(--text-light-color)' : 'var(--text-dark-color)'};
+        : 'rgba(255, 255, 255, 0.1)'};
+    color: ${connected || isHovered ? 'var(--text-light-color)' : 'var(--text-neutral-color)'};
     width: 16px;
     height: 16px;
     transition: color 0.2s, background-color 0.2s, box-shadow 0.15s;

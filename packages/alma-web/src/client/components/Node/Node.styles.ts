@@ -17,7 +17,7 @@ export const nodeWrapperStyles = (active: boolean) => css`
     }
 
     :active {
-        box-shadow: ${active ? '0 0 20px rgba(0, 0, 0, 0.1)' : ''};
+        box-shadow: ${active ? '0 0 20px rgba(0, 0, 0, 0.33)' : ''};
     }
 `;
 
@@ -26,14 +26,15 @@ export const nodeHeaderWrapperStyles = (active: boolean) => css`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 12px;
+    padding: 10px 12px;
     font-size: var(--font-size-xs);
     font-weight: 500;
-    background-color: var(--light-background);
-    color: ${active ? `var(--accent-color)` : `var(--text-dark-color)`};
+    background-color: var(--node-background);
+    line-height: 1;
+    color: ${active ? `var(--text-light-color)` : `var(--text-neutral-color)`};
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-    border-bottom: 2px solid ${active ? `var(--accent-color)` : `#eee`};
+    border-bottom: 2px solid ${active ? `var(--accent-color)` : `var(--border-color)`};
     text-transform: uppercase;
     letter-spacing: 0.1em;
 `;
@@ -60,7 +61,7 @@ export const nodeContentWrapperStyles = css`
     padding: ${NODE_CONTENT_PADDING}px;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
-    background-color: var(--light-background);
+    background-color: var(--node-background);
 `;
 
 export const nodePortsWrapperStyles = (isOutputWrapper = false) => css`

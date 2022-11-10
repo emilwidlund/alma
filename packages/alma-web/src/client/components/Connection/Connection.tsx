@@ -89,7 +89,7 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
     const strokeColor =
         selectedConnection || output
             ? getComputedStyle(document.documentElement).getPropertyValue('--accent-color')
-            : '#bbb';
+            : getComputedStyle(document.documentElement).getPropertyValue('--border-color');
 
     return (
         <g>

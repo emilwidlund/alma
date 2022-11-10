@@ -59,11 +59,14 @@ injectGlobal`
         --font-size-xs: .8em;
 
         // Colors
+        --dark-background: #252628;
+        --node-background: #2a2b2d;
         --light-background: #fff;
         --neutral-background: #f4f4f4;
-        --border-color: #dadada;
-        --accent-color: #00f;
+        --border-color: #565557;
+        --accent-color: #1e62ff;
         --text-light-color: #fff;
+        --text-neutral-color: #888;
         --text-dark-color: #000;
 
         --system-red: #ff4444;
