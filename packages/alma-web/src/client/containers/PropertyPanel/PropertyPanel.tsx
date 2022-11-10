@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import { NumberInput, NumberOutput } from '../../../core/api/Port/NumberPort/NumberPort';
-import { ValueType } from '../../../core/api/types/values';
 import { NumberControl } from '../../components/Control/NumberControl/NumberControl';
 import { Heading } from '../../components/Heading/Heading';
 import { Panel } from '../../components/Panel/Panel';
@@ -16,8 +14,8 @@ export const PropertyPanel = observer(() => {
     const inputControls = React.useMemo(() => {
         return Object.values(schematic.selectedNode?.inputs || []).map(input => {
             switch (input.type) {
-                case ValueType.NUMBER:
-                    return <NumberControl key={input.id} port={input as NumberInput<never>} />;
+                case 'float':
+                    return <NumberControl key={input.id} port={input} />;
             }
         });
     }, [schematic]);
@@ -25,8 +23,8 @@ export const PropertyPanel = observer(() => {
     const outputControls = React.useMemo(() => {
         return Object.values(schematic.selectedNode?.outputs || []).map(output => {
             switch (output.type) {
-                case ValueType.NUMBER:
-                    return <NumberControl key={output.id} port={output as NumberOutput<never>} />;
+                case 'float':
+                    return <NumberControl key={output.id} port={output} />;
             }
         });
     }, [schematic]);

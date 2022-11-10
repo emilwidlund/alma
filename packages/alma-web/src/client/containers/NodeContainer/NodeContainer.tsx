@@ -36,7 +36,7 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
 
     const handleOnDrag: DraggableEventHandler = React.useCallback(
         (e, { x, y }) => {
-            node.setPosition(x, y);
+            node.setPosition({ x, y });
         },
         [node]
     );

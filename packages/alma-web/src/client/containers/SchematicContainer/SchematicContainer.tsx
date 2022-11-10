@@ -14,7 +14,7 @@ export const SchematicContainer = observer(() => {
     const { onMouseMove, mousePosition } = useMousePosition();
 
     if (!schematic.context) {
-        throw new Error('Schematic context could not be found');
+        return null;
     }
 
     const onMouseUp = React.useCallback(

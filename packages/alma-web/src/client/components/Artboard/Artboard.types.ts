@@ -1,5 +1,5 @@
-import { Context } from 'alma-graph';
+import { WebGLContext } from '../../models/WebGLContext/WebGLContext';
 
 export interface IArtboardProps {
-    context: Context;
+    context: WebGLContext;
 }

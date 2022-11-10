@@ -10,7 +10,7 @@ import { INumberControlProps } from './NumberControl.types';
 export const NumberControl = observer(({ port }: INumberControlProps) => {
     const onChange = React.useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            port.setValue(e.target.valueAsNumber);
+            // port.setValue(e.target.valueAsNumber);
         },
         [port]
     );
@@ -25,7 +25,7 @@ export const NumberControl = observer(({ port }: INumberControlProps) => {
                 className={numberControlRangeStyles}
                 placeholder="Number"
                 onChange={onChange}
-                value={port.node.resolveValue(port.value)}
+                // value={port.node.resolveValue(port.value)}
                 type="range"
                 disabled={disabled}
             />
@@ -33,7 +33,7 @@ export const NumberControl = observer(({ port }: INumberControlProps) => {
                 className={numberControlInputStyles}
                 placeholder="Number"
                 onChange={onChange}
-                value={port.node.resolveValue(port.value)}
+                // value={port.node.resolveValue(port.value)}
                 type="number"
                 disabled={disabled}
             />

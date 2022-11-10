@@ -12,6 +12,9 @@
     "license": "ISC",
     "dependencies": {
         "@emotion/css": "^11.7.1",
+        "@thi.ng/shader-ast": "^0.12.29",
+        "@thi.ng/shader-ast-glsl": "^0.4.29",
+        "@thi.ng/webgl": "^6.2.13",
         "@types/lodash": "^4.14.182",
         "@types/react": "^17.0.39",
         "@types/react-dom": "^17.0.11",

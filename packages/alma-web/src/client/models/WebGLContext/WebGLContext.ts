@@ -7,14 +7,19 @@ import { WebGLContextNode } from '../../../nodes/webgl/core/WebGLContextNode/Web
 import { IUniforms } from './WebGLContext.types';
 
 export class WebGLContext extends Context<WebGLContextNode> {
+    /** Canvas Element */
+    public canvas: HTMLCanvasElement;
     /** GLSL Target */
     public target: GLSLTarget;
     /** Uniforms */
     public uniforms: IUniforms;
 
-    constructor(target: GLSLTarget, uniforms: IUniforms, props: IContextProps = {}) {
+    constructor(canvas: HTMLCanvasElement, target: GLSLTarget, uniforms: IUniforms, props: IContextProps = {}) {
         super(props);
 
+        console.log(props);
+
+        this.canvas = canvas;
         this.target = target;
         this.uniforms = uniforms;
     }

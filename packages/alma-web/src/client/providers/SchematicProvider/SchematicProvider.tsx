@@ -57,7 +57,7 @@ export const SchematicProvider = ({ context, children }: ISchematicProviderProps
     const handleCommitConnectionDraft = React.useCallback(
         (input: Input<any>) => {
             if (connectionDraft) {
-                context.connect(connectionDraft, input);
+                context?.connect(connectionDraft, input);
 
                 setConnectionDraft(undefined);
             }

@@ -1,4 +1,3 @@
-import { Type } from '@thi.ng/shader-ast';
 import { Connection, Output } from 'alma-graph';
 
 export interface Point {
@@ -6,8 +5,8 @@ export interface Point {
     y: number;
 }
 
-export interface IConnectionProps<TType extends Type> {
-    output?: Output<TType>;
+export interface IConnectionProps {
+    output?: Output<any>;
     point?: Point;
-    connection?: Connection<TType>;
+    connection?: Connection<any>;
 }

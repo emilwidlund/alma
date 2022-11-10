@@ -7,7 +7,16 @@ import { SimplexNoiseNode } from '../../nodes/webgl/noise/SimplexNoiseNode/Simpl
 import { WebGLContext } from '../models/WebGLContext/WebGLContext';
 import { IUniforms } from '../models/WebGLContext/WebGLContext.types';
 
-export const setupWebGL = (ctx: WebGLRenderingContext, size: { width: number; height: number }) => {
+export const setupWebGL = () => {
+    let context: WebGLContext;
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('webgl');
+
+    if (!ctx) {
+        throw new Error('WebGL Context could not be initialized');
+    }
+
     const compileFragmentShader = (): ShaderFn => {
         return (
             gl: GLSLTarget,
@@ -15,23 +24,23 @@ export const setupWebGL = (ctx: WebGLRenderingContext, size: { width: number; he
             _: Record<string, Sym<any>>,
             outs: Record<string, Sym<any>>
         ) => {
-            const a = new WebGLContext(gl, uniforms as unknown as IUniforms);
+            context = new WebGLContext(canvas, gl, uniforms as unknown as IUniforms);
 
-            const uv = new UVNode(a);
-            a.add(uv);
+            const uv = new UVNode(context);
+            context.add(uv);
 
-            const simplexNoise = new SimplexNoiseNode(a);
-            a.add(simplexNoise);
+            const simplexNoise = new SimplexNoiseNode(context);
+            context.add(simplexNoise);
 
             uv.outputs.uv.connect(simplexNoise.inputs.uv);
 
-            simplexNoise.outputs.output.connect(a.root.inputs.color);
+            simplexNoise.outputs.output.connect(context.root.inputs.color);
 
-            const serialized = JSON.parse(JSON.stringify(a));
+            const serialized = JSON.parse(JSON.stringify(context));
 
-            const restored = new WebGLContext(gl, uniforms as unknown as IUniforms, serialized);
+            const restored = new WebGLContext(canvas, gl, uniforms as unknown as IUniforms, serialized);
 
-            console.log(serialized);
+            context = restored;
 
             return restored.render(outs);
         };
@@ -43,12 +52,13 @@ export const setupWebGL = (ctx: WebGLRenderingContext, size: { width: number; he
             ...FX_SHADER_SPEC,
             fs: compileFragmentShader(),
             uniforms: {
-                resolution: ['vec2', [size.width, size.height]],
+                resolution: ['vec2', [ctx.drawingBufferWidth, ctx.drawingBufferHeight]],
                 time: ['float', 0],
                 mouse: ['vec2', [0, 0]]
             }
         })
     });
 
-    return model;
+    // @ts-ignore
+    return { model, context };
 };

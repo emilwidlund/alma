@@ -22,26 +22,23 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
     const schematic = useSchematic();
 
     const outputElement = connection
-        ? schematic.portElements[connection.output.id]
+        ? schematic.portElements[connection.from.id]
         : output
         ? schematic.portElements[output.id]
         : undefined;
-    const inputElement = connection && schematic.portElements[connection.input.id];
+    const inputElement = connection && schematic.portElements[connection.to.id];
 
     React.useEffect(() => {
         if (outputElement && inputElement) {
             return autorun(() => {
                 if (connection) {
                     const outputPortPosition = {
-                        x:
-                            connection.output.node.data.position.x +
-                            outputElement.offsetLeft +
-                            outputElement.clientWidth,
-                        y: connection.output.node.data.position.y + outputElement.offsetTop
+                        x: connection.from.node.data.position.x + outputElement.offsetLeft + outputElement.clientWidth,
+                        y: connection.from.node.data.position.y + outputElement.offsetTop
                     };
                     const inputPortPosition = {
-                        x: connection.input.node.data.position.x + inputElement.offsetLeft,
-                        y: connection.input.node.data.position.y + inputElement.offsetTop
+                        x: connection.to.node.data.position.x + inputElement.offsetLeft,
+                        y: connection.to.node.data.position.y + inputElement.offsetTop
                     };
 
                     const newFromPos = {

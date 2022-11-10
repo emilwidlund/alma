@@ -1,12 +1,14 @@
-import { Context, Input, Node, Output } from 'alma-graph';
+import { Input, Node, Output } from 'alma-graph';
 import * as React from 'react';
 
+import { WebGLContext } from '../../models/WebGLContext/WebGLContext';
+
 export type ISchematicProviderProps = React.PropsWithChildren<{
-    context: Context;
+    context: WebGLContext | undefined;
 }>;
 
 export interface ISchematicContextValue {
-    context: Context | undefined;
+    context: WebGLContext | undefined;
     portElements: Record<string, HTMLDivElement>;
     setPortElement(portId: string, portElement: HTMLDivElement): void;
     removePortElement(portId: string): void;
