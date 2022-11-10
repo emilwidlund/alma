@@ -33,20 +33,6 @@ const PROJECTS: IProjectListItemProps[] = [
         media: '',
         vertexShaderSource,
         fragmentShaderSource: invertShaderSource
-    },
-    {
-        title: 'Kaleidoscope',
-        lastModified: '2 days ago',
-        media: '',
-        vertexShaderSource,
-        fragmentShaderSource: kaleidoscopeShaderSource
-    },
-    {
-        title: 'Invert',
-        lastModified: '1 week ago',
-        media: '',
-        vertexShaderSource,
-        fragmentShaderSource: invertShaderSource
     }
 ];
 

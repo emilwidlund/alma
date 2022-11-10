@@ -17,6 +17,7 @@
         "@react-navigation/native-stack": "^6.8.0",
         "@thi.ng/shader-ast": "^0.12.29",
         "@thi.ng/shader-ast-glsl": "^0.4.29",
+        "@thi.ng/shader-ast-stdlib": "^0.12.22",
         "@thi.ng/webgl": "^6.2.13",
         "babel-plugin-transform-import-meta": "^2.2.0",
         "babel-plugin-transform-vite-meta-env": "^1.0.3",
