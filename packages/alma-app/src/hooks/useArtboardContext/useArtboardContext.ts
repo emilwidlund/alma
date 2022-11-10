@@ -1,3 +1,6 @@
+import { assign, defMain, Sym, vec4 } from '@thi.ng/shader-ast';
+import { GLSLTarget } from '@thi.ng/shader-ast-glsl';
+import { compileModel, defQuadModel, defShader, FX_SHADER_SPEC } from '@thi.ng/webgl';
 import { Camera, PermissionStatus } from 'expo-camera';
 import { ExpoWebGLRenderingContext, GLView } from 'expo-gl';
 import { useCallback, useEffect, useRef } from 'react';
@@ -117,6 +120,26 @@ export const useArtboardContext = (vertexShaderSource: string, fragmentShaderSou
 
     const onContextCreate = useCallback(
         async (gl: ExpoWebGLRenderingContext) => {
+            const model = compileModel(gl, {
+                ...defQuadModel({ uv: false }),
+                shader: defShader(gl, {
+                    ...FX_SHADER_SPEC,
+                    fs: (
+                        gl: GLSLTarget,
+                        uniforms: Record<string, Sym<any>>,
+                        _: Record<string, Sym<any>>,
+                        outs: Record<string, Sym<any>>
+                    ) => [defMain(() => [assign(outs.fragColor, vec4(1, 0, 0, 1))])],
+                    uniforms: {
+                        resolution: ['vec2', [gl.drawingBufferWidth, gl.drawingBufferHeight]],
+                        time: ['float', 0],
+                        mouse: ['vec2', [0, 0]]
+                    }
+                })
+            });
+
+            console.log(model);
+
             const cameraTexture = await createCameraTexture();
 
             const aspect = 1080 / 1920;

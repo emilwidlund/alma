@@ -1,16 +1,18 @@
 {
-  "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "lib": ["es2021", "DOM"],
-    "target": "ES5",
-    "outDir": "build",
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "moduleResolution": "node",
-    "jsx": "react",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "downlevelIteration": true
-  },
-  "include": ["./src", "./types"]
+    "extends": "expo/tsconfig.base",
+    "compilerOptions": {
+        "lib": ["esnext"],
+        "target": "esnext",
+        "module": "esnext",
+        "outDir": "build",
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "moduleResolution": "node",
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "downlevelIteration": true,
+        "allowSyntheticDefaultImports": true
+    },
+    "include": ["./src", "./types"]
 }
