@@ -13,6 +13,10 @@ export const SchematicContainer = observer(() => {
     const schematic = useSchematic();
     const { onMouseMove, mousePosition } = useMousePosition();
 
+    if (!schematic.context) {
+        throw new Error('Schematic context could not be found');
+    }
+
     const onMouseUp = React.useCallback(
         (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             schematic.setConnectionDraft();

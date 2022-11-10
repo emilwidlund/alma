@@ -1,5 +1,5 @@
-import { Input, Output } from '../../../../core/api/Port';
+import { Input, Output } from 'alma-graph';
 
 export interface IPortProps {
-    port: Input | Output;
+    port: Input<any> | Output<any>;
 }

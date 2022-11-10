@@ -1,5 +1,5 @@
-import { NumberInput, NumberOutput } from '../../../../core/api/Port/NumberPort/NumberPort';
+import { Input, Output } from 'alma-graph';
 
 export interface INumberControlProps {
-    port: NumberInput<never> | NumberOutput<never>;
+    port: Input<'float'> | Output<'float'>;
 }

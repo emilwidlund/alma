@@ -1,11 +1,12 @@
 import { Type } from '@thi.ng/shader-ast';
-import { makeObservable, observable } from 'mobx';
+import { computed, makeObservable, observable } from 'mobx';
 
+import { Connection } from '../Connection/Connection';
 import { Node } from '../Node/Node';
 import { Port } from '../Port/Port';
 import { IInputProps, IInputSerialized, InputValue, SerializableInputValue, ValidatorFunction } from './Input.types';
 
-export class Input<TType extends Type, TNode extends Node> extends Port<TType, TNode> {
+export class Input<TType extends Type, TNode extends Node = Node> extends Port<TType, TNode> {
     /** Port Default Value */
     public defaultValue: SerializableInputValue<TType>;
     /** Port Value */
@@ -22,8 +23,14 @@ export class Input<TType extends Type, TNode extends Node> extends Port<TType, T
 
         makeObservable(this, {
             defaultValue: observable.ref,
-            value: observable.ref
+            value: observable.ref,
+            connection: computed
         });
+    }
+
+    /** Incoming Connection */
+    public get connection(): Connection<TType> | undefined {
+        return [...this.node.context.connections.values()].find(connection => connection.to.id === this.id);
     }
 
     /** Serializes Port */

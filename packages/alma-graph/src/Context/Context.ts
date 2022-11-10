@@ -1,6 +1,6 @@
 import { Sym, Type } from '@thi.ng/shader-ast';
 import { defaults } from 'lodash';
-import { makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
 import { Connection } from '../Connection/Connection';
@@ -44,13 +44,19 @@ export abstract class Context<TRoot extends Node = Node> {
             name: observable,
             root: observable,
             nodes: observable,
-            connections: observable
+            connections: observable,
+            add: action,
+            remove: action,
+            connect: action,
+            disconnect: action,
+            resolveNode: action,
+            resolveRootNode: action
         });
     }
 
     /** Initializes Context */
     private initialize(nodes: [string, INodeSerialized][], connections: [string, IConnectionSerialized<any>][]): TRoot {
-        const portCache = new Map<Port<any, Node>['id'], Port<any, Node>>();
+        const portCache = new Map<Port<any>['id'], Port<any>>();
 
         for (const [_, nodeProps] of nodes) {
             const node = this.resolveNode(nodeProps);
@@ -63,8 +69,8 @@ export abstract class Context<TRoot extends Node = Node> {
 
         for (const [_, connectionProps] of connections) {
             const id = connectionProps.id;
-            const from = portCache.get(connectionProps.from) as Output<any, Node>;
-            const to = portCache.get(connectionProps.to) as Input<any, Node>;
+            const from = portCache.get(connectionProps.from) as Output<any>;
+            const to = portCache.get(connectionProps.to) as Input<any>;
 
             if (id && from && to) {
                 const connection = new Connection(this, { id, from, to });
@@ -86,6 +92,11 @@ export abstract class Context<TRoot extends Node = Node> {
         this.nodes.set(node.id, node);
     }
 
+    /** Removes node from context */
+    public remove(node: Node) {
+        this.nodes.delete(node.id);
+    }
+
     /** Connects output with input */
     public connect<
         TType extends Type,
@@ -96,6 +107,12 @@ export abstract class Context<TRoot extends Node = Node> {
     >(output: TOutput, input: TInput) {
         const connection = new Connection(this, { from: output, to: input });
         this.connections.set(connection.id, connection);
+    }
+
+    /** Disconnects a given connection */
+    public disconnect<TType extends Type, TConnection extends Connection<TType>>(connection: TConnection): void {
+        this.connections.delete(connection.id);
+        connection.dispose();
     }
 
     /** Render Context */

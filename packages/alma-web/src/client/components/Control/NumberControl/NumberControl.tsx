@@ -1,7 +1,7 @@
+import { Output } from 'alma-graph';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import { BaseOutput } from '../../../../core/api/Port/Port';
 import { Input } from '../../Input/Input';
 import { BaseControl } from '../BaseControl/BaseControl';
 import { numberControlInputStyles, numberControlNameStyles, numberControlRangeStyles } from './NumberControl.styles';
@@ -15,7 +15,7 @@ export const NumberControl = observer(({ port }: INumberControlProps) => {
         [port]
     );
 
-    const isOutput = React.useMemo(() => port instanceof BaseOutput, [port]);
+    const isOutput = React.useMemo(() => port instanceof Output, [port]);
     const disabled = React.useMemo(() => isOutput || port.connected, [isOutput, port.connected]);
 
     return (
@@ -25,20 +25,15 @@ export const NumberControl = observer(({ port }: INumberControlProps) => {
                 className={numberControlRangeStyles}
                 placeholder="Number"
                 onChange={onChange}
-                value={port.value}
+                value={port.node.resolveValue(port.value)}
                 type="range"
                 disabled={disabled}
-                min={port.min}
-                max={port.max}
-                step={port.step}
             />
             <Input
                 className={numberControlInputStyles}
                 placeholder="Number"
                 onChange={onChange}
-                min={port.min}
-                max={port.max}
-                value={port.value}
+                value={port.node.resolveValue(port.value)}
                 type="number"
                 disabled={disabled}
             />

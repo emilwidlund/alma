@@ -1,30 +1,27 @@
+import { Input, Node, Output } from 'alma-graph';
+import { noop } from 'lodash';
 import * as React from 'react';
 
-import { Context } from '../../../core/api/Context/Context';
-import { INode } from '../../../core/api/Node';
-import { Input, Output } from '../../../core/api/Port';
-import { RendererType } from '../../lib/Renderer/Renderer.types';
 import type { ISchematicContextValue, ISchematicProviderProps } from './SchematicProvider.types';
 
-
 const defaultSchematicValue: ISchematicContextValue = {
-    context: new Context({ rendererType: RendererType.CANVAS }),
+    context: undefined,
     portElements: {},
-    setPortElement: () => {},
-    removePortElement: () => {},
+    setPortElement: noop,
+    removePortElement: noop,
     connectionDraft: undefined,
-    setConnectionDraft: () => {},
-    commitConnectionDraft: () => {},
+    setConnectionDraft: noop,
+    commitConnectionDraft: noop,
     selectedNode: undefined,
-    setSelectedNode: () => {}
+    setSelectedNode: noop
 };
 
 export const SchematicContext = React.createContext(defaultSchematicValue);
 
 export const SchematicProvider = ({ context, children }: ISchematicProviderProps) => {
     const [portElements, setPortElements] = React.useState<Record<string, HTMLDivElement>>({});
-    const [connectionDraft, setConnectionDraft] = React.useState<Output | undefined>();
-    const [selectedNode, setSelectedNode] = React.useState<INode | undefined>();
+    const [connectionDraft, setConnectionDraft] = React.useState<Output<any> | undefined>();
+    const [selectedNode, setSelectedNode] = React.useState<Node | undefined>();
 
     const handleSetPortElement = React.useCallback(
         (portId: string, portElement: HTMLDivElement) => {
@@ -51,14 +48,14 @@ export const SchematicProvider = ({ context, children }: ISchematicProviderProps
     );
 
     const handleSetConnectionDraft = React.useCallback(
-        (output: Output | undefined) => {
+        (output: Output<any> | undefined) => {
             setConnectionDraft(output);
         },
         [setConnectionDraft]
     );
 
     const handleCommitConnectionDraft = React.useCallback(
-        (input: Input) => {
+        (input: Input<any>) => {
             if (connectionDraft) {
                 context.connect(connectionDraft, input);
 
@@ -69,7 +66,7 @@ export const SchematicProvider = ({ context, children }: ISchematicProviderProps
     );
 
     const handleSetSelectedNode = React.useCallback(
-        (node?: INode) => {
+        (node?: Node) => {
             setSelectedNode(node);
         },
         [setSelectedNode]

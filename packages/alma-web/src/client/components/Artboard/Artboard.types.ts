@@ -1,4 +1,4 @@
-import { Context } from '../../../core/api/Context/Context';
+import { Context } from 'alma-graph';
 
 export interface IArtboardProps {
     context: Context;

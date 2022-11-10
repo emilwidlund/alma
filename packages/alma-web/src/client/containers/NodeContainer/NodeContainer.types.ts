@@ -1,5 +1,5 @@
-import { INode } from '../../../core/api/Node';
+import { Node } from 'alma-graph';
 
 export interface INodeContainerProps {
-    node: INode;
+    node: Node;
 }

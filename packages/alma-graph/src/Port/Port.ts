@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { Node } from '../Node/Node';
 import { IPortProps, IPortSerialized } from './Port.types';
 
-export class Port<TType extends Type, TNode extends Node> {
+export class Port<TType extends Type, TNode extends Node = Node> {
     /** Unique Identifier */
     public id: string;
     /** Associated Node */
@@ -35,15 +35,9 @@ export class Port<TType extends Type, TNode extends Node> {
 
     /** Indicates if Port is connected */
     get connected(): boolean {
-        let isConnected = false;
-
-        this.node.context.connections.forEach(connection => {
-            if (connection.from.id === this.id || connection.to.id === this.id) {
-                isConnected = true;
-            }
-        });
-
-        return isConnected;
+        return [...this.node.context.connections.values()].some(
+            connection => connection.from.id === this.id || connection.to.id === this.id
+        );
     }
 
     /** Disposes internal reactions */

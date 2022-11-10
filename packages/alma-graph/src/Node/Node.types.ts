@@ -3,11 +3,13 @@ import { IInputSerialized } from '../Input/Input.types';
 import { Output } from '../Output/Output';
 import { IOutputSerialized } from '../Output/Output.types';
 
+export interface INodePosition {
+    x: number;
+    y: number;
+}
+
 export interface INodeData {
-    position: {
-        x: number;
-        y: number;
-    };
+    position: INodePosition;
 }
 
 export interface INodeInputs {

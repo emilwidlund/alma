@@ -1,7 +1,6 @@
+import { Input, Output } from 'alma-graph';
 import React = require('react');
 import { DraggableEventHandler } from 'react-draggable';
-
-import { Input, Output } from '../../../core/api/Port';
 
 interface INodePosition {
     x: number;
@@ -10,8 +9,8 @@ interface INodePosition {
 
 export interface INodeProps {
     name: string;
-    inputs: Input[];
-    outputs: Output[];
+    inputs: Input<any>[];
+    outputs: Output<any>[];
     position: INodePosition;
     active: boolean;
     actions?: INodeActionProps[];
@@ -26,6 +25,6 @@ export interface INodeActionProps {
 }
 
 export interface INodePortsProps {
-    ports: Input[] | Output[];
+    ports: Input<any>[] | Output<any>[];
     isOutputWrapper?: boolean;
 }

@@ -1,13 +1,15 @@
 import { Type } from '@thi.ng/shader-ast';
 import { defaultsDeep, lowerCase, startCase } from 'lodash';
-import { makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
+import { Connection } from '../Connection/Connection';
 import { Context } from '../Context/Context';
+import { Input } from '../Input/Input';
 import { ComputedInputValue, IInputSerialized, InputValue, SerializableInputValue } from '../Input/Input.types';
 import { Output } from '../Output/Output';
 import { IOutputSerialized } from '../Output/Output.types';
-import { INodeData, INodeInputs, INodeOutputs, INodeProps, INodeSerialized } from './Node.types';
+import { INodeData, INodeInputs, INodeOutputs, INodePosition, INodeProps, INodeSerialized } from './Node.types';
 
 export abstract class Node {
     /** Associated Context */
@@ -48,7 +50,9 @@ export abstract class Node {
         makeObservable(this, {
             id: observable,
             name: observable,
-            data: observable
+            data: observable,
+            ports: computed,
+            setPosition: action
         });
     }
 
@@ -67,6 +71,18 @@ export abstract class Node {
     /** Associated ports */
     public get ports() {
         return [...Object.values(this.inputs), ...Object.values(this.outputs)];
+    }
+
+    /** Associated connections */
+    public get connections(): Connection<any>[] {
+        return this.ports
+            .flatMap(port => (port instanceof Input ? [port.connection] : port.connections))
+            .filter((connection): connection is Connection<any> => Boolean(connection));
+    }
+
+    /** Sets Position in Node Data */
+    public setPosition(position: INodePosition) {
+        this.data.position = position;
     }
 
     /** Serializes Node */

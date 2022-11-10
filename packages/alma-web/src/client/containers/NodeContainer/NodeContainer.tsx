@@ -29,7 +29,7 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
                 schematic.setSelectedNode();
             }
 
-            schematic.context.remove(node);
+            schematic.context?.remove(node);
         },
         [schematic, node]
     );

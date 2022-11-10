@@ -1,9 +1,9 @@
 import { cx } from '@emotion/css';
+import { Input, Output } from 'alma-graph';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Draggable from 'react-draggable';
 
-import { Input, Output } from '../../../core/api/Port';
 import { useHover } from '../../hooks/useHover/useHover';
 import { Icon } from '../Icon/Icon';
 import {
@@ -40,7 +40,7 @@ export const Node = observer(
             );
 
             const portPredicate = React.useCallback(
-                (port: Input | Output) => (isCollapsed ? port.connected : true),
+                (port: Input<any> | Output<any>) => (isCollapsed ? port.connected : true),
                 [isCollapsed]
             );
 

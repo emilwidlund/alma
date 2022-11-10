@@ -1,8 +1,7 @@
+import { Input, Output } from 'alma-graph';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import { Input, Output } from '../../../../core/api/Port';
-import { BaseOutput } from '../../../../core/api/Port/Port';
 import { useHover } from '../../../hooks/useHover/useHover';
 import { useSchematic } from '../../../hooks/useSchematic/useSchematic';
 import { Icon } from '../../Icon/Icon';
@@ -16,7 +15,7 @@ export const Port = observer(({ port }: IPortProps) => {
     const schematic = useSchematic();
     const { onMouseEnter, onMouseLeave, isHovered } = useHover();
 
-    const isOutput = React.useMemo(() => port instanceof BaseOutput, [port]);
+    const isOutput = React.useMemo(() => port instanceof Output, [port]);
     const tooltipPosition = React.useMemo(() => (isOutput ? TooltipPosition.RIGHT : TooltipPosition.LEFT), [isOutput]);
     const visuallyDisabled = React.useMemo(() => {
         const isOccupied = !isOutput && port.connected;
@@ -39,20 +38,24 @@ export const Port = observer(({ port }: IPortProps) => {
 
     const onMouseDown = React.useCallback(() => {
         if (isOutput) {
-            schematic.setConnectionDraft(port as Output);
+            schematic.setConnectionDraft(port as Output<any>);
         }
     }, [isOutput, schematic]);
 
     const onMouseUp = React.useCallback(() => {
         if (!isOutput && schematic.connectionDraft) {
-            schematic.commitConnectionDraft(port as Input);
+            schematic.commitConnectionDraft(port as Input<any>);
         }
     }, [isOutput, schematic]);
 
     const onClick = React.useCallback(() => {
         if (port.connected) {
-            for (const connection of port.connections) {
-                schematic.context.disconnect(connection);
+            const connections = port instanceof Input ? [port.connection] : port.connections;
+
+            for (const connection of connections) {
+                if (connection) {
+                    schematic.context?.disconnect(connection);
+                }
             }
         }
     }, [schematic, port]);
