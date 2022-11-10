@@ -1,6 +1,7 @@
 import { defMain, Sym, assign } from '@thi.ng/shader-ast';
 import { GLSLTarget } from '@thi.ng/shader-ast-glsl';
 import { Context, IContextProps, INodeSerialized, Node } from 'alma-graph';
+import { makeObservable, observable } from 'mobx';
 
 import { nodes } from '../../../nodes/webgl';
 import { WebGLContextNode } from '../../../nodes/webgl/core/WebGLContextNode/WebGLContextNode';
@@ -17,6 +18,11 @@ export class WebGLContext extends Context<WebGLContextNode> {
 
         this.target = target;
         this.uniforms = uniforms;
+        this.root = this.initialize();
+
+        makeObservable(this, {
+            root: observable
+        });
     }
 
     resolveRootNode(nodes: Node[]): WebGLContextNode {

@@ -15,8 +15,6 @@ export class UVNode extends Node {
     constructor(context: WebGLContext, props: IUVNodeProps = {}) {
         super(context, props);
 
-        console.log(context.target.gl_FragCoord);
-
         this.inputs = {};
 
         this.outputs = {
