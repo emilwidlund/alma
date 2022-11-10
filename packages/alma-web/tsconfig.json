@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "lib": ["es2021", "DOM"],
-        "target": "ES5",
+        "target": "ES6",
         "outDir": "build",
         "strict": true,
         "moduleResolution": "node",

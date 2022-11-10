@@ -2,17 +2,7 @@ import { TimeNode } from './core/TimeNode/TimeNode';
 import { UVNode } from './core/UVNode/UVNode';
 import { WebGLContextNode } from './core/WebGLContextNode/WebGLContextNode';
 import { SimplexNoiseNode } from './noise/SimplexNoiseNode/SimplexNoiseNode';
-
-export enum WebGLNodeType {
-    WEBGL_CONTEXT = 'WEBGL_CONTEXT',
-    SIMPLEX_NOISE = 'SIMPLEX_NOISE',
-    TIME = 'TIME',
-    UV = 'UV'
-}
-
-export interface ClassConstructor<T> {
-    new (...args: any[]): T;
-}
+import { ClassConstructor, WebGLNodeType } from './types';
 
 export interface IWebGLNodeCollection {
     [key: string]: ClassConstructor<WebGLNode>;

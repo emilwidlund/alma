@@ -7,13 +7,12 @@ import { SimplexNoiseNode } from '../../nodes/webgl/noise/SimplexNoiseNode/Simpl
 import { WebGLContext } from '../models/WebGLContext/WebGLContext';
 import { IUniforms } from '../models/WebGLContext/WebGLContext.types';
 
-export const setupWebGL = () => {
+export const setupWebGL = (canvas: HTMLCanvasElement | null) => {
     let context: WebGLContext;
 
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('webgl');
+    const ctx = canvas?.getContext('webgl');
 
-    if (!ctx) {
+    if (!canvas || !ctx) {
         throw new Error('WebGL Context could not be initialized');
     }
 
@@ -24,7 +23,7 @@ export const setupWebGL = () => {
             _: Record<string, Sym<any>>,
             outs: Record<string, Sym<any>>
         ) => {
-            context = new WebGLContext(canvas, gl, uniforms as unknown as IUniforms);
+            context = new WebGLContext(gl, uniforms as unknown as IUniforms);
 
             const uv = new UVNode(context);
             context.add(uv);
@@ -38,11 +37,11 @@ export const setupWebGL = () => {
 
             const serialized = JSON.parse(JSON.stringify(context));
 
-            const restored = new WebGLContext(canvas, gl, uniforms as unknown as IUniforms, serialized);
+            const restored = new WebGLContext(gl, uniforms as unknown as IUniforms, serialized);
 
             context = restored;
 
-            return restored.render(outs);
+            return context.render(outs);
         };
     };
 

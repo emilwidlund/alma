@@ -1,8 +1,8 @@
 import { Node, INodeInputs, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLNodeType } from '../..';
 import { WebGLContext } from '../../../../client/models/WebGLContext/WebGLContext';
+import { WebGLNodeType } from '../../types';
 import { ITimeNodeOutputs, ITimeNodeProps } from './TimeNode.types';
 
 export class TimeNode extends Node {

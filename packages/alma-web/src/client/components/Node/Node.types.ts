@@ -1,5 +1,4 @@
 import { Input, Output } from 'alma-graph';
-import React = require('react');
 import { DraggableEventHandler } from 'react-draggable';
 
 interface INodePosition {

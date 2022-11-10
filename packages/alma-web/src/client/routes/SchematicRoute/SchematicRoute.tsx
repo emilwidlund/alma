@@ -11,6 +11,7 @@ import { setupWebGL } from '../../webgl/setup';
 import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
 
 export const SchematicRoute = () => {
+    const ref = React.useRef<HTMLCanvasElement>(null);
     const t0 = React.useRef(Date.now());
     const [context, setContext] = React.useState<WebGLContext | undefined>();
 
@@ -23,9 +24,9 @@ export const SchematicRoute = () => {
     }, []);
 
     React.useEffect(() => {
-        const { model, context } = setupWebGL();
+        const { model, context: ctx } = setupWebGL(ref.current);
 
-        setContext(context);
+        setContext(ctx);
 
         requestAnimationFrame(render.bind(this, model));
     }, []);
@@ -39,6 +40,7 @@ export const SchematicRoute = () => {
                     <NavBarItem to="/dashboard" children="Dashboard" />
                 </NavBar>
                 <div className={schematicRouteWrapperStyles}>
+                    <canvas ref={ref} />
                     <SchematicContainer />
                     <PropertyPanel />
                 </div>

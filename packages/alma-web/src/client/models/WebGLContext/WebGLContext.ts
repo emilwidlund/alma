@@ -1,27 +1,30 @@
 import { defMain, Sym, assign } from '@thi.ng/shader-ast';
 import { GLSLTarget } from '@thi.ng/shader-ast-glsl';
 import { Context, IContextProps, INodeSerialized, Node } from 'alma-graph';
+import { makeObservable, observable } from 'mobx';
 
 import { nodes } from '../../../nodes/webgl';
 import { WebGLContextNode } from '../../../nodes/webgl/core/WebGLContextNode/WebGLContextNode';
 import { IUniforms } from './WebGLContext.types';
 
 export class WebGLContext extends Context<WebGLContextNode> {
-    /** Canvas Element */
-    public canvas: HTMLCanvasElement;
     /** GLSL Target */
     public target: GLSLTarget;
     /** Uniforms */
     public uniforms: IUniforms;
 
-    constructor(canvas: HTMLCanvasElement, target: GLSLTarget, uniforms: IUniforms, props: IContextProps = {}) {
+    constructor(target: GLSLTarget, uniforms: IUniforms, props: IContextProps = {}) {
         super(props);
 
-        console.log(props);
-
-        this.canvas = canvas;
         this.target = target;
         this.uniforms = uniforms;
+        this.root = this.initialize();
+
+        makeObservable(this, {
+            target: observable,
+            uniforms: observable,
+            root: observable
+        });
     }
 
     resolveRootNode(nodes: Node[]): WebGLContextNode {

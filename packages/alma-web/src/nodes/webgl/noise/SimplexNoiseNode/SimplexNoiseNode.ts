@@ -3,8 +3,8 @@ import { additive, aspectCorrectedUV, fit1101, snoise2 } from '@thi.ng/shader-as
 import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLNodeType } from '../..';
 import { WebGLContext } from '../../../../client/models/WebGLContext/WebGLContext';
+import { WebGLNodeType } from '../../types';
 import { ISimplexNoiseNodeInputs, ISimplexNoiseNodeOutputs, ISimplexNoiseNodeProps } from './SimplexNoiseNode.types';
 
 export class SimplexNoiseNode extends Node {

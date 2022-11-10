@@ -2,8 +2,8 @@ import { vec4 } from '@thi.ng/shader-ast';
 import { Node, IInputProps, Input, INodeOutputs } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLNodeType } from '../..';
 import { WebGLContext } from '../../../../client/models/WebGLContext/WebGLContext';
+import { WebGLNodeType } from '../../types';
 import { IWebGLContextNodeInputs, IWebGLContextNodeProps } from './WebGLContextNode.types';
 
 export class WebGLContextNode extends Node {
