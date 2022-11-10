@@ -5,6 +5,7 @@ export const portWrapperStyles = (connected: boolean, reverseDirection: boolean,
     display: flex;
     flex-direction: row;
     flex-grow: 1;
+    align-items: baseline;
     padding: 4px 0;
     font-size: var(--font-size-xs);
     text-transform: uppercase;
