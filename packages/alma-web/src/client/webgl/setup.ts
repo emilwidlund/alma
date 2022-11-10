@@ -27,13 +27,15 @@ export const setupWebGL = (canvas: HTMLCanvasElement | null) => {
         ) => {
             context = new WebGLContext(gl, uniforms as unknown as IUniforms);
 
-            const time = new TimeNode(context);
-            const modulo = new ModuloNode(context);
+            const time = new TimeNode(context, { data: { position: { x: 60, y: 500 } } });
+            const modulo = new ModuloNode(context, { data: { position: { x: 400, y: 500 } } });
             time.outputs.time.connect(modulo.inputs.a);
             modulo.inputs.b.value = float(2);
 
-            const uv = new UVNode(context);
-            const simplexNoise = new SimplexNoiseNode(context);
+            const uv = new UVNode(context, { data: { position: { x: 120, y: 750 } } });
+            const simplexNoise = new SimplexNoiseNode(context, { data: { position: { x: 800, y: 600 } } });
+
+            context.root.data.position = { x: 1200, y: 600 };
 
             modulo.outputs.result.connect(simplexNoise.inputs.decay);
 
