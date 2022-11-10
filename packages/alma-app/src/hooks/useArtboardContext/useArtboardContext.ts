@@ -8,13 +8,12 @@ import {
     FloatSym,
     ret,
     sym,
-    Sym,
     vec2,
     Vec2Sym,
     vec3,
     vec4
 } from '@thi.ng/shader-ast';
-import { additive, fit1101, snoise2 } from '@thi.ng/shader-ast-stdlib';
+import { additive, fit1101, snoise2, aspectCorrectedUV } from '@thi.ng/shader-ast-stdlib';
 import { compileModel, defQuadModel, defShader, draw, FX_SHADER_SPEC, ModelSpec } from '@thi.ng/webgl';
 import { ExpoWebGLRenderingContext, GLView } from 'expo-gl';
 import { useCallback, useRef } from 'react';
@@ -28,7 +27,7 @@ export const useArtboardContext = () => {
         frameId.current = requestAnimationFrame(renderingLoop.bind(this, gl, model));
 
         if (renderingStartedTimestamp.current) {
-            model.uniforms!.time = (Date.now() - renderingStartedTimestamp.current) / 100;
+            model.uniforms!.time = (Date.now() - renderingStartedTimestamp.current) * 0.001;
         }
 
         draw(model);
@@ -84,6 +83,3 @@ export const useArtboardContext = () => {
         onContextCreate
     };
 };
-function aspectCorrectedUV(fragCoord: Sym<'vec2'>, res: Sym<'vec2'>): any {
-    throw new Error('Function not implemented.');
-}
