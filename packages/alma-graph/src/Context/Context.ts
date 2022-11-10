@@ -4,13 +4,12 @@ import { action, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
 import { Connection } from '../Connection/Connection';
-import { IConnectionSerialized } from '../Connection/Connection.types';
 import { Input } from '../Input/Input';
 import { Node } from '../Node/Node';
 import { INodeSerialized } from '../Node/Node.types';
 import { Output } from '../Output/Output';
 import { Port } from '../Port/Port';
-import { IContextProps } from './Context.types';
+import { IContextProps, IContextSerialized } from './Context.types';
 
 export abstract class Context<TRoot extends Node = Node> {
     /** Unique Identifier */
@@ -18,31 +17,31 @@ export abstract class Context<TRoot extends Node = Node> {
     /** Context Name */
     name: string;
     /** Root Node */
-    root: TRoot;
+    root!: TRoot;
     /** Nodes */
     nodes: Map<Node['id'], Node>;
     /** Connections */
     connections: Map<Connection<any>['id'], Connection<any>>;
+    /** Imported Props */
+    props: IContextSerialized;
 
     constructor(props: IContextProps) {
-        const { id, name, nodes, connections } = defaults(props, {
+        const properties = defaults(props, {
             id: uuid(),
             name: 'Untitled',
             nodes: [],
             connections: []
         });
 
-        this.id = id;
-        this.name = name;
+        this.id = properties.id;
+        this.name = properties.name;
         this.nodes = new Map();
         this.connections = new Map();
-
-        this.root = this.initialize(nodes, connections);
+        this.props = properties;
 
         makeObservable(this, {
             id: observable,
             name: observable,
-            root: observable,
             nodes: observable,
             connections: observable,
             add: action,
@@ -55,7 +54,9 @@ export abstract class Context<TRoot extends Node = Node> {
     }
 
     /** Initializes Context */
-    private initialize(nodes: [string, INodeSerialized][], connections: [string, IConnectionSerialized<any>][]): TRoot {
+    public initialize(): TRoot {
+        const { nodes, connections } = this.props;
+
         const portCache = new Map<Port<any>['id'], Port<any>>();
 
         for (const [_, nodeProps] of nodes) {

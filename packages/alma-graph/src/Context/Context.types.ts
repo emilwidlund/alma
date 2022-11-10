@@ -6,6 +6,7 @@ export interface IContextProps {
     name?: string;
     root?: INodeSerialized;
     nodes?: [string, INodeSerialized][];
+    connections?: [string, IConnectionSerialized<any>][];
 }
 
 export interface IContextSerialized {
