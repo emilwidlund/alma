@@ -54,6 +54,8 @@ export abstract class Node {
             ports: computed,
             setPosition: action
         });
+
+        this.context.add(this);
     }
 
     /** Resolves a value from given port */

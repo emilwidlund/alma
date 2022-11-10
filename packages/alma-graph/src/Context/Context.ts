@@ -106,6 +106,11 @@ export abstract class Context<TRoot extends Node = Node> {
         TInputNode extends Node,
         TInput extends Input<TType, TInputNode>
     >(output: TOutput, input: TInput) {
+        if (!input.validator(output.value)) {
+            console.error(`Validation of value from Output ${output.id} to Input ${input.id} failed`);
+            return;
+        }
+
         const connection = new Connection(this, { from: output, to: input });
         this.connections.set(connection.id, connection);
     }

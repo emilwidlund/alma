@@ -22,7 +22,10 @@ export class SimplexNoiseNode extends Node {
                 defaults<Partial<IInputProps<'float'>> | undefined, IInputProps<'float'>>(props.inputs?.octaves, {
                     name: 'Octaves',
                     type: 'float',
-                    defaultValue: float(4)
+                    defaultValue: float(4),
+                    // Octaves must be a constant as it is used in a for-loop to calculate octaves
+                    // @ts-ignore
+                    validator: value => ('opts' in value ? value.opts.type !== 'uni' : true)
                 })
             ),
             shift: new Input(

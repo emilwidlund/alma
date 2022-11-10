@@ -1,8 +1,10 @@
-import { Sym } from '@thi.ng/shader-ast';
+import { float, Sym } from '@thi.ng/shader-ast';
 import { GLSLTarget } from '@thi.ng/shader-ast-glsl';
 import { compileModel, defQuadModel, defShader, FX_SHADER_SPEC, ShaderFn } from '@thi.ng/webgl';
 
+import { TimeNode } from '../../nodes/webgl/core/TimeNode/TimeNode';
 import { UVNode } from '../../nodes/webgl/core/UVNode/UVNode';
+import { ModuloNode } from '../../nodes/webgl/math/ModuloNode/ModuloNode';
 import { SimplexNoiseNode } from '../../nodes/webgl/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { WebGLContext } from '../models/WebGLContext/WebGLContext';
 import { IUniforms } from '../models/WebGLContext/WebGLContext.types';
@@ -25,18 +27,20 @@ export const setupWebGL = (canvas: HTMLCanvasElement | null) => {
         ) => {
             context = new WebGLContext(gl, uniforms as unknown as IUniforms);
 
-            const uv = new UVNode(context);
-            context.add(uv);
+            const time = new TimeNode(context);
+            const modulo = new ModuloNode(context);
+            time.outputs.time.connect(modulo.inputs.a);
+            modulo.inputs.b.value = float(2);
 
+            const uv = new UVNode(context);
             const simplexNoise = new SimplexNoiseNode(context);
-            context.add(simplexNoise);
+
+            modulo.outputs.result.connect(simplexNoise.inputs.decay);
 
             uv.outputs.uv.connect(simplexNoise.inputs.uv);
-
             simplexNoise.outputs.output.connect(context.root.inputs.color);
 
             const serialized = JSON.parse(JSON.stringify(context));
-
             const restored = new WebGLContext(gl, uniforms as unknown as IUniforms, serialized);
 
             context = restored;
