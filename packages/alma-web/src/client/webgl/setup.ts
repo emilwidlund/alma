@@ -25,6 +25,8 @@ export const setupWebGL = (canvas: HTMLCanvasElement | null) => {
         ) => {
             context = new WebGLContext(gl, uniforms as unknown as IUniforms);
 
+            console.log(gl.gl_FragCoord);
+
             const uv = new UVNode(context);
             context.add(uv);
 
@@ -35,11 +37,11 @@ export const setupWebGL = (canvas: HTMLCanvasElement | null) => {
 
             simplexNoise.outputs.output.connect(context.root.inputs.color);
 
-            const serialized = JSON.parse(JSON.stringify(context));
+            // const serialized = JSON.parse(JSON.stringify(context));
 
-            const restored = new WebGLContext(gl, uniforms as unknown as IUniforms, serialized);
+            // const restored = new WebGLContext(gl, uniforms as unknown as IUniforms, serialized);
 
-            context = restored;
+            // context = restored;
 
             return context.render(outs);
         };

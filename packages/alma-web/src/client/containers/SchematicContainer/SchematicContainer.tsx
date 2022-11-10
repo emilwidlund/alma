@@ -13,10 +13,6 @@ export const SchematicContainer = observer(() => {
     const schematic = useSchematic();
     const { onMouseMove, mousePosition } = useMousePosition();
 
-    if (!schematic.context) {
-        return null;
-    }
-
     const onMouseUp = React.useCallback(
         (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             schematic.setConnectionDraft();
@@ -32,6 +28,10 @@ export const SchematicContainer = observer(() => {
         },
         [schematic]
     );
+
+    if (!schematic.context) {
+        return null;
+    }
 
     return (
         <Schematic onMouseMove={onMouseMove} onMouseUp={onMouseUp}>
