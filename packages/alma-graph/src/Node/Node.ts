@@ -87,6 +87,15 @@ export abstract class Node {
         this.data.position = position;
     }
 
+    /** Disposes the Node */
+    public dispose(): void {
+        for (const connection of this.connections) {
+            this.context.disconnect(connection);
+        }
+
+        this.context.remove(this);
+    }
+
     /** Serializes Node */
     public toJSON(): INodeSerialized {
         return {

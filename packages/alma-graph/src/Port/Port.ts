@@ -1,5 +1,5 @@
 import { Type } from '@thi.ng/shader-ast';
-import { makeObservable, observable, IReactionDisposer, computed } from 'mobx';
+import { makeObservable, observable, computed } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
 import { Node } from '../Node/Node';
@@ -14,9 +14,6 @@ export class Port<TType extends Type, TNode extends Node = Node> {
     public name: string;
     /** Port Value Type */
     public type: TType;
-
-    /** Value Reaction Disposer */
-    private reactionDisposer?: IReactionDisposer;
 
     constructor(node: TNode, props: IPortProps<TType>) {
         this.node = node;
@@ -38,13 +35,6 @@ export class Port<TType extends Type, TNode extends Node = Node> {
         return [...this.node.context.connections.values()].some(
             connection => connection.from.id === this.id || connection.to.id === this.id
         );
-    }
-
-    /** Disposes internal reactions */
-    public dispose(): void {
-        if (this.reactionDisposer) {
-            this.reactionDisposer();
-        }
     }
 
     /** Serializes Port */
