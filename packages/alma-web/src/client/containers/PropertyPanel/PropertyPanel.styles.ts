@@ -26,6 +26,7 @@ export const propertyPanelInfoHeadingStyles = css`
 
 export const propertyPanelInfoParagraphStyles = css`
     margin-bottom: 0;
+    color: var(--text-neutral-color);
 `;
 
 export const propertyPanelPortsContainerStyles = css`

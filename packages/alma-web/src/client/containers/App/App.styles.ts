@@ -41,7 +41,7 @@ injectGlobal`
 
         p {
             font-size: var(--font-size-sm);
-            line-height: 1rem;
+            line-height: .9rem;
         }
 
         #root {
