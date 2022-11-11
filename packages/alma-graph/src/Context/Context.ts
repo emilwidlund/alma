@@ -106,6 +106,11 @@ export abstract class Context<TRoot extends Node = Node> {
         TInputNode extends Node,
         TInput extends Input<TType, TInputNode>
     >(output: TOutput, input: TInput) {
+        if (output.type !== input.type) {
+            console.error(`Output (${output.type}) and Input (${input.type}) are of different types`);
+            return;
+        }
+
         if (!input.validator(output.value)) {
             console.error(`Validation of value from Output ${output.id} to Input ${input.id} failed`);
             return;

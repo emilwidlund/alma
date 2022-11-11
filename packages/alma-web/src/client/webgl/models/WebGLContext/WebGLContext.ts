@@ -39,6 +39,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
             setUniform: action
         });
 
+        this.root.data.position = { x: 1200, y: 600 };
         this.setUniform('resolution', [this.size.width, this.size.height]);
         this.ctx.viewport(0, 0, this.size.width, this.size.height);
 
@@ -98,10 +99,6 @@ export class WebGLContext extends Context<WebGLContextNode> {
     ) {
         this.target = gl;
         this.uniforms = uniforms as unknown as ICompiledUniforms;
-
-        if (this.root) {
-            this.root.data.position = { x: 1200, y: 600 };
-        }
 
         const value = this.root ? this.root.resolveValue(this.root.inputs.color.value) : vec4(0, 0, 0, 1);
 
