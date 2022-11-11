@@ -1,13 +1,18 @@
+import { Node } from 'alma-graph';
 import * as React from 'react';
 
+import { nodes } from '../../../nodes/webgl';
 import { TimeNode } from '../../../nodes/webgl/core/TimeNode/TimeNode';
 import { UVNode } from '../../../nodes/webgl/core/UVNode/UVNode';
 import { SineNode } from '../../../nodes/webgl/math/SineNode/SineNode';
 import { SimplexNoiseNode } from '../../../nodes/webgl/noise/SimplexNoiseNode/SimplexNoiseNode';
+import { ClassConstructor } from '../../../nodes/webgl/types';
+import { CommandPalette } from '../../components/CommandPalette/CommandPalette';
 import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { SchematicContainer } from '../../containers/SchematicContainer/SchematicContainer';
+import { useKeyPress } from '../../hooks/useKeyPress/useKeyPress';
 import { SchematicProvider } from '../../providers/SchematicProvider/SchematicProvider';
 import { WebGLContext } from '../../webgl/models/WebGLContext/WebGLContext';
 import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
@@ -15,6 +20,8 @@ import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
 export const SchematicRoute = () => {
     const ref = React.useRef<HTMLCanvasElement>(null);
     const [context, setContext] = React.useState<WebGLContext | undefined>();
+    const [commandLineOpen, toggleCommandLine] = React.useState(false);
+    const spacePressed = useKeyPress(' ');
 
     React.useEffect(() => {
         if (ref.current) {
@@ -48,6 +55,23 @@ export const SchematicRoute = () => {
         }
     }, []);
 
+    React.useEffect(() => {
+        if (spacePressed) {
+            toggleCommandLine(true);
+        }
+    }, [spacePressed]);
+
+    const handleCommandPaletteItemSelect = React.useCallback(
+        (node: ClassConstructor<Node>) => {
+            return () => {
+                if (context) {
+                    const n = new node(context);
+                }
+            };
+        },
+        [context]
+    );
+
     return (
         <SchematicProvider context={context}>
             <Scene>
@@ -59,6 +83,16 @@ export const SchematicRoute = () => {
                 <div className={schematicRouteWrapperStyles}>
                     <SchematicContainer />
                     <PropertyPanel ref={ref} />
+
+                    {commandLineOpen && (
+                        <CommandPalette
+                            items={[...Object.values(nodes)].map(node => ({
+                                label: node.name.replace('Node', '').trimEnd(),
+                                onSelect: handleCommandPaletteItemSelect(node)
+                            }))}
+                            onClose={toggleCommandLine.bind(undefined, false)}
+                        />
+                    )}
                 </div>
             </Scene>
         </SchematicProvider>
