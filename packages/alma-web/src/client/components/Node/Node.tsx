@@ -17,10 +17,6 @@ import {
 import { INodeActionProps, INodePortsProps, INodeProps } from './Node.types';
 import { Port } from './Port/Port';
 
-const ConstructorNameSeparation = new RegExp(/([a-z])(?=[A-Z])/);
-const getDisplayNameFromString = (value: string) =>
-    value.replace(ConstructorNameSeparation, '$1 ').replace('Node', '').trimEnd();
-
 export const Node = observer(
     React.forwardRef<HTMLDivElement, INodeProps>(
         ({ name, active, inputs, outputs, position, actions, onDrag, onClick, onFocus }, ref) => {
@@ -57,7 +53,7 @@ export const Node = observer(
                         tabIndex={0}
                     >
                         <div className={cx(nodeHeaderWrapperStyles(active), 'handle')}>
-                            <span>{getDisplayNameFromString(name)}</span>
+                            <span>{name}</span>
                             {!!actions?.length && (
                                 <div className={nodeHeaderActionsStyles(isHovered || active)}>
                                     {actions.map((action, index) => (

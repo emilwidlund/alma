@@ -7,6 +7,7 @@ import { WebGLNodeType } from '../../types';
 import { IWebGLContextNodeInputs, IWebGLContextNodeProps } from './WebGLContextNode.types';
 
 export class WebGLContextNode extends Node {
+    name = 'WebGL Context';
     type = WebGLNodeType.WEBGL_CONTEXT;
 
     inputs: IWebGLContextNodeInputs;

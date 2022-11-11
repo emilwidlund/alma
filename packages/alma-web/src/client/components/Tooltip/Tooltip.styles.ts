@@ -60,7 +60,7 @@ export const tooltipNodeWrapperStyles = (
     dimensions: { width: number; height: number },
     offset?: { x: number; y: number }
 ) => css`
-    --tooltip-background-color: #fff;
+    --tooltip-background-color: var(--panel-background);
 
     @keyframes fade {
         from {
@@ -77,6 +77,7 @@ export const tooltipNodeWrapperStyles = (
     padding: 4px 8px;
     border-radius: 6px;
     background-color: var(--tooltip-background-color);
+    color: var(--text-light-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 9;
     animation: fade 0.2s;

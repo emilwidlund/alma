@@ -3,6 +3,8 @@ import { css } from '@emotion/css';
 export const NODE_CONTENT_PADDING = 12;
 
 export const nodeWrapperStyles = (active: boolean) => css`
+    --node-background: var(--panel-background);
+
     position: absolute;
     display: flex;
     flex-direction: column;
