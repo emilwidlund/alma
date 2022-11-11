@@ -7,6 +7,9 @@ import { WebGLNodeType } from '../../types';
 import { IModuloNodeInputs, IModuloNodeOutputs, IModuloNodeProps } from './ModuloNode.types';
 
 export class ModuloNode extends Node {
+    static icon = 'percent';
+    static description = 'Performs a modulo operation on inputs. Returns the remainder of a division.';
+
     type = WebGLNodeType.MODULO;
 
     inputs: IModuloNodeInputs;
