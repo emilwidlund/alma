@@ -22,21 +22,11 @@ export const PropertyPanel = observer(
 
         const inputControls = React.useMemo(() => {
             return Object.values(schematic.selectedNode?.inputs || [])
+                .filter(input => !input.connected)
                 .map(input => {
                     switch (input.type) {
                         case 'float':
                             return <NumberControl key={input.id} port={input} />;
-                    }
-                })
-                .filter(Boolean);
-        }, [schematic]);
-
-        const outputControls = React.useMemo(() => {
-            return Object.values(schematic.selectedNode?.outputs || [])
-                .map(output => {
-                    switch (output.type) {
-                        case 'float':
-                            return <NumberControl key={output.id} port={output} />;
                     }
                 })
                 .filter(Boolean);
@@ -63,21 +53,9 @@ export const PropertyPanel = observer(
                         </p>
                     </Panel>
                 )}
-                {schematic.selectedNode && (!!inputControls.length || !!outputControls.length) && (
+                {schematic.selectedNode && !!inputControls.length && (
                     <Panel className={propertyPanelPortsContainerStyles}>
-                        {!!inputControls.length && (
-                            <>
-                                <Heading size={Size.SM}>Inputs</Heading>
-                                {inputControls}
-                            </>
-                        )}
-
-                        {!!outputControls.length && (
-                            <>
-                                <Heading size={Size.SM}>Outputs</Heading>
-                                {outputControls}
-                            </>
-                        )}
+                        {!!inputControls.length && inputControls}
                     </Panel>
                 )}
             </div>

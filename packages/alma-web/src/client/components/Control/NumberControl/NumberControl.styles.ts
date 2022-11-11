@@ -8,7 +8,7 @@ export const numberControlNameStyles = css`
 
 export const numberControlRangeStyles = css`
     margin-right: 24px;
-    width: 60px;
+    width: 40px;
 
     &[type='range'] {
         -webkit-appearance: none; /* Hides the slider so that custom slider can be made */

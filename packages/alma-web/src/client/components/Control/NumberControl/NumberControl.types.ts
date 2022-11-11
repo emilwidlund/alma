@@ -1,5 +1,5 @@
-import { Input, Output } from 'alma-graph';
+import { Input } from 'alma-graph';
 
 export interface INumberControlProps {
-    port: Input<'float'> | Output<'float'>;
+    port: Input<'float'>;
 }

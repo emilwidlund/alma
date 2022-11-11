@@ -1,5 +1,5 @@
 import { Type } from '@thi.ng/shader-ast';
-import { computed, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 
 import { Connection } from '../Connection/Connection';
 import { Node } from '../Node/Node';
@@ -24,8 +24,16 @@ export class Input<TType extends Type, TNode extends Node = Node> extends Port<T
         makeObservable(this, {
             defaultValue: observable.ref,
             value: observable.ref,
-            connection: computed
+            connection: computed,
+            setValue: action
         });
+    }
+
+    /** Sets Input's Value */
+    public setValue(value: SerializableInputValue<TType>) {
+        if (this.validator(value)) {
+            this.value = value;
+        }
     }
 
     /** Incoming Connection */

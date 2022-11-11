@@ -1,22 +1,27 @@
-import { Output } from 'alma-graph';
+import { float, Lit } from '@thi.ng/shader-ast';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
+import { useSchematic } from '../../../hooks/useSchematic/useSchematic';
 import { Input } from '../../Input/Input';
 import { BaseControl } from '../BaseControl/BaseControl';
 import { numberControlInputStyles, numberControlNameStyles, numberControlRangeStyles } from './NumberControl.styles';
 import { INumberControlProps } from './NumberControl.types';
 
 export const NumberControl = observer(({ port }: INumberControlProps) => {
+    const schematic = useSchematic();
     const onChange = React.useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            // port.setValue(e.target.valueAsNumber);
+            port.setValue(float(e.target.valueAsNumber));
+            schematic.context?.reset();
         },
-        [port]
+        [port, schematic]
     );
 
-    const isOutput = React.useMemo(() => port instanceof Output, [port]);
-    const disabled = React.useMemo(() => isOutput || port.connected, [isOutput, port.connected]);
+    const disabled = React.useMemo(() => port.connected, [port.connected]);
+
+    const resolvedValue = port.node.resolveValue(port.value);
+    const value = resolvedValue.type === 'float' && (resolvedValue as Lit<'float'>).val;
 
     return (
         <BaseControl>
@@ -25,7 +30,7 @@ export const NumberControl = observer(({ port }: INumberControlProps) => {
                 className={numberControlRangeStyles}
                 placeholder="Number"
                 onChange={onChange}
-                // value={port.node.resolveValue(port.value)}
+                value={value}
                 type="range"
                 disabled={disabled}
             />
@@ -33,7 +38,7 @@ export const NumberControl = observer(({ port }: INumberControlProps) => {
                 className={numberControlInputStyles}
                 placeholder="Number"
                 onChange={onChange}
-                // value={port.node.resolveValue(port.value)}
+                value={value}
                 type="number"
                 disabled={disabled}
             />
