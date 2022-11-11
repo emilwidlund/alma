@@ -1,11 +1,9 @@
 import { css } from '@emotion/css';
 
 export const panelWrapperStyles = css`
-    --panel-background-color: var(--light-background);
-
     display: flex;
     flex-direction: column;
-    background-color: var(---panel-background-color);
+    background-color: var(--panel-background);
     width: auto;
     height: auto;
 `;

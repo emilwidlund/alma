@@ -8,6 +8,7 @@ import { WebGLNodeType } from '../../types';
 import { ISimplexNoiseNodeInputs, ISimplexNoiseNodeOutputs, ISimplexNoiseNodeProps } from './SimplexNoiseNode.types';
 
 export class SimplexNoiseNode extends Node {
+    name = 'Simplex Noise';
     type = WebGLNodeType.SIMPLEX_NOISE;
 
     inputs: ISimplexNoiseNodeInputs;

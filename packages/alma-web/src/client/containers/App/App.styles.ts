@@ -8,7 +8,7 @@ injectGlobal`
         height: 100%;
         font-family: 'Inter', sans-serif; 
         font-size: 22px;
-        color: var(--text-dark-color);
+        color: var(--text-neutral-color);
         line-height: 1.8rem;
         font-feature-settings: "ss01" 1, "ss02" 1, "cv01" 1;
     }
@@ -38,7 +38,6 @@ injectGlobal`
         }
 
         p {
-
             font-size: var(--font-size-sm);
         }
 
@@ -60,7 +59,7 @@ injectGlobal`
 
         // Colors
         --dark-background: #252628;
-        --node-background: #2a2b2d;
+        --panel-background: #2a2b2d;
         --light-background: #fff;
         --neutral-background: #f4f4f4;
         --border-color: #565557;
