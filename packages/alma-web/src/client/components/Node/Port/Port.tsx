@@ -15,6 +15,7 @@ export const Port = observer(({ port }: IPortProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
     const schematic = useSchematic();
     const { onMouseEnter, onMouseLeave, isHovered } = useHover();
+    const { onMouseEnter: onPortTypeEnter, onMouseLeave: onPortTypeLeave, isHovered: isPortTypeHovered } = useHover();
 
     const isOutput = React.useMemo(() => port instanceof Output, [port]);
     const tooltipPosition = React.useMemo(() => (isOutput ? TooltipPosition.RIGHT : TooltipPosition.LEFT), [isOutput]);
@@ -65,20 +66,28 @@ export const Port = observer(({ port }: IPortProps) => {
         <Tooltip text={startCase(port.type)} position={tooltipPosition}>
             <div
                 ref={ref}
-                className={portWrapperStyles(port.connected, isOutput, visuallyDisabled)}
+                className={portWrapperStyles(
+                    port.connected ||
+                        (!schematic.connectionDraft && isHovered) ||
+                        (!!schematic.connectionDraft && !visuallyDisabled),
+                    isOutput,
+                    visuallyDisabled
+                )}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onMouseUp={onMouseUp}
                 onMouseDown={onMouseDown}
             >
                 <div
-                    className={portTypeStyles(port.connected, isOutput, isHovered && !visuallyDisabled)}
+                    className={portTypeStyles(port.connected, isOutput, isPortTypeHovered && !visuallyDisabled)}
+                    onMouseEnter={onPortTypeEnter}
+                    onMouseLeave={onPortTypeLeave}
                     onClick={onClick}
                 >
-                    {port.connected && isHovered && !visuallyDisabled ? (
+                    {port.connected && isPortTypeHovered && !visuallyDisabled ? (
                         <Icon name="close" size={12} />
                     ) : (
-                        port.type.charAt(0).toUpperCase()
+                        <span>{port.type.charAt(0).toUpperCase()}</span>
                     )}
                 </div>
                 <span>{port.name}</span>

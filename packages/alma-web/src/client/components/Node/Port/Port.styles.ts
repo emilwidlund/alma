@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 
-export const portWrapperStyles = (connected: boolean, reverseDirection: boolean, disabled: boolean) => css`
+export const portWrapperStyles = (highlighted: boolean, reverseDirection: boolean, disabled: boolean) => css`
     position: relative;
     display: flex;
     flex-direction: row;
@@ -17,7 +17,7 @@ export const portWrapperStyles = (connected: boolean, reverseDirection: boolean,
 
     ${reverseDirection ? 'padding-left' : 'padding-right'}: 16px;
     flex-direction: ${reverseDirection ? 'row-reverse' : 'row'};
-    color: ${connected ? 'var(--text-light-color)' : 'var(--text-neutral-color)'};
+    color: ${highlighted ? 'var(--text-light-color)' : 'var(--text-neutral-color)'};
     opacity: ${disabled ? 0.33 : 1};
 `;
 
@@ -41,7 +41,7 @@ export const portTypeStyles = (connected: boolean, isOutput: boolean, isHovered:
     color: ${connected || isHovered ? 'var(--text-light-color)' : 'var(--text-neutral-color)'};
     width: 16px;
     height: 16px;
-    transition: color 0.2s, background-color 0.2s, box-shadow 0.15s;
+    transition: color 0.15s, background-color 0.15s;
 
     ${isOutput ? 'margin-left: 8px;' : 'margin-right: 8px;'}
 `;

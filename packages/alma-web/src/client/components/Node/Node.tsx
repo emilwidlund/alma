@@ -74,7 +74,7 @@ export const Node = observer(
 );
 
 const NodeAction = ({ onClick, color }: INodeActionProps) => {
-    return <Icon className={nodeActionStyles} name="circle" size={10} color={color} onClick={onClick} />;
+    return <Icon className={nodeActionStyles} name="circle" size={12} color={color} onClick={onClick} />;
 };
 
 const NodePorts = ({ ports, isOutputWrapper }: INodePortsProps) => {
