@@ -4,7 +4,8 @@ export enum WebGLNodeType {
     SINE = 'SINE',
     MODULO = 'MODULO',
     TIME = 'TIME',
-    UV = 'UV'
+    UV = 'UV',
+    VECTOR_2 = 'VECTOR_2'
 }
 
 export interface ClassConstructor<T> {
