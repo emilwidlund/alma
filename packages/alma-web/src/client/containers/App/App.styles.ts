@@ -1,4 +1,4 @@
-import { injectGlobal } from '@emotion/css';
+import { css, injectGlobal } from '@emotion/css';
 
 injectGlobal`
     @import url('https://rsms.me/inter/inter.css');
@@ -71,4 +71,10 @@ injectGlobal`
         --system-red: #ff4444;
         --system-yellow: #ffdd00;
     }
+`;
+
+export const transitionGroupWrapper = css`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 `;

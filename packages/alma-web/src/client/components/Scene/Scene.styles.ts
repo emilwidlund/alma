@@ -1,6 +1,7 @@
 import { css } from '@emotion/css';
 
 export const sceneWrapperStyles = css`
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
