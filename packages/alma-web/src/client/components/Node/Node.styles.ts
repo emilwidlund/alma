@@ -42,6 +42,16 @@ export const nodeHeaderWrapperStyles = (active: boolean) => css`
     letter-spacing: 0.1em;
 `;
 
+export const nodeHeaderNameWrapperStyle = css`
+    display: flex;
+    flex-direction: row;
+
+    & > :first-child {
+        margin-right: 8px;
+        line-height: 0.6;
+    }
+`;
+
 export const nodeHeaderActionsStyles = (active: boolean) => css`
     opacity: ${active ? 1 : 0};
     transition: opacity 0.15s;

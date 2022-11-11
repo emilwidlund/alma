@@ -7,7 +7,7 @@ import { WebGLNodeType } from '../../types';
 import { ISineNodeInputs, ISineNodeOutputs, ISineNodeProps } from './SineNode.types';
 
 export class SineNode extends Node {
-    static icon = 'water';
+    static icon = 'all_inclusive';
     static description = 'Performs a sine operation on input.';
 
     type = WebGLNodeType.SINE;

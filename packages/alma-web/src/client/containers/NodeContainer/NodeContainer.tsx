@@ -53,6 +53,8 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
             onFocus={onFocus}
             onDrag={handleOnDrag}
             position={node.data.position}
+            // @ts-ignore
+            icon={node.constructor.icon}
             actions={[
                 {
                     color: 'var(--system-red)',

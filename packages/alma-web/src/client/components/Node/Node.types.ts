@@ -12,6 +12,7 @@ export interface INodeProps {
     outputs: Output<any>[];
     position: INodePosition;
     active: boolean;
+    icon: string;
     actions?: INodeActionProps[];
     onDrag: DraggableEventHandler;
     onClick?(e: React.MouseEvent<HTMLDivElement>): void;

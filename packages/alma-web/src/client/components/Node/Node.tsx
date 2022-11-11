@@ -12,14 +12,15 @@ import {
     nodeWrapperStyles,
     nodePortsWrapperStyles,
     nodeHeaderActionsStyles,
-    nodeActionStyles
+    nodeActionStyles,
+    nodeHeaderNameWrapperStyle
 } from './Node.styles';
 import { INodeActionProps, INodePortsProps, INodeProps } from './Node.types';
 import { Port } from './Port/Port';
 
 export const Node = observer(
     React.forwardRef<HTMLDivElement, INodeProps>(
-        ({ name, active, inputs, outputs, position, actions, onDrag, onClick, onFocus }, ref) => {
+        ({ name, active, inputs, outputs, position, actions, icon, onDrag, onClick, onFocus }, ref) => {
             const [isCollapsed, setCollapsed] = React.useState(false);
             const { onMouseEnter, onMouseLeave, isHovered } = useHover();
 
@@ -53,7 +54,10 @@ export const Node = observer(
                         tabIndex={0}
                     >
                         <div className={cx(nodeHeaderWrapperStyles(active), 'handle')}>
-                            <span>{name}</span>
+                            <div className={nodeHeaderNameWrapperStyle}>
+                                <Icon name={icon} size={16} outlined />
+                                <span>{name}</span>
+                            </div>
                             {!!actions?.length && (
                                 <div className={nodeHeaderActionsStyles(isHovered || active)}>
                                     {actions.map((action, index) => (
