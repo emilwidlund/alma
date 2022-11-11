@@ -18,6 +18,8 @@ export class TimeNode extends Node {
     constructor(context: WebGLContext, props: ITimeNodeProps = {}) {
         super(context, props);
 
+        console.log(context.uniforms);
+
         this.inputs = {};
 
         this.outputs = {

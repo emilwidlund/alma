@@ -1,4 +1,3 @@
-import { draw, ModelSpec } from '@thi.ng/webgl';
 import * as React from 'react';
 
 import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
@@ -7,47 +6,39 @@ import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { SchematicContainer } from '../../containers/SchematicContainer/SchematicContainer';
 import { SchematicProvider } from '../../providers/SchematicProvider/SchematicProvider';
 import { WebGLContext } from '../../webgl/models/WebGLContext/WebGLContext';
-import { setupWebGL } from '../../webgl/setup';
 import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
 
 export const SchematicRoute = () => {
     const ref = React.useRef<HTMLCanvasElement>(null);
-    const t0 = React.useRef(Date.now());
-    const frameId = React.useRef<number | null>();
     const [context, setContext] = React.useState<WebGLContext | undefined>();
 
-    const render = React.useCallback((model: ModelSpec) => {
-        frameId.current = requestAnimationFrame(render.bind(this, model));
-
-        const time = (Date.now() - t0.current) * 0.001;
-        model.uniforms!.time = time;
-        draw(model);
-    }, []);
-
     React.useEffect(() => {
-        const { model, context: ctx } = setupWebGL(ref.current);
-
-        setContext(ctx);
-
-        frameId.current = requestAnimationFrame(render.bind(this, model));
-
-        document.addEventListener('fullscreenchange', () => {
-            if (frameId.current) {
-                cancelAnimationFrame(frameId.current);
-            }
-
-            const { model, context: ctx } = setupWebGL(ref.current);
-
-            model.uniforms!.resolution = [
-                ref.current?.getContext('webgl')?.drawingBufferWidth || 0,
-                ref.current?.getContext('webgl')?.drawingBufferHeight || 0
-            ];
+        if (ref.current) {
+            const ctx = new WebGLContext(ref.current);
 
             setContext(ctx);
 
-            frameId.current = requestAnimationFrame(render.bind(this, model));
-        });
+            document.addEventListener('fullscreenchange', () => {
+                if (ref.current) {
+                    const ctx = new WebGLContext(ref.current);
+
+                    ctx.setUniform('resolution', [ctx.size.width, ctx.size.height]);
+
+                    setContext(ctx);
+                }
+            });
+        }
     }, []);
+
+    React.useEffect(() => {
+        const c = context;
+
+        c?.render();
+
+        return () => {
+            c?.dispose();
+        };
+    }, [context]);
 
     return (
         <SchematicProvider context={context}>
