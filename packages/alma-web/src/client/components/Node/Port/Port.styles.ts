@@ -21,7 +21,12 @@ export const portWrapperStyles = (highlighted: boolean, reverseDirection: boolea
     opacity: ${disabled ? 0.33 : 1};
 `;
 
-export const portTypeStyles = (connected: boolean, isOutput: boolean, isHovered: boolean) => css`
+export const portTypeStyles = (
+    connected: boolean,
+    isOutput: boolean,
+    isParentHovered: boolean,
+    isHovered: boolean
+) => css`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,10 +40,10 @@ export const portTypeStyles = (connected: boolean, isOutput: boolean, isHovered:
         ? isHovered
             ? 'var(--system-red)'
             : 'var(--accent-color)'
-        : isHovered
+        : isParentHovered
         ? 'var(--accent-color)'
         : 'rgba(255, 255, 255, 0.1)'};
-    color: ${connected || isHovered ? 'var(--text-light-color)' : 'var(--text-neutral-color)'};
+    color: ${connected || isParentHovered ? 'var(--text-light-color)' : 'var(--text-neutral-color)'};
     width: 16px;
     height: 16px;
     transition: color 0.15s, background-color 0.15s;

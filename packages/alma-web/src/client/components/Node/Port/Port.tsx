@@ -79,7 +79,12 @@ export const Port = observer(({ port }: IPortProps) => {
                 onMouseDown={onMouseDown}
             >
                 <div
-                    className={portTypeStyles(port.connected, isOutput, isPortTypeHovered && !visuallyDisabled)}
+                    className={portTypeStyles(
+                        port.connected,
+                        isOutput,
+                        isHovered && !visuallyDisabled,
+                        isPortTypeHovered && !visuallyDisabled
+                    )}
                     onMouseEnter={onPortTypeEnter}
                     onMouseLeave={onPortTypeLeave}
                     onClick={onClick}
