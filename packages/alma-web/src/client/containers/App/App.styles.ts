@@ -47,6 +47,10 @@ injectGlobal`
         #root {
             height: 100%;
         }
+
+        input {
+            color: var(--text-light-color);
+        }
     }
 `;
 
