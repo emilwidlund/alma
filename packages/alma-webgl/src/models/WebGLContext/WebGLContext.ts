@@ -5,15 +5,15 @@ import { Context, IContextProps, INodeSerialized, Node } from 'alma-graph';
 import { isFunction } from 'lodash';
 import { action, computed, IReactionDisposer, makeObservable, observable, reaction } from 'mobx';
 
-import { nodes } from '../../../../nodes/webgl';
-import { WebGLContextNode } from '../../../../nodes/webgl/core/WebGLContextNode/WebGLContextNode';
+import { nodes } from '../..';
+import { WebGLContextNode } from '../../nodes/core/WebGLContextNode/WebGLContextNode';
 import { DrawingSize, ICompiledUniforms } from './WebGLContext.types';
 
 export class WebGLContext extends Context<WebGLContextNode> {
     /** GLSL Target */
     public target!: GLSLTarget;
     /** Canvas Element */
-    public canvas: HTMLCanvasElement;
+    public ctx: WebGL2RenderingContext;
     /** Uniforms */
     public uniforms!: ICompiledUniforms;
     /** WebGL Model Spec */
@@ -25,16 +25,15 @@ export class WebGLContext extends Context<WebGLContextNode> {
     /** Internal Connection Reaction */
     public connectionReactionDisposer?: IReactionDisposer;
 
-    constructor(canvas: HTMLCanvasElement, props: IContextProps = {}) {
+    constructor(ctx: WebGL2RenderingContext, props: IContextProps = {}) {
         super(props);
 
-        this.canvas = canvas;
+        this.ctx = ctx;
         this.model = this.createModel();
         this.root = this.initialize();
 
         makeObservable(this, {
             root: observable,
-            ctx: computed,
             size: computed,
             setUniform: action
         });
@@ -44,17 +43,6 @@ export class WebGLContext extends Context<WebGLContextNode> {
         this.ctx.viewport(0, 0, this.size.width, this.size.height);
 
         this.render();
-    }
-
-    /** WebGL Context */
-    public get ctx(): WebGLRenderingContext {
-        const context = this.canvas.getContext('webgl');
-
-        if (!context) {
-            throw new Error('WebGL Context could not be initialized');
-        }
-
-        return context;
     }
 
     /** Drawing Buffer Size */

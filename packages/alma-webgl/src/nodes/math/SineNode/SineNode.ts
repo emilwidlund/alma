@@ -2,8 +2,8 @@ import { float, sin } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../../client/webgl/models/WebGLContext/WebGLContext';
-import { WebGLNodeType } from '../../types';
+import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { WebGLNodeType } from '../../../types';
 import { ISineNodeInputs, ISineNodeOutputs, ISineNodeProps } from './SineNode.types';
 
 export class SineNode extends Node {

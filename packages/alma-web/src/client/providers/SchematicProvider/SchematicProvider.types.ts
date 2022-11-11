@@ -1,7 +1,6 @@
 import { Input, Node, Output } from 'alma-graph';
+import { WebGLContext } from 'alma-webgl';
 import * as React from 'react';
-
-import { WebGLContext } from '../../webgl/models/WebGLContext/WebGLContext';
 
 export type ISchematicProviderProps = React.PropsWithChildren<{
     context: WebGLContext | undefined;

@@ -2,8 +2,8 @@ import { float, vec2 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../../client/webgl/models/WebGLContext/WebGLContext';
-import { WebGLNodeType } from '../../types';
+import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { WebGLNodeType } from '../../../types';
 import { IVector2NodeInputs, IVector2NodeOutputs, IVector2NodeProps } from './Vector2Node.types';
 
 export class Vector2Node extends Node {

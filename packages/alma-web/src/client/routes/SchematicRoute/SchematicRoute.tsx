@@ -1,12 +1,7 @@
 import { Node } from 'alma-graph';
+import { WebGLContext, TimeNode, SineNode, UVNode, SimplexNoiseNode, ClassConstructor, nodes } from 'alma-webgl';
 import * as React from 'react';
 
-import { nodes } from '../../../nodes/webgl';
-import { TimeNode } from '../../../nodes/webgl/core/TimeNode/TimeNode';
-import { UVNode } from '../../../nodes/webgl/core/UVNode/UVNode';
-import { SineNode } from '../../../nodes/webgl/math/SineNode/SineNode';
-import { SimplexNoiseNode } from '../../../nodes/webgl/noise/SimplexNoiseNode/SimplexNoiseNode';
-import { ClassConstructor } from '../../../nodes/webgl/types';
 import { CommandPalette } from '../../components/CommandPalette/CommandPalette';
 import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
@@ -14,7 +9,6 @@ import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { SchematicContainer } from '../../containers/SchematicContainer/SchematicContainer';
 import { useKeyPress } from '../../hooks/useKeyPress/useKeyPress';
 import { SchematicProvider } from '../../providers/SchematicProvider/SchematicProvider';
-import { WebGLContext } from '../../webgl/models/WebGLContext/WebGLContext';
 import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
 
 export const SchematicRoute = () => {
@@ -25,7 +19,13 @@ export const SchematicRoute = () => {
 
     React.useEffect(() => {
         if (ref.current) {
-            const ctx = new WebGLContext(ref.current);
+            const gl = ref.current.getContext('webgl2');
+
+            if (!gl) {
+                throw new Error('WebGL could not be initialized');
+            }
+
+            const ctx = new WebGLContext(gl);
 
             const time = new TimeNode(ctx, { data: { position: { x: 60, y: 500 } } });
             const sine = new SineNode(ctx, { data: { position: { x: 400, y: 500 } } });
@@ -39,7 +39,7 @@ export const SchematicRoute = () => {
             uv.outputs.uv.connect(simplexNoise.inputs.uv);
             simplexNoise.outputs.output.connect(ctx.root.inputs.color);
 
-            const restored = new WebGLContext(ref.current, JSON.parse(JSON.stringify(ctx)));
+            const restored = new WebGLContext(gl, JSON.parse(JSON.stringify(ctx)));
 
             setContext(restored);
 
@@ -65,7 +65,7 @@ export const SchematicRoute = () => {
         (node: ClassConstructor<Node>) => {
             return () => {
                 if (context) {
-                    const n = new node(context);
+                    new node(context);
                 }
             };
         },

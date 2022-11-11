@@ -4849,7 +4849,7 @@
     "require-from-string" "^2.0.2"
     "uri-js" "^4.2.2"
 
-"alma-app@file:C:\\projects\\alma\\packages\\alma-app":
+"alma-app@file:/Users/ewidlund/Projects/alma/packages/alma-app":
   "resolved" "file:packages/alma-app"
   "version" "1.0.0"
   dependencies:
@@ -4880,7 +4880,7 @@
     "react-native-screens" "~3.15.0"
     "react-native-svg" "12.3.0"
 
-"alma-graph@*", "alma-graph@file:C:\\projects\\alma\\packages\\alma-graph":
+"alma-graph@*", "alma-graph@file:/Users/ewidlund/Projects/alma/packages/alma-graph":
   "resolved" "file:packages/alma-graph"
   "version" "1.0.0"
   dependencies:
@@ -4893,7 +4893,7 @@
     "typescript" "^4.8.4"
     "uuid" "^9.0.0"
 
-"alma-server@file:C:\\projects\\alma\\packages\\alma-server":
+"alma-server@file:/Users/ewidlund/Projects/alma/packages/alma-server":
   "resolved" "file:packages/alma-server"
   "version" "1.0.0"
   dependencies:
@@ -4910,7 +4910,7 @@
     "typedi" "^0.10.0"
     "uuid" "^8.3.2"
 
-"alma-web@file:C:\\projects\\alma\\packages\\alma-web":
+"alma-web@file:/Users/ewidlund/Projects/alma/packages/alma-web":
   "resolved" "file:packages/alma-web"
   "version" "1.0.0"
   dependencies:
@@ -4923,6 +4923,7 @@
     "@types/react-dom" "^17.0.11"
     "@types/uuid" "^8.3.4"
     "alma-graph" "*"
+    "alma-webgl" "*"
     "color" "^4.2.3"
     "copy-webpack-plugin" "^10.2.4"
     "dotenv" "^16.0.0"
@@ -4941,6 +4942,18 @@
     "uuid" "^8.3.2"
     "webpack-cli" "^4.10.0"
     "webpack-dev-server" "^4.9.2"
+
+"alma-webgl@*", "alma-webgl@file:/Users/ewidlund/Projects/alma/packages/alma-webgl":
+  "resolved" "file:packages/alma-webgl"
+  "version" "1.0.0"
+  dependencies:
+    "@thi.ng/shader-ast" "^0.12.29"
+    "@thi.ng/shader-ast-glsl" "^0.4.29"
+    "@thi.ng/webgl" "^6.2.13"
+    "alma-graph" "*"
+    "lodash" "^4.17.21"
+    "mobx" "^6.6.2"
+    "typescript" "^4.8.4"
 
 "alphanum-sort@^1.0.0":
   "integrity" "sha512-0FcBfdcmaumGPQ0qPn7Q5qTgz/ooXgIyp1rf8ik5bGX8mpE2YHjC0P/eyQvxu1GURYQgq9ozf2mteQ5ZD9YiyQ=="
@@ -5661,6 +5674,13 @@
   "integrity" "sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA=="
   "resolved" "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz"
   "version" "2.2.0"
+
+"bindings@^1.5.0":
+  "integrity" "sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ=="
+  "resolved" "https://registry.npmjs.org/bindings/-/bindings-1.5.0.tgz"
+  "version" "1.5.0"
+  dependencies:
+    "file-uri-to-path" "1.0.0"
 
 "bl@^2.2.1":
   "integrity" "sha512-6Pesp1w0DEX1N550i/uGV/TqucVL4AM/pgThFSN/Qq9si1/DF9aIHs1BxD8V/QU0HoeHO6cQRTAuYnLPKq1e4g=="
@@ -9232,6 +9252,19 @@
   "integrity" "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw=="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
+
+"fsevents@^1.2.7":
+  "integrity" "sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-1.2.13.tgz"
+  "version" "1.2.13"
+  dependencies:
+    "bindings" "^1.5.0"
+    "nan" "^2.12.1"
+
+"fsevents@^2.3.2", "fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
@@ -12922,6 +12955,11 @@
     "any-promise" "^1.0.0"
     "object-assign" "^4.0.1"
     "thenify-all" "^1.0.0"
+
+"nan@^2.12.1":
+  "integrity" "sha512-2ZTgtl0nJsO0KQCjEpxcIr5D+Yv90plTitZt9JBfQvVJDS5seMl3FOvsh3+9CoYWXf/1l5OaZzzF6nDm4cagaQ=="
+  "resolved" "https://registry.npmjs.org/nan/-/nan-2.17.0.tgz"
+  "version" "2.17.0"
 
 "nanoid@^3.1.23":
   "integrity" "sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw=="

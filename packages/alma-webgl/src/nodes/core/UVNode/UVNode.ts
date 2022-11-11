@@ -3,8 +3,8 @@ import { aspectCorrectedUV } from '@thi.ng/shader-ast-stdlib';
 import { Node, INodeInputs, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../../client/webgl/models/WebGLContext/WebGLContext';
-import { WebGLNodeType } from '../../types';
+import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { WebGLNodeType } from '../../../types';
 import { IUVNodeOutputs, IUVNodeProps } from './UVNode.types';
 
 export class UVNode extends Node {

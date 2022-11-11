@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "lib": ["es2021", "DOM"],
+        "target": "ES6",
+        "module": "commonjs",
+        "outDir": "build",
+        "strict": true,
+        "moduleResolution": "node",
+        "downlevelIteration": true,
+        "skipLibCheck": true,
+        "declaration": true
+    },
+    "include": ["./src"]
+}
