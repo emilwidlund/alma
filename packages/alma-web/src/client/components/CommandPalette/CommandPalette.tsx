@@ -71,7 +71,7 @@ export const CommandPalette = ({ items, onClose }: ICommandLineProps) => {
     return (
         <div className={commandPaletteWrapperStyles}>
             <div className={commandPaletteHeaderStyles}>
-                <span>Command Line</span>
+                <span>Command Palette</span>
             </div>
             <div className={commandPaletteInputStyles}>
                 <input
