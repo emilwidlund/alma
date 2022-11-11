@@ -3,14 +3,14 @@ import { css, injectGlobal } from '@emotion/css';
 injectGlobal`
     @import url('https://rsms.me/inter/inter.css');
     @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+    @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
     html { 
         height: 100%;
         font-family: 'Inter', sans-serif; 
         font-size: 22px;
         color: var(--text-neutral-color);
-        line-height: 1.8rem;
-        font-feature-settings: "ss01" 1, "ss02" 1, "cv01" 1;
+        font-feature-settings: "ss01" 1, "cv01" 1;
     }
 
     @supports (font-variation-settings: normal) {
@@ -39,6 +39,7 @@ injectGlobal`
 
         p {
             font-size: var(--font-size-sm);
+            line-height: 1rem;
         }
 
         #root {
@@ -53,7 +54,7 @@ injectGlobal`
         --font-size-hero: 5em;
         --font-size-xl: 4em;
         --font-size-lg: 2.5em;
-        --font-size-md: 2em;
+        --font-size-md: 1.2em;
         --font-size-sm: 1em;
         --font-size-xs: .8em;
 

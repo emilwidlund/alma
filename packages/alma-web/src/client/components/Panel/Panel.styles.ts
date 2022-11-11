@@ -4,15 +4,11 @@ export const panelWrapperStyles = css`
     display: flex;
     flex-direction: column;
     background-color: var(--panel-background);
-    width: auto;
-    height: auto;
-`;
-
-export const panelResizableStyles = css`
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    width: 300px;
+    border-radius: 32px;
     box-sizing: border-box;
+    border: 1px solid var(--border-color);
+    overflow: auto;
 `;
 
 export const panelHeaderStyles = css`
@@ -26,12 +22,4 @@ export const panelContentStyles = css`
     flex-direction: column;
     flex-grow: 1;
     padding: 24px 16px;
-`;
-
-export const panelHandleStyles = (direction: string, dimension: string) => css`
-    --panel-handle-color: var(--border-color);
-
-    ${direction}: 0px !important;
-    ${dimension}: 1px !important;
-    background-color: var(--panel-handle-color);
 `;

@@ -5,8 +5,8 @@ import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { SchematicContainer } from '../../containers/SchematicContainer/SchematicContainer';
-import { WebGLContext } from '../../webgl/models/WebGLContext/WebGLContext';
 import { SchematicProvider } from '../../providers/SchematicProvider/SchematicProvider';
+import { WebGLContext } from '../../webgl/models/WebGLContext/WebGLContext';
 import { setupWebGL } from '../../webgl/setup';
 import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
 
@@ -40,8 +40,8 @@ export const SchematicRoute = () => {
                     <NavBarItem to="/dashboard" children="Dashboard" />
                 </NavBar>
                 <div className={schematicRouteWrapperStyles}>
-                    <SchematicContainer ref={ref} />
-                    <PropertyPanel />
+                    <SchematicContainer />
+                    <PropertyPanel ref={ref} />
                 </div>
             </Scene>
         </SchematicProvider>

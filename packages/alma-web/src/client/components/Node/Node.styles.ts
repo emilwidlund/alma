@@ -13,6 +13,7 @@ export const nodeWrapperStyles = (active: boolean) => css`
     z-index: ${active ? 9 : 0};
     border-radius: 12px;
     transition: box-shadow 0.15s;
+    font-feature-settings: 'ss02' 1;
 
     :focus {
         outline: none;

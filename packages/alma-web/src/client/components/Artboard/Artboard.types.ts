@@ -1,1 +1,6 @@
-export interface IArtboardProps {}
+export interface IArtboardProps {
+    size: {
+        width: number;
+        height: number;
+    };
+}

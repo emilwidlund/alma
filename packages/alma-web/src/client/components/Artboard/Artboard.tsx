@@ -4,11 +4,11 @@ import Draggable from 'react-draggable';
 import { artboardWrapperStyles } from './Artboard.styles';
 import { IArtboardProps } from './Artboard.types';
 
-export const Artboard = React.forwardRef<HTMLCanvasElement>((_: IArtboardProps, ref) => {
+export const Artboard = React.forwardRef<HTMLCanvasElement, IArtboardProps>(({ size }, ref) => {
     return (
-        <Draggable bounds={{ top: 0, right: 0 }}>
+        <Draggable bounds="parent">
             <div className={artboardWrapperStyles}>
-                <canvas ref={ref} width={500} height={320} />
+                <canvas ref={ref} width={size.width} height={size.height} />
             </div>
         </Draggable>
     );

@@ -1,5 +1,5 @@
 import { Type } from '@thi.ng/shader-ast';
-import { defaultsDeep, lowerCase, startCase } from 'lodash';
+import { defaultsDeep } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
@@ -32,7 +32,7 @@ export abstract class Node {
 
         const { id, name, data } = defaultsDeep(props, {
             id: uuid(),
-            name: startCase(lowerCase(this.constructor.name)),
+            name: this.constructor.name.replace('Node', '').trimEnd(),
             inputs: {},
             outputs: {},
             data: {

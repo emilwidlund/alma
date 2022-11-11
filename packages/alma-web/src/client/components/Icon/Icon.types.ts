@@ -1,8 +1,9 @@
 export interface IIconProps {
+    className?: string;
     name: string;
     size?: number;
     color?: string;
-    className?: string;
+    outlined?: boolean;
     onMouseEnter?(e: React.MouseEvent<HTMLSpanElement, MouseEvent>): void;
     onMouseLeave?(e: React.MouseEvent<HTMLSpanElement, MouseEvent>): void;
     onMouseDown?(e: React.MouseEvent<HTMLSpanElement, MouseEvent>): void;

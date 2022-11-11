@@ -5,19 +5,25 @@ import { iconWrapperStyles } from './Icon.styles';
 import { IIconProps } from './Icon.types';
 
 export const Icon = ({
-    size,
     color,
+    size = 20,
+    outlined = false,
     onClick,
     onMouseDown,
     onMouseEnter,
     onMouseLeave,
     onMouseUp,
     name,
-    className
+    className: extraClassName
 }: IIconProps) => {
     return (
         <i
-            className={cx(iconWrapperStyles(size, color), 'icon', className)}
+            className={cx(
+                'material-symbols-outlined',
+                iconWrapperStyles(size, color, outlined),
+                'icon',
+                extraClassName
+            )}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             onMouseDown={onMouseDown}

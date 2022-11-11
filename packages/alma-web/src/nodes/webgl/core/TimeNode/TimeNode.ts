@@ -6,6 +6,10 @@ import { WebGLNodeType } from '../../types';
 import { ITimeNodeOutputs, ITimeNodeProps } from './TimeNode.types';
 
 export class TimeNode extends Node {
+    static icon = 'timer';
+    static description =
+        'The amount of seconds that has elapsed since rendering began. Can be used to drive effects over time.';
+
     type = WebGLNodeType.TIME;
 
     inputs: INodeInputs;
