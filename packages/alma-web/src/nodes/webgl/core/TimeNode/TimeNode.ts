@@ -7,8 +7,7 @@ import { ITimeNodeOutputs, ITimeNodeProps } from './TimeNode.types';
 
 export class TimeNode extends Node {
     static icon = 'timer';
-    static description =
-        'The amount of seconds that has elapsed since rendering began. Can be used to drive effects over time.';
+    static description = 'The amount of seconds that has elapsed since rendering began.';
 
     type = WebGLNodeType.TIME;
 
@@ -17,8 +16,6 @@ export class TimeNode extends Node {
 
     constructor(context: WebGLContext, props: ITimeNodeProps = {}) {
         super(context, props);
-
-        console.log(context.uniforms);
 
         this.inputs = {};
 

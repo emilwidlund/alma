@@ -7,8 +7,8 @@ export const panelWrapperStyles = css`
     width: 300px;
     border-radius: 32px;
     box-sizing: border-box;
-    border: 1px solid var(--border-color);
     overflow: auto;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
 `;
 
 export const panelHeaderStyles = css`

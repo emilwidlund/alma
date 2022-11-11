@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Icon } from '../Icon/Icon';
-import { artboardWrapperStyles, fullscreenIconStyles } from './Artboard.styles';
+import { artboardWrapperStyles, artboardHeaderStyles } from './Artboard.styles';
 import { IArtboardProps } from './Artboard.types';
 
 export const Artboard = React.forwardRef<HTMLCanvasElement, IArtboardProps>(({ size }, ref) => {
@@ -22,7 +22,7 @@ export const Artboard = React.forwardRef<HTMLCanvasElement, IArtboardProps>(({ s
 
     const onFullscreenClick = React.useCallback(() => {
         if (wrapperRef.current) {
-            wrapperRef.current.requestFullscreen();
+            wrapperRef.current.lastElementChild?.requestFullscreen();
         }
     }, []);
 
@@ -30,8 +30,11 @@ export const Artboard = React.forwardRef<HTMLCanvasElement, IArtboardProps>(({ s
 
     return (
         <div ref={wrapperRef} className={artboardWrapperStyles}>
+            <div className={artboardHeaderStyles}>
+                <span>Artboard</span>
+                <Icon name="fullscreen" size={16} onClick={onFullscreenClick} />
+            </div>
             <canvas ref={ref} width={canvasSize.width} height={canvasSize.height} />
-            <Icon className={fullscreenIconStyles} name="fullscreen" onClick={onFullscreenClick} />
         </div>
     );
 });
