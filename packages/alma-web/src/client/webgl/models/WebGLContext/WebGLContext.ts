@@ -3,7 +3,7 @@ import { GLSLTarget } from '@thi.ng/shader-ast-glsl';
 import { compileModel, defQuadModel, defShader, draw, FX_SHADER_SPEC, ModelSpec, UniformValues } from '@thi.ng/webgl';
 import { Context, IContextProps, INodeSerialized, Node } from 'alma-graph';
 import { isFunction } from 'lodash';
-import { action, computed, makeObservable, observable } from 'mobx';
+import { action, computed, IReactionDisposer, makeObservable, observable, reaction } from 'mobx';
 
 import { nodes } from '../../../../nodes/webgl';
 import { WebGLContextNode } from '../../../../nodes/webgl/core/WebGLContextNode/WebGLContextNode';
@@ -22,6 +22,8 @@ export class WebGLContext extends Context<WebGLContextNode> {
     public frameId?: number;
     /** Start Time */
     public startTime?: number;
+    /** Internal Connection Reaction */
+    public connectionReactionDisposer?: IReactionDisposer;
 
     constructor(canvas: HTMLCanvasElement, props: IContextProps = {}) {
         super(props);
@@ -30,15 +32,17 @@ export class WebGLContext extends Context<WebGLContextNode> {
         this.model = this.createModel();
         this.root = this.initialize();
 
-        this.setUniform('resolution', [this.size.width, this.size.height]);
-        this.ctx.viewport(0, 0, this.size.width, this.size.height);
-
         makeObservable(this, {
             root: observable,
             ctx: computed,
             size: computed,
             setUniform: action
         });
+
+        this.setUniform('resolution', [this.size.width, this.size.height]);
+        this.ctx.viewport(0, 0, this.size.width, this.size.height);
+
+        this.render();
     }
 
     /** WebGL Context */
@@ -132,6 +136,14 @@ export class WebGLContext extends Context<WebGLContextNode> {
     /** Render Context */
     public render(): void {
         if (!this.frameId) {
+            /** Reset entire context if connections are updated */
+            this.connectionReactionDisposer = reaction(
+                () => this.connections.size,
+                () => {
+                    this.reset();
+                }
+            );
+
             this.model = this.createModel();
 
             this.setUniform('resolution', [this.size.width, this.size.height]);
@@ -157,6 +169,15 @@ export class WebGLContext extends Context<WebGLContextNode> {
             this.frameId = undefined;
         }
 
+        if (this.connectionReactionDisposer) {
+            this.connectionReactionDisposer();
+        }
+
         return this;
+    }
+
+    /** Resets Context */
+    public reset(): void {
+        this.dispose().render();
     }
 }

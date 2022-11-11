@@ -36,13 +36,9 @@ export const SchematicRoute = () => {
 
             setContext(restored);
 
-            console.log(restored);
-
-            restored.render();
-
             document.addEventListener('fullscreenchange', () => {
                 if (ref.current) {
-                    restored.dispose().render();
+                    restored.reset();
                 }
             });
 
