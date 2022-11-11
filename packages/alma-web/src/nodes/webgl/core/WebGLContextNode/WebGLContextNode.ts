@@ -7,6 +7,9 @@ import { WebGLNodeType } from '../../types';
 import { IWebGLContextNodeInputs, IWebGLContextNodeProps } from './WebGLContextNode.types';
 
 export class WebGLContextNode extends Node {
+    static icon = 'deblur';
+    static description = 'Root node of the graph. Injects its color to the renderer.';
+
     name = 'WebGL Context';
     type = WebGLNodeType.WEBGL_CONTEXT;
 

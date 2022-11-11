@@ -8,7 +8,13 @@ import { Icon } from '../../components/Icon/Icon';
 import { Panel } from '../../components/Panel/Panel';
 import { useSchematic } from '../../hooks/useSchematic/useSchematic';
 import { Size } from '../../types';
-import { propertyPanelInfoStyles, propertyPanelWrapperStyles } from './PropertyPanel.styles';
+import {
+    propertyPanelInfoHeadingStyles,
+    propertyPanelInfoStyles,
+    propertyPanelPortsContainerStyles,
+    propertyPanelWrapperStyles,
+    propertyPanelInfoParagraphStyles
+} from './PropertyPanel.styles';
 
 export const PropertyPanel = observer(
     React.forwardRef<HTMLCanvasElement>((_, ref) => {
@@ -41,15 +47,24 @@ export const PropertyPanel = observer(
                 <Artboard ref={ref} size={{ width: 300, height: 200 }} />
                 {schematic.selectedNode && (
                     <Panel className={propertyPanelInfoStyles}>
-                        {/* @ts-ignore */}
-                        <Icon name={schematic.selectedNode.constructor.icon} size={48} outlined />
-                        <Heading size={Size.SM}>{schematic.selectedNode.name}</Heading>
-                        {/* @ts-ignore */}
-                        <p>{schematic.selectedNode.constructor.description}</p>
+                        <Icon
+                            // @ts-ignore
+                            name={schematic.selectedNode.constructor.icon}
+                            size={36}
+                            color={getComputedStyle(document.documentElement).getPropertyValue('--accent-color')}
+                            outlined
+                        />
+                        <Heading className={propertyPanelInfoHeadingStyles} size={Size.SM}>
+                            {schematic.selectedNode.name}
+                        </Heading>
+                        <p className={propertyPanelInfoParagraphStyles}>
+                            {/* @ts-ignore */}
+                            {schematic.selectedNode.constructor.description}
+                        </p>
                     </Panel>
                 )}
                 {schematic.selectedNode && (!!inputControls.length || !!outputControls.length) && (
-                    <Panel>
+                    <Panel className={propertyPanelPortsContainerStyles}>
                         {!!inputControls.length && (
                             <>
                                 <Heading size={Size.SM}>Inputs</Heading>

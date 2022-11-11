@@ -1,4 +1,5 @@
 import { $xy } from '@thi.ng/shader-ast';
+import { aspectCorrectedUV } from '@thi.ng/shader-ast-stdlib';
 import { Node, INodeInputs, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
@@ -7,6 +8,9 @@ import { WebGLNodeType } from '../../types';
 import { IUVNodeOutputs, IUVNodeProps } from './UVNode.types';
 
 export class UVNode extends Node {
+    static icon = 'grid_on';
+    static description = "Aspect corrected UV coordinates based on the WebGL Context's resolution.";
+
     type = WebGLNodeType.UV;
 
     inputs: INodeInputs;
@@ -24,7 +28,10 @@ export class UVNode extends Node {
                     name: 'UV',
                     type: 'vec2',
                     value: () => {
-                        return $xy(context.target.gl_FragCoord);
+                        return aspectCorrectedUV(
+                            this.resolveValue($xy(context.target.gl_FragCoord)),
+                            context.uniforms.resolution
+                        );
                     }
                 })
             )

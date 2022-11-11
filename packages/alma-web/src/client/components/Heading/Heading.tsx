@@ -32,7 +32,7 @@ export const Heading = ({ className, children, size, signifier }: IHeadingProps)
         [signifier, children]
     );
 
-    return <Element className={cx(headingWrapperStyles, className)} children={content} />;
+    return <Element className={cx(headingWrapperStyles, 'heading', className)} children={content} />;
 };
 
 const HeadingSignifier = ({ children }: React.PropsWithChildren<{}>) => {

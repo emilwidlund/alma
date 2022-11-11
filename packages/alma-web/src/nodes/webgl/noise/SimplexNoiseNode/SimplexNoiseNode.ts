@@ -1,5 +1,5 @@
-import { defn, float, FloatSym, ret, sym, vec2, Vec2Sym, vec3, vec4 } from '@thi.ng/shader-ast';
-import { additive, aspectCorrectedUV, fit1101, snoise2 } from '@thi.ng/shader-ast-stdlib';
+import { defn, float, FloatSym, ret, sym, vec2, vec3, vec4 } from '@thi.ng/shader-ast';
+import { additive, fit1101, snoise2 } from '@thi.ng/shader-ast-stdlib';
 import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
@@ -63,22 +63,15 @@ export class SimplexNoiseNode extends Node {
                     type: 'vec4',
                     value: () => {
                         return defn('vec4', 'simplexNoise', [], () => {
-                            let uv: Vec2Sym;
                             let col: FloatSym;
 
                             return [
-                                (uv = sym(
-                                    aspectCorrectedUV(
-                                        this.resolveValue(this.inputs.uv.value),
-                                        context.uniforms.resolution
-                                    )
-                                )),
                                 // dynamically create a multi-octave version of `snoise2`
                                 // computed over 4 octaves w/ given phase shift and decay
                                 // factor (both per octave)
                                 (col = sym(
                                     additive('vec2', snoise2, this.resolveValue(this.inputs.octaves.value))(
-                                        uv,
+                                        this.resolveValue(this.inputs.uv.value),
                                         this.resolveValue(this.inputs.shift.value),
                                         this.resolveValue(this.inputs.decay.value)
                                     )

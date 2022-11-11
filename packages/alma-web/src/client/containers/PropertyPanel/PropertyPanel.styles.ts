@@ -13,8 +13,16 @@ export const propertyPanelInfoStyles = css`
     align-items: center;
     margin-top: 24px;
     text-align: center;
+`;
 
-    p {
-        margin-top: 12px;
-    }
+export const propertyPanelInfoHeadingStyles = css`
+    margin: 24px 0 8px;
+`;
+
+export const propertyPanelInfoParagraphStyles = css`
+    margin-bottom: 0;
+`;
+
+export const propertyPanelPortsContainerStyles = css`
+    margin-top: 24px;
 `;

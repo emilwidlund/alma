@@ -21,5 +21,5 @@ export const panelContentStyles = css`
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    padding: 24px 16px;
+    padding: 24px;
 `;

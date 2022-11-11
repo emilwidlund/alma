@@ -5,7 +5,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Scene } from '../../components/Scene/Scene';
 import { LandingRoute } from '../../routes/LandingRoute/LandingRoute';
 import { SchematicRoute } from '../../routes/SchematicRoute/SchematicRoute';
-import { transitionGroupWrapper } from './App.styles';
+import { transitionGroupWrapperStyles } from './App.styles';
 
 export const App = () => {
     return (
@@ -19,7 +19,7 @@ export const AppRoutes = () => {
     const location = useLocation();
 
     return (
-        <TransitionGroup className={transitionGroupWrapper}>
+        <TransitionGroup className={transitionGroupWrapperStyles}>
             {/*
             This is no different than other usage of
             <CSSTransition>, just make sure to pass
