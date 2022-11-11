@@ -13,10 +13,11 @@ import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
 export const SchematicRoute = () => {
     const ref = React.useRef<HTMLCanvasElement>(null);
     const t0 = React.useRef(Date.now());
+    const frameId = React.useRef<number | null>();
     const [context, setContext] = React.useState<WebGLContext | undefined>();
 
     const render = React.useCallback((model: ModelSpec) => {
-        requestAnimationFrame(render.bind(this, model));
+        frameId.current = requestAnimationFrame(render.bind(this, model));
 
         const time = (Date.now() - t0.current) * 0.001;
         model.uniforms!.time = time;
@@ -28,7 +29,24 @@ export const SchematicRoute = () => {
 
         setContext(ctx);
 
-        requestAnimationFrame(render.bind(this, model));
+        frameId.current = requestAnimationFrame(render.bind(this, model));
+
+        document.addEventListener('fullscreenchange', () => {
+            if (frameId.current) {
+                cancelAnimationFrame(frameId.current);
+            }
+
+            const { model, context: ctx } = setupWebGL(ref.current);
+
+            model.uniforms!.resolution = [
+                ref.current?.getContext('webgl')?.drawingBufferWidth || 0,
+                ref.current?.getContext('webgl')?.drawingBufferHeight || 0
+            ];
+
+            setContext(ctx);
+
+            frameId.current = requestAnimationFrame(render.bind(this, model));
+        });
     }, []);
 
     return (

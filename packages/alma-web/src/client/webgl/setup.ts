@@ -18,6 +18,8 @@ export const setupWebGL = (canvas: HTMLCanvasElement | null) => {
         throw new Error('WebGL Context could not be initialized');
     }
 
+    ctx.viewport(0, 0, ctx.drawingBufferWidth, ctx.drawingBufferHeight);
+
     const compileFragmentShader = (): ShaderFn => {
         return (
             gl: GLSLTarget,
@@ -51,7 +53,7 @@ export const setupWebGL = (canvas: HTMLCanvasElement | null) => {
         };
     };
 
-    const model = compileModel(ctx, {
+    const model = {
         ...defQuadModel({ uv: false }),
         shader: defShader(ctx, {
             ...FX_SHADER_SPEC,
@@ -62,7 +64,9 @@ export const setupWebGL = (canvas: HTMLCanvasElement | null) => {
                 mouse: ['vec2', [0, 0]]
             }
         })
-    });
+    };
+
+    compileModel(ctx, model);
 
     // @ts-ignore
     return { model, context };
