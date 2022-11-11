@@ -4,7 +4,6 @@ import * as React from 'react';
 import { useMultiKeyPress } from '../../hooks/useMultiPress/useMultiPress';
 import {
     commandPaletteFooterStyles,
-    commandPaletteHeaderStyles,
     commandPaletteInputStyles,
     commandPaletteWrapperStyles
 } from './CommandPalette.styles';
@@ -70,9 +69,6 @@ export const CommandPalette = ({ items, onClose }: ICommandLineProps) => {
 
     return (
         <div className={commandPaletteWrapperStyles}>
-            <div className={commandPaletteHeaderStyles}>
-                <span>Command Palette</span>
-            </div>
             <div className={commandPaletteInputStyles}>
                 <input
                     ref={inputRef}

@@ -17,14 +17,6 @@ export const commandPaletteWrapperStyles = css`
     z-index: 999;
 `;
 
-export const commandPaletteHeaderStyles = css`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 12px ${commandPaletteHorizontalPadding}px;
-    font-size: var(--font-size-sm);
-`;
-
 export const commandPaletteInputStyles = css`
     display: flex;
     flex-direction: column;

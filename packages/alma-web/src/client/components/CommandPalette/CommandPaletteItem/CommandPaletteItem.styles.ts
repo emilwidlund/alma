@@ -8,5 +8,8 @@ export const commandPaletteItemWrapperStyles = (active: boolean) => css`
     align-items: center;
     justify-content: space-between;
     padding: 8px ${commandPaletteHorizontalPadding}px;
-    background-color: ${active ? `var(--neutral-background)` : 'transparent'};
+    background-color: ${active ? `var(--accent-color)` : 'transparent'};
+    color: var(--text-light-color);
+
+    transition: color 0.15s, background-color 0.15s;
 `;
