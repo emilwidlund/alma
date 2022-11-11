@@ -5,7 +5,7 @@ import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { SchematicContainer } from '../../containers/SchematicContainer/SchematicContainer';
-import { WebGLContext } from '../../models/WebGLContext/WebGLContext';
+import { WebGLContext } from '../../webgl/models/WebGLContext/WebGLContext';
 import { SchematicProvider } from '../../providers/SchematicProvider/SchematicProvider';
 import { setupWebGL } from '../../webgl/setup';
 import { schematicRouteWrapperStyles } from './SchematicRoute.styles';

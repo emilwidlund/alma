@@ -6,8 +6,8 @@ import { TimeNode } from '../../nodes/webgl/core/TimeNode/TimeNode';
 import { UVNode } from '../../nodes/webgl/core/UVNode/UVNode';
 import { ModuloNode } from '../../nodes/webgl/math/ModuloNode/ModuloNode';
 import { SimplexNoiseNode } from '../../nodes/webgl/noise/SimplexNoiseNode/SimplexNoiseNode';
-import { WebGLContext } from '../models/WebGLContext/WebGLContext';
-import { IUniforms } from '../models/WebGLContext/WebGLContext.types';
+import { WebGLContext } from './models/WebGLContext/WebGLContext';
+import { IUniforms } from './models/WebGLContext/WebGLContext.types';
 
 export const setupWebGL = (canvas: HTMLCanvasElement | null) => {
     let context: WebGLContext;

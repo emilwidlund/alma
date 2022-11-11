@@ -3,8 +3,8 @@ import { GLSLTarget } from '@thi.ng/shader-ast-glsl';
 import { Context, IContextProps, INodeSerialized, Node } from 'alma-graph';
 import { makeObservable, observable } from 'mobx';
 
-import { nodes } from '../../../nodes/webgl';
-import { WebGLContextNode } from '../../../nodes/webgl/core/WebGLContextNode/WebGLContextNode';
+import { nodes } from '../../../../nodes/webgl';
+import { WebGLContextNode } from '../../../../nodes/webgl/core/WebGLContextNode/WebGLContextNode';
 import { IUniforms } from './WebGLContext.types';
 
 export class WebGLContext extends Context<WebGLContextNode> {

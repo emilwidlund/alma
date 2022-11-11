@@ -2,7 +2,7 @@ import { float, mod } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../../client/models/WebGLContext/WebGLContext';
+import { WebGLContext } from '../../../../client/webgl/models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../types';
 import { IModuloNodeInputs, IModuloNodeOutputs, IModuloNodeProps } from './ModuloNode.types';
 

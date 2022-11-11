@@ -2,7 +2,7 @@ import { $xy } from '@thi.ng/shader-ast';
 import { Node, INodeInputs, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../../client/models/WebGLContext/WebGLContext';
+import { WebGLContext } from '../../../../client/webgl/models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../types';
 import { IUVNodeOutputs, IUVNodeProps } from './UVNode.types';
 
