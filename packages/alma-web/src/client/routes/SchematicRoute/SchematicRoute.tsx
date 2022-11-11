@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+import { TimeNode } from '../../../nodes/webgl/core/TimeNode/TimeNode';
+import { UVNode } from '../../../nodes/webgl/core/UVNode/UVNode';
+import { SineNode } from '../../../nodes/webgl/math/SineNode/SineNode';
+import { SimplexNoiseNode } from '../../../nodes/webgl/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
@@ -16,29 +20,37 @@ export const SchematicRoute = () => {
         if (ref.current) {
             const ctx = new WebGLContext(ref.current);
 
-            setContext(ctx);
+            const time = new TimeNode(ctx, { data: { position: { x: 60, y: 500 } } });
+            const sine = new SineNode(ctx, { data: { position: { x: 400, y: 500 } } });
+            time.outputs.time.connect(sine.inputs.input);
+
+            const uv = new UVNode(ctx, { data: { position: { x: 120, y: 750 } } });
+            const simplexNoise = new SimplexNoiseNode(ctx, { data: { position: { x: 800, y: 600 } } });
+
+            sine.outputs.output.connect(simplexNoise.inputs.decay);
+
+            uv.outputs.uv.connect(simplexNoise.inputs.uv);
+            simplexNoise.outputs.output.connect(ctx.root.inputs.color);
+
+            const restored = new WebGLContext(ref.current, JSON.parse(JSON.stringify(ctx)));
+
+            setContext(restored);
+
+            console.log(restored);
+
+            restored.render();
 
             document.addEventListener('fullscreenchange', () => {
                 if (ref.current) {
-                    const ctx = new WebGLContext(ref.current);
-
-                    ctx.setUniform('resolution', [ctx.size.width, ctx.size.height]);
-
-                    setContext(ctx);
+                    restored.dispose().render();
                 }
             });
+
+            return () => {
+                restored?.dispose();
+            };
         }
     }, []);
-
-    React.useEffect(() => {
-        const c = context;
-
-        c?.render();
-
-        return () => {
-            c?.dispose();
-        };
-    }, [context]);
 
     return (
         <SchematicProvider context={context}>

@@ -1,15 +1,12 @@
-import { defMain, Sym, assign } from '@thi.ng/shader-ast';
+import { defMain, Sym, assign, vec4 } from '@thi.ng/shader-ast';
 import { GLSLTarget } from '@thi.ng/shader-ast-glsl';
 import { compileModel, defQuadModel, defShader, draw, FX_SHADER_SPEC, ModelSpec, UniformValues } from '@thi.ng/webgl';
 import { Context, IContextProps, INodeSerialized, Node } from 'alma-graph';
+import { isFunction } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 
 import { nodes } from '../../../../nodes/webgl';
-import { TimeNode } from '../../../../nodes/webgl/core/TimeNode/TimeNode';
-import { UVNode } from '../../../../nodes/webgl/core/UVNode/UVNode';
 import { WebGLContextNode } from '../../../../nodes/webgl/core/WebGLContextNode/WebGLContextNode';
-import { SineNode } from '../../../../nodes/webgl/math/SineNode/SineNode';
-import { SimplexNoiseNode } from '../../../../nodes/webgl/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { DrawingSize, ICompiledUniforms } from './WebGLContext.types';
 
 export class WebGLContext extends Context<WebGLContextNode> {
@@ -20,7 +17,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
     /** Uniforms */
     public uniforms!: ICompiledUniforms;
     /** WebGL Model Spec */
-    public model: ModelSpec;
+    public model!: ModelSpec;
     /** Frame Id */
     public frameId?: number;
     /** Start Time */
@@ -30,16 +27,14 @@ export class WebGLContext extends Context<WebGLContextNode> {
         super(props);
 
         this.canvas = canvas;
-        this.root = this.initialize();
         this.model = this.createModel();
+        this.root = this.initialize();
 
         this.setUniform('resolution', [this.size.width, this.size.height]);
         this.ctx.viewport(0, 0, this.size.width, this.size.height);
 
         makeObservable(this, {
             root: observable,
-            model: observable,
-            uniforms: observable,
             ctx: computed,
             size: computed,
             setUniform: action
@@ -100,23 +95,13 @@ export class WebGLContext extends Context<WebGLContextNode> {
         this.target = gl;
         this.uniforms = uniforms as unknown as ICompiledUniforms;
 
-        const time = new TimeNode(this, { data: { position: { x: 60, y: 500 } } });
-        const sine = new SineNode(this, { data: { position: { x: 400, y: 500 } } });
-        time.outputs.time.connect(sine.inputs.input);
+        if (this.root) {
+            this.root.data.position = { x: 1200, y: 600 };
+        }
 
-        const uv = new UVNode(this, { data: { position: { x: 120, y: 750 } } });
-        const simplexNoise = new SimplexNoiseNode(this, { data: { position: { x: 800, y: 600 } } });
+        const value = this.root ? this.root.resolveValue(this.root.inputs.color.value) : vec4(0, 0, 0, 1);
 
-        this.root.data.position = { x: 1200, y: 600 };
-
-        sine.outputs.output.connect(simplexNoise.inputs.decay);
-
-        uv.outputs.uv.connect(simplexNoise.inputs.uv);
-        simplexNoise.outputs.output.connect(this.root.inputs.color);
-
-        const value = this.root.resolveValue(this.root.inputs.color.value);
-
-        return [defMain(() => [assign(outs.fragColor, 'args' in value ? value() : value)])];
+        return [defMain(() => [assign(outs.fragColor, isFunction(value) ? value() : value)])];
     }
 
     /** Resolve Root Node */
@@ -146,6 +131,13 @@ export class WebGLContext extends Context<WebGLContextNode> {
 
     /** Render Context */
     public render(): void {
+        if (!this.frameId) {
+            this.model = this.createModel();
+
+            this.setUniform('resolution', [this.size.width, this.size.height]);
+            this.ctx.viewport(0, 0, this.size.width, this.size.height);
+        }
+
         this.frameId = requestAnimationFrame(this.render.bind(this, this.model));
 
         if (!this.startTime) {
@@ -159,9 +151,12 @@ export class WebGLContext extends Context<WebGLContextNode> {
     }
 
     /** Disposes Context */
-    public dispose(): void {
+    public dispose(): this {
         if (this.frameId) {
             cancelAnimationFrame(this.frameId);
+            this.frameId = undefined;
         }
+
+        return this;
     }
 }
