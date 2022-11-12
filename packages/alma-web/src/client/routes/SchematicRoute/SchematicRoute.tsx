@@ -61,6 +61,7 @@ export const SchematicRoute = () => {
                 });
 
             const ctx = new WebGLContext(gl, {
+                nodesCollection: nodes,
                 cameraTextureResolver
             });
 
