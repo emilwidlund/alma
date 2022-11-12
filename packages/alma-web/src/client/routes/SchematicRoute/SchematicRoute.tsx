@@ -77,7 +77,11 @@ export const SchematicRoute = () => {
             uv.outputs.uv.connect(simplexNoise.inputs.uv);
             simplexNoise.outputs.output.connect(ctx.root.inputs.color);
 
-            const restored = new WebGLContext(gl, { cameraTextureResolver, ...JSON.parse(JSON.stringify(ctx)) });
+            const restored = new WebGLContext(gl, {
+                cameraTextureResolver,
+                nodesCollection: nodes,
+                ...JSON.parse(JSON.stringify(ctx))
+            });
 
             setContext(restored);
 
