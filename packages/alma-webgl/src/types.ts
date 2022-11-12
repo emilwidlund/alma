@@ -1,6 +1,7 @@
 import { TimeNode } from './nodes/core/TimeNode/TimeNode';
 import { UVNode } from './nodes/core/UVNode/UVNode';
 import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode';
+import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
 import { Vector2Node } from './nodes/math/Vector2Node/Vector2Node';
@@ -14,6 +15,7 @@ export enum WebGLNodeType {
     SIMPLEX_NOISE = 'SIMPLEX_NOISE',
     CAMERA = 'CAMERA',
     SINE = 'SINE',
+    ADDITION = 'ADDITION',
     MODULO = 'MODULO',
     TIME = 'TIME',
     UV = 'UV',
@@ -32,6 +34,7 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.SIMPLEX_NOISE]: ClassConstructor<SimplexNoiseNode>;
     [WebGLNodeType.CAMERA]: ClassConstructor<CameraNode>;
     [WebGLNodeType.SINE]: ClassConstructor<SineNode>;
+    [WebGLNodeType.ADDITION]: ClassConstructor<AdditionNode>;
     [WebGLNodeType.MODULO]: ClassConstructor<ModuloNode>;
     [WebGLNodeType.TIME]: ClassConstructor<TimeNode>;
     [WebGLNodeType.UV]: ClassConstructor<UVNode>;
@@ -45,6 +48,7 @@ export type WebGLNode =
     | SimplexNoiseNode
     | CameraNode
     | SineNode
+    | AdditionNode
     | ModuloNode
     | TimeNode
     | UVNode

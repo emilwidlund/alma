@@ -1,6 +1,7 @@
 import { TimeNode } from './nodes/core/TimeNode/TimeNode';
 import { UVNode } from './nodes/core/UVNode/UVNode';
 import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode';
+import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
 import { Vector2Node } from './nodes/math/Vector2Node/Vector2Node';
@@ -15,6 +16,7 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.SIMPLEX_NOISE]: SimplexNoiseNode,
     [WebGLNodeType.CAMERA]: CameraNode,
     [WebGLNodeType.SINE]: SineNode,
+    [WebGLNodeType.ADDITION]: AdditionNode,
     [WebGLNodeType.MODULO]: ModuloNode,
     [WebGLNodeType.TIME]: TimeNode,
     [WebGLNodeType.UV]: UVNode,
@@ -39,6 +41,8 @@ export * from './nodes/core/WebGLContextNode/WebGLContextNode';
 export * from './nodes/core/WebGLContextNode/WebGLContextNode.types';
 
 /** Math Nodes */
+export * from './nodes/math/AdditionNode/AdditionNode';
+export * from './nodes/math/AdditionNode/AdditionNode.types';
 export * from './nodes/math/ModuloNode/ModuloNode';
 export * from './nodes/math/ModuloNode/ModuloNode.types';
 export * from './nodes/math/SineNode/SineNode';
