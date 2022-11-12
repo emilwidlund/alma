@@ -7,8 +7,8 @@ import { WebGLNodeType } from '../../../types';
 import { IAdditionNodeInputs, IAdditionNodeOutputs, IAdditionNodeProps } from './AdditionNode.types';
 
 export class AdditionNode extends Node {
-    static icon = 'percent';
-    static description = 'Performs a addition operation on inputs. Returns the remainder of a division.';
+    static icon = 'add';
+    static description = 'Returns the sum of the inputs.';
 
     type = WebGLNodeType.ADDITION;
 
