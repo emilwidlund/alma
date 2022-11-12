@@ -5,11 +5,13 @@ import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
 import { Vector2Node } from './nodes/math/Vector2Node/Vector2Node';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
+import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
 import { IWebGLNodeCollection, WebGLNodeType } from './types';
 
 export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.WEBGL_CONTEXT]: WebGLContextNode,
     [WebGLNodeType.SIMPLEX_NOISE]: SimplexNoiseNode,
+    [WebGLNodeType.CAMERA]: CameraNode,
     [WebGLNodeType.SINE]: SineNode,
     [WebGLNodeType.MODULO]: ModuloNode,
     [WebGLNodeType.TIME]: TimeNode,

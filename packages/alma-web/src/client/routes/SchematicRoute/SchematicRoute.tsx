@@ -25,7 +25,44 @@ export const SchematicRoute = () => {
                 throw new Error('WebGL could not be initialized');
             }
 
-            const ctx = new WebGLContext(gl);
+            const cameraTextureResolver = () =>
+                new Promise<WebGLTexture>((resolve, reject) => {
+                    // create webcam stream
+                    const video = document.createElement('video');
+                    video.width = 320;
+                    video.height = 240;
+                    video.autoplay = true;
+                    const constraints = { video: true };
+                    navigator.mediaDevices.getUserMedia(constraints).then(stream => (video.srcObject = stream));
+
+                    // IN YOUR RENDER LOOP
+
+                    // setup a canvas that will receive the webcam images
+                    const webcamCanvas = document.createElement('canvas');
+                    webcamCanvas.width = video.width;
+                    webcamCanvas.height = video.height;
+                    webcamCanvas.getContext('2d')?.drawImage(video, 0, 0, webcamCanvas.width, webcamCanvas.height);
+                    // make an image from the canvas
+                    const webcamImage = new Image();
+                    webcamImage.src = webcamCanvas.toDataURL();
+                    webcamImage.onload = () => {
+                        // use the new image as a texture
+                        const webcamTexture = gl.createTexture();
+                        // send to GPU
+                        gl.activeTexture(gl.TEXTURE0);
+                        gl.bindTexture(gl.TEXTURE_2D, webcamTexture);
+                        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, webcamImage);
+                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+                        if (webcamTexture) {
+                            resolve(webcamTexture);
+                        }
+                    };
+                });
+
+            const ctx = new WebGLContext(gl, {
+                cameraTextureResolver
+            });
 
             const time = new TimeNode(ctx, { data: { position: { x: 60, y: 500 } } });
             const sine = new SineNode(ctx, { data: { position: { x: 400, y: 500 } } });
@@ -39,7 +76,7 @@ export const SchematicRoute = () => {
             uv.outputs.uv.connect(simplexNoise.inputs.uv);
             simplexNoise.outputs.output.connect(ctx.root.inputs.color);
 
-            const restored = new WebGLContext(gl, JSON.parse(JSON.stringify(ctx)));
+            const restored = new WebGLContext(gl, { cameraTextureResolver, ...JSON.parse(JSON.stringify(ctx)) });
 
             setContext(restored);
 

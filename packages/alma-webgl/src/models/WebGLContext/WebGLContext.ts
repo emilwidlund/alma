@@ -1,23 +1,26 @@
 import { defMain, Sym, assign, vec4 } from '@thi.ng/shader-ast';
 import { GLSLTarget } from '@thi.ng/shader-ast-glsl';
 import { compileModel, defQuadModel, defShader, draw, FX_SHADER_SPEC, ModelSpec, UniformValues } from '@thi.ng/webgl';
-import { Context, IContextProps, INodeSerialized, Node } from 'alma-graph';
+import { Context, INodeSerialized, Node } from 'alma-graph';
 import { isFunction } from 'lodash';
 import { action, computed, IReactionDisposer, makeObservable, observable, reaction } from 'mobx';
 
 import { nodes } from '../..';
 import { WebGLContextNode } from '../../nodes/core/WebGLContextNode/WebGLContextNode';
-import { DrawingSize, ICompiledUniforms } from './WebGLContext.types';
+import { defTexture } from '../Texture/Texture';
+import { DrawingSize, ICompiledUniforms, IWebGLContextProps } from './WebGLContext.types';
 
 export class WebGLContext extends Context<WebGLContextNode> {
-    /** GLSL Target */
-    public target!: GLSLTarget;
     /** Canvas Element */
     public ctx: WebGL2RenderingContext;
+    /** GLSL Target */
+    public target!: GLSLTarget;
     /** Uniforms */
     public uniforms!: ICompiledUniforms;
     /** WebGL Model Spec */
     public model!: ModelSpec;
+    /** Camera Texture Resolver */
+    public cameraTextureResolver: () => Promise<WebGLTexture>;
     /** Frame Id */
     public frameId?: number;
     /** Start Time */
@@ -25,10 +28,11 @@ export class WebGLContext extends Context<WebGLContextNode> {
     /** Internal Connection Reaction */
     public connectionReactionDisposer?: IReactionDisposer;
 
-    constructor(ctx: WebGL2RenderingContext, props: IContextProps = {}) {
+    constructor(ctx: WebGL2RenderingContext, props: IWebGLContextProps) {
         super(props);
 
         this.ctx = ctx;
+        this.cameraTextureResolver = props.cameraTextureResolver;
         this.model = this.createModel();
         this.root = this.initialize();
 
@@ -60,7 +64,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
 
     /** Creates a WebGL Model */
     public createModel(): ModelSpec {
-        const model = {
+        const model: ModelSpec = {
             ...defQuadModel({ uv: false }),
             shader: defShader(this.ctx, {
                 ...FX_SHADER_SPEC,
@@ -70,7 +74,8 @@ export class WebGLContext extends Context<WebGLContextNode> {
                     time: ['float', 0],
                     mouse: ['vec2', [0, 0]]
                 }
-            })
+            }),
+            textures: [defTexture(this.ctx, this.cameraTextureResolver())]
         };
 
         compileModel(this.ctx, model);
