@@ -5,10 +5,9 @@ import { Context, INodeSerialized, Node } from 'alma-graph';
 import { isFunction } from 'lodash';
 import { action, computed, IReactionDisposer, makeObservable, observable, reaction } from 'mobx';
 
-import { nodes } from '../..';
 import { WebGLContextNode } from '../../nodes/core/WebGLContextNode/WebGLContextNode';
 import { defTexture } from '../Texture/Texture';
-import { DrawingSize, ICompiledUniforms, IWebGLContextProps } from './WebGLContext.types';
+import { DrawingSize, ICompiledUniforms, INodesCollection, IWebGLContextProps } from './WebGLContext.types';
 
 export class WebGLContext extends Context<WebGLContextNode> {
     /** Canvas Element */
@@ -19,8 +18,12 @@ export class WebGLContext extends Context<WebGLContextNode> {
     public uniforms!: ICompiledUniforms;
     /** WebGL Model Spec */
     public model!: ModelSpec;
+    /** Nodes Collection to resolve from */
+    public nodesCollection: INodesCollection;
     /** Camera Texture Resolver */
     public cameraTextureResolver: () => Promise<WebGLTexture>;
+    /** On Frame End Callback */
+    public onFrameEnd?: () => void;
     /** Frame Id */
     public frameId?: number;
     /** Start Time */
@@ -32,7 +35,9 @@ export class WebGLContext extends Context<WebGLContextNode> {
         super(props);
 
         this.ctx = ctx;
+        this.nodesCollection = props.nodesCollection;
         this.cameraTextureResolver = props.cameraTextureResolver;
+        this.onFrameEnd = props.onFrameEnd;
         this.model = this.createModel();
         this.root = this.initialize();
 
@@ -114,7 +119,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
 
     /** Resolves Node */
     resolveNode<TWebGLNode>(nodeProps: INodeSerialized): TWebGLNode {
-        const constructor = nodes[nodeProps.type];
+        const constructor = this.nodesCollection[nodeProps.type];
 
         if (!constructor) {
             throw new Error(`Node with type ${nodeProps.type} could not be resolved`);
@@ -140,7 +145,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
             this.ctx.viewport(0, 0, this.size.width, this.size.height);
         }
 
-        this.frameId = requestAnimationFrame(this.render.bind(this, this.model));
+        this.frameId = requestAnimationFrame(this.render.bind(this));
 
         if (!this.startTime) {
             this.startTime = Date.now();
@@ -150,6 +155,8 @@ export class WebGLContext extends Context<WebGLContextNode> {
         this.setUniform('time', time);
 
         draw(this.model);
+
+        this.onFrameEnd?.();
     }
 
     /** Disposes Context */

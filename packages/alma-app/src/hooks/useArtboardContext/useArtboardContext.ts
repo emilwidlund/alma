@@ -1,20 +1,5 @@
-import {
-    $xy,
-    add,
-    assign,
-    defMain,
-    defn,
-    float,
-    FloatSym,
-    ret,
-    sym,
-    vec2,
-    Vec2Sym,
-    vec3,
-    vec4
-} from '@thi.ng/shader-ast';
-import { additive, fit1101, snoise2, aspectCorrectedUV } from '@thi.ng/shader-ast-stdlib';
-import { compileModel, defQuadModel, defShader, draw, FX_SHADER_SPEC, ModelSpec } from '@thi.ng/webgl';
+import { draw, ModelSpec } from '@thi.ng/webgl';
+import { nodes, SimplexNoiseNode, TimeNode, UVNode, Vector2Node, WebGLContext } from 'alma-webgl';
 import { ExpoWebGLRenderingContext, GLView } from 'expo-gl';
 import { useCallback, useRef } from 'react';
 
@@ -31,52 +16,29 @@ export const useArtboardContext = () => {
         }
 
         draw(model);
-
-        gl.endFrameEXP();
     }, []);
 
-    const onContextCreate = useCallback(
-        async (gl: ExpoWebGLRenderingContext) => {
-            const mainImage = defn('vec4', 'mainImage', ['vec2', 'vec2', 'float'], (fragCoord, res, time) => {
-                let uv: Vec2Sym;
-                let col: FloatSym;
-                return [
-                    (uv = sym(aspectCorrectedUV(fragCoord, res))),
-                    // dynamically create a multi-octave version of `snoise2`
-                    // computed over 4 octaves w/ given phase shift and decay
-                    // factor (both per octave)
-                    (col = sym(additive('vec2', snoise2, 4)(add(uv, time), vec2(2), float(0.5)))),
-                    ret(vec4(vec3(fit1101(col)), 1))
-                ];
-            });
+    const onContextCreate = useCallback(async (gl: ExpoWebGLRenderingContext) => {
+        const context = new WebGLContext(gl, {
+            nodesCollection: nodes,
+            // @ts-ignore
+            cameraTextureResolver: () => null,
+            onFrameEnd: () => {
+                gl.endFrameEXP();
+            }
+        });
 
-            const model = compileModel(gl, {
-                ...defQuadModel({ uv: false }),
-                shader: defShader(gl, {
-                    ...FX_SHADER_SPEC,
-                    vs: (gl, _, attribs) => [defMain(() => [assign(gl.gl_Position, vec4(attribs.position, 0, 1))])],
-                    fs: (gl, unis, _, outs) => [
-                        mainImage,
-                        defMain(() => [
-                            assign(outs.fragColor, mainImage($xy(gl.gl_FragCoord), unis.resolution, unis.time))
-                        ])
-                    ],
-                    attribs: {
-                        position: 'vec2'
-                    },
-                    uniforms: {
-                        resolution: ['vec2', [gl.drawingBufferWidth, gl.drawingBufferHeight]],
-                        time: ['float', 0]
-                    }
-                })
-            });
+        const uv = new UVNode(context);
+        const noise = new SimplexNoiseNode(context);
 
-            console.log(model);
+        const time = new TimeNode(context);
+        const vec = new Vector2Node(context);
 
-            frameId.current = requestAnimationFrame(renderingLoop.bind(this, gl, model));
-        },
-        [renderingLoop]
-    );
+        time.outputs.time.connect(vec.inputs.x);
+        vec.outputs.vector2.connect(noise.inputs.shift);
+        uv.outputs.uv.connect(noise.inputs.uv);
+        noise.outputs.output.connect(context.root.inputs.color);
+    }, []);
 
     return {
         glRef,
