@@ -4,6 +4,8 @@ import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
 import { Vector2Node } from './nodes/math/Vector2Node/Vector2Node';
+import { Vector3Node } from './nodes/math/Vector3Node/Vector3Node';
+import { Vector4Node } from './nodes/math/Vector4Node/Vector4Node';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
 
@@ -15,7 +17,9 @@ export enum WebGLNodeType {
     MODULO = 'MODULO',
     TIME = 'TIME',
     UV = 'UV',
-    VECTOR_2 = 'VECTOR_2'
+    VECTOR_2 = 'VECTOR_2',
+    VECTOR_3 = 'VECTOR_3',
+    VECTOR_4 = 'VECTOR_4'
 }
 
 export interface ClassConstructor<T> {
@@ -32,6 +36,8 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.TIME]: ClassConstructor<TimeNode>;
     [WebGLNodeType.UV]: ClassConstructor<UVNode>;
     [WebGLNodeType.VECTOR_2]: ClassConstructor<Vector2Node>;
+    [WebGLNodeType.VECTOR_3]: ClassConstructor<Vector3Node>;
+    [WebGLNodeType.VECTOR_4]: ClassConstructor<Vector4Node>;
 }
 
 export type WebGLNode =
@@ -42,4 +48,6 @@ export type WebGLNode =
     | ModuloNode
     | TimeNode
     | UVNode
-    | Vector2Node;
+    | Vector2Node
+    | Vector3Node
+    | Vector4Node;

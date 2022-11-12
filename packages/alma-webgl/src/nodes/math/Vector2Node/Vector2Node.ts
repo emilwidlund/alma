@@ -42,7 +42,7 @@ export class Vector2Node extends Node {
             vector2: new Output(
                 this,
                 defaults<Partial<IOutputProps<'vec2'>> | undefined, IOutputProps<'vec2'>>(props.outputs?.vector2, {
-                    name: 'Vector',
+                    name: 'Vector 2',
                     type: 'vec2',
                     value: () => {
                         return vec2(this.resolveValue(this.inputs.x.value), this.resolveValue(this.inputs.y.value));
