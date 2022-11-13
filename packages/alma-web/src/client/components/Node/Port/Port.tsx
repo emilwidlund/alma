@@ -1,5 +1,4 @@
 import { Input, Output } from 'alma-graph';
-import { startCase } from 'lodash';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
@@ -63,7 +62,7 @@ export const Port = observer(({ port }: IPortProps) => {
     }, [schematic, port]);
 
     return (
-        <Tooltip text={startCase(port.type)} position={tooltipPosition}>
+        <Tooltip text={port.type.toUpperCase()} position={tooltipPosition}>
             <div
                 ref={ref}
                 className={portWrapperStyles(

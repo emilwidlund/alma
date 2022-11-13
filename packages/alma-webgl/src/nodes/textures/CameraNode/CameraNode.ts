@@ -29,7 +29,7 @@ export class CameraNode extends Node {
                 defaults<Partial<IOutputProps<'sampler2D'>> | undefined, IOutputProps<'sampler2D'>>(
                     props.outputs?.camera,
                     {
-                        name: 'Texture',
+                        name: 'Sampler 2D',
                         type: 'sampler2D',
                         value: () => {
                             return context.uniforms.cameraTexture;

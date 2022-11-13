@@ -77,7 +77,8 @@ export class WebGLContext extends Context<WebGLContextNode> {
                 uniforms: {
                     resolution: ['vec2', [this.size.width, this.size.height]],
                     time: ['float', 0],
-                    mouse: ['vec2', [0, 0]]
+                    mouse: ['vec2', [0, 0]],
+                    cameraTexture: ['sampler2D', 0]
                 }
             }),
             textures: [this.cameraManager.texture]
