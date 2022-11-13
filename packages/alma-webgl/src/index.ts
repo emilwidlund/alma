@@ -2,6 +2,7 @@ import { TimeNode } from './nodes/core/TimeNode/TimeNode';
 import { UVNode } from './nodes/core/UVNode/UVNode';
 import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
+import { CosineNode } from './nodes/math/CosineNode/CosineNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
 import { Vector2Node } from './nodes/math/Vector2Node/Vector2Node';
@@ -9,6 +10,7 @@ import { Vector3Node } from './nodes/math/Vector3Node/Vector3Node';
 import { Vector4Node } from './nodes/math/Vector4Node/Vector4Node';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
+import { Swizzle2Node } from './nodes/utils/Swizzle2Node/Swizzle2Node';
 import { IWebGLNodeCollection, WebGLNodeType } from './types';
 
 export const nodes: IWebGLNodeCollection = {
@@ -16,9 +18,11 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.SIMPLEX_NOISE]: SimplexNoiseNode,
     [WebGLNodeType.CAMERA]: CameraNode,
     [WebGLNodeType.SINE]: SineNode,
+    [WebGLNodeType.COSINE]: CosineNode,
     [WebGLNodeType.ADDITION]: AdditionNode,
     [WebGLNodeType.MODULO]: ModuloNode,
     [WebGLNodeType.TIME]: TimeNode,
+    [WebGLNodeType.SWIZZLE_2]: Swizzle2Node,
     [WebGLNodeType.UV]: UVNode,
     [WebGLNodeType.VECTOR_2]: Vector2Node,
     [WebGLNodeType.VECTOR_3]: Vector3Node,
@@ -50,6 +54,8 @@ export * from './nodes/math/ModuloNode/ModuloNode';
 export * from './nodes/math/ModuloNode/ModuloNode.types';
 export * from './nodes/math/SineNode/SineNode';
 export * from './nodes/math/SineNode/SineNode.types';
+export * from './nodes/math/CosineNode/CosineNode';
+export * from './nodes/math/CosineNode/CosineNode.types';
 export * from './nodes/math/Vector2Node/Vector2Node';
 export * from './nodes/math/Vector2Node/Vector2Node.types';
 export * from './nodes/math/Vector3Node/Vector3Node';
@@ -64,3 +70,7 @@ export * from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode.types';
 /** Textures */
 export * from './nodes/textures/CameraNode/CameraNode';
 export * from './nodes/textures/CameraNode/CameraNode.types';
+
+/** Utils */
+export * from './nodes/utils/Swizzle2Node/Swizzle2Node';
+export * from './nodes/utils/Swizzle2Node/Swizzle2Node.types';
