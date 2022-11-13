@@ -8,7 +8,7 @@ import { ISwizzle4NodeInputs, ISwizzle4NodeOutputs, ISwizzle4NodeProps } from '.
 
 export class Swizzle4Node extends Node {
     static icon = 'device_hub';
-    static description = 'Destructs a Vector 3 and returns its x, y, z & w components.';
+    static description = 'Destructs a Vector 4 and returns its x, y, z & w components.';
 
     name = 'Swizzle 4';
     type = WebGLNodeType.SWIZZLE_4;
