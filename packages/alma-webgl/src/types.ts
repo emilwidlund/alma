@@ -11,6 +11,8 @@ import { Vector4Node } from './nodes/math/Vector4Node/Vector4Node';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
 import { Swizzle2Node } from './nodes/utils/Swizzle2Node/Swizzle2Node';
+import { Swizzle3Node } from './nodes/utils/Swizzle3Node/Swizzle3Node';
+import { Swizzle4Node } from './nodes/utils/Swizzle4Node/Swizzle4Node';
 
 export enum WebGLNodeType {
     WEBGL_CONTEXT = 'WEBGL_CONTEXT',
@@ -22,6 +24,8 @@ export enum WebGLNodeType {
     MODULO = 'MODULO',
     TIME = 'TIME',
     SWIZZLE_2 = 'SWIZZLE_2',
+    SWIZZLE_3 = 'SWIZZLE_3',
+    SWIZZLE_4 = 'SWIZZLE_4',
     UV = 'UV',
     VECTOR_2 = 'VECTOR_2',
     VECTOR_3 = 'VECTOR_3',
@@ -43,6 +47,8 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.MODULO]: ClassConstructor<ModuloNode>;
     [WebGLNodeType.TIME]: ClassConstructor<TimeNode>;
     [WebGLNodeType.SWIZZLE_2]: ClassConstructor<Swizzle2Node>;
+    [WebGLNodeType.SWIZZLE_3]: ClassConstructor<Swizzle3Node>;
+    [WebGLNodeType.SWIZZLE_4]: ClassConstructor<Swizzle4Node>;
     [WebGLNodeType.UV]: ClassConstructor<UVNode>;
     [WebGLNodeType.VECTOR_2]: ClassConstructor<Vector2Node>;
     [WebGLNodeType.VECTOR_3]: ClassConstructor<Vector3Node>;
@@ -58,6 +64,8 @@ export type WebGLNode =
     | AdditionNode
     | ModuloNode
     | Swizzle2Node
+    | Swizzle3Node
+    | Swizzle4Node
     | TimeNode
     | UVNode
     | Vector2Node

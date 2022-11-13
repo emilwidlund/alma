@@ -11,6 +11,8 @@ import { Vector4Node } from './nodes/math/Vector4Node/Vector4Node';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
 import { Swizzle2Node } from './nodes/utils/Swizzle2Node/Swizzle2Node';
+import { Swizzle3Node } from './nodes/utils/Swizzle3Node/Swizzle3Node';
+import { Swizzle4Node } from './nodes/utils/Swizzle4Node/Swizzle4Node';
 import { IWebGLNodeCollection, WebGLNodeType } from './types';
 
 export const nodes: IWebGLNodeCollection = {
@@ -23,6 +25,8 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.MODULO]: ModuloNode,
     [WebGLNodeType.TIME]: TimeNode,
     [WebGLNodeType.SWIZZLE_2]: Swizzle2Node,
+    [WebGLNodeType.SWIZZLE_3]: Swizzle3Node,
+    [WebGLNodeType.SWIZZLE_4]: Swizzle4Node,
     [WebGLNodeType.UV]: UVNode,
     [WebGLNodeType.VECTOR_2]: Vector2Node,
     [WebGLNodeType.VECTOR_3]: Vector3Node,
@@ -74,3 +78,7 @@ export * from './nodes/textures/CameraNode/CameraNode.types';
 /** Utils */
 export * from './nodes/utils/Swizzle2Node/Swizzle2Node';
 export * from './nodes/utils/Swizzle2Node/Swizzle2Node.types';
+export * from './nodes/utils/Swizzle3Node/Swizzle3Node';
+export * from './nodes/utils/Swizzle3Node/Swizzle3Node.types';
+export * from './nodes/utils/Swizzle4Node/Swizzle4Node';
+export * from './nodes/utils/Swizzle4Node/Swizzle4Node.types';

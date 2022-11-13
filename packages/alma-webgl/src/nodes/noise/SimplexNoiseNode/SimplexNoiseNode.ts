@@ -8,7 +8,7 @@ import { WebGLNodeType } from '../../../types';
 import { ISimplexNoiseNodeInputs, ISimplexNoiseNodeOutputs, ISimplexNoiseNodeProps } from './SimplexNoiseNode.types';
 
 export class SimplexNoiseNode extends Node {
-    static icon = 'grain';
+    static icon = 'snowing';
     static description =
         'The result of an n-dimensional noise function comparable to Perlin Noise but with fewer directional artifacts.';
 

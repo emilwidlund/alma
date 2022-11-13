@@ -7,9 +7,10 @@ import { WebGLNodeType } from '../../../types';
 import { ISwizzle2NodeInputs, ISwizzle2NodeOutputs, ISwizzle2NodeProps } from './Swizzle2Node.types';
 
 export class Swizzle2Node extends Node {
-    static icon = 'all_inclusive';
+    static icon = 'device_hub';
     static description = 'Destructs a Vector 2 and returns its x & y components.';
 
+    name = 'Swizzle 2';
     type = WebGLNodeType.SWIZZLE_2;
 
     inputs: ISwizzle2NodeInputs;
