@@ -34,16 +34,13 @@ export class Texture implements ITexture {
     type!: TextureType;
     size!: number[];
 
-    constructor(gl: WebGLRenderingContext, texture?: Promise<WebGLTexture>, opts: Partial<TextureOpts> = {}) {
+    constructor(gl: WebGLRenderingContext, texture?: WebGLTexture, opts: Partial<TextureOpts> = {}) {
         this.gl = gl;
-
-        texture?.then(tex => {
-            this.tex = tex || gl.createTexture() || error('error creating WebGL texture');
-            this.configure({
-                filter: TextureFilter.NEAREST,
-                wrap: TextureRepeat.CLAMP,
-                ...opts
-            });
+        this.tex = texture || gl.createTexture() || error('error creating WebGL texture');
+        this.configure({
+            filter: TextureFilter.NEAREST,
+            wrap: TextureRepeat.CLAMP,
+            ...opts
         });
     }
 
@@ -241,7 +238,7 @@ export class Texture implements ITexture {
     }
 }
 
-export const defTexture = (gl: WebGLRenderingContext, texture?: Promise<WebGLTexture>, opts?: Partial<TextureOpts>) =>
+export const defTexture = (gl: WebGLRenderingContext, texture?: WebGLTexture, opts?: Partial<TextureOpts>) =>
     new Texture(gl, texture, opts);
 
 /**

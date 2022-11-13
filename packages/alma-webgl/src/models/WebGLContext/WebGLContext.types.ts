@@ -3,6 +3,7 @@ import { UniformDecl } from '@thi.ng/webgl';
 import { IContextProps } from 'alma-graph';
 
 import { ClassConstructor, WebGLNode } from '../../types';
+import { CameraTextureResolver } from '../CameraManager/CameraManager.types';
 
 export interface IUniforms {
     mouse: UniformDecl;
@@ -29,6 +30,6 @@ export interface INodesCollection {
 
 export interface IWebGLContextProps extends IContextProps {
     nodesCollection: INodesCollection;
-    cameraTextureResolver: () => Promise<WebGLTexture>;
+    cameraTextureResolver: CameraTextureResolver;
     onFrameEnd?: () => void;
 }

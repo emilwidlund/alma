@@ -6,6 +6,7 @@ import { isFunction } from 'lodash';
 import { action, computed, IReactionDisposer, makeObservable, observable, reaction } from 'mobx';
 
 import { WebGLContextNode } from '../../nodes/core/WebGLContextNode/WebGLContextNode';
+import { CameraManager } from '../CameraManager/CameraManager';
 import { defTexture } from '../Texture/Texture';
 import { DrawingSize, ICompiledUniforms, INodesCollection, IWebGLContextProps } from './WebGLContext.types';
 
@@ -18,25 +19,25 @@ export class WebGLContext extends Context<WebGLContextNode> {
     public uniforms!: ICompiledUniforms;
     /** WebGL Model Spec */
     public model!: ModelSpec;
+    /** Camera Manager */
+    public cameraManager: CameraManager;
     /** Nodes Collection to resolve from */
     public nodesCollection: INodesCollection;
-    /** Camera Texture Resolver */
-    public cameraTextureResolver: () => Promise<WebGLTexture>;
-    /** On Frame End Callback */
-    public onFrameEnd?: () => void;
     /** Frame Id */
     public frameId?: number;
     /** Start Time */
     public startTime?: number;
     /** Internal Connection Reaction */
     public connectionReactionDisposer?: IReactionDisposer;
+    /** On Frame End Callback */
+    public onFrameEnd?: () => void;
 
     constructor(ctx: WebGL2RenderingContext, props: IWebGLContextProps) {
         super(props);
 
         this.ctx = ctx;
+        this.cameraManager = new CameraManager(this, props.cameraTextureResolver);
         this.nodesCollection = props.nodesCollection;
-        this.cameraTextureResolver = props.cameraTextureResolver;
         this.onFrameEnd = props.onFrameEnd;
         this.model = this.createModel();
         this.root = this.initialize();
@@ -80,7 +81,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
                     mouse: ['vec2', [0, 0]]
                 }
             }),
-            textures: [defTexture(this.ctx, this.cameraTextureResolver())]
+            textures: [defTexture(this.ctx, this.cameraManager.texture)]
         };
 
         compileModel(this.ctx, model);

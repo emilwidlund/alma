@@ -17,6 +17,10 @@ export class CameraNode extends Node {
     constructor(context: WebGLContext, props: ICameraNodeProps = {}) {
         super(context, props);
 
+        if (!context.cameraManager.initialized) {
+            context.cameraManager.init();
+        }
+
         this.inputs = {};
 
         this.outputs = {
