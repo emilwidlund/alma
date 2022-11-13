@@ -25,44 +25,41 @@ export const SchematicRoute = () => {
                 throw new Error('WebGL could not be initialized');
             }
 
-            const cameraTextureResolver = () =>
-                new Promise<WebGLTexture>((resolve, reject) => {
-                    // create webcam stream
-                    const video = document.createElement('video');
+            const video = document.createElement('video');
+            const webcamCanvas = document.createElement('canvas');
+
+            const onCameraResolverInit = () => {
+                return new Promise<void>(resolve => {
                     video.width = 320;
                     video.height = 240;
                     video.autoplay = true;
-                    const constraints = { video: true };
-                    navigator.mediaDevices.getUserMedia(constraints).then(stream => (video.srcObject = stream));
+                    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+                        video.srcObject = stream;
+                        resolve();
+                    });
+                });
+            };
 
+            const cameraTextureResolver = () =>
+                new Promise<TexImageSource>((resolve, reject) => {
                     // IN YOUR RENDER LOOP
 
-                    // setup a canvas that will receive the webcam images
-                    const webcamCanvas = document.createElement('canvas');
                     webcamCanvas.width = video.width;
                     webcamCanvas.height = video.height;
+                    // setup a canvas that will receive the webcam images
                     webcamCanvas.getContext('2d')?.drawImage(video, 0, 0, webcamCanvas.width, webcamCanvas.height);
                     // make an image from the canvas
                     const webcamImage = new Image();
                     webcamImage.src = webcamCanvas.toDataURL();
-                    webcamImage.onload = () => {
-                        // use the new image as a texture
-                        const webcamTexture = gl.createTexture();
-                        // send to GPU
-                        gl.activeTexture(gl.TEXTURE0);
-                        gl.bindTexture(gl.TEXTURE_2D, webcamTexture);
-                        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, webcamImage);
-                        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-
-                        if (webcamTexture) {
-                            resolve(webcamTexture);
-                        }
-                    };
+                    resolve(webcamImage);
                 });
 
             const ctx = new WebGLContext(gl, {
-                nodesCollection: nodes,
-                cameraTextureResolver
+                cameraManager: {
+                    onInit: onCameraResolverInit,
+                    textureResolver: cameraTextureResolver
+                },
+                nodesCollection: nodes
             });
 
             const time = new TimeNode(ctx, { data: { position: { x: 60, y: 500 } } });
@@ -78,7 +75,10 @@ export const SchematicRoute = () => {
             simplexNoise.outputs.output.connect(ctx.root.inputs.color);
 
             const restored = new WebGLContext(gl, {
-                cameraTextureResolver,
+                cameraManager: {
+                    onInit: onCameraResolverInit,
+                    textureResolver: cameraTextureResolver
+                },
                 nodesCollection: nodes,
                 ...JSON.parse(JSON.stringify(ctx))
             });

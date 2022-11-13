@@ -35,7 +35,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
         super(props);
 
         this.ctx = ctx;
-        this.cameraManager = new CameraManager(this, props.cameraTextureResolver);
+        this.cameraManager = new CameraManager(this, props.cameraManager);
         this.nodesCollection = props.nodesCollection;
         this.onFrameEnd = props.onFrameEnd;
         this.model = this.createModel();
@@ -130,7 +130,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
     }
 
     /** Render Context */
-    public render(): void {
+    public async render(): Promise<void> {
         if (!this.frameId) {
             /** Reset entire context if connections are updated */
             this.connectionReactionDisposer = reaction(
@@ -150,6 +150,10 @@ export class WebGLContext extends Context<WebGLContextNode> {
 
         if (!this.startTime) {
             this.startTime = Date.now();
+        }
+
+        if (this.cameraManager.initialized) {
+            await this.cameraManager.resolve();
         }
 
         const time = (Date.now() - this.startTime) * 0.001;

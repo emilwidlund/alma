@@ -2,7 +2,7 @@ import { makeObservable, observable, action } from 'mobx';
 
 import { Texture } from '../Texture/Texture';
 import { WebGLContext } from '../WebGLContext/WebGLContext';
-import { CameraTextureResolver } from './CameraManager.types';
+import { ICameraManagerProps, TextureResolver } from './CameraManager.types';
 
 export class CameraManager {
     /** WebGL Context */
@@ -10,14 +10,17 @@ export class CameraManager {
     /** WebGL Texture */
     public texture: Texture;
     /** Camera Texture Resolver */
-    public cameraTextureResolver: CameraTextureResolver;
+    public textureResolver: TextureResolver;
     /** Initialization Flag */
     public initialized = false;
+    /** On Initialize Callback */
+    private onInit?: () => Promise<void> | void;
 
-    constructor(context: WebGLContext, cameraTextureResolver: CameraTextureResolver) {
+    constructor(context: WebGLContext, props: ICameraManagerProps) {
         this.context = context;
-        this.cameraTextureResolver = cameraTextureResolver;
+        this.textureResolver = props.textureResolver;
         this.texture = new Texture(context.ctx);
+        this.onInit = props.onInit;
 
         makeObservable(this, {
             texture: observable,
@@ -27,9 +30,14 @@ export class CameraManager {
     }
 
     /** Initializes the Camera Manager */
-    public async init(): Promise<Texture> {
-        this.texture = new Texture(this.context.ctx, await this.cameraTextureResolver());
+    public async init(): Promise<void> {
+        await this.onInit?.();
         this.initialized = true;
+    }
+
+    /** Resolves the camera texture */
+    public async resolve(): Promise<Texture> {
+        this.texture.configure({ image: await this.textureResolver() });
 
         return this.texture;
     }

@@ -1,4 +1,5 @@
-import { Node, INodeInputs, IOutputProps, Output } from 'alma-graph';
+import { vec2, texture } from '@thi.ng/shader-ast';
+import { Node, INodeInputs, IOutputProps, Output, Input, IInputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
@@ -21,21 +22,27 @@ export class CameraNode extends Node {
             context.cameraManager.init();
         }
 
-        this.inputs = {};
+        this.inputs = {
+            uv: new Input(
+                this,
+                defaults<Partial<IInputProps<'vec2'>> | undefined, IInputProps<'vec2'>>(props.inputs?.uv, {
+                    name: 'UV',
+                    type: 'vec2',
+                    defaultValue: vec2(0, 0)
+                })
+            )
+        };
 
         this.outputs = {
             camera: new Output(
                 this,
-                defaults<Partial<IOutputProps<'sampler2D'>> | undefined, IOutputProps<'sampler2D'>>(
-                    props.outputs?.camera,
-                    {
-                        name: 'Sampler 2D',
-                        type: 'sampler2D',
-                        value: () => {
-                            return context.uniforms.cameraTexture;
-                        }
+                defaults<Partial<IOutputProps<'vec4'>> | undefined, IOutputProps<'vec4'>>(props.outputs?.camera, {
+                    name: 'Texture',
+                    type: 'vec4',
+                    value: () => {
+                        return texture(context.uniforms.cameraTexture, this.resolveValue(this.inputs.uv.value));
                     }
-                )
+                })
             )
         };
     }
