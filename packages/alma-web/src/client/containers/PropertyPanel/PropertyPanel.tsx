@@ -20,18 +20,17 @@ import {
 export const PropertyPanel = observer(
     React.forwardRef<HTMLCanvasElement>((_, ref) => {
         const schematic = useSchematic();
+        const inputs = schematic.selectedNode?.inputs;
 
-        const inputControls = React.useMemo(() => {
-            return Object.values(schematic.selectedNode?.inputs || [])
-                .filter(input => !input.connected)
-                .map(input => {
-                    switch (input.type) {
-                        case 'float':
-                            return <NumberControl key={input.id} port={input} />;
-                    }
-                })
-                .filter(Boolean);
-        }, [schematic]);
+        const inputControls = Object.values(inputs || [])
+            .filter(input => !input.connected)
+            .map(input => {
+                switch (input.type) {
+                    case 'float':
+                        return <NumberControl key={input.id} port={input} />;
+                }
+            })
+            .filter(Boolean);
 
         return (
             <div className={propertyPanelWrapperStyles}>

@@ -4,6 +4,8 @@ export const numberControlNameStyles = css`
     flex-grow: 1;
     font-size: var(--font-size-sm);
     font-weight: 600;
+    width: 120px;
+    margin-right: 24px;
 `;
 
 export const numberControlRangeStyles = css`

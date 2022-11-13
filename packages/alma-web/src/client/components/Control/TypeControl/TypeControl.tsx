@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import { useSchematic } from '../../../hooks/useSchematic/useSchematic';
 import { BaseControl } from '../BaseControl/BaseControl';
-import { typeControlNameStyles } from './TypeControl.styles';
+import { typeControlInputStyles, typeControlNameStyles } from './TypeControl.styles';
 import { ITypeControlProps } from './TypeControl.types';
 
 export const TypeControl = observer(({ node }: ITypeControlProps) => {
@@ -23,9 +23,13 @@ export const TypeControl = observer(({ node }: ITypeControlProps) => {
     return (
         <BaseControl>
             <span className={typeControlNameStyles}>Type</span>
-            <select onChange={onChange} value={schematic.selectedNode?.data.type?.selected}>
+            <select
+                className={typeControlInputStyles}
+                onChange={onChange}
+                value={schematic.selectedNode?.data.type?.selected}
+            >
                 {node.data.type?.options.map(type => (
-                    <option key={type} value={type} children={type} />
+                    <option key={type} value={type} children={type.toUpperCase()} />
                 ))}
             </select>
         </BaseControl>
