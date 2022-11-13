@@ -31,7 +31,7 @@ export class Port<TType extends Type, TNode extends Node = Node> {
     }
 
     /** Indicates if Port is connected */
-    get connected(): boolean {
+    public get connected(): boolean {
         return [...this.node.context.connections.values()].some(
             connection => connection.from.id === this.id || connection.to.id === this.id
         );

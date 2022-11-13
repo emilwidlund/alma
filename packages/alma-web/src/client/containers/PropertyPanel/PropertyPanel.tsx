@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { Artboard } from '../../components/Artboard/Artboard';
 import { NumberControl } from '../../components/Control/NumberControl/NumberControl';
+import { TypeControl } from '../../components/Control/TypeControl/TypeControl';
 import { Heading } from '../../components/Heading/Heading';
 import { Icon } from '../../components/Icon/Icon';
 import { Panel } from '../../components/Panel/Panel';
@@ -55,6 +56,7 @@ export const PropertyPanel = observer(
                 )}
                 {schematic.selectedNode && !!inputControls.length && (
                     <Panel className={propertyPanelPortsContainerStyles}>
+                        {schematic.selectedNode.data.type && <TypeControl node={schematic.selectedNode} />}
                         {!!inputControls.length && inputControls}
                     </Panel>
                 )}

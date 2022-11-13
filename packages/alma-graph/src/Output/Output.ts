@@ -35,4 +35,11 @@ export class Output<TType extends Type, TNode extends Node = Node> extends Port<
     public get connections(): Connection<TType>[] {
         return [...this.node.context.connections.values()].filter(connection => connection.from.id === this.id);
     }
+
+    /** Disposes the Output */
+    public dispose() {
+        for (const connection of this.connections) {
+            this.node.context.disconnect(connection);
+        }
+    }
 }

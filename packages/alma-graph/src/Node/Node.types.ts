@@ -1,3 +1,5 @@
+import { Type } from '@thi.ng/shader-ast';
+
 import { Input } from '../Input/Input';
 import { IInputSerialized } from '../Input/Input.types';
 import { Output } from '../Output/Output';
@@ -8,8 +10,12 @@ export interface INodePosition {
     y: number;
 }
 
-export interface INodeData {
+export interface INodeData<TType = Type> {
     position: INodePosition;
+    type?: {
+        selected: TType;
+        options: TType[];
+    };
 }
 
 export interface INodeInputs {

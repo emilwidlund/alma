@@ -41,6 +41,13 @@ export class Input<TType extends Type, TNode extends Node = Node> extends Port<T
         return [...this.node.context.connections.values()].find(connection => connection.to.id === this.id);
     }
 
+    /** Disposes the Input */
+    public dispose() {
+        if (this.connection) {
+            this.node.context.disconnect(this.connection);
+        }
+    }
+
     /** Serializes Port */
     public toJSON(): IInputSerialized<TType> {
         return {
