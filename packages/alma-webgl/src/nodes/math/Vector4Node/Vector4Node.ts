@@ -49,7 +49,7 @@ export class Vector4Node extends Node {
                 defaults<Partial<IInputProps<'float'>> | undefined, IInputProps<'float'>>(props.inputs?.w, {
                     name: 'W',
                     type: 'float',
-                    defaultValue: float(0)
+                    defaultValue: float(1)
                 })
             )
         };

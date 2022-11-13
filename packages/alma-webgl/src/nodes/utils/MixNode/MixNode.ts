@@ -1,7 +1,7 @@
-import { float, mix, Prim } from '@thi.ng/shader-ast';
+import { float, mix, Prim, vec2, vec3, vec4 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
-import { reaction, IReactionDisposer } from 'mobx';
+import { reaction, IReactionDisposer, makeObservable, computed } from 'mobx';
 
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
@@ -83,7 +83,9 @@ export class MixNode extends Node {
             )
         };
 
-        console.log(this);
+        makeObservable(this, {
+            typeSafeValue: computed
+        });
 
         this.reactionDisposer = reaction(
             () => this.data.type?.selected,
@@ -93,6 +95,9 @@ export class MixNode extends Node {
                     this.inputs.b.dispose();
                     this.outputs.output.dispose();
 
+                    this.inputs.a.setValue(this.typeSafeValue);
+                    this.inputs.b.setValue(this.typeSafeValue);
+
                     if (type) {
                         this.inputs.a.type = type;
                         this.inputs.b.type = type;
@@ -101,6 +106,19 @@ export class MixNode extends Node {
                 }
             }
         );
+    }
+
+    get typeSafeValue() {
+        switch (this.data.type?.selected) {
+            case 'vec2':
+                return vec2(0, 0);
+            case 'vec3':
+                return vec3(0, 0, 0);
+            case 'vec4':
+                return vec4(0, 0, 0, 1);
+            default:
+                return float(0);
+        }
     }
 
     /** Disposes the Node */
