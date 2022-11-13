@@ -25,7 +25,7 @@ export class Swizzle4Node extends Node {
                 defaults<Partial<IInputProps<'vec4'>> | undefined, IInputProps<'vec4'>>(props.inputs?.vector, {
                     name: 'Vector',
                     type: 'vec4',
-                    defaultValue: vec4(0, 0, 0, 0)
+                    defaultValue: vec4(0, 0, 0, 1)
                 })
             )
         };
