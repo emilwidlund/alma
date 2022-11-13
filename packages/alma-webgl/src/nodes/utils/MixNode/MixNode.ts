@@ -9,7 +9,7 @@ import { IMixNodeData, IMixNodeInputs, IMixNodeOutputs, IMixNodeProps } from './
 
 export class MixNode extends Node {
     static icon = 'tonality';
-    static description = 'Performs a linear interpolation between a and b using t to weight between them.';
+    static description = 'Performs a linear interpolation between A and B using T to weight between them.';
 
     type = WebGLNodeType.MIX;
 
