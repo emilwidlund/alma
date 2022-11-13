@@ -12,6 +12,7 @@ export interface ISwizzle4NodeOutputs {
     x: Output<'float', Swizzle4Node>;
     y: Output<'float', Swizzle4Node>;
     z: Output<'float', Swizzle4Node>;
+    w: Output<'float', Swizzle4Node>;
 }
 
 export interface ISwizzle4NodeProps extends INodeProps {
@@ -22,5 +23,6 @@ export interface ISwizzle4NodeProps extends INodeProps {
         x?: IOutputProps<'float'>;
         y?: IOutputProps<'float'>;
         z?: IOutputProps<'float'>;
+        w?: IOutputProps<'float'>;
     };
 }
