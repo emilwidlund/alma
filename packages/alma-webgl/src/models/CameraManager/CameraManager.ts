@@ -1,3 +1,4 @@
+import { TextureFilter, TextureRepeat } from '@thi.ng/webgl';
 import { makeObservable, observable, action } from 'mobx';
 
 import { Texture } from '../Texture/Texture';
@@ -37,7 +38,12 @@ export class CameraManager {
 
     /** Resolves the camera texture */
     public async resolve(): Promise<Texture> {
-        this.texture.configure({ image: await this.textureResolver() });
+        this.texture.configure({
+            image: await this.textureResolver(),
+            flip: true,
+            filter: TextureFilter.LINEAR,
+            wrap: TextureRepeat.CLAMP
+        });
 
         return this.texture;
     }

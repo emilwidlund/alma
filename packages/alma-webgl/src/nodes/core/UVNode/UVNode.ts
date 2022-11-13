@@ -1,11 +1,11 @@
-import { $xy } from '@thi.ng/shader-ast';
-import { aspectCorrectedUV } from '@thi.ng/shader-ast-stdlib';
-import { Node, INodeInputs, IOutputProps, Output } from 'alma-graph';
+import { $xy, ternary, bool } from '@thi.ng/shader-ast';
+import { fragUV, aspectCorrectedUV } from '@thi.ng/shader-ast-stdlib';
+import { Node, IOutputProps, Output, Input, IInputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IUVNodeOutputs, IUVNodeProps } from './UVNode.types';
+import { IUVNodeInputs, IUVNodeOutputs, IUVNodeProps } from './UVNode.types';
 
 export class UVNode extends Node {
     static icon = 'grid_on';
@@ -13,13 +13,22 @@ export class UVNode extends Node {
 
     type = WebGLNodeType.UV;
 
-    inputs: INodeInputs;
+    inputs: IUVNodeInputs;
     outputs: IUVNodeOutputs;
 
     constructor(context: WebGLContext, props: IUVNodeProps = {}) {
         super(context, props);
 
-        this.inputs = {};
+        this.inputs = {
+            center: new Input(
+                this,
+                defaults<Partial<IInputProps<'bool'>> | undefined, IInputProps<'bool'>>(props.inputs?.center, {
+                    name: 'center',
+                    type: 'bool',
+                    defaultValue: bool(false)
+                })
+            )
+        };
 
         this.outputs = {
             uv: new Output(
@@ -28,9 +37,10 @@ export class UVNode extends Node {
                     name: 'UV',
                     type: 'vec2',
                     value: () => {
-                        return aspectCorrectedUV(
-                            this.resolveValue($xy(context.target.gl_FragCoord)),
-                            context.uniforms.resolution
+                        return ternary(
+                            this.resolveValue(this.inputs.center.value),
+                            aspectCorrectedUV($xy(context.target.gl_FragCoord), context.uniforms.resolution),
+                            fragUV(context.target.gl_FragCoord, context.uniforms.resolution)
                         );
                     }
                 })

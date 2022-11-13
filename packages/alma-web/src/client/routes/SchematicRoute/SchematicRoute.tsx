@@ -1,5 +1,5 @@
 import { Node } from 'alma-graph';
-import { WebGLContext, TimeNode, SineNode, UVNode, SimplexNoiseNode, ClassConstructor, nodes } from 'alma-webgl';
+import { WebGLContext, ClassConstructor, nodes, TimeNode, SineNode, UVNode, SimplexNoiseNode } from 'alma-webgl';
 import * as React from 'react';
 
 import { CommandPalette } from '../../components/CommandPalette/CommandPalette';
@@ -30,25 +30,25 @@ export const SchematicRoute = () => {
 
             const onCameraResolverInit = () => {
                 return new Promise<void>(resolve => {
-                    video.width = 320;
-                    video.height = 240;
+                    video.width = gl.drawingBufferWidth;
+                    video.height = gl.drawingBufferHeight;
                     video.autoplay = true;
-                    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-                        video.srcObject = stream;
-                        resolve();
-                    });
+                    navigator.mediaDevices
+                        .getUserMedia({ video: { width: gl.drawingBufferWidth, height: gl.drawingBufferHeight } })
+                        .then(stream => {
+                            video.srcObject = stream;
+                            resolve();
+                        });
                 });
             };
 
             const cameraTextureResolver = () =>
                 new Promise<TexImageSource>((resolve, reject) => {
-                    // IN YOUR RENDER LOOP
+                    webcamCanvas.width = gl.drawingBufferWidth;
+                    webcamCanvas.height = gl.drawingBufferHeight;
 
-                    webcamCanvas.width = video.width;
-                    webcamCanvas.height = video.height;
-                    // setup a canvas that will receive the webcam images
                     webcamCanvas.getContext('2d')?.drawImage(video, 0, 0, webcamCanvas.width, webcamCanvas.height);
-                    // make an image from the canvas
+
                     const webcamImage = new Image();
                     webcamImage.src = webcamCanvas.toDataURL();
                     resolve(webcamImage);
@@ -61,6 +61,11 @@ export const SchematicRoute = () => {
                 },
                 nodesCollection: nodes
             });
+
+            // const uv = new UVNode(ctx, { data: { position: { x: 60, y: 500 } } });
+            // const camera = new CameraNode(ctx, { data: { position: { x: 400, y: 500 } } });
+            // uv.outputs.uv.connect(camera.inputs.uv);
+            // camera.outputs.camera.connect(ctx.root.inputs.color);
 
             const time = new TimeNode(ctx, { data: { position: { x: 60, y: 500 } } });
             const sine = new SineNode(ctx, { data: { position: { x: 400, y: 500 } } });

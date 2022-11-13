@@ -1,10 +1,10 @@
 import { vec2, texture } from '@thi.ng/shader-ast';
-import { Node, INodeInputs, IOutputProps, Output, Input, IInputProps } from 'alma-graph';
+import { Node, IOutputProps, Output, Input, IInputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ICameraNodeOutputs, ICameraNodeProps } from './CameraNode.types';
+import { ICameraNodeInputs, ICameraNodeOutputs, ICameraNodeProps } from './CameraNode.types';
 
 export class CameraNode extends Node {
     static icon = 'camera';
@@ -12,7 +12,7 @@ export class CameraNode extends Node {
 
     type = WebGLNodeType.CAMERA;
 
-    inputs: INodeInputs;
+    inputs: ICameraNodeInputs;
     outputs: ICameraNodeOutputs;
 
     constructor(context: WebGLContext, props: ICameraNodeProps = {}) {
