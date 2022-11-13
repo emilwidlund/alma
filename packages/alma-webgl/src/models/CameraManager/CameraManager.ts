@@ -28,7 +28,7 @@ export class CameraManager {
 
     /** Initializes the Camera Manager */
     public async init(): Promise<Texture> {
-        this.texture = await this.cameraTextureResolver();
+        this.texture = new Texture(this.context.ctx, await this.cameraTextureResolver());
         this.initialized = true;
 
         return this.texture;

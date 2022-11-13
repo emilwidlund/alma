@@ -1,3 +1,1 @@
-import { Texture } from '../Texture/Texture';
-
-export type CameraTextureResolver = () => Promise<Texture>;
+export type CameraTextureResolver = () => Promise<WebGLTexture>;
