@@ -7,7 +7,6 @@ import { action, computed, IReactionDisposer, makeObservable, observable, reacti
 
 import { WebGLContextNode } from '../../nodes/core/WebGLContextNode/WebGLContextNode';
 import { CameraManager } from '../CameraManager/CameraManager';
-import { defTexture } from '../Texture/Texture';
 import { DrawingSize, ICompiledUniforms, INodesCollection, IWebGLContextProps } from './WebGLContext.types';
 
 export class WebGLContext extends Context<WebGLContextNode> {
@@ -81,7 +80,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
                     mouse: ['vec2', [0, 0]]
                 }
             }),
-            textures: [defTexture(this.ctx, this.cameraManager.texture)]
+            textures: [this.cameraManager.texture]
         };
 
         compileModel(this.ctx, model);
