@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { Artboard } from '../../components/Artboard/Artboard';
+import { BooleanControl } from '../../components/Control/BooleanControl/BooleanControl';
 import { NumberControl } from '../../components/Control/NumberControl/NumberControl';
 import { TypeControl } from '../../components/Control/TypeControl/TypeControl';
 import { Heading } from '../../components/Heading/Heading';
@@ -28,6 +29,8 @@ export const PropertyPanel = observer(
                 switch (input.type) {
                     case 'float':
                         return <NumberControl key={input.id} port={input} />;
+                    case 'bool':
+                        return <BooleanControl key={input.id} port={input} />;
                 }
             })
             .filter(Boolean);
