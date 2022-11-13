@@ -61,7 +61,7 @@ export class Connection<TType extends Type> {
     public dispose(): void {
         this.reactionDisposer();
 
-        this.to.value = this.previousInputValue;
+        this.to.setValue(this.previousInputValue);
     }
 
     /** Serializes Connection */

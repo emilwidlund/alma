@@ -54,7 +54,7 @@ export const PropertyPanel = observer(
                         </p>
                     </Panel>
                 )}
-                {schematic.selectedNode && !!inputControls.length && (
+                {schematic.selectedNode && (!!inputControls.length || schematic.selectedNode.data.type) && (
                     <Panel className={propertyPanelPortsContainerStyles}>
                         {schematic.selectedNode.data.type && <TypeControl node={schematic.selectedNode} />}
                         {!!inputControls.length && inputControls}

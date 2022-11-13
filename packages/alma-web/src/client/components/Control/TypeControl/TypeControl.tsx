@@ -23,7 +23,7 @@ export const TypeControl = observer(({ node }: ITypeControlProps) => {
     return (
         <BaseControl>
             <span className={typeControlNameStyles}>Type</span>
-            <select onChange={onChange}>
+            <select onChange={onChange} value={schematic.selectedNode?.data.type?.selected}>
                 {node.data.type?.options.map(type => (
                     <option key={type} value={type} children={type} />
                 ))}
