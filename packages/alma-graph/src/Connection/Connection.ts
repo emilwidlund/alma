@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 import { Context } from '../Context/Context';
 import { Input } from '../Input/Input';
-import { InputValue } from '../Input/Input.types';
+import { InputValue, SerializableInputValue } from '../Input/Input.types';
 import { Node } from '../Node/Node';
 import { Output } from '../Output/Output';
 import { IConnectionProps, IConnectionSerialized } from './Connection.types';
@@ -61,7 +61,7 @@ export class Connection<TType extends Type> {
     public dispose(): void {
         this.reactionDisposer();
 
-        this.to.setValue(this.previousInputValue);
+        this.to.setValue(this.previousInputValue as SerializableInputValue<TType>);
     }
 
     /** Serializes Connection */

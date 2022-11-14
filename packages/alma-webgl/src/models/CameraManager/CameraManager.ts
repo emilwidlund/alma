@@ -1,5 +1,5 @@
 import { TextureFilter, TextureRepeat } from '@thi.ng/webgl';
-import { makeObservable, observable, action } from 'mobx';
+import { makeObservable, observable, action, computed } from 'mobx';
 
 import { Texture } from '../Texture/Texture';
 import { WebGLContext } from '../WebGLContext/WebGLContext';
@@ -12,10 +12,12 @@ export class CameraManager {
     public texture: Texture;
     /** Camera Texture Resolver */
     public textureResolver: TextureResolver;
-    /** Initialization Flag */
-    public initialized = false;
     /** On Initialize Callback */
     private onInit?: () => Promise<void> | void;
+    /** Frames per second */
+    private fps = 25;
+    /** Animation Frame Identifier */
+    private frameId?: number;
 
     constructor(context: WebGLContext, props: ICameraManagerProps) {
         this.context = context;
@@ -25,15 +27,23 @@ export class CameraManager {
 
         makeObservable(this, {
             texture: observable,
-            initialized: observable,
-            init: action
+            initialized: computed,
+            start: action
         });
     }
 
+    /** Indicates if the Camera Manager is initialized */
+    public get initialized(): boolean {
+        return !!this.frameId;
+    }
+
     /** Initializes the Camera Manager */
-    public async init(): Promise<void> {
+    public async start(): Promise<void> {
         await this.onInit?.();
-        this.initialized = true;
+
+        setInterval(() => {
+            this.frameId = requestAnimationFrame(this.resolve.bind(this));
+        }, 1000 / this.fps);
     }
 
     /** Resolves the camera texture */
@@ -46,5 +56,19 @@ export class CameraManager {
         });
 
         return this.texture;
+    }
+
+    /** Dispose the Camera Manager */
+    public dispose(): this {
+        if (this.frameId) {
+            cancelAnimationFrame(this.frameId);
+        }
+
+        return this;
+    }
+
+    /** Resets Camera Manager */
+    public reset(): void {
+        this.dispose().start();
     }
 }
