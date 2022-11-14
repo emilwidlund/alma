@@ -2,8 +2,6 @@ import * as React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { Scene } from '../../components/Scene/Scene';
-import { LandingRoute } from '../../routes/LandingRoute/LandingRoute';
 import { SchematicRoute } from '../../routes/SchematicRoute/SchematicRoute';
 import { transitionGroupWrapperStyles } from './App.styles';
 
@@ -28,9 +26,9 @@ export const AppRoutes = () => {
           */}
             <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
                 <Routes location={location}>
-                    <Route path="/" element={<LandingRoute />} />
-                    <Route path="/about" element={<Scene />} />
-                    <Route path="/schematic/:id" element={<SchematicRoute />} />
+                    {/* <Route path="/" element={<LandingRoute />} />
+                    <Route path="/about" element={<Scene />} /> */}
+                    <Route path="/" element={<SchematicRoute />} index />
                 </Routes>
             </CSSTransition>
         </TransitionGroup>
