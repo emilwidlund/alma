@@ -10,6 +10,7 @@ export class AdditionNode extends Node {
     static icon = 'add';
     static description = 'Returns the sum of the inputs.';
 
+    name = 'Addition';
     type = WebGLNodeType.ADDITION;
 
     inputs: IAdditionNodeInputs;

@@ -11,6 +11,7 @@ export class CameraNode extends Node {
     static icon = 'camera';
     static description = 'Resolves a texture from the Webcam on desktop or Camera on phone.';
 
+    name = 'Camera';
     type = WebGLNodeType.CAMERA;
 
     inputs: ICameraNodeInputs;
