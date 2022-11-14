@@ -16,7 +16,7 @@ module.exports = env => ({
     resolve: {
         extensions: ['.ts', '.tsx', '.js']
     },
-    mode: 'development',
+    mode: env.NODE_ENV === 'production' ? 'production' : 'development',
     devServer: {
         port: 3000,
         historyApiFallback: true
