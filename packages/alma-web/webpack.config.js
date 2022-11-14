@@ -6,37 +6,39 @@ const webpack = require('webpack');
 
 const path = require('path');
 
-module.exports = env => ({
-    entry: './src/client/index.tsx',
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'build')
-    },
-    devtool: env.NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js']
-    },
-    mode: env.NODE_ENV === 'production' ? 'production' : 'development',
-    devServer: {
-        port: 3000,
-        historyApiFallback: true
-    },
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                loader: 'ts-loader'
-            }
+module.exports = env => {
+    return {
+        entry: './src/client/index.tsx',
+        output: {
+            filename: 'bundle.js',
+            path: path.resolve(__dirname, 'build')
+        },
+        devtool: 'inline-source-map',
+        resolve: {
+            extensions: ['.ts', '.tsx', '.js']
+        },
+        mode: 'development',
+        devServer: {
+            port: 3000,
+            historyApiFallback: true
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    loader: 'ts-loader'
+                }
+            ]
+        },
+        plugins: [
+            new CopyPlugin({
+                patterns: [{ from: 'src/client/templates' }]
+            }),
+            new webpack.DefinePlugin({
+                process: {
+                    env: JSON.stringify({ ...dotenv.config().parsed, ...env })
+                }
+            })
         ]
-    },
-    plugins: [
-        new CopyPlugin({
-            patterns: [{ from: 'src/client/templates' }]
-        }),
-        new webpack.DefinePlugin({
-            process: {
-                env: JSON.stringify({ ...dotenv.config().parsed, ...env })
-            }
-        })
-    ]
-});
+    };
+};
