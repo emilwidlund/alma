@@ -6,7 +6,6 @@
     "scripts": {
         "dev": "webpack serve",
         "build": "webpack",
-        "build:prod": "webpack",
         "test": "jest"
     },
     "keywords": [],
