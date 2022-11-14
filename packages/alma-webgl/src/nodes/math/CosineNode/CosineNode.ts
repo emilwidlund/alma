@@ -10,6 +10,7 @@ export class CosineNode extends Node {
     static icon = 'all_inclusive';
     static description = 'Performs a cosine operation on input.';
 
+    name = 'Cosine';
     type = WebGLNodeType.COSINE;
 
     inputs: ICosineNodeInputs;

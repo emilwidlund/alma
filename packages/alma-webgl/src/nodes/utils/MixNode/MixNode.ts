@@ -11,6 +11,7 @@ export class MixNode extends Node {
     static icon = 'tonality';
     static description = 'Performs a linear interpolation between A and B using T to weight between them.';
 
+    name = 'Mix';
     type = WebGLNodeType.MIX;
 
     inputs: IMixNodeInputs;

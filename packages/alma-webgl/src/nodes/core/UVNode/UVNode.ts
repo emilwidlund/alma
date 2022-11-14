@@ -11,6 +11,7 @@ export class UVNode extends Node {
     static icon = 'grid_on';
     static description = "Aspect corrected UV coordinates based on the WebGL Context's resolution.";
 
+    name = 'UV';
     type = WebGLNodeType.UV;
 
     inputs: IUVNodeInputs;

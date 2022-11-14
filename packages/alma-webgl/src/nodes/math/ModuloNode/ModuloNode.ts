@@ -10,6 +10,7 @@ export class ModuloNode extends Node {
     static icon = 'percent';
     static description = 'Performs a modulo operation on inputs. Returns the remainder of a division.';
 
+    name = 'Modulo';
     type = WebGLNodeType.MODULO;
 
     inputs: IModuloNodeInputs;
