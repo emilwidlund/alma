@@ -12,7 +12,7 @@ module.exports = env => ({
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'build')
     },
-    devtool: 'source-map',
+    devtool: env.NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',
     resolve: {
         extensions: ['.ts', '.tsx', '.js']
     },

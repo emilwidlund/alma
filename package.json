@@ -7,7 +7,7 @@
         "lint": "eslint .",
         "lint:fix": "npm run lint -- --fix",
         "build": "npx lerna run build",
-        "build:watch": "npm run build -- -- --watch",
+        "build:watch": "npx lerna run build -- --watch",
         "dev": "npx lerna run dev",
         "start": "run-p build:watch dev"
     },
