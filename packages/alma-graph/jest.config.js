@@ -1,5 +1,4 @@
 module.exports = {
-    rootDir: './',
     setupFiles: ['./setupTests.js'],
     extensionsToTreatAsEsm: ['.ts'],
     moduleNameMapper: {
