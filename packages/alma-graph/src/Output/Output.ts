@@ -27,8 +27,8 @@ export class Output<TType extends Type, TNode extends Node = Node> extends Port<
     }
 
     /** Connects output with input */
-    public connect<TInputNode extends Node, TInput extends Input<TType, TInputNode>>(input: TInput) {
-        this.node.context.connect(this, input);
+    public connect<TInputNode extends Node, TInput extends Input<TType, TInputNode>>(input: TInput): Connection<TType> {
+        return this.node.context.connect(this, input);
     }
 
     /** Outgoing Connections */
