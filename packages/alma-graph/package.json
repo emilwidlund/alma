@@ -27,8 +27,6 @@
         "@types/lodash": "^4.14.188",
         "@types/node": "^18.7.18",
         "@types/uuid": "^8.3.4",
-        "install": "^0.13.0",
-        "npm": "^9.1.1",
         "ts-jest": "^29.0.0-next.1"
     }
 }

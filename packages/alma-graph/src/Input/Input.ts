@@ -54,8 +54,8 @@ export class Input<TType extends Type, TNode extends Node = Node> extends Port<T
             ...super.toJSON(),
             defaultValue: this.defaultValue,
             value:
-                'tag' in this.value && this.value.tag === 'lit'
-                    ? (this.value as SerializableInputValue<TType>)
+                'tag' in this.value && this.value.tag !== 'fn' && !this.connected
+                    ? this.node.resolveValue(this.value as SerializableInputValue<TType>)
                     : undefined
         };
     }
