@@ -7,15 +7,19 @@ import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { SchematicContainer } from '../../containers/SchematicContainer/SchematicContainer';
+import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint';
 import { useKeyPress } from '../../hooks/useKeyPress/useKeyPress';
 import { SchematicProvider } from '../../providers/SchematicProvider/SchematicProvider';
 import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
 
 export const SchematicRoute = () => {
     const ref = React.useRef<HTMLCanvasElement>(null);
+    const schematicRef = React.useRef<HTMLDivElement>(null);
     const [context, setContext] = React.useState<WebGLContext | undefined>();
     const [commandLineOpen, toggleCommandLine] = React.useState(false);
     const spacePressed = useKeyPress(' ');
+
+    const midPoint = useCartesianMidpoint(schematicRef);
 
     React.useEffect(() => {
         if (ref.current) {
@@ -113,11 +117,11 @@ export const SchematicRoute = () => {
         (node: ClassConstructor<Node>) => {
             return () => {
                 if (context) {
-                    new node(context);
+                    new node(context, { data: { position: midPoint.current } });
                 }
             };
         },
-        [context]
+        [midPoint, context]
     );
 
     return (
@@ -129,7 +133,7 @@ export const SchematicRoute = () => {
                     <NavBarItem to="/dashboard" children="Dashboard" />
                 </NavBar>
                 <div className={schematicRouteWrapperStyles}>
-                    <SchematicContainer />
+                    <SchematicContainer ref={schematicRef} />
                     <PropertyPanel ref={ref} />
 
                     {commandLineOpen && (

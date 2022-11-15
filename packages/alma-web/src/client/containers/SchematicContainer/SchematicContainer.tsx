@@ -7,40 +7,44 @@ import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition'
 import { useSchematic } from '../../hooks/useSchematic/useSchematic';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
 
-export const SchematicContainer = observer(() => {
-    const svgRef = React.useRef<SVGSVGElement>(null);
-    const schematic = useSchematic();
-    const { onMouseMove, mousePosition } = useMousePosition();
+export const SchematicContainer = observer(
+    React.forwardRef<HTMLDivElement>((props, ref) => {
+        const svgRef = React.useRef<SVGSVGElement>(null);
+        const schematic = useSchematic();
+        const { onMouseMove, mousePosition } = useMousePosition();
 
-    const onMouseUp = React.useCallback(
-        (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            schematic.setConnectionDraft();
-        },
-        [schematic]
-    );
+        const onMouseUp = React.useCallback(
+            (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+                schematic.setConnectionDraft();
+            },
+            [schematic]
+        );
 
-    const onClick = React.useCallback(
-        (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-            if (svgRef.current === e.target) {
-                schematic.setSelectedNode();
-            }
-        },
-        [schematic]
-    );
+        const onClick = React.useCallback(
+            (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+                if (svgRef.current === e.target) {
+                    schematic.setSelectedNode();
+                }
+            },
+            [schematic]
+        );
 
-    return (
-        <Schematic onMouseMove={onMouseMove} onMouseUp={onMouseUp}>
-            {Array.from(schematic.context?.nodes.values() || []).map(node => (
-                <NodeContainer key={node.id} node={node} />
-            ))}
-
-            <svg ref={svgRef} id="connections" width="100%" height="100%" onClick={onClick}>
-                {Array.from(schematic.context?.connections.values() || []).map(connection => (
-                    <Connection key={connection.id} connection={connection} />
+        return (
+            <Schematic ref={ref} onMouseMove={onMouseMove} onMouseUp={onMouseUp}>
+                {Array.from(schematic.context?.nodes.values() || []).map(node => (
+                    <NodeContainer key={node.id} node={node} />
                 ))}
 
-                {schematic.connectionDraft && <Connection output={schematic.connectionDraft} point={mousePosition} />}
-            </svg>
-        </Schematic>
-    );
-});
+                <svg ref={svgRef} id="connections" width="100%" height="100%" onClick={onClick}>
+                    {Array.from(schematic.context?.connections.values() || []).map(connection => (
+                        <Connection key={connection.id} connection={connection} />
+                    ))}
+
+                    {schematic.connectionDraft && (
+                        <Connection output={schematic.connectionDraft} point={mousePosition} />
+                    )}
+                </svg>
+            </Schematic>
+        );
+    })
+);
