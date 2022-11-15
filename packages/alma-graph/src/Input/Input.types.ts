@@ -20,6 +20,7 @@ export interface IInputProps<TType extends Type> extends IPortProps<TType> {
 }
 
 export interface IInputSerialized<TType extends Type> extends IPortSerialized<TType> {
+    defaultValue: SerializableInputValue<TType>;
     value?: SerializableInputValue<TType>;
 }
 

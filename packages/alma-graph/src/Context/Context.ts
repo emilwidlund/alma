@@ -1,5 +1,5 @@
 import { Sym, Type } from '@thi.ng/shader-ast';
-import { defaults } from 'lodash';
+import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
@@ -25,8 +25,8 @@ export abstract class Context<TRoot extends Node = Node> {
     /** Imported Props */
     props: IContextSerialized;
 
-    constructor(props: IContextProps) {
-        const properties = defaults(props, {
+    constructor(props: IContextProps = {}) {
+        const properties = _.defaults(props, {
             id: uuid(),
             name: 'Untitled',
             nodes: [],

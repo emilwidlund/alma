@@ -6,6 +6,7 @@
         "strict": true,
         "moduleResolution": "node",
         "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
         "skipLibCheck": true,
         "outDir": "build",
         "declaration": true

@@ -10,7 +10,8 @@
         "build:prod": "npx lerna run build:prod",
         "build:dev": "npx lerna run build -- --watch",
         "dev": "npx lerna run dev",
-        "start": "run-p build:dev dev"
+        "start": "run-p build:dev dev",
+        "test": "npx lerna run test"
     },
     "repository": {
         "type": "git",

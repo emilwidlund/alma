@@ -1,5 +1,5 @@
 import { Type } from '@thi.ng/shader-ast';
-import { defaultsDeep, isFunction } from 'lodash';
+import _ from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
@@ -30,7 +30,7 @@ export abstract class Node {
     constructor(context: Context, props: INodeProps) {
         this.context = context;
 
-        const { id, name, data } = defaultsDeep(props, {
+        const { id, name, data } = _.defaultsDeep(props, {
             id: uuid(),
             name: 'Untitled',
             inputs: {},
@@ -65,7 +65,7 @@ export abstract class Node {
         if (value instanceof Output) {
             const output = value;
             return this.resolveValue(output.value);
-        } else if (isFunction(value)) {
+        } else if (_.isFunction(value)) {
             return value();
         } else {
             return value;
