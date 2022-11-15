@@ -1,5 +1,5 @@
 import { Type } from '@thi.ng/shader-ast';
-import { defaultsDeep } from 'lodash';
+import { defaultsDeep, isFunction } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
@@ -32,7 +32,7 @@ export abstract class Node {
 
         const { id, name, data } = defaultsDeep(props, {
             id: uuid(),
-            name: this.constructor.name.replace('Node', '').trimEnd(),
+            name: 'Untitled',
             inputs: {},
             outputs: {},
             data: {
@@ -64,7 +64,9 @@ export abstract class Node {
     ): SerializableInputValue<TType> | ComputedInputValue<TType> {
         if (value instanceof Output) {
             const output = value;
-            return output.value;
+            return this.resolveValue(output.value);
+        } else if (isFunction(value)) {
+            return value();
         } else {
             return value;
         }

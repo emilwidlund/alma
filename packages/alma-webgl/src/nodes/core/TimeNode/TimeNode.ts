@@ -9,6 +9,7 @@ export class TimeNode extends Node {
     static icon = 'timer';
     static description = 'The amount of seconds that has elapsed since rendering began.';
 
+    name = 'Time';
     type = WebGLNodeType.TIME;
 
     inputs: INodeInputs;

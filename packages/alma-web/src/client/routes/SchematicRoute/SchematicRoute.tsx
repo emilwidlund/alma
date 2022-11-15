@@ -31,11 +31,15 @@ export const SchematicRoute = () => {
 
             const video = document.createElement('video');
             const webcamCanvas = document.createElement('canvas');
+            const webcamImage = new Image();
 
             const onCameraResolverInit = () => {
                 return new Promise<void>(resolve => {
                     video.width = gl.drawingBufferWidth;
                     video.height = gl.drawingBufferHeight;
+                    webcamCanvas.width = gl.drawingBufferWidth;
+                    webcamCanvas.height = gl.drawingBufferHeight;
+                    console.log(gl.drawingBufferWidth);
                     video.autoplay = true;
                     navigator.mediaDevices
                         .getUserMedia({ video: { width: gl.drawingBufferWidth, height: gl.drawingBufferHeight } })
@@ -48,13 +52,10 @@ export const SchematicRoute = () => {
 
             const cameraTextureResolver = () =>
                 new Promise<TexImageSource>((resolve, reject) => {
-                    webcamCanvas.width = gl.drawingBufferWidth;
-                    webcamCanvas.height = gl.drawingBufferHeight;
-
                     webcamCanvas.getContext('2d')?.drawImage(video, 0, 0, webcamCanvas.width, webcamCanvas.height);
 
-                    const webcamImage = new Image();
-                    webcamImage.src = webcamCanvas.toDataURL();
+                    webcamImage.src = webcamCanvas.toDataURL('image/jpeg');
+
                     resolve(webcamImage);
                 });
 

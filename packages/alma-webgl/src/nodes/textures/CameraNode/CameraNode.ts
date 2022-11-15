@@ -1,4 +1,5 @@
-import { vec2, texture } from '@thi.ng/shader-ast';
+import { texture } from '@thi.ng/shader-ast';
+import { fragUV } from '@thi.ng/shader-ast-stdlib';
 import { Node, IOutputProps, Output, Input, IInputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
@@ -10,6 +11,7 @@ export class CameraNode extends Node {
     static icon = 'camera';
     static description = 'Resolves a texture from the Webcam on desktop or Camera on phone.';
 
+    name = 'Camera';
     type = WebGLNodeType.CAMERA;
 
     inputs: ICameraNodeInputs;
@@ -19,7 +21,7 @@ export class CameraNode extends Node {
         super(context, props);
 
         if (!context.cameraManager.initialized) {
-            context.cameraManager.init();
+            context.cameraManager.start();
         }
 
         this.inputs = {
@@ -28,7 +30,7 @@ export class CameraNode extends Node {
                 defaults<Partial<IInputProps<'vec2'>> | undefined, IInputProps<'vec2'>>(props.inputs?.uv, {
                     name: 'UV',
                     type: 'vec2',
-                    defaultValue: vec2(0, 0)
+                    defaultValue: fragUV(context.target.gl_FragCoord, context.uniforms.resolution)
                 })
             )
         };

@@ -152,10 +152,6 @@ export class WebGLContext extends Context<WebGLContextNode> {
             this.startTime = Date.now();
         }
 
-        if (this.cameraManager.initialized) {
-            await this.cameraManager.resolve();
-        }
-
         const time = (Date.now() - this.startTime) * 0.001;
         this.setUniform('time', time);
 
@@ -174,6 +170,8 @@ export class WebGLContext extends Context<WebGLContextNode> {
         if (this.connectionReactionDisposer) {
             this.connectionReactionDisposer();
         }
+
+        this.cameraManager.dispose();
 
         return this;
     }
