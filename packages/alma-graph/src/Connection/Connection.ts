@@ -1,5 +1,5 @@
 import { Type } from '@thi.ng/shader-ast';
-import { defaults } from 'lodash';
+import _ from 'lodash';
 import { IReactionDisposer, autorun, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
@@ -26,7 +26,7 @@ export class Connection<TType extends Type> {
     private reactionDisposer: IReactionDisposer;
 
     constructor(context: Context, props: IConnectionProps<TType>) {
-        const { id } = defaults(props, {
+        const { id } = _.defaults(props, {
             id: uuid()
         });
 

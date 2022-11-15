@@ -52,6 +52,7 @@ export class Input<TType extends Type, TNode extends Node = Node> extends Port<T
     public toJSON(): IInputSerialized<TType> {
         return {
             ...super.toJSON(),
+            defaultValue: this.defaultValue,
             value:
                 'tag' in this.value && this.value.tag === 'lit'
                     ? (this.value as SerializableInputValue<TType>)

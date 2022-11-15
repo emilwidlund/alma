@@ -6,7 +6,8 @@
     "types": "build/index.d.ts",
     "scripts": {
         "build": "tsc --project .",
-        "build:prod": "tsc --project ."
+        "build:prod": "tsc --project .",
+        "test": "NODE_OPTIONS='--experimental-vm-modules' jest"
     },
     "keywords": [],
     "author": "",
@@ -22,7 +23,12 @@
         "uuid": "^9.0.0"
     },
     "devDependencies": {
+        "@types/jest": "^27.4.1",
         "@types/lodash": "^4.14.188",
-        "@types/uuid": "^8.3.4"
+        "@types/node": "^18.7.18",
+        "@types/uuid": "^8.3.4",
+        "install": "^0.13.0",
+        "npm": "^9.1.1",
+        "ts-jest": "^29.0.0-next.1"
     }
 }
