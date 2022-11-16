@@ -91,8 +91,8 @@ export abstract class Node {
 
     /** Disposes the Node */
     public dispose(): void {
-        for (const connection of this.connections) {
-            this.context.disconnect(connection);
+        for (const port of this.ports) {
+            port.dispose();
         }
 
         this.context.remove(this);
