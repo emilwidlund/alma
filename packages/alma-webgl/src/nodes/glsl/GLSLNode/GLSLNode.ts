@@ -22,18 +22,11 @@ export class GLSLNode extends Node {
     constructor(context: WebGLContext, props: IGLSLNodeProps = {}) {
         super(context, props);
 
-        const [decl] = processor.parse(`
-        float rand(vec2 co){
-            return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
-        }
-        `);
+        const [decl] = processor.parse(`float rand(vec2 co) {
+    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+        }`);
 
-        const test = defnRaw(
-            decl.returnType,
-            decl.name,
-            decl.parameters,
-            `return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);`
-        );
+        const test = defnRaw(decl.returnType, decl.name, decl.parameters, decl.body);
 
         // @ts-ignore
         this.inputs = decl.parameters.map(

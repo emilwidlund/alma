@@ -9,4 +9,5 @@ export interface IParsedFunctionDeclaration {
     name: string;
     parameters: IParsedFunctionParameter[];
     returnType: Type;
+    body: string;
 }

@@ -15,7 +15,14 @@ module.exports = env => {
         },
         devtool: 'inline-source-map',
         resolve: {
-            extensions: ['.ts', '.tsx', '.js']
+            extensions: ['.ts', '.tsx', '.js'],
+            alias: {
+                '@thi.ng/shader-ast-glsl/target': path.resolve(
+                    __dirname,
+                    '../../',
+                    'node_modules/alma-glsl/build/core/Target/Target.js'
+                )
+            }
         },
         mode: 'development',
         devServer: {
