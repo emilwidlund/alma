@@ -1,6 +1,7 @@
 import { TimeNode } from './nodes/core/TimeNode/TimeNode';
 import { UVNode } from './nodes/core/UVNode/UVNode';
 import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode';
+import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
@@ -23,6 +24,7 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.SINE]: SineNode,
     [WebGLNodeType.COSINE]: CosineNode,
     [WebGLNodeType.ADDITION]: AdditionNode,
+    [WebGLNodeType.GLSL]: GLSLNode,
     [WebGLNodeType.MODULO]: ModuloNode,
     [WebGLNodeType.TIME]: TimeNode,
     [WebGLNodeType.SWIZZLE_2]: Swizzle2Node,
@@ -76,6 +78,10 @@ export * from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode.types';
 /** Textures */
 export * from './nodes/textures/CameraNode/CameraNode';
 export * from './nodes/textures/CameraNode/CameraNode.types';
+
+/** GLSL */
+export * from './nodes/glsl/GLSLNode/GLSLNode';
+export * from './nodes/glsl/GLSLNode/GLSLNode.types';
 
 /** Utils */
 export * from './nodes/utils/Swizzle2Node/Swizzle2Node';
