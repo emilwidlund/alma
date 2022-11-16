@@ -1,6 +1,6 @@
-import { vec2, float } from '@thi.ng/shader-ast';
+import { vec2, Type, Lit, bool, float, vec3, vec4, mat2, mat3, mat4, int } from '@thi.ng/shader-ast';
 import { defnRaw, Processor } from 'alma-glsl';
-import { IOutputProps, Node, Output } from 'alma-graph';
+import { Input, IOutputProps, Node, Output } from 'alma-graph';
 import _ from 'lodash';
 
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
@@ -23,32 +23,23 @@ export class GLSLNode extends Node {
         super(context, props);
 
         const [decl] = processor.parse(`
-        float getColorComponent(in vec2 st, in float modScale, in float blur) {
-            vec2 modSt = mod(st, 1. / modScale) * modScale * 2. - 1.;
-            float dist = length(modSt);
-            float angle = atan(modSt.x, modSt.y) + sin(iTime * .08) * 9.0;
-            //dist = sdPolygon(angle, dist);
-            //dist += sin(angle * 3. + iTime * .21) * .2 + cos(angle * 4. - iTime * .3) * .1;
-            float shapeMap = smoothstep(SHAPE_SIZE + blur, SHAPE_SIZE - blur, sin(dist * 3.0) * .5 + .5);
-            return shapeMap;
+        float rand(vec2 co){
+            return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
         }
         `);
 
         const test = defnRaw(
-            'vec4',
-            'getColorComponent',
+            decl.returnType,
+            decl.name,
             decl.parameters,
-            `
-            vec2 modSt = mod(st, 1. / modScale) * modScale * 2. - 1.;
-            float dist = length(modSt);
-            float angle = atan(modSt.x, modSt.y) + sin(iTime * .08) * 9.0;
-            //dist = sdPolygon(angle, dist);
-            //dist += sin(angle * 3. + iTime * .21) * .2 + cos(angle * 4. - iTime * .3) * .1;
-            float shapeMap = smoothstep(SHAPE_SIZE + blur, SHAPE_SIZE - blur, sin(dist * 3.0) * .5 + .5);
-            return shapeMap;`
+            `return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);`
         );
 
-        this.inputs = {};
+        // @ts-ignore
+        this.inputs = decl.parameters.map(
+            // @ts-ignore
+            ({ name, type }) => new Input(this, { name, type, defaultValue: this.getTypesafeValue(type) })
+        );
 
         this.outputs = {
             output: new Output(
@@ -57,10 +48,38 @@ export class GLSLNode extends Node {
                     name: 'Output',
                     type: decl.returnType,
                     value: () => {
-                        return test(vec2(0, 0), float(1), float(5));
+                        return test.apply(
+                            this,
+                            Object.values(this.inputs).map(input => this.resolveValue(input.value))
+                        );
                     }
                 })
             )
         };
+    }
+
+    /** Returns a typesafe value for given type */
+    public getTypesafeValue(type: Type): Lit<Type> {
+        switch (type) {
+            case 'float':
+                return float(0);
+            case 'int':
+                return int(0);
+            case 'vec2':
+                return vec2(0, 0);
+            case 'vec3':
+                return vec3(0, 0, 0);
+            case 'vec4':
+                return vec4(0, 0, 0, 1);
+            case 'mat2':
+                return mat2();
+            case 'mat3':
+                return mat3();
+            case 'mat4':
+                return mat4();
+            case 'bool':
+            default:
+                return bool(true);
+        }
     }
 }

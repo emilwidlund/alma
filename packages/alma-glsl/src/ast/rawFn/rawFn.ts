@@ -1,4 +1,4 @@
-import { Type, funcall, gensym } from '@thi.ng/shader-ast';
+import { Type, funcall } from '@thi.ng/shader-ast';
 
 import { IParsedFunctionParameter } from '../../core/Processor/Processor.types';
 
@@ -7,7 +7,7 @@ export const defnRaw = (type: Type, id: string, parameters: IParsedFunctionParam
         return {
             tag: 'arg',
             type,
-            id: gensym(),
+            id: name,
             opts: { q: 'in' }
         };
     };

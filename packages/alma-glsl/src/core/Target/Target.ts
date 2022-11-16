@@ -113,9 +113,15 @@ export const targetGLSL = (opts?: Partial<GLSLOpts>) => {
         fn: t => `${$type(t.type)} ${t.id}(${$list(t.args)}) ${emit(t.scope)}`,
 
         // @ts-ignore
-        rawFn: t => `${$type(t.type)} ${t.id}(${$list(t.args)}) {
-            ${t.body}
-        }`,
+        rawFn: t => {
+            const out = `${$type(t.type)} ${t.id}(${$list(t.args)}) {
+                ${t.body}
+            }`;
+
+            console.log(out);
+
+            return out;
+        },
 
         for: t => `for(${t.init ? emit(t.init) : ''}; ${emit(t.test)}; ${t.iter ? emit(t.iter) : ''}) ${emit(t.scope)}`,
 

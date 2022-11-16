@@ -1,6 +1,6 @@
 import { defMain, Sym, assign, vec4 } from '@thi.ng/shader-ast';
 import { compileModel, defQuadModel, defShader, draw, FX_SHADER_SPEC, ModelSpec, UniformValues } from '@thi.ng/webgl';
-import { GLSLTarget } from 'alma-glsl';
+import { GLSLTarget, targetGLSL } from 'alma-glsl';
 import { Context, INodeSerialized, Node } from 'alma-graph';
 import { isFunction } from 'lodash';
 import { action, computed, IReactionDisposer, makeObservable, observable, reaction } from 'mobx';
@@ -96,7 +96,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
         _: Record<string, Sym<any>>,
         outs: Record<string, Sym<any>>
     ) {
-        this.target = gl;
+        this.target = targetGLSL();
         this.uniforms = uniforms as unknown as ICompiledUniforms;
 
         const value = this.root ? this.root.resolveValue(this.root.inputs.color.value) : vec4(0, 0, 0, 1);
