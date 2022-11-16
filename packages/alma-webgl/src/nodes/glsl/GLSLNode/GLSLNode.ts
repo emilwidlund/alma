@@ -26,11 +26,9 @@ export class GLSLNode extends Node {
     return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
         }`);
 
-        const test = defnRaw(decl.returnType, decl.name, decl.parameters, decl.body);
+        this.name = decl.name;
 
-        // @ts-ignore
         this.inputs = decl.parameters.map(
-            // @ts-ignore
             ({ name, type }) => new Input(this, { name, type, defaultValue: this.getTypesafeValue(type) })
         );
 
@@ -41,7 +39,7 @@ export class GLSLNode extends Node {
                     name: 'Output',
                     type: decl.returnType,
                     value: () => {
-                        return test.apply(
+                        return defnRaw(decl.returnType, decl.name, decl.parameters, decl.body).apply(
                             this,
                             Object.values(this.inputs).map(input => this.resolveValue(input.value))
                         );
