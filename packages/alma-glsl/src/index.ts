@@ -1,7 +1,6 @@
-import { parser } from '@shaderfrog/glsl-parser';
-
-const ast = parser.parse(`
-float rand(vec2 co){
-    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
-}
-`);
+export * from './core/Processor/Processor';
+export * from './core/Processor/Processor.types';
+export * from './core/Target/Target';
+export * from './core/Target/Target.types';
+export * from './ast/rawFn/rawFn';
+export * from './ast/rawFn/rawFn.types';

@@ -1,6 +1,7 @@
 import { TimeNode } from './nodes/core/TimeNode/TimeNode';
 import { UVNode } from './nodes/core/UVNode/UVNode';
 import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode';
+import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
@@ -22,6 +23,7 @@ export enum WebGLNodeType {
     SINE = 'SINE',
     COSINE = 'COSINE',
     ADDITION = 'ADDITION',
+    GLSL = 'GLSL',
     MIX = 'MIX',
     MODULO = 'MODULO',
     TIME = 'TIME',
@@ -46,6 +48,7 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.SINE]: ClassConstructor<SineNode>;
     [WebGLNodeType.COSINE]: ClassConstructor<CosineNode>;
     [WebGLNodeType.ADDITION]: ClassConstructor<AdditionNode>;
+    [WebGLNodeType.GLSL]: ClassConstructor<GLSLNode>;
     [WebGLNodeType.MODULO]: ClassConstructor<ModuloNode>;
     [WebGLNodeType.TIME]: ClassConstructor<TimeNode>;
     [WebGLNodeType.SWIZZLE_2]: ClassConstructor<Swizzle2Node>;
@@ -65,6 +68,7 @@ export type WebGLNode =
     | SineNode
     | CosineNode
     | AdditionNode
+    | GLSLNode
     | ModuloNode
     | Swizzle2Node
     | Swizzle3Node
