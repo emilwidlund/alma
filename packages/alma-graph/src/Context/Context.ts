@@ -106,27 +106,11 @@ export abstract class Context<TRoot extends Node = Node> {
         TInputNode extends Node,
         TInput extends Input<TType, TInputNode>
     >(output: TOutput, input: TInput): Connection<TType> {
-        if (input.connected) {
-            throw new Error(`Input ${input.id} is already connected`);
-        }
-
-        if (output.type !== input.type) {
-            throw new Error(`Output (${output.type}) and Input (${input.type}) are of different types`);
-        }
-
-        if (!input.validator(output.value)) {
-            throw new Error(`Validation of value from Output ${output.id} to Input ${input.id} failed`);
-        }
-
-        const connection = new Connection(this, { from: output, to: input });
-        this.connections.set(connection.id, connection);
-
-        return connection;
+        return new Connection(this, { from: output, to: input });
     }
 
     /** Disconnects a given connection */
     public disconnect<TType extends Type, TConnection extends Connection<TType>>(connection: TConnection): void {
-        this.connections.delete(connection.id);
         connection.dispose();
     }
 
