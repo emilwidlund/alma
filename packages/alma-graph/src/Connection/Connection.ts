@@ -43,9 +43,23 @@ export class Connection<TType extends Type> {
             type: computed
         });
 
+        if (this.to.connected) {
+            throw new Error(`Input ${this.to.id} is already connected`);
+        }
+
+        if (this.from.type !== this.to.type) {
+            throw new Error(`Output (${this.from.type}) and Input (${this.to.type}) are of different types`);
+        }
+
+        if (!this.to.validator(this.from.value)) {
+            throw new Error(`Validation of value from Output ${this.from.id} to Input ${this.to.id} failed`);
+        }
+
+        this.context.connections.set(this.id, this);
+
         this.reactionDisposer = autorun(() => {
             if (this.to.validator(this.from.value)) {
-                this.to.value = this.from;
+                this.to.setValue(this.from);
             } else {
                 throw new Error(`Validation of value from Output ${this.from.id} to Input ${this.to.id} failed`);
             }
@@ -62,6 +76,8 @@ export class Connection<TType extends Type> {
         this.reactionDisposer();
 
         this.to.setValue(this.previousInputValue as SerializableInputValue<TType>);
+
+        this.context.connections.delete(this.id);
     }
 
     /** Serializes Connection */

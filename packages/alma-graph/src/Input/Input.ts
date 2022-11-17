@@ -4,7 +4,14 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import { Connection } from '../Connection/Connection';
 import { Node } from '../Node/Node';
 import { Port } from '../Port/Port';
-import { IInputProps, IInputSerialized, InputValue, SerializableInputValue, ValidatorFunction } from './Input.types';
+import {
+    ConnectedInputValue,
+    IInputProps,
+    IInputSerialized,
+    InputValue,
+    SerializableInputValue,
+    ValidatorFunction
+} from './Input.types';
 
 export class Input<TType extends Type, TNode extends Node = Node> extends Port<TType, TNode> {
     /** Port Default Value */
@@ -30,7 +37,7 @@ export class Input<TType extends Type, TNode extends Node = Node> extends Port<T
     }
 
     /** Sets Input's Value */
-    public setValue(value: SerializableInputValue<TType>) {
+    public setValue(value: SerializableInputValue<TType> | ConnectedInputValue<TType>) {
         if (this.validator(value)) {
             this.value = value;
         }
