@@ -1,6 +1,6 @@
 import { defMain, Sym, assign, vec4 } from '@thi.ng/shader-ast';
+import { GLSLTarget, targetGLSL } from '@thi.ng/shader-ast-glsl';
 import { compileModel, defQuadModel, defShader, draw, FX_SHADER_SPEC, ModelSpec, UniformValues } from '@thi.ng/webgl';
-import { GLSLTarget, targetGLSL } from 'alma-glsl';
 import { Context, INodeSerialized, Node } from 'alma-graph';
 import { isFunction } from 'lodash';
 import { action, computed, IReactionDisposer, makeObservable, observable, reaction } from 'mobx';
