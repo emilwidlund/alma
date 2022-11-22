@@ -67,6 +67,7 @@ injectGlobal`
         --border-color: #424143;
         --connection-color: #565557;
         --accent-color: #1e62ff;
+        --accent-color-subtle: rgba(30, 98, 255, .2);
         --text-light-color: #fff;
         --text-neutral-color: #888;
         --text-dark-color: #000;

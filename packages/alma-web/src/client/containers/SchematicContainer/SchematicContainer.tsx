@@ -6,6 +6,9 @@ import { Schematic } from '../../components/Schematic/Schematic';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { useSchematic } from '../../hooks/useSchematic/useSchematic';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
+import { Toolbar } from '../Toolbar/Toolbar';
+import { ToolbarItem } from '../Toolbar/ToolbarItem';
+import { schematicContainerStyles } from './SchematicContainer.styles';
 
 export const SchematicContainer = observer(
     React.forwardRef<HTMLDivElement>((props, ref) => {
@@ -30,7 +33,15 @@ export const SchematicContainer = observer(
         );
 
         return (
-            <Schematic ref={ref} onMouseMove={onMouseMove} onMouseUp={onMouseUp}>
+            <Schematic ref={ref} className={schematicContainerStyles} onMouseMove={onMouseMove} onMouseUp={onMouseUp}>
+                <Toolbar>
+                    <ToolbarItem icon="stream" onClick={console.log} />
+                    <ToolbarItem icon="shape_line" onClick={console.log} outlined />
+                    <ToolbarItem icon="add" onClick={console.log} cta />
+                    <ToolbarItem icon="conversion_path" onClick={console.log} />
+                    <ToolbarItem icon="open_in_full" onClick={console.log} />
+                </Toolbar>
+
                 {Array.from(schematic.context?.nodes.values() || []).map(node => (
                     <NodeContainer key={node.id} node={node} />
                 ))}
