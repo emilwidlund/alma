@@ -1,8 +1,10 @@
+import { GLSLNode } from 'alma-webgl';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { Connection } from '../../components/Connection/Connection';
 import { Schematic } from '../../components/Schematic/Schematic';
+import { useGLSLModal } from '../../hooks/useGLSLModal/useGLSLModal';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { useSchematic } from '../../hooks/useSchematic/useSchematic';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
@@ -15,6 +17,7 @@ export const SchematicContainer = observer(
         const svgRef = React.useRef<SVGSVGElement>(null);
         const schematic = useSchematic();
         const { onMouseMove, mousePosition } = useMousePosition();
+        const { open } = useGLSLModal();
 
         const onMouseUp = React.useCallback(
             (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -32,10 +35,17 @@ export const SchematicContainer = observer(
             [schematic]
         );
 
+        const handleCreateGLSLNode = React.useCallback(() => {
+            if (schematic.context) {
+                const node = new GLSLNode(schematic.context, { data: { glsl: '', position: { x: 0, y: 0 } } });
+                open(node);
+            }
+        }, [schematic.context]);
+
         return (
             <Schematic ref={ref} className={schematicContainerStyles} onMouseMove={onMouseMove} onMouseUp={onMouseUp}>
                 <Toolbar>
-                    <ToolbarItem label="Stream" icon="stream" onClick={console.log} />
+                    <ToolbarItem label="Stream" icon="stream" onClick={handleCreateGLSLNode} />
                     <ToolbarItem label="Gesture" icon="gesture" onClick={console.log} outlined />
                     <ToolbarItem label="New Node" icon="add" onClick={console.log} cta />
                     <ToolbarItem label="Connection" icon="conversion_path" onClick={console.log} />
