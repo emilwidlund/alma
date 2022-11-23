@@ -14,7 +14,7 @@ export const ToolbarItem = ({ label, icon, onClick, outlined, cta }: IToolbarIte
             position={TooltipPosition.TOP}
             offset={{ y: 15, x: 0 }}
         >
-            <div onClick={onClick}>
+            <div onClick={onClick} role="button">
                 <Icon name={icon} outlined={outlined} size={20} />
             </div>
         </Tooltip>

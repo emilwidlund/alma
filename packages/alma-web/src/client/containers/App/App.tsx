@@ -2,13 +2,16 @@ import * as React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
+import { ModalProvider } from '../../providers/ModalProvider/ModalProvider';
 import { SchematicRoute } from '../../routes/SchematicRoute/SchematicRoute';
 import { transitionGroupWrapperStyles } from './App.styles';
 
 export const App = () => {
     return (
         <Router>
-            <AppRoutes />
+            <ModalProvider>
+                <AppRoutes />
+            </ModalProvider>
         </Router>
     );
 };

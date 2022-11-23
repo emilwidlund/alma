@@ -1,11 +1,12 @@
 import { vec2, Type, Lit, bool, float, vec3, vec4, mat2, mat3, mat4, int } from '@thi.ng/shader-ast';
-import { defnRaw, Processor } from 'alma-glsl';
-import { Input, IOutputProps, Node, Output } from 'alma-graph';
+import { defnRaw, IParsedFunctionParameter, Processor } from 'alma-glsl';
+import { IInputProps, Input, IOutputProps, Node, Output } from 'alma-graph';
 import _ from 'lodash';
+import { action, makeObservable } from 'mobx';
 
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IGLSLNodeInputs, IGLSLNodeOutputs, IGLSLNodeProps } from './GLSLNode.types';
+import { IGLSLNodeData, IGLSLNodeInputs, IGLSLNodeOutputs, IGLSLNodeProps } from './GLSLNode.types';
 
 const processor = new Processor();
 
@@ -16,25 +17,91 @@ export class GLSLNode extends Node {
     name = 'GLSL';
     type = WebGLNodeType.GLSL;
 
-    inputs: IGLSLNodeInputs;
-    outputs: IGLSLNodeOutputs;
+    inputs!: IGLSLNodeInputs;
+    outputs!: IGLSLNodeOutputs;
+    data: IGLSLNodeData = {
+        glsl: '',
+        position: {
+            x: 0,
+            y: 0
+        }
+    };
+    private properties: IGLSLNodeProps;
 
     constructor(context: WebGLContext, props: IGLSLNodeProps) {
         super(context, props);
+        this.properties = props;
 
-        const [decl] = processor.parse(props.data.glsl);
+        makeObservable(this, {
+            setGLSL: action
+        });
+
+        if (props.inputs) {
+            this.inputs = Object.values(props.inputs).reduce<Record<string, Input<any, GLSLNode>>>(
+                (accumulated, { name, type }) => ({
+                    ...accumulated,
+                    [name]: new Input(
+                        this,
+                        _.defaults<Partial<IInputProps<any>> | undefined, IInputProps<any>>(
+                            this.properties.inputs?.[name],
+                            {
+                                name,
+                                type,
+                                defaultValue: this.getTypesafeValue(type)
+                            }
+                        )
+                    )
+                }),
+                {}
+            );
+        }
+
+        if (props.data.glsl.length) {
+            this.setGLSL(props.data.glsl);
+        } else {
+            this.outputs = {};
+        }
+    }
+
+    /** Creates new inputs for those that changed */
+    private buildInputs(parameters: IParsedFunctionParameter[], inputs: IGLSLNodeInputs) {
+        const params = parameters.reduce((accumulated, current) => ({ ...accumulated, [current.name]: current }), {});
+
+        return Object.entries<IParsedFunctionParameter>(params).reduce<Record<string, Input<any, GLSLNode>>>(
+            (accumulated, [key, param]) => {
+                const inputWithMatchingKey = inputs[key];
+
+                if (!inputWithMatchingKey || inputWithMatchingKey.type !== param.type) {
+                    inputWithMatchingKey?.dispose();
+
+                    return {
+                        ...accumulated,
+                        [key]: new Input(this, {
+                            name: param.name,
+                            type: param.type,
+                            defaultValue: this.getTypesafeValue(param.type)
+                        })
+                    };
+                } else {
+                    return { ...accumulated, [key]: inputs[key] };
+                }
+            },
+            {}
+        );
+    }
+
+    /** Writes GLSL to the Node */
+    public setGLSL(glsl: string) {
+        const [decl] = processor.parse(glsl);
 
         this.name = decl.name;
 
-        // @ts-ignore
-        this.inputs = decl.parameters.map(
-            ({ name, type }) => new Input(this, { name, type, defaultValue: this.getTypesafeValue(type) })
-        );
+        this.inputs = this.buildInputs(decl.parameters, this.inputs);
 
         this.outputs = {
             output: new Output(
                 this,
-                _.defaults<Partial<IOutputProps<any>> | undefined, IOutputProps<any>>(props.outputs?.output, {
+                _.defaults<Partial<IOutputProps<any>> | undefined, IOutputProps<any>>(this.properties.outputs?.output, {
                     name: 'Output',
                     type: decl.returnType,
                     value: () => {
