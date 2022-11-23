@@ -35,11 +35,11 @@ export const SchematicContainer = observer(
         return (
             <Schematic ref={ref} className={schematicContainerStyles} onMouseMove={onMouseMove} onMouseUp={onMouseUp}>
                 <Toolbar>
-                    <ToolbarItem icon="stream" onClick={console.log} />
-                    <ToolbarItem icon="shape_line" onClick={console.log} outlined />
-                    <ToolbarItem icon="add" onClick={console.log} cta />
-                    <ToolbarItem icon="conversion_path" onClick={console.log} />
-                    <ToolbarItem icon="open_in_full" onClick={console.log} />
+                    <ToolbarItem label="Stream" icon="stream" onClick={console.log} />
+                    <ToolbarItem label="Gesture" icon="gesture" onClick={console.log} outlined />
+                    <ToolbarItem label="New Node" icon="add" onClick={console.log} cta />
+                    <ToolbarItem label="Connection" icon="conversion_path" onClick={console.log} />
+                    <ToolbarItem label="Fullscreen" icon="open_in_full" onClick={console.log} />
                 </Toolbar>
 
                 {Array.from(schematic.context?.nodes.values() || []).map(node => (

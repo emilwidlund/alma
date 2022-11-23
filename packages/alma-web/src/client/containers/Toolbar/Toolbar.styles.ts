@@ -11,6 +11,6 @@ export const toolbarContainerStyles = css`
     border-radius: 36px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
     background-color: var(--panel-background);
-    padding: 12px 24px;
+    padding: 12px 16px;
     z-index: 999;
 `;

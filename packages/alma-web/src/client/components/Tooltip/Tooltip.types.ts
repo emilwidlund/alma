@@ -20,6 +20,7 @@ export interface ITooltipNodeProps {
 export interface ITooltipProps {
     text: string;
     position: TooltipPosition;
-    offset?: { x: number; y: number };
     children: React.ReactNode;
+    offset?: { x: number; y: number };
+    className?: string;
 }
