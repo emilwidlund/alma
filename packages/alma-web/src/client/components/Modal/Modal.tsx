@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { Button } from '../Button/Button';
 import { Portal } from '../Portal/Portal';
 import {
     modalContainerStyles,
@@ -17,10 +18,13 @@ export const Modal = ({ modal: { title, children, actions, id }, onClose }: IMod
     );
 
     React.useEffect(() => {
+        document.body.classList.add('modal-open');
+
         document.body.addEventListener('keydown', closeOnEscapeKey);
 
         return () => {
             document.body.removeEventListener('keydown', closeOnEscapeKey);
+            document.body.classList.remove('modal-open');
         };
     }, [closeOnEscapeKey]);
 
@@ -32,7 +36,11 @@ export const Modal = ({ modal: { title, children, actions, id }, onClose }: IMod
                         <h4>{title}</h4>
                     </div>
                     <div className={modalContentStyles}>{children}</div>
-                    <div className={modalFooterStyles}>{actions}</div>
+                    <div className={modalFooterStyles}>
+                        {actions.map(action => (
+                            <Button key={action.label} {...action} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </Portal>

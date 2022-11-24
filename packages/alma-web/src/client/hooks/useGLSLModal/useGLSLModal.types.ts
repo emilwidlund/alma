@@ -1,5 +1,5 @@
 import { GLSLNode } from 'alma-webgl';
 
-export interface IGLSLModalProps {
+export interface IGLSLModalContentProps {
     node: GLSLNode;
 }

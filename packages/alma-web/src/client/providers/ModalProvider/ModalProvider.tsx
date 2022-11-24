@@ -7,11 +7,15 @@ import { IModal } from './ModalProvider.types';
 const defaultModalContextValue: {
     stack: IModal[];
     queue(item: IModal): void;
-    clear(): void;
+    close(id: string): void;
+    update(item: Partial<IModal>): void;
+    current?: IModal;
 } = {
     stack: [],
     queue: noop,
-    clear: noop
+    close: noop,
+    update: noop,
+    current: undefined
 };
 
 export const ModalContext = React.createContext(defaultModalContextValue);
@@ -19,7 +23,7 @@ export const ModalContext = React.createContext(defaultModalContextValue);
 export const ModalProvider = ({ children }: React.PropsWithChildren<{}>) => {
     const [stack, setStack] = React.useState<IModal[]>([]);
 
-    const item = React.useMemo(() => stack[0], [stack]);
+    const current = React.useMemo(() => stack[0], [stack]);
 
     const queue = React.useCallback(
         (item: IModal) => {
@@ -28,23 +32,50 @@ export const ModalProvider = ({ children }: React.PropsWithChildren<{}>) => {
         [setStack]
     );
 
-    const clear = React.useCallback(() => {
-        setStack(stack => stack.slice(1));
+    const update = React.useCallback(
+        (update: Partial<IModal>) => {
+            if (current) {
+                setStack(stack => {
+                    const rest = stack.slice(1);
+                    return [{ ...current, ...update }, ...rest];
+                });
+            }
+        },
+        [stack, setStack]
+    );
+
+    const close = React.useCallback((id: string) => {
+        setStack(stack => {
+            if (current?.id === id) {
+                return stack.slice(1);
+            } else {
+                return stack;
+            }
+        });
     }, []);
 
     const modalContextValue = React.useMemo(
         () => ({
             stack,
             queue,
-            clear
+            update,
+            close,
+            current
         }),
-        [stack, queue]
+        [stack, queue, close, current, update]
     );
 
     return (
         <ModalContext.Provider value={modalContextValue}>
             <>{children}</>
-            {item && <Modal modal={item} onClose={clear} />}
+            {current && (
+                <Modal
+                    modal={current}
+                    onClose={() => {
+                        setStack(stack => stack.slice(1));
+                    }}
+                />
+            )}
         </ModalContext.Provider>
     );
 };

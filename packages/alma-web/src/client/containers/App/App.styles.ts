@@ -46,6 +46,10 @@ injectGlobal`
         input {
             color: var(--text-light-color);
         }
+
+        &.modal-open {
+            overflow: hidden;
+        }
     }
 `;
 
