@@ -1,6 +1,8 @@
 import * as React from 'react';
 
+import { Size } from '../../types';
 import { Button } from '../Button/Button';
+import { Heading } from '../Heading/Heading';
 import { Portal } from '../Portal/Portal';
 import {
     modalContainerStyles,
@@ -33,7 +35,9 @@ export const Modal = ({ modal: { title, children, actions, id }, onClose }: IMod
             <div className={modalWrapperStyles}>
                 <div className={modalContainerStyles}>
                     <div className={modalHeaderStyles}>
-                        <h4>{title}</h4>
+                        <Heading size={Size.XS} marginBottom={0}>
+                            {title}
+                        </Heading>
                     </div>
                     <div className={modalContentStyles}>{children}</div>
                     <div className={modalFooterStyles}>

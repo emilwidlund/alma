@@ -5,7 +5,7 @@ import { Size } from '../../types';
 import { headingSignifierWrapperStyles, headingWrapperStyles } from './Heading.styles';
 import { IHeadingProps } from './Heading.types';
 
-export const Heading = ({ className, children, size, signifier }: IHeadingProps) => {
+export const Heading = ({ className, children, size, signifier, marginTop, marginBottom }: IHeadingProps) => {
     const Element = React.useMemo(() => {
         switch (size) {
             case Size.LG:
@@ -32,7 +32,12 @@ export const Heading = ({ className, children, size, signifier }: IHeadingProps)
         [signifier, children]
     );
 
-    return <Element className={cx(headingWrapperStyles, 'heading', className)} children={content} />;
+    return (
+        <Element
+            className={cx(headingWrapperStyles(marginTop, marginBottom), 'heading', className)}
+            children={content}
+        />
+    );
 };
 
 const HeadingSignifier = ({ children }: React.PropsWithChildren<{}>) => {

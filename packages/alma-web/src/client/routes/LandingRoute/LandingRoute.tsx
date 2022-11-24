@@ -34,7 +34,7 @@ export const LandingRoute = () => {
                         <Heading size={Size.LG}>Λlma</Heading>
                         <p>Your digital playground for generative graphics</p>
                     </div>
-                    <Button label="Try the demo" onPress={handleNavigateToCTA} size={Size.LG} glyph={'🡒'} />
+                    <Button label="Try the demo" onPress={handleNavigateToCTA} />
                 </div>
             </div>
             <div className={landingRouteContentOuterStyles()}>

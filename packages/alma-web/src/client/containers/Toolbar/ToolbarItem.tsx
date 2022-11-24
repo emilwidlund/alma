@@ -3,18 +3,18 @@ import * as React from 'react';
 import { Icon } from '../../components/Icon/Icon';
 import { Tooltip } from '../../components/Tooltip/Tooltip';
 import { TooltipPosition } from '../../components/Tooltip/Tooltip.types';
-import { toolbarItemContainerStyles } from './ToolbarItem.styles';
+import { toolbarItemWrapperStyles, toolbarItemContainerStyles } from './ToolbarItem.styles';
 import { IToolbarItemProps } from './ToolbarItem.types';
 
 export const ToolbarItem = ({ label, icon, onClick, outlined, cta }: IToolbarItemProps) => {
     return (
         <Tooltip
-            className={toolbarItemContainerStyles(cta)}
+            className={toolbarItemWrapperStyles(cta)}
             text={label}
             position={TooltipPosition.TOP}
-            offset={{ y: 15, x: 0 }}
+            offset={{ y: 10, x: 0 }}
         >
-            <div onClick={onClick} role="button">
+            <div className={toolbarItemContainerStyles(cta)} onClick={onClick} role="button">
                 <Icon name={icon} outlined={outlined} size={20} />
             </div>
         </Tooltip>
