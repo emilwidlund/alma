@@ -11,6 +11,17 @@ export const modalWrapperStyles = css`
     backdrop-filter: blur(10px);
     z-index: 9999;
     overflow: hidden;
+    animation: fade-in 0.1s;
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
 `;
 
 export const modalContainerStyles = css`
