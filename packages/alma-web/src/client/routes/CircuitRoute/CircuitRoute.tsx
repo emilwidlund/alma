@@ -12,7 +12,6 @@ import {
 import * as React from 'react';
 
 import { CommandPalette } from '../../components/CommandPalette/CommandPalette';
-import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
 import { Toolbar } from '../../components/Toolbar/Toolbar';
 import { ToolbarItem } from '../../components/Toolbar/ToolbarItem';
@@ -152,11 +151,6 @@ export const CircuitRoute = () => {
     return (
         <CircuitProvider context={context}>
             <Scene>
-                <NavBar>
-                    <NavBarItem to="/gallery" children="Gallery" />
-                    <NavBarItem to="/about" children="About" />
-                    <NavBarItem to="/dashboard" children="Dashboard" />
-                </NavBar>
                 <div className={circuitRouteWrapperStyles}>
                     <CircuitContainer ref={circuitRef} />
                     <PropertyPanel ref={ref} />

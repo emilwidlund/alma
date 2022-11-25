@@ -11,22 +11,22 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
 
     const onClick = React.useCallback(
         (e: React.MouseEvent<HTMLDivElement>) => {
-            circuit.setSelectedNode(node);
+            circuit.setSelectedNodes([node]);
         },
         [circuit, node]
     );
 
     const onFocus = React.useCallback(
         (e: React.FocusEvent<HTMLDivElement>) => {
-            circuit.setSelectedNode(node);
+            circuit.setSelectedNodes([node]);
         },
         [circuit, node]
     );
 
     const onClose = React.useCallback(
         (e: React.MouseEvent<HTMLDivElement>) => {
-            if (circuit.selectedNode === node) {
-                circuit.setSelectedNode();
+            if (circuit.selectedNodes?.indexOf(node) !== -1) {
+                circuit.setSelectedNodes([]);
             }
 
             node.dispose();
@@ -41,7 +41,7 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
         [node]
     );
 
-    const isSelected = React.useMemo(() => circuit.selectedNode === node, [circuit, node]);
+    const isSelected = React.useMemo(() => circuit.selectedNodes?.indexOf(node) !== -1, [circuit, node]);
 
     return (
         <Node
