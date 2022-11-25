@@ -12,8 +12,8 @@ const defaultCircuitValue: ICircuitContextValue = {
     connectionDraft: undefined,
     setConnectionDraft: noop,
     commitConnectionDraft: noop,
-    selectedNode: undefined,
-    setSelectedNode: noop
+    selectedNodes: [],
+    setSelectedNodes: noop
 };
 
 export const CircuitContext = React.createContext(defaultCircuitValue);
@@ -21,7 +21,7 @@ export const CircuitContext = React.createContext(defaultCircuitValue);
 export const CircuitProvider = ({ context, children }: ICircuitProviderProps) => {
     const [portElements, setPortElements] = React.useState<Record<string, HTMLDivElement>>({});
     const [connectionDraft, setConnectionDraft] = React.useState<Output<any> | undefined>();
-    const [selectedNode, setSelectedNode] = React.useState<Node | undefined>();
+    const [selectedNodes, setSelectedNodes] = React.useState<Node[] | undefined>([]);
 
     const handleSetPortElement = React.useCallback(
         (portId: string, portElement: HTMLDivElement) => {
@@ -65,11 +65,11 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
         [context, connectionDraft]
     );
 
-    const handleSetSelectedNode = React.useCallback(
-        (node?: Node) => {
-            setSelectedNode(node);
+    const handleSetSelectedNodes = React.useCallback(
+        (nodes?: Node[]) => {
+            setSelectedNodes(nodes);
         },
-        [setSelectedNode]
+        [setSelectedNodes]
     );
 
     const value = React.useMemo<ICircuitContextValue>(
@@ -81,8 +81,8 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
             connectionDraft,
             setConnectionDraft: handleSetConnectionDraft,
             commitConnectionDraft: handleCommitConnectionDraft,
-            selectedNode,
-            setSelectedNode: handleSetSelectedNode
+            selectedNodes,
+            setSelectedNodes: handleSetSelectedNodes
         }),
         [
             context,
@@ -92,8 +92,8 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
             handleCommitConnectionDraft,
             handleSetPortElement,
             handleRemovePortElement,
-            handleSetSelectedNode,
-            selectedNode
+            handleSetSelectedNodes,
+            selectedNodes
         ]
     );
 

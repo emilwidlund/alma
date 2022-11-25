@@ -12,7 +12,6 @@ import {
 import * as React from 'react';
 
 import { CommandPalette } from '../../components/CommandPalette/CommandPalette';
-import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
 import { Toolbar } from '../../components/Toolbar/Toolbar';
 import { ToolbarItem } from '../../components/Toolbar/ToolbarItem';
@@ -20,7 +19,6 @@ import { CircuitContainer } from '../../containers/CircuitContainer/CircuitConta
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint';
 import { useGLSLModal } from '../../hooks/useGLSLModal/useGLSLModal';
-import { useKeyPress } from '../../hooks/useKeyPress/useKeyPress';
 import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider';
 import { circuitRouteWrapperStyles } from './CircuitRoute.styles';
 
@@ -29,7 +27,6 @@ export const CircuitRoute = () => {
     const circuitRef = React.useRef<HTMLDivElement>(null);
     const [context, setContext] = React.useState<WebGLContext | undefined>();
     const [commandLineOpen, toggleCommandLine] = React.useState(false);
-    const spacePressed = useKeyPress(' ');
     const { open: openGLSLModal } = useGLSLModal();
 
     const midPoint = useCartesianMidpoint(circuitRef);
@@ -120,12 +117,6 @@ export const CircuitRoute = () => {
         }
     }, []);
 
-    React.useEffect(() => {
-        if (spacePressed) {
-            toggleCommandLine(true);
-        }
-    }, [spacePressed]);
-
     const handleCommandPaletteItemSelect = React.useCallback(
         (node: ClassConstructor<Node>) => {
             return () => {
@@ -152,11 +143,6 @@ export const CircuitRoute = () => {
     return (
         <CircuitProvider context={context}>
             <Scene>
-                <NavBar>
-                    <NavBarItem to="/gallery" children="Gallery" />
-                    <NavBarItem to="/about" children="About" />
-                    <NavBarItem to="/dashboard" children="Dashboard" />
-                </NavBar>
                 <div className={circuitRouteWrapperStyles}>
                     <CircuitContainer ref={circuitRef} />
                     <PropertyPanel ref={ref} />
@@ -164,7 +150,7 @@ export const CircuitRoute = () => {
                     <Toolbar>
                         <ToolbarItem label="Stream" icon="stream" onClick={handleCreateGLSLNode} />
                         <ToolbarItem label="Gesture" icon="gesture" onClick={console.log} outlined />
-                        <ToolbarItem label="New Node" icon="add" onClick={console.log} cta />
+                        <ToolbarItem label="New Node" icon="add" onClick={() => toggleCommandLine(true)} cta />
                         <ToolbarItem label="Connection" icon="conversion_path" onClick={console.log} />
                         <ToolbarItem label="Fullscreen" icon="open_in_full" onClick={console.log} />
                     </Toolbar>

@@ -23,11 +23,7 @@ export const TypeControl = observer(({ node }: ITypeControlProps) => {
     return (
         <BaseControl>
             <span className={typeControlNameStyles}>Type</span>
-            <select
-                className={typeControlInputStyles}
-                onChange={onChange}
-                value={circuit.selectedNode?.data.type?.selected}
-            >
+            <select className={typeControlInputStyles} onChange={onChange} value={node?.data.type?.selected}>
                 {node.data.type?.options.map(type => (
                     <option key={type} value={type} children={type.toUpperCase()} />
                 ))}

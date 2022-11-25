@@ -14,6 +14,6 @@ export interface ICircuitContextValue {
     connectionDraft?: Output<any>;
     setConnectionDraft(output?: Output<any>): void;
     commitConnectionDraft(input: Input<any>): void;
-    selectedNode: Node | undefined;
-    setSelectedNode(node?: Node): void;
+    selectedNodes: Node[] | undefined;
+    setSelectedNodes(nodes?: Node[]): void;
 }

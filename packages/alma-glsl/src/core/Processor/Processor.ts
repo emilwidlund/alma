@@ -9,7 +9,7 @@ export class Processor {
         return {
             enter: ({
                 node: {
-                    prototype: { header, parameters },
+                    prototype: { header, parameters = [] },
                     body
                 }
             }: Path) => {

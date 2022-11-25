@@ -60,6 +60,7 @@ export const nodeHeaderActionsStyles = (active: boolean) => css`
 export const nodeActionStyles = css`
     opacity: 1;
     transition: opacity 0.1s;
+    margin-left: 6px;
 
     &:hover {
         opacity: 0.4;

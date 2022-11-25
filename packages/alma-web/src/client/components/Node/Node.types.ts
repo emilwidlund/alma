@@ -20,7 +20,8 @@ export interface INodeProps {
 }
 
 export interface INodeActionProps {
-    color: string;
+    icon?: string;
+    color?: string;
     onClick(e: React.MouseEvent<HTMLElement, MouseEvent>): void;
 }
 

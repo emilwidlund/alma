@@ -26,7 +26,7 @@ export const CircuitContainer = observer(
         const onClick = React.useCallback(
             (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
                 if (svgRef.current === e.target) {
-                    circuit.setSelectedNode();
+                    circuit.setSelectedNodes([]);
                 }
             },
             [circuit]

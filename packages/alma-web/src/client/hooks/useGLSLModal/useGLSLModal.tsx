@@ -6,8 +6,8 @@ import { GLSL_EDITOR_MODAL_ID } from '../../constants/modals';
 import { ModalContext } from '../../providers/ModalProvider/ModalProvider';
 import { IGLSLModalContentProps, IGLSLModalOpenOptions } from './useGLSLModal.types';
 
-export const GLSLModalContent = ({ onSave, onCancel }: IGLSLModalContentProps) => {
-    const [glsl, setGLSL] = React.useState('');
+export const GLSLModalContent = ({ glsl: defaultGLSL, onSave, onCancel }: IGLSLModalContentProps) => {
+    const [glsl, setGLSL] = React.useState(defaultGLSL || '');
     const modal = React.useContext(ModalContext);
 
     const onChange = React.useCallback(
@@ -49,11 +49,11 @@ export const useGLSLModal = () => {
     const modal = React.useContext(ModalContext);
 
     const open = React.useCallback(
-        ({ onSave, onCancel }: IGLSLModalOpenOptions) => {
+        ({ glsl, onSave, onCancel }: IGLSLModalOpenOptions) => {
             modal.queue({
                 id: GLSL_EDITOR_MODAL_ID,
                 title: 'Edit GLSL',
-                children: <GLSLModalContent onSave={onSave} onCancel={onCancel} />,
+                children: <GLSLModalContent glsl={glsl} onSave={onSave} onCancel={onCancel} />,
                 actions: [
                     { label: 'Save', disabled: true, onPress: noop },
                     {

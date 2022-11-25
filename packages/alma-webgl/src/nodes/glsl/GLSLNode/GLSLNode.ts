@@ -115,6 +115,8 @@ export class GLSLNode extends Node {
                 })
             )
         };
+
+        this.data.glsl = glsl;
     }
 
     /** Returns a typesafe value for given type */

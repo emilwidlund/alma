@@ -21,7 +21,15 @@ import {
 export const PropertyPanel = observer(
     React.forwardRef<HTMLCanvasElement>((_, ref) => {
         const circuit = useCircuit();
-        const inputs = circuit.selectedNode?.inputs;
+
+        if (!circuit.selectedNodes) {
+            return null;
+        }
+
+        const [selectedCandidate, ...rest] = circuit.selectedNodes;
+        const shouldRenderInputs = selectedCandidate && rest.length === 0;
+
+        const inputs = selectedCandidate?.inputs;
 
         const inputControls = Object.values(inputs || [])
             .filter(input => !input.connected)
@@ -38,27 +46,27 @@ export const PropertyPanel = observer(
         return (
             <div className={propertyPanelWrapperStyles}>
                 <Artboard ref={ref} size={{ width: 300, height: 200 }} />
-                {circuit.selectedNode && (
+                {shouldRenderInputs && (
                     <Panel className={propertyPanelInfoStyles}>
                         <Icon
                             // @ts-ignore
-                            name={circuit.selectedNode.constructor.icon}
+                            name={selectedCandidate.constructor.icon}
                             size={36}
                             color={getComputedStyle(document.documentElement).getPropertyValue('--accent-color')}
                             outlined
                         />
                         <Heading className={propertyPanelInfoHeadingStyles} size={Size.SM}>
-                            {circuit.selectedNode.name}
+                            {selectedCandidate.name}
                         </Heading>
                         <p className={propertyPanelInfoParagraphStyles}>
                             {/* @ts-ignore */}
-                            {circuit.selectedNode.constructor.description}
+                            {selectedCandidate.constructor.description}
                         </p>
                     </Panel>
                 )}
-                {circuit.selectedNode && (!!inputControls.length || circuit.selectedNode.data.type) && (
+                {selectedCandidate && (!!inputControls.length || selectedCandidate.data.type) && (
                     <Panel className={propertyPanelPortsContainerStyles}>
-                        {circuit.selectedNode.data.type && <TypeControl node={circuit.selectedNode} />}
+                        {selectedCandidate.data.type && <TypeControl node={selectedCandidate} />}
                         {!!inputControls.length && inputControls}
                     </Panel>
                 )}

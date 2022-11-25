@@ -85,7 +85,8 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
         }
     }, [connection]);
 
-    const selectedConnection = connection && circuit.selectedNode?.connections.includes(connection);
+    const selectedConnection =
+        connection && circuit.selectedNodes?.flatMap(node => node.connections).includes(connection);
     const strokeColor =
         selectedConnection || output
             ? getComputedStyle(document.documentElement).getPropertyValue('--accent-color')
