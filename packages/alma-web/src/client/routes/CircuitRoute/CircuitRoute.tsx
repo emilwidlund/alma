@@ -19,7 +19,6 @@ import { CircuitContainer } from '../../containers/CircuitContainer/CircuitConta
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint';
 import { useGLSLModal } from '../../hooks/useGLSLModal/useGLSLModal';
-import { useKeyPress } from '../../hooks/useKeyPress/useKeyPress';
 import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider';
 import { circuitRouteWrapperStyles } from './CircuitRoute.styles';
 
@@ -28,7 +27,6 @@ export const CircuitRoute = () => {
     const circuitRef = React.useRef<HTMLDivElement>(null);
     const [context, setContext] = React.useState<WebGLContext | undefined>();
     const [commandLineOpen, toggleCommandLine] = React.useState(false);
-    const spacePressed = useKeyPress(' ');
     const { open: openGLSLModal } = useGLSLModal();
 
     const midPoint = useCartesianMidpoint(circuitRef);
@@ -118,12 +116,6 @@ export const CircuitRoute = () => {
             };
         }
     }, []);
-
-    React.useEffect(() => {
-        if (spacePressed) {
-            toggleCommandLine(true);
-        }
-    }, [spacePressed]);
 
     const handleCommandPaletteItemSelect = React.useCallback(
         (node: ClassConstructor<Node>) => {
