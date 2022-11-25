@@ -57,7 +57,7 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
     const handleCommitConnectionDraft = React.useCallback(
         (input: Input<any>) => {
             if (connectionDraft) {
-                context?.connect(connectionDraft, input);
+                connectionDraft.connect(input);
 
                 setConnectionDraft(undefined);
             }

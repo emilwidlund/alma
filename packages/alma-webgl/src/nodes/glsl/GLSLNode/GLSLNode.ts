@@ -58,11 +58,7 @@ export class GLSLNode extends Node {
             );
         }
 
-        if (props.data.glsl.length) {
-            this.setGLSL(props.data.glsl);
-        } else {
-            this.outputs = {};
-        }
+        this.setGLSL(props.data.glsl);
     }
 
     /** Creates new inputs for those that changed */
@@ -99,6 +95,8 @@ export class GLSLNode extends Node {
         this.name = decl.name;
 
         this.inputs = this.buildInputs(decl.parameters, this.inputs);
+
+        this.outputs?.output?.dispose();
 
         this.outputs = {
             output: new Output(
