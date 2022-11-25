@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { Icon } from '../../components/Icon/Icon';
-import { Tooltip } from '../../components/Tooltip/Tooltip';
-import { TooltipPosition } from '../../components/Tooltip/Tooltip.types';
+import { Icon } from '../Icon/Icon';
+import { Tooltip } from '../Tooltip/Tooltip';
+import { TooltipPosition } from '../Tooltip/Tooltip.types';
 import { toolbarItemWrapperStyles, toolbarItemContainerStyles } from './ToolbarItem.styles';
 import { IToolbarItemProps } from './ToolbarItem.types';
 

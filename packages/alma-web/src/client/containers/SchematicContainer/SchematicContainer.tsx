@@ -4,12 +4,12 @@ import * as React from 'react';
 
 import { Connection } from '../../components/Connection/Connection';
 import { Schematic } from '../../components/Schematic/Schematic';
+import { Toolbar } from '../../components/Toolbar/Toolbar';
+import { ToolbarItem } from '../../components/Toolbar/ToolbarItem';
 import { useGLSLModal } from '../../hooks/useGLSLModal/useGLSLModal';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { useSchematic } from '../../hooks/useSchematic/useSchematic';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
-import { Toolbar } from '../Toolbar/Toolbar';
-import { ToolbarItem } from '../Toolbar/ToolbarItem';
 import { schematicContainerStyles } from './SchematicContainer.styles';
 
 export const SchematicContainer = observer(
