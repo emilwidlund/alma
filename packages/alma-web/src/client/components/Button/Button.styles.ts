@@ -8,19 +8,24 @@ export const buttonStyles = css`
     align-self: flex-start;
     align-items: baseline;
     background-color: transparent;
+    font-family: inherit;
     padding: 12px 24px;
     line-height: inherit;
     background-color: var(--accent-color);
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     color: var(--text-light-color);
     transition: opacity 0.15s;
 
-    &:hover {
+    &:hover:not(:disabled) {
         opacity: 0.6;
     }
 
-    &:active {
+    &:active:not(:disabled) {
         opacity: 0.5;
+    }
+
+    &:disabled {
+        opacity: 0.2;
     }
 `;

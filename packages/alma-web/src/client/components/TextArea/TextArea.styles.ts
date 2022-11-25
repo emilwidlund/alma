@@ -12,6 +12,6 @@ export const textAreaStyles = css`
     background-color: rgba(0, 0, 0, 0.2);
     color: var(--text-light-color);
     font-family: inherit;
-    padding: 8px;
+    padding: 16px;
     min-height: 200px;
 `;

@@ -33,18 +33,20 @@ export const modalContainerStyles = css`
     background-color: var(--panel-background);
 `;
 
-export const modalHeaderStyles = css`
-    padding: 24px;
-    color: var(--text-light-color);
-`;
-
 export const modalContentStyles = css`
     display: flex;
     flex-direction: column;
-    padding: 24px;
+    padding: 32px;
 `;
 
 export const modalFooterStyles = css`
-    padding: 24px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-items: flex-end;
+    padding: 32px;
     border-top: 1px solid var(--border-color);
+
+    * {
+        margin-left: 16px;
+    }
 `;

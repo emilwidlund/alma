@@ -1,13 +1,25 @@
 import { Node } from 'alma-graph';
-import { WebGLContext, ClassConstructor, nodes, TimeNode, SineNode, UVNode, SimplexNoiseNode } from 'alma-webgl';
+import {
+    WebGLContext,
+    ClassConstructor,
+    nodes,
+    TimeNode,
+    SineNode,
+    UVNode,
+    SimplexNoiseNode,
+    GLSLNode
+} from 'alma-webgl';
 import * as React from 'react';
 
 import { CommandPalette } from '../../components/CommandPalette/CommandPalette';
 import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
+import { Toolbar } from '../../components/Toolbar/Toolbar';
+import { ToolbarItem } from '../../components/Toolbar/ToolbarItem';
 import { CircuitContainer } from '../../containers/CircuitContainer/CircuitContainer';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint';
+import { useGLSLModal } from '../../hooks/useGLSLModal/useGLSLModal';
 import { useKeyPress } from '../../hooks/useKeyPress/useKeyPress';
 import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider';
 import { circuitRouteWrapperStyles } from './CircuitRoute.styles';
@@ -18,6 +30,7 @@ export const CircuitRoute = () => {
     const [context, setContext] = React.useState<WebGLContext | undefined>();
     const [commandLineOpen, toggleCommandLine] = React.useState(false);
     const spacePressed = useKeyPress(' ');
+    const { open: openGLSLModal } = useGLSLModal();
 
     const midPoint = useCartesianMidpoint(circuitRef);
 
@@ -124,6 +137,18 @@ export const CircuitRoute = () => {
         [midPoint, context]
     );
 
+    const handleCreateGLSLNode = React.useCallback(() => {
+        if (context) {
+            openGLSLModal({
+                onSave: glsl => {
+                    if (context) {
+                        new GLSLNode(context, { data: { glsl, position: midPoint.current } });
+                    }
+                }
+            });
+        }
+    }, [context, midPoint]);
+
     return (
         <CircuitProvider context={context}>
             <Scene>
@@ -135,6 +160,14 @@ export const CircuitRoute = () => {
                 <div className={circuitRouteWrapperStyles}>
                     <CircuitContainer ref={circuitRef} />
                     <PropertyPanel ref={ref} />
+
+                    <Toolbar>
+                        <ToolbarItem label="Stream" icon="stream" onClick={handleCreateGLSLNode} />
+                        <ToolbarItem label="Gesture" icon="gesture" onClick={console.log} outlined />
+                        <ToolbarItem label="New Node" icon="add" onClick={console.log} cta />
+                        <ToolbarItem label="Connection" icon="conversion_path" onClick={console.log} />
+                        <ToolbarItem label="Fullscreen" icon="open_in_full" onClick={console.log} />
+                    </Toolbar>
 
                     {commandLineOpen && (
                         <CommandPalette

@@ -1,5 +1,6 @@
-import { GLSLNode } from 'alma-webgl';
+export type IGLSLModalContentProps = IGLSLModalOpenOptions;
 
-export interface IGLSLModalContentProps {
-    node: GLSLNode;
+export interface IGLSLModalOpenOptions {
+    onSave?(glsl: string): void;
+    onCancel?(glsl: string): void;
 }
