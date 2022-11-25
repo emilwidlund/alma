@@ -137,7 +137,9 @@ export class WebGLContext extends Context<WebGLContextNode> {
                 () => this.connections.size,
                 () => {
                     this.reset();
-                }
+                },
+                /** Delay the reset of Context until the graph has done its computations */
+                { delay: 10 }
             );
 
             this.model = this.createModel();
