@@ -96,7 +96,9 @@ export class GLSLNode extends Node {
 
         this.inputs = this.buildInputs(decl.parameters, this.inputs);
 
-        this.outputs?.output?.dispose();
+        const previousConnections = this.outputs?.output.connections;
+
+        this.outputs?.output.dispose();
 
         this.outputs = {
             output: new Output(
@@ -113,6 +115,12 @@ export class GLSLNode extends Node {
                 })
             )
         };
+
+        if (previousConnections) {
+            for (const connection of previousConnections) {
+                this.outputs.output.connect(connection.to);
+            }
+        }
 
         this.data.glsl = glsl;
     }
