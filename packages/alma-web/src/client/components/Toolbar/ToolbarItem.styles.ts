@@ -20,7 +20,7 @@ export const toolbarItemContainerStyles = (cta?: boolean) => css`
     align-items: baseline;
     justify-content: center;
     height: 20px;
-    width: ${cta ? '60px' : '40px'};
+    width: ${cta ? '60px' : '30px'};
     border-radius: 36px;
     background-color: ${cta ? 'var(--accent-color)' : 'transparent'};
     color: ${cta ? 'var(--text-light-color)' : 'inherit'};
