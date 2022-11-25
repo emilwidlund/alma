@@ -158,7 +158,7 @@ export const CircuitRoute = () => {
                     <Toolbar>
                         <ToolbarItem label="Stream" icon="stream" onClick={handleCreateGLSLNode} />
                         <ToolbarItem label="Gesture" icon="gesture" onClick={console.log} outlined />
-                        <ToolbarItem label="New Node" icon="add" onClick={console.log} cta />
+                        <ToolbarItem label="New Node" icon="add" onClick={() => toggleCommandLine(true)} cta />
                         <ToolbarItem label="Connection" icon="conversion_path" onClick={console.log} />
                         <ToolbarItem label="Fullscreen" icon="open_in_full" onClick={console.log} />
                     </Toolbar>

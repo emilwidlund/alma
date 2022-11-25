@@ -4,35 +4,20 @@ import { DraggableEventHandler } from 'react-draggable';
 
 import { Node } from '../../components/Node/Node';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
+import { useNodeActions } from '../../hooks/useNodeActions/useNodeActions';
 import { INodeContainerProps } from './NodeContainer.types';
 
 export const NodeContainer = observer(({ node }: INodeContainerProps) => {
     const circuit = useCircuit();
+    const actions = useNodeActions(node);
 
-    const onClick = React.useCallback(
-        (e: React.MouseEvent<HTMLDivElement>) => {
-            circuit.setSelectedNodes([node]);
-        },
-        [circuit, node]
-    );
+    const onClick = React.useCallback(() => {
+        circuit.setSelectedNodes([node]);
+    }, [circuit, node]);
 
-    const onFocus = React.useCallback(
-        (e: React.FocusEvent<HTMLDivElement>) => {
-            circuit.setSelectedNodes([node]);
-        },
-        [circuit, node]
-    );
-
-    const onClose = React.useCallback(
-        (e: React.MouseEvent<HTMLDivElement>) => {
-            if (circuit.selectedNodes?.indexOf(node) !== -1) {
-                circuit.setSelectedNodes([]);
-            }
-
-            node.dispose();
-        },
-        [circuit, node]
-    );
+    const onFocus = React.useCallback(() => {
+        circuit.setSelectedNodes([node]);
+    }, [circuit, node]);
 
     const handleOnDrag: DraggableEventHandler = React.useCallback(
         (e, { x, y }) => {
@@ -55,12 +40,7 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
             position={node.data.position}
             // @ts-ignore
             icon={node.constructor.icon}
-            actions={[
-                {
-                    color: 'var(--system-red)',
-                    onClick: onClose
-                }
-            ]}
+            actions={actions}
         />
     );
 });

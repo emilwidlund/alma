@@ -47,6 +47,8 @@ export const ModalProvider = ({ children }: React.PropsWithChildren<{}>) => {
     const close = React.useCallback(
         (id: string) => {
             setStack(stack => {
+                const [current] = stack;
+
                 if (current?.id === id) {
                     return stack.slice(1);
                 } else {
