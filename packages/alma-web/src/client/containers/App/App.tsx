@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { ModalProvider } from '../../providers/ModalProvider/ModalProvider';
-import { SchematicRoute } from '../../routes/SchematicRoute/SchematicRoute';
+import { CircuitRoute } from '../../routes/CircuitRoute/CircuitRoute';
 import { transitionGroupWrapperStyles } from './App.styles';
 
 export const App = () => {
@@ -31,7 +31,7 @@ export const AppRoutes = () => {
                 <Routes location={location}>
                     {/* <Route path="/" element={<LandingRoute />} />
                     <Route path="/about" element={<Scene />} /> */}
-                    <Route path="/" element={<SchematicRoute />} index />
+                    <Route path="/" element={<CircuitRoute />} index />
                 </Routes>
             </CSSTransition>
         </TransitionGroup>

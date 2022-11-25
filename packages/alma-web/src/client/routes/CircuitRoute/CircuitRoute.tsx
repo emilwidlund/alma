@@ -1,25 +1,38 @@
 import { Node } from 'alma-graph';
-import { WebGLContext, ClassConstructor, nodes, TimeNode, SineNode, UVNode, SimplexNoiseNode } from 'alma-webgl';
+import {
+    WebGLContext,
+    ClassConstructor,
+    nodes,
+    TimeNode,
+    SineNode,
+    UVNode,
+    SimplexNoiseNode,
+    GLSLNode
+} from 'alma-webgl';
 import * as React from 'react';
 
 import { CommandPalette } from '../../components/CommandPalette/CommandPalette';
 import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
+import { Toolbar } from '../../components/Toolbar/Toolbar';
+import { ToolbarItem } from '../../components/Toolbar/ToolbarItem';
+import { CircuitContainer } from '../../containers/CircuitContainer/CircuitContainer';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
-import { SchematicContainer } from '../../containers/SchematicContainer/SchematicContainer';
 import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint';
+import { useGLSLModal } from '../../hooks/useGLSLModal/useGLSLModal';
 import { useKeyPress } from '../../hooks/useKeyPress/useKeyPress';
-import { SchematicProvider } from '../../providers/SchematicProvider/SchematicProvider';
-import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
+import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider';
+import { circuitRouteWrapperStyles } from './CircuitRoute.styles';
 
-export const SchematicRoute = () => {
+export const CircuitRoute = () => {
     const ref = React.useRef<HTMLCanvasElement>(null);
-    const schematicRef = React.useRef<HTMLDivElement>(null);
+    const circuitRef = React.useRef<HTMLDivElement>(null);
     const [context, setContext] = React.useState<WebGLContext | undefined>();
     const [commandLineOpen, toggleCommandLine] = React.useState(false);
     const spacePressed = useKeyPress(' ');
+    const { open: openGLSLModal } = useGLSLModal();
 
-    const midPoint = useCartesianMidpoint(schematicRef);
+    const midPoint = useCartesianMidpoint(circuitRef);
 
     React.useEffect(() => {
         if (ref.current) {
@@ -124,17 +137,37 @@ export const SchematicRoute = () => {
         [midPoint, context]
     );
 
+    const handleCreateGLSLNode = React.useCallback(() => {
+        if (context) {
+            openGLSLModal({
+                onSave: glsl => {
+                    if (context) {
+                        new GLSLNode(context, { data: { glsl, position: midPoint.current } });
+                    }
+                }
+            });
+        }
+    }, [context, midPoint]);
+
     return (
-        <SchematicProvider context={context}>
+        <CircuitProvider context={context}>
             <Scene>
                 <NavBar>
                     <NavBarItem to="/gallery" children="Gallery" />
                     <NavBarItem to="/about" children="About" />
                     <NavBarItem to="/dashboard" children="Dashboard" />
                 </NavBar>
-                <div className={schematicRouteWrapperStyles}>
-                    <SchematicContainer ref={schematicRef} />
+                <div className={circuitRouteWrapperStyles}>
+                    <CircuitContainer ref={circuitRef} />
                     <PropertyPanel ref={ref} />
+
+                    <Toolbar>
+                        <ToolbarItem label="Stream" icon="stream" onClick={handleCreateGLSLNode} />
+                        <ToolbarItem label="Gesture" icon="gesture" onClick={console.log} outlined />
+                        <ToolbarItem label="New Node" icon="add" onClick={console.log} cta />
+                        <ToolbarItem label="Connection" icon="conversion_path" onClick={console.log} />
+                        <ToolbarItem label="Fullscreen" icon="open_in_full" onClick={console.log} />
+                    </Toolbar>
 
                     {commandLineOpen && (
                         <CommandPalette
@@ -147,6 +180,6 @@ export const SchematicRoute = () => {
                     )}
                 </div>
             </Scene>
-        </SchematicProvider>
+        </CircuitProvider>
     );
 };

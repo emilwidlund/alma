@@ -11,7 +11,7 @@ injectGlobal`
     }
 
     @supports (font-variation-settings: normal) {
-        html, button { font-family: 'Inter var', sans-serif; }
+        html { font-family: 'Inter var', sans-serif; }
     }
 
     body {

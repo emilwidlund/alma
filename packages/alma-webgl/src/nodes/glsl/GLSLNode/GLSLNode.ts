@@ -19,18 +19,20 @@ export class GLSLNode extends Node {
 
     inputs!: IGLSLNodeInputs;
     outputs!: IGLSLNodeOutputs;
-    data: IGLSLNodeData = {
-        glsl: '',
-        position: {
-            x: 0,
-            y: 0
-        }
-    };
+    data: IGLSLNodeData;
     private properties: IGLSLNodeProps;
 
     constructor(context: WebGLContext, props: IGLSLNodeProps) {
         super(context, props);
         this.properties = props;
+
+        this.data = _.defaultsDeep(props.data, {
+            glsl: '',
+            position: {
+                x: 0,
+                y: 0
+            }
+        });
 
         makeObservable(this, {
             setGLSL: action

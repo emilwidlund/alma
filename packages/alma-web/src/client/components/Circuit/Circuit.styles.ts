@@ -1,13 +1,13 @@
 import { css } from '@emotion/css';
 
-export const schematicWrapperStyles = css`
+export const circuitWrapperStyles = css`
     position: relative;
     width: 100%;
     height: 100%;
     overflow: auto;
 `;
 
-export const schematicContentStyles = css`
+export const circuitContentStyles = css`
     width: 5000px;
     height: 5000px;
 `;

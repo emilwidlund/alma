@@ -2,20 +2,20 @@ import { bool, Lit } from '@thi.ng/shader-ast';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import { useSchematic } from '../../../hooks/useSchematic/useSchematic';
+import { useCircuit } from '../../../hooks/useCircuit/useCircuit';
 import { BaseControl } from '../BaseControl/BaseControl';
 import { booleanControlInputStyles, booleanControlNameStyles } from './BooleanControl.styles';
 import { IBooleanControlProps } from './BooleanControl.types';
 
 export const BooleanControl = observer(({ port }: IBooleanControlProps) => {
-    const schematic = useSchematic();
+    const circuit = useCircuit();
     const onChange = React.useCallback(
         (e: React.ChangeEvent<HTMLSelectElement>) => {
             port.setValue(bool(e.target.value === 'true'));
 
-            schematic.context?.reset();
+            circuit.context?.reset();
         },
-        [port, schematic]
+        [port, circuit]
     );
 
     const disabled = React.useMemo(() => port.connected, [port.connected]);

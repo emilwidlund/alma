@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
 
-export const schematicContainerStyles = css`
+export const circuitContainerStyles = css`
     position: relative;
 `;

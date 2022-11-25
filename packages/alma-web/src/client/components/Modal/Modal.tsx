@@ -2,13 +2,7 @@ import * as React from 'react';
 
 import { Button } from '../Button/Button';
 import { Portal } from '../Portal/Portal';
-import {
-    modalContainerStyles,
-    modalContentStyles,
-    modalFooterStyles,
-    modalHeaderStyles,
-    modalWrapperStyles
-} from './Modal.styles';
+import { modalContainerStyles, modalContentStyles, modalFooterStyles, modalWrapperStyles } from './Modal.styles';
 import { IModalProps } from './Modal.types';
 
 export const Modal = ({ modal: { title, children, actions, id }, onClose }: IModalProps) => {
@@ -32,9 +26,6 @@ export const Modal = ({ modal: { title, children, actions, id }, onClose }: IMod
         <Portal wrapperId={id}>
             <div className={modalWrapperStyles}>
                 <div className={modalContainerStyles}>
-                    <div className={modalHeaderStyles}>
-                        <h4>{title}</h4>
-                    </div>
                     <div className={modalContentStyles}>{children}</div>
                     <div className={modalFooterStyles}>
                         {actions.map(action => (

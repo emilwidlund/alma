@@ -6,5 +6,7 @@ export interface IHeadingProps {
     className?: string;
     children: ReactNode;
     size: Extract<Size, Size.LG | Size.MD | Size.SM | Size.XS>;
+    marginTop?: number;
+    marginBottom?: number;
     signifier?: ReactNode;
 }

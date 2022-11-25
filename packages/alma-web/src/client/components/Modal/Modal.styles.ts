@@ -27,25 +27,26 @@ export const modalWrapperStyles = css`
 export const modalContainerStyles = css`
     display: flex;
     flex-direction: column;
-    width: 480px;
+    width: 540px;
     border-radius: 24px;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
     background-color: var(--panel-background);
 `;
 
-export const modalHeaderStyles = css`
-    padding: 24px;
-    color: var(--text-light-color);
-`;
-
 export const modalContentStyles = css`
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 24px;
+    padding: 32px;
 `;
 
 export const modalFooterStyles = css`
-    padding: 16px 24px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-items: flex-end;
+    padding: 32px;
     border-top: 1px solid var(--border-color);
+
+    * {
+        margin-left: 16px;
+    }
 `;

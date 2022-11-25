@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type ISchematicProps = React.PropsWithChildren<{
+export type ICircuitProps = React.PropsWithChildren<{
     className?: string;
     onMouseMove?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
     onMouseUp?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;

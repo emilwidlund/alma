@@ -19,6 +19,8 @@ const getPositionalStyles = (
         case TooltipPosition.TOP:
             return css`
                 top: ${verticalOffset};
+                left: 50%;
+                transform: translate(-50%, -50%);
             `;
         case TooltipPosition.TOP_RIGHT:
             return css`
@@ -37,6 +39,8 @@ const getPositionalStyles = (
         case TooltipPosition.BOTTOM:
             return css`
                 bottom: ${verticalOffset};
+                left: 50%;
+                transform: translate(-50%, -50%);
             `;
         case TooltipPosition.BOTTOM_LEFT:
             return css`
@@ -83,6 +87,7 @@ export const tooltipNodeWrapperStyles = (
     letter-spacing: 0.1em;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 9;
+    white-space: nowrap;
     animation: fade 0.2s;
     ${getPositionalStyles(position, dimensions, offset)}
 `;

@@ -2,22 +2,22 @@ import { Type } from '@thi.ng/shader-ast';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import { useSchematic } from '../../../hooks/useSchematic/useSchematic';
+import { useCircuit } from '../../../hooks/useCircuit/useCircuit';
 import { BaseControl } from '../BaseControl/BaseControl';
 import { typeControlInputStyles, typeControlNameStyles } from './TypeControl.styles';
 import { ITypeControlProps } from './TypeControl.types';
 
 export const TypeControl = observer(({ node }: ITypeControlProps) => {
-    const schematic = useSchematic();
+    const circuit = useCircuit();
     const onChange = React.useCallback(
         (e: React.ChangeEvent<HTMLSelectElement>) => {
             if (node.data.type) {
                 node.data.type.selected = e.target.value as Type;
             }
 
-            schematic.context?.reset();
+            circuit.context?.reset();
         },
-        [node, schematic]
+        [node, circuit]
     );
 
     return (
@@ -26,7 +26,7 @@ export const TypeControl = observer(({ node }: ITypeControlProps) => {
             <select
                 className={typeControlInputStyles}
                 onChange={onChange}
-                value={schematic.selectedNode?.data.type?.selected}
+                value={circuit.selectedNode?.data.type?.selected}
             >
                 {node.data.type?.options.map(type => (
                     <option key={type} value={type} children={type.toUpperCase()} />
