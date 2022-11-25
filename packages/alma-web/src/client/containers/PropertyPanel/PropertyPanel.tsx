@@ -8,7 +8,7 @@ import { TypeControl } from '../../components/Control/TypeControl/TypeControl';
 import { Heading } from '../../components/Heading/Heading';
 import { Icon } from '../../components/Icon/Icon';
 import { Panel } from '../../components/Panel/Panel';
-import { useSchematic } from '../../hooks/useSchematic/useSchematic';
+import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { Size } from '../../types';
 import {
     propertyPanelInfoHeadingStyles,
@@ -20,8 +20,8 @@ import {
 
 export const PropertyPanel = observer(
     React.forwardRef<HTMLCanvasElement>((_, ref) => {
-        const schematic = useSchematic();
-        const inputs = schematic.selectedNode?.inputs;
+        const circuit = useCircuit();
+        const inputs = circuit.selectedNode?.inputs;
 
         const inputControls = Object.values(inputs || [])
             .filter(input => !input.connected)
@@ -38,27 +38,27 @@ export const PropertyPanel = observer(
         return (
             <div className={propertyPanelWrapperStyles}>
                 <Artboard ref={ref} size={{ width: 300, height: 200 }} />
-                {schematic.selectedNode && (
+                {circuit.selectedNode && (
                     <Panel className={propertyPanelInfoStyles}>
                         <Icon
                             // @ts-ignore
-                            name={schematic.selectedNode.constructor.icon}
+                            name={circuit.selectedNode.constructor.icon}
                             size={36}
                             color={getComputedStyle(document.documentElement).getPropertyValue('--accent-color')}
                             outlined
                         />
                         <Heading className={propertyPanelInfoHeadingStyles} size={Size.SM}>
-                            {schematic.selectedNode.name}
+                            {circuit.selectedNode.name}
                         </Heading>
                         <p className={propertyPanelInfoParagraphStyles}>
                             {/* @ts-ignore */}
-                            {schematic.selectedNode.constructor.description}
+                            {circuit.selectedNode.constructor.description}
                         </p>
                     </Panel>
                 )}
-                {schematic.selectedNode && (!!inputControls.length || schematic.selectedNode.data.type) && (
+                {circuit.selectedNode && (!!inputControls.length || circuit.selectedNode.data.type) && (
                     <Panel className={propertyPanelPortsContainerStyles}>
-                        {schematic.selectedNode.data.type && <TypeControl node={schematic.selectedNode} />}
+                        {circuit.selectedNode.data.type && <TypeControl node={circuit.selectedNode} />}
                         {!!inputControls.length && inputControls}
                     </Panel>
                 )}

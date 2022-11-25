@@ -2,8 +2,8 @@ import { Input, Output } from 'alma-graph';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
+import { useCircuit } from '../../../hooks/useCircuit/useCircuit';
 import { useHover } from '../../../hooks/useHover/useHover';
-import { useSchematic } from '../../../hooks/useSchematic/useSchematic';
 import { Icon } from '../../Icon/Icon';
 import { Tooltip } from '../../Tooltip/Tooltip';
 import { TooltipPosition } from '../../Tooltip/Tooltip.types';
@@ -12,7 +12,7 @@ import { IPortProps } from './Port.types';
 
 export const Port = observer(({ port }: IPortProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
-    const schematic = useSchematic();
+    const circuit = useCircuit();
     const { onMouseEnter, onMouseLeave, isHovered } = useHover();
     const { onMouseEnter: onPortTypeEnter, onMouseLeave: onPortTypeLeave, isHovered: isPortTypeHovered } = useHover();
 
@@ -20,34 +20,34 @@ export const Port = observer(({ port }: IPortProps) => {
     const tooltipPosition = React.useMemo(() => (isOutput ? TooltipPosition.RIGHT : TooltipPosition.LEFT), [isOutput]);
     const visuallyDisabled = React.useMemo(() => {
         const isOccupied = !isOutput && port.connected;
-        const hasDifferentValueType = schematic.connectionDraft?.type !== port.type;
-        const hasSharedNode = schematic.connectionDraft?.node === port.node;
-        const isUnrelatedToConnectionDraft = schematic.connectionDraft !== port;
+        const hasDifferentValueType = circuit.connectionDraft?.type !== port.type;
+        const hasSharedNode = circuit.connectionDraft?.node === port.node;
+        const isUnrelatedToConnectionDraft = circuit.connectionDraft !== port;
 
-        return schematic.connectionDraft ? isOccupied || hasDifferentValueType || isOutput || hasSharedNode : false;
-    }, [schematic, isOutput]);
+        return circuit.connectionDraft ? isOccupied || hasDifferentValueType || isOutput || hasSharedNode : false;
+    }, [circuit, isOutput]);
 
     React.useEffect(() => {
         if (ref.current) {
-            schematic.setPortElement(port.id, ref.current);
+            circuit.setPortElement(port.id, ref.current);
 
             return () => {
-                schematic.removePortElement(port.id);
+                circuit.removePortElement(port.id);
             };
         }
     }, []);
 
     const onMouseDown = React.useCallback(() => {
         if (isOutput) {
-            schematic.setConnectionDraft(port as Output<any>);
+            circuit.setConnectionDraft(port as Output<any>);
         }
-    }, [isOutput, schematic]);
+    }, [isOutput, circuit]);
 
     const onMouseUp = React.useCallback(() => {
-        if (!isOutput && schematic.connectionDraft) {
-            schematic.commitConnectionDraft(port as Input<any>);
+        if (!isOutput && circuit.connectionDraft) {
+            circuit.commitConnectionDraft(port as Input<any>);
         }
-    }, [isOutput, schematic]);
+    }, [isOutput, circuit]);
 
     const onClick = React.useCallback(() => {
         if (port.connected) {
@@ -55,11 +55,11 @@ export const Port = observer(({ port }: IPortProps) => {
 
             for (const connection of connections) {
                 if (connection) {
-                    schematic.context?.disconnect(connection);
+                    circuit.context?.disconnect(connection);
                 }
             }
         }
-    }, [schematic, port]);
+    }, [circuit, port]);
 
     return (
         <Tooltip text={port.type.toUpperCase()} position={tooltipPosition}>
@@ -67,8 +67,8 @@ export const Port = observer(({ port }: IPortProps) => {
                 ref={ref}
                 className={portWrapperStyles(
                     port.connected ||
-                        (!schematic.connectionDraft && isHovered) ||
-                        (!!schematic.connectionDraft && !visuallyDisabled),
+                        (!circuit.connectionDraft && isHovered) ||
+                        (!!circuit.connectionDraft && !visuallyDisabled),
                     isOutput,
                     visuallyDisabled
                 )}

@@ -16,7 +16,7 @@ export const LandingRoute = () => {
     const navigate = useNavigate();
 
     const handleNavigateToCTA = React.useCallback(() => {
-        navigate('/schematic/123');
+        navigate('/circuit/123');
     }, []);
 
     return (

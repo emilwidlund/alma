@@ -2,20 +2,20 @@ import { float, Lit } from '@thi.ng/shader-ast';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import { useSchematic } from '../../../hooks/useSchematic/useSchematic';
+import { useCircuit } from '../../../hooks/useCircuit/useCircuit';
 import { Input } from '../../Input/Input';
 import { BaseControl } from '../BaseControl/BaseControl';
 import { numberControlInputStyles, numberControlNameStyles, numberControlRangeStyles } from './NumberControl.styles';
 import { INumberControlProps } from './NumberControl.types';
 
 export const NumberControl = observer(({ port }: INumberControlProps) => {
-    const schematic = useSchematic();
+    const circuit = useCircuit();
     const onChange = React.useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             port.setValue(float(e.target.valueAsNumber));
-            schematic.context?.reset();
+            circuit.context?.reset();
         },
-        [port, schematic]
+        [port, circuit]
     );
 
     const disabled = React.useMemo(() => port.connected, [port.connected]);

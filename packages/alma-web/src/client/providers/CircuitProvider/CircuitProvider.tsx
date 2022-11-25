@@ -2,9 +2,9 @@ import { Input, Node, Output } from 'alma-graph';
 import { noop } from 'lodash';
 import * as React from 'react';
 
-import type { ISchematicContextValue, ISchematicProviderProps } from './SchematicProvider.types';
+import type { ICircuitContextValue, ICircuitProviderProps } from './CircuitProvider.types';
 
-const defaultSchematicValue: ISchematicContextValue = {
+const defaultCircuitValue: ICircuitContextValue = {
     context: undefined,
     portElements: {},
     setPortElement: noop,
@@ -16,9 +16,9 @@ const defaultSchematicValue: ISchematicContextValue = {
     setSelectedNode: noop
 };
 
-export const SchematicContext = React.createContext(defaultSchematicValue);
+export const CircuitContext = React.createContext(defaultCircuitValue);
 
-export const SchematicProvider = ({ context, children }: ISchematicProviderProps) => {
+export const CircuitProvider = ({ context, children }: ICircuitProviderProps) => {
     const [portElements, setPortElements] = React.useState<Record<string, HTMLDivElement>>({});
     const [connectionDraft, setConnectionDraft] = React.useState<Output<any> | undefined>();
     const [selectedNode, setSelectedNode] = React.useState<Node | undefined>();
@@ -72,7 +72,7 @@ export const SchematicProvider = ({ context, children }: ISchematicProviderProps
         [setSelectedNode]
     );
 
-    const value = React.useMemo<ISchematicContextValue>(
+    const value = React.useMemo<ICircuitContextValue>(
         () => ({
             context,
             portElements,
@@ -97,5 +97,5 @@ export const SchematicProvider = ({ context, children }: ISchematicProviderProps
         ]
     );
 
-    return <SchematicContext.Provider value={value}>{children}</SchematicContext.Provider>;
+    return <CircuitContext.Provider value={value}>{children}</CircuitContext.Provider>;
 };

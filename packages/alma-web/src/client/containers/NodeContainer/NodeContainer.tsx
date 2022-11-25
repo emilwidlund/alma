@@ -3,35 +3,35 @@ import * as React from 'react';
 import { DraggableEventHandler } from 'react-draggable';
 
 import { Node } from '../../components/Node/Node';
-import { useSchematic } from '../../hooks/useSchematic/useSchematic';
+import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { INodeContainerProps } from './NodeContainer.types';
 
 export const NodeContainer = observer(({ node }: INodeContainerProps) => {
-    const schematic = useSchematic();
+    const circuit = useCircuit();
 
     const onClick = React.useCallback(
         (e: React.MouseEvent<HTMLDivElement>) => {
-            schematic.setSelectedNode(node);
+            circuit.setSelectedNode(node);
         },
-        [schematic, node]
+        [circuit, node]
     );
 
     const onFocus = React.useCallback(
         (e: React.FocusEvent<HTMLDivElement>) => {
-            schematic.setSelectedNode(node);
+            circuit.setSelectedNode(node);
         },
-        [schematic, node]
+        [circuit, node]
     );
 
     const onClose = React.useCallback(
         (e: React.MouseEvent<HTMLDivElement>) => {
-            if (schematic.selectedNode === node) {
-                schematic.setSelectedNode();
+            if (circuit.selectedNode === node) {
+                circuit.setSelectedNode();
             }
 
             node.dispose();
         },
-        [schematic, node]
+        [circuit, node]
     );
 
     const handleOnDrag: DraggableEventHandler = React.useCallback(
@@ -41,7 +41,7 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
         [node]
     );
 
-    const isSelected = React.useMemo(() => schematic.selectedNode === node, [schematic, node]);
+    const isSelected = React.useMemo(() => circuit.selectedNode === node, [circuit, node]);
 
     return (
         <Node

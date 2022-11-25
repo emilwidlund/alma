@@ -2,7 +2,7 @@ import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import { useSchematic } from '../../hooks/useSchematic/useSchematic';
+import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { IConnectionProps } from './Connection.types';
 import { quadraticCurve } from './Connection.utils';
 
@@ -19,14 +19,14 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
     const [fromPos, setFromPos] = React.useState(defaultPosition);
     const [toPos, setToPos] = React.useState(defaultPosition);
 
-    const schematic = useSchematic();
+    const circuit = useCircuit();
 
     const outputElement = connection
-        ? schematic.portElements[connection.from.id]
+        ? circuit.portElements[connection.from.id]
         : output
-        ? schematic.portElements[output.id]
+        ? circuit.portElements[output.id]
         : undefined;
-    const inputElement = connection && schematic.portElements[connection.to.id];
+    const inputElement = connection && circuit.portElements[connection.to.id];
 
     React.useEffect(() => {
         if (outputElement && inputElement) {
@@ -58,7 +58,7 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
                 }
             });
         }
-    }, [outputElement, inputElement, schematic]);
+    }, [outputElement, inputElement, circuit]);
 
     React.useEffect(() => {
         if (output && outputElement && point) {
@@ -77,15 +77,15 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
 
             setPathString(quadraticCurve(newFromPos, point));
         }
-    }, [output, outputElement, point, schematic]);
+    }, [output, outputElement, point, circuit]);
 
     const handleClick = React.useCallback(() => {
         if (connection) {
-            schematic.context?.disconnect(connection);
+            circuit.context?.disconnect(connection);
         }
     }, [connection]);
 
-    const selectedConnection = connection && schematic.selectedNode?.connections.includes(connection);
+    const selectedConnection = connection && circuit.selectedNode?.connections.includes(connection);
     const strokeColor =
         selectedConnection || output
             ? getComputedStyle(document.documentElement).getPropertyValue('--accent-color')

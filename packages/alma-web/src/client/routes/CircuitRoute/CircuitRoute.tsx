@@ -5,21 +5,21 @@ import * as React from 'react';
 import { CommandPalette } from '../../components/CommandPalette/CommandPalette';
 import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
+import { CircuitContainer } from '../../containers/CircuitContainer/CircuitContainer';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
-import { SchematicContainer } from '../../containers/SchematicContainer/SchematicContainer';
 import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint';
 import { useKeyPress } from '../../hooks/useKeyPress/useKeyPress';
-import { SchematicProvider } from '../../providers/SchematicProvider/SchematicProvider';
-import { schematicRouteWrapperStyles } from './SchematicRoute.styles';
+import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider';
+import { circuitRouteWrapperStyles } from './CircuitRoute.styles';
 
-export const SchematicRoute = () => {
+export const CircuitRoute = () => {
     const ref = React.useRef<HTMLCanvasElement>(null);
-    const schematicRef = React.useRef<HTMLDivElement>(null);
+    const circuitRef = React.useRef<HTMLDivElement>(null);
     const [context, setContext] = React.useState<WebGLContext | undefined>();
     const [commandLineOpen, toggleCommandLine] = React.useState(false);
     const spacePressed = useKeyPress(' ');
 
-    const midPoint = useCartesianMidpoint(schematicRef);
+    const midPoint = useCartesianMidpoint(circuitRef);
 
     React.useEffect(() => {
         if (ref.current) {
@@ -125,15 +125,15 @@ export const SchematicRoute = () => {
     );
 
     return (
-        <SchematicProvider context={context}>
+        <CircuitProvider context={context}>
             <Scene>
                 <NavBar>
                     <NavBarItem to="/gallery" children="Gallery" />
                     <NavBarItem to="/about" children="About" />
                     <NavBarItem to="/dashboard" children="Dashboard" />
                 </NavBar>
-                <div className={schematicRouteWrapperStyles}>
-                    <SchematicContainer ref={schematicRef} />
+                <div className={circuitRouteWrapperStyles}>
+                    <CircuitContainer ref={circuitRef} />
                     <PropertyPanel ref={ref} />
 
                     {commandLineOpen && (
@@ -147,6 +147,6 @@ export const SchematicRoute = () => {
                     )}
                 </div>
             </Scene>
-        </SchematicProvider>
+        </CircuitProvider>
     );
 };
