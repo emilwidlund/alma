@@ -12,7 +12,7 @@ export const ToolbarItem = ({ label, icon, onClick, outlined, cta }: IToolbarIte
             className={toolbarItemWrapperStyles(cta)}
             text={label}
             position={TooltipPosition.TOP}
-            offset={{ y: 10, x: 0 }}
+            offset={{ y: 5, x: 0 }}
         >
             <div className={toolbarItemContainerStyles(cta)} onClick={onClick} role="button">
                 <Icon name={icon} outlined={outlined} size={20} />

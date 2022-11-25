@@ -87,6 +87,7 @@ export const tooltipNodeWrapperStyles = (
     letter-spacing: 0.1em;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 9;
+    white-space: nowrap;
     animation: fade 0.2s;
     ${getPositionalStyles(position, dimensions, offset)}
 `;
