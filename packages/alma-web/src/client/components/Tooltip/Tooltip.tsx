@@ -2,7 +2,7 @@ import { cx } from '@emotion/css';
 import * as React from 'react';
 
 import { useHover } from '../../hooks/useHover/useHover';
-import { tooltipWrapperStyles, tooltipContentStyles, tooltipNodeWrapperStyles } from './Tooltip.styles';
+import { tooltipWrapperStyles, tooltipNodeWrapperStyles } from './Tooltip.styles';
 import { ITooltipNodeProps, ITooltipProps } from './Tooltip.types';
 
 const TooltipNode = ({ text, position, offset }: ITooltipNodeProps) => {
@@ -27,7 +27,7 @@ export const Tooltip = ({ children, className, ...tooltipNodeProps }: ITooltipPr
 
     return (
         <div className={cx(tooltipWrapperStyles, className)} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            <div className={tooltipContentStyles}>{children}</div>
+            <div>{children}</div>
             {isHovered && <TooltipNode {...tooltipNodeProps} />}
         </div>
     );

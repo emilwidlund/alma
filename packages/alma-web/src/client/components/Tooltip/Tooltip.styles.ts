@@ -91,10 +91,6 @@ export const tooltipNodeWrapperStyles = (
     ${getPositionalStyles(position, dimensions, offset)}
 `;
 
-export const tooltipContentStyles = css`
-    position: relative;
-`;
-
 export const tooltipWrapperStyles = css`
     display: flex;
 `;
