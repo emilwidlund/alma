@@ -134,12 +134,10 @@ export class WebGLContext extends Context<WebGLContextNode> {
         if (!this.frameId) {
             /** Reset entire context if connections are updated */
             this.connectionReactionDisposer = reaction(
-                () => this.connections.values(),
+                () => this.values,
                 () => {
                     this.reset();
-                },
-                /** Delay the reset of Context until the graph has done its computations */
-                { delay: 10 }
+                }
             );
 
             this.model = this.createModel();

@@ -1,14 +1,6 @@
 import { Node } from 'alma-graph';
-import {
-    WebGLContext,
-    ClassConstructor,
-    nodes,
-    TimeNode,
-    SineNode,
-    UVNode,
-    SimplexNoiseNode,
-    GLSLNode
-} from 'alma-webgl';
+import { WebGLContext, ClassConstructor, nodes, GLSLNode } from 'alma-webgl';
+import { autorun } from 'mobx';
 import * as React from 'react';
 
 import { CommandPalette } from '../../components/CommandPalette/CommandPalette';
@@ -49,7 +41,6 @@ export const CircuitRoute = () => {
                     video.height = gl.drawingBufferHeight;
                     webcamCanvas.width = gl.drawingBufferWidth;
                     webcamCanvas.height = gl.drawingBufferHeight;
-                    console.log(gl.drawingBufferWidth);
                     video.autoplay = true;
                     navigator.mediaDevices
                         .getUserMedia({ video: { width: gl.drawingBufferWidth, height: gl.drawingBufferHeight } })
@@ -74,45 +65,29 @@ export const CircuitRoute = () => {
                     onInit: onCameraResolverInit,
                     textureResolver: cameraTextureResolver
                 },
-                nodesCollection: nodes
-            });
-
-            // const uv = new UVNode(ctx, { data: { position: { x: 60, y: 500 } } });
-            // const camera = new CameraNode(ctx, { data: { position: { x: 400, y: 500 } } });
-            // uv.outputs.uv.connect(camera.inputs.uv);
-            // camera.outputs.camera.connect(ctx.root.inputs.color);
-
-            const time = new TimeNode(ctx, { data: { position: { x: 60, y: 500 } } });
-            const sine = new SineNode(ctx, { data: { position: { x: 400, y: 500 } } });
-            time.outputs.time.connect(sine.inputs.input);
-
-            const uv = new UVNode(ctx, { data: { position: { x: 120, y: 750 } } });
-            const simplexNoise = new SimplexNoiseNode(ctx, { data: { position: { x: 800, y: 600 } } });
-
-            sine.outputs.output.connect(simplexNoise.inputs.decay);
-
-            uv.outputs.uv.connect(simplexNoise.inputs.uv);
-            simplexNoise.outputs.output.connect(ctx.root.inputs.color);
-
-            const restored = new WebGLContext(gl, {
-                cameraManager: {
-                    onInit: onCameraResolverInit,
-                    textureResolver: cameraTextureResolver
-                },
                 nodesCollection: nodes,
-                ...JSON.parse(JSON.stringify(ctx))
+                ...JSON.parse(localStorage.getItem('context') || '{}')
             });
 
-            setContext(restored);
+            const valueReactionDisposer = autorun(
+                () => {
+                    localStorage.setItem('context', JSON.stringify(ctx));
+                },
+                /** Debounce serialization upon changes */
+                { delay: 200 }
+            );
+
+            setContext(ctx);
 
             document.addEventListener('fullscreenchange', () => {
                 if (ref.current) {
-                    restored.reset();
+                    ctx.reset();
                 }
             });
 
             return () => {
-                restored?.dispose();
+                ctx?.dispose();
+                valueReactionDisposer();
             };
         }
     }, []);
