@@ -137,7 +137,8 @@ export class WebGLContext extends Context<WebGLContextNode> {
                 () => this.values,
                 () => {
                     this.reset();
-                }
+                },
+                { delay: 100 }
             );
 
             this.model = this.createModel();
