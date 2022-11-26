@@ -1,13 +1,15 @@
 import { Sym, Type } from '@thi.ng/shader-ast';
 import _ from 'lodash';
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
 import { Connection } from '../Connection/Connection';
 import { Input } from '../Input/Input';
+import { InputValue } from '../Input/Input.types';
 import { Node } from '../Node/Node';
 import { INodeSerialized } from '../Node/Node.types';
 import { Output } from '../Output/Output';
+import { OutputValue } from '../Output/Output.types';
 import { Port } from '../Port/Port';
 import { IContextProps, IContextSerialized } from './Context.types';
 
@@ -44,6 +46,7 @@ export abstract class Context<TRoot extends Node = Node> {
             name: observable,
             nodes: observable,
             connections: observable,
+            values: computed,
             add: action,
             remove: action,
             connect: action,
@@ -51,6 +54,11 @@ export abstract class Context<TRoot extends Node = Node> {
             resolveNode: action,
             resolveRootNode: action
         });
+    }
+
+    /** All port values across the graph context */
+    public get values(): (InputValue<any> | OutputValue<any>)[] {
+        return [...this.nodes.values()].flatMap(node => node.ports).flatMap(port => port.value);
     }
 
     /** Initializes Context */
@@ -82,12 +90,6 @@ export abstract class Context<TRoot extends Node = Node> {
         return this.resolveRootNode([...this.nodes.values()]);
     }
 
-    /** Resolve Node */
-    abstract resolveNode<TNode extends Node>(props: INodeSerialized): TNode;
-
-    /** Resolve Root Node */
-    abstract resolveRootNode(nodes: Node[]): TRoot;
-
     /** Adds node to context */
     public add(node: Node) {
         this.nodes.set(node.id, node);
@@ -114,9 +116,6 @@ export abstract class Context<TRoot extends Node = Node> {
         connection.dispose();
     }
 
-    /** Render Context */
-    abstract render(outs: Record<string, Sym<any>>): void;
-
     /** Serializes Context */
     public toJSON() {
         return {
@@ -126,4 +125,13 @@ export abstract class Context<TRoot extends Node = Node> {
             connections: this.connections
         };
     }
+
+    /** Resolve Node */
+    abstract resolveNode<TNode extends Node>(props: INodeSerialized): TNode;
+
+    /** Resolve Root Node */
+    abstract resolveRootNode(nodes: Node[]): TRoot;
+
+    /** Render Context */
+    abstract render(outs: Record<string, Sym<any>>): void;
 }

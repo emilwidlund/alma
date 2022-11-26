@@ -74,7 +74,7 @@ export abstract class Node {
 
     /** Associated ports */
     public get ports() {
-        return [...Object.values(this.inputs), ...Object.values(this.outputs)];
+        return [...Object.values(this.inputs || {}), ...Object.values(this.outputs || {})];
     }
 
     /** Associated connections */
