@@ -4,7 +4,6 @@ import * as React from 'react';
 import { Circuit } from '../../components/Circuit/Circuit';
 import { Connection } from '../../components/Connection/Connection';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
-import { useGLSLModal } from '../../hooks/useGLSLModal/useGLSLModal';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
 import { circuitContainerStyles } from './CircuitContainer.styles';
@@ -14,7 +13,6 @@ export const CircuitContainer = observer(
         const svgRef = React.useRef<SVGSVGElement>(null);
         const circuit = useCircuit();
         const { onMouseMove, mousePosition } = useMousePosition();
-        const { open } = useGLSLModal();
 
         const onMouseUp = React.useCallback(
             (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
