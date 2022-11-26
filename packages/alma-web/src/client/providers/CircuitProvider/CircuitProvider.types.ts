@@ -6,6 +6,13 @@ export type ICircuitProviderProps = React.PropsWithChildren<{
     context: WebGLContext | undefined;
 }>;
 
+export interface ICircuitSelectionBounds {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
+
 export interface ICircuitContextValue {
     context: WebGLContext | undefined;
     portElements: Record<string, HTMLDivElement>;
@@ -16,4 +23,6 @@ export interface ICircuitContextValue {
     commitConnectionDraft(input: Input<any>): void;
     selectedNodes: Node[] | undefined;
     setSelectedNodes(nodes?: Node[]): void;
+    selectionBounds?: ICircuitSelectionBounds;
+    setSelectionBounds(selectionBounds?: ICircuitSelectionBounds): void;
 }

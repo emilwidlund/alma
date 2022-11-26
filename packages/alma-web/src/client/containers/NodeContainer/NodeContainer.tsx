@@ -11,9 +11,12 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
     const circuit = useCircuit();
     const actions = useNodeActions(node);
 
-    const onClick = React.useCallback(() => {
-        circuit.setSelectedNodes([node]);
-    }, [circuit, node]);
+    const onClick = React.useCallback(
+        e => {
+            circuit.setSelectedNodes([node]);
+        },
+        [circuit, node]
+    );
 
     const onFocus = React.useCallback(() => {
         circuit.setSelectedNodes([node]);
@@ -21,6 +24,9 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
 
     const handleOnDrag: DraggableEventHandler = React.useCallback(
         (e, { x, y }) => {
+            e.preventDefault();
+            e.stopPropagation();
+
             node.setPosition({ x, y });
         },
         [node]

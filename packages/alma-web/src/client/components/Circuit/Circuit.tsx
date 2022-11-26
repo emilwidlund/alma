@@ -10,7 +10,7 @@ export const Circuit = React.forwardRef<HTMLDivElement, ICircuitProps>(
             <div className={cx(circuitWrapperStyles, className)}>
                 <div
                     ref={ref}
-                    className={circuitContentStyles}
+                    className={cx(circuitContentStyles, 'circuit')}
                     children={children}
                     onMouseMove={onMouseMove}
                     onMouseDown={onMouseDown}

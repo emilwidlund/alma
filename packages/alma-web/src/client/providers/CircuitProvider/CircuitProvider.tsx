@@ -2,7 +2,7 @@ import { Input, Node, Output } from 'alma-graph';
 import { noop } from 'lodash';
 import * as React from 'react';
 
-import type { ICircuitContextValue, ICircuitProviderProps } from './CircuitProvider.types';
+import type { ICircuitContextValue, ICircuitProviderProps, ICircuitSelectionBounds } from './CircuitProvider.types';
 
 const defaultCircuitValue: ICircuitContextValue = {
     context: undefined,
@@ -13,7 +13,9 @@ const defaultCircuitValue: ICircuitContextValue = {
     setConnectionDraft: noop,
     commitConnectionDraft: noop,
     selectedNodes: [],
-    setSelectedNodes: noop
+    setSelectedNodes: noop,
+    selectionBounds: undefined,
+    setSelectionBounds: noop
 };
 
 export const CircuitContext = React.createContext(defaultCircuitValue);
@@ -22,6 +24,7 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
     const [portElements, setPortElements] = React.useState<Record<string, HTMLDivElement>>({});
     const [connectionDraft, setConnectionDraft] = React.useState<Output<any> | undefined>();
     const [selectedNodes, setSelectedNodes] = React.useState<Node[] | undefined>([]);
+    const [selectionBounds, setSelectionBounds] = React.useState<ICircuitSelectionBounds | undefined>(undefined);
 
     const handleSetPortElement = React.useCallback(
         (portId: string, portElement: HTMLDivElement) => {
@@ -72,6 +75,13 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
         [setSelectedNodes]
     );
 
+    const handleSetSelectionBounds = React.useCallback(
+        (selectionBounds?: ICircuitSelectionBounds) => {
+            setSelectionBounds(selectionBounds);
+        },
+        [setSelectionBounds]
+    );
+
     const value = React.useMemo<ICircuitContextValue>(
         () => ({
             context,
@@ -82,7 +92,9 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
             setConnectionDraft: handleSetConnectionDraft,
             commitConnectionDraft: handleCommitConnectionDraft,
             selectedNodes,
-            setSelectedNodes: handleSetSelectedNodes
+            setSelectedNodes: handleSetSelectedNodes,
+            selectionBounds,
+            setSelectionBounds: handleSetSelectionBounds
         }),
         [
             context,
@@ -93,7 +105,9 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
             handleSetPortElement,
             handleRemovePortElement,
             handleSetSelectedNodes,
-            selectedNodes
+            selectedNodes,
+            selectionBounds,
+            setSelectionBounds
         ]
     );
 
