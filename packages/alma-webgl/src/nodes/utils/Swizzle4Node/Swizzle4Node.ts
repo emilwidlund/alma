@@ -53,7 +53,7 @@ export class Swizzle4Node extends Node {
             ),
             z: new Output(
                 this,
-                defaults<Partial<IOutputProps<'float'>> | undefined, IOutputProps<'float'>>(props.outputs?.y, {
+                defaults<Partial<IOutputProps<'float'>> | undefined, IOutputProps<'float'>>(props.outputs?.z, {
                     name: 'Z',
                     type: 'float',
                     value: () => {
