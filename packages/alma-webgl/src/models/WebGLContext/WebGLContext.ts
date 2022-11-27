@@ -1,4 +1,4 @@
-import { defMain, Sym, assign, vec4 } from '@thi.ng/shader-ast';
+import { defMain, Sym, assign, vec4, program } from '@thi.ng/shader-ast';
 import { GLSLTarget, targetGLSL } from '@thi.ng/shader-ast-glsl';
 import { compileModel, defQuadModel, defShader, draw, FX_SHADER_SPEC, ModelSpec, UniformValues } from '@thi.ng/webgl';
 import { Context, INodeSerialized, Node } from 'alma-graph';
@@ -62,6 +62,15 @@ export class WebGLContext extends Context<WebGLContextNode> {
         };
     }
 
+    /** Fragment output */
+    public get fragment(): string {
+        const value = this.root ? this.root.resolveValue(this.root.inputs.color.value) : vec4(0, 0, 0, 1);
+
+        return this.target(
+            program([defMain(() => [assign(this.target.gl_FragColor, isFunction(value) ? value() : value)])])
+        );
+    }
+
     /** Sets uniform by key & value */
     public setUniform<TKey extends keyof UniformValues>(key: TKey, value: UniformValues[TKey]): void {
         this.model.uniforms![key] = value;
@@ -105,7 +114,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
     }
 
     /** Resolve Root Node */
-    resolveRootNode(nodes: Node[]): WebGLContextNode {
+    public resolveRootNode(nodes: Node[]): WebGLContextNode {
         const root = nodes.find(node => node instanceof WebGLContextNode) as WebGLContextNode | undefined;
 
         if (!root) {
@@ -119,7 +128,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
     }
 
     /** Resolves Node */
-    resolveNode<TWebGLNode>(nodeProps: INodeSerialized): TWebGLNode {
+    public resolveNode<TWebGLNode>(nodeProps: INodeSerialized): TWebGLNode {
         const constructor = this.nodesCollection[nodeProps.type];
 
         if (!constructor) {

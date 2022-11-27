@@ -3,7 +3,7 @@ import * as React from 'react';
 import { textAreaStyles } from './TextArea.styles';
 import { ITextAreaProps } from './TextArea.types';
 
-export const TextArea = ({ value, placeholder, disabled, onChange }: ITextAreaProps) => {
+export const TextArea = ({ value, placeholder, disabled, readOnly, onChange }: ITextAreaProps) => {
     const ref = React.useRef<HTMLTextAreaElement>(null);
 
     React.useEffect(() => {
@@ -18,6 +18,7 @@ export const TextArea = ({ value, placeholder, disabled, onChange }: ITextAreaPr
             value={value}
             onChange={onChange}
             disabled={disabled}
+            readOnly={readOnly}
         />
     );
 };

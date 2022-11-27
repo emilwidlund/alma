@@ -10,6 +10,7 @@ import { CircuitContainer } from '../../containers/CircuitContainer/CircuitConta
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint';
 import { useCircuitContext } from '../../hooks/useCircuitContext/useCircuitContext';
+import { useCodeModal } from '../../hooks/useCodeModal/useCodeModal';
 import { useGLSLModal } from '../../hooks/useGLSLModal/useGLSLModal';
 import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider';
 import { circuitRouteWrapperStyles } from './CircuitRoute.styles';
@@ -19,6 +20,7 @@ export const CircuitRoute = () => {
     const circuitRef = React.useRef<HTMLDivElement>(null);
     const [commandLineOpen, toggleCommandLine] = React.useState(false);
     const { open: openGLSLModal } = useGLSLModal();
+    const { open: openCodeModal } = useCodeModal();
 
     const context = useCircuitContext(ref);
     const midPoint = useCartesianMidpoint(circuitRef);
@@ -55,7 +57,12 @@ export const CircuitRoute = () => {
 
                     <Toolbar>
                         <ToolbarItem label="Stream" icon="stream" onClick={handleCreateGLSLNode} />
-                        <ToolbarItem label="Gesture" icon="gesture" onClick={console.log} outlined />
+                        <ToolbarItem
+                            label="View Code"
+                            icon="data_object"
+                            onClick={() => openCodeModal(context?.fragment || '')}
+                            outlined
+                        />
                         <ToolbarItem label="New Node" icon="add" onClick={() => toggleCommandLine(true)} cta />
                         <ToolbarItem label="Connection" icon="conversion_path" onClick={console.log} />
                         <ToolbarItem label="Fullscreen" icon="open_in_full" onClick={console.log} />
