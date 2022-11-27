@@ -2,10 +2,15 @@ import { Input, Node, Output } from 'alma-graph';
 import { noop } from 'lodash';
 import * as React from 'react';
 
-import type { ICircuitContextValue, ICircuitProviderProps, ICircuitSelectionBounds } from './CircuitProvider.types';
+import { normalizeBounds, withinBounds } from '../../utils/bounds/bounds';
+import { IBounds } from '../../utils/bounds/bounds.types';
+import type { ICircuitContextValue, ICircuitProviderProps } from './CircuitProvider.types';
 
 const defaultCircuitValue: ICircuitContextValue = {
     context: undefined,
+    nodeElements: {},
+    setNodeElement: noop,
+    removeNodeElement: noop,
     portElements: {},
     setPortElement: noop,
     removePortElement: noop,
@@ -21,10 +26,35 @@ const defaultCircuitValue: ICircuitContextValue = {
 export const CircuitContext = React.createContext(defaultCircuitValue);
 
 export const CircuitProvider = ({ context, children }: ICircuitProviderProps) => {
+    const [nodeElements, setNodeElements] = React.useState<Record<string, HTMLDivElement>>({});
     const [portElements, setPortElements] = React.useState<Record<string, HTMLDivElement>>({});
     const [connectionDraft, setConnectionDraft] = React.useState<Output<any> | undefined>();
     const [selectedNodes, setSelectedNodes] = React.useState<Node[] | undefined>([]);
-    const [selectionBounds, setSelectionBounds] = React.useState<ICircuitSelectionBounds | undefined>(undefined);
+    const [selectionBounds, setSelectionBounds] = React.useState<IBounds | undefined>(undefined);
+
+    const handleSetNodeElement = React.useCallback(
+        (nodeId: string, nodeElement: HTMLDivElement) => {
+            setNodeElements(nodeElements => {
+                const elements = { ...nodeElements };
+                elements[nodeId] = nodeElement;
+
+                return elements;
+            });
+        },
+        [setNodeElements]
+    );
+
+    const handleRemoveNodeElement = React.useCallback(
+        (nodeId: string) => {
+            setNodeElements(portElements => {
+                const elements = { ...portElements };
+                delete elements[nodeId];
+
+                return elements;
+            });
+        },
+        [setNodeElements]
+    );
 
     const handleSetPortElement = React.useCallback(
         (portId: string, portElement: HTMLDivElement) => {
@@ -76,15 +106,40 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
     );
 
     const handleSetSelectionBounds = React.useCallback(
-        (selectionBounds?: ICircuitSelectionBounds) => {
+        (selectionBounds?: IBounds) => {
             setSelectionBounds(selectionBounds);
         },
         [setSelectionBounds]
     );
 
+    React.useEffect(() => {
+        if (context && selectionBounds) {
+            const bounds = normalizeBounds(selectionBounds);
+
+            const selectionCandidates = [];
+
+            for (const node of context.nodes.values()) {
+                const nodeElement = nodeElements[node.id];
+
+                if (nodeElement) {
+                    const nodeRect = nodeElement.getBoundingClientRect();
+
+                    if (withinBounds(bounds, nodeRect)) {
+                        selectionCandidates.push(node);
+                    }
+                }
+            }
+
+            handleSetSelectedNodes(selectionCandidates);
+        }
+    }, [context, selectionBounds, nodeElements]);
+
     const value = React.useMemo<ICircuitContextValue>(
         () => ({
             context,
+            nodeElements,
+            setNodeElement: handleSetNodeElement,
+            removeNodeElement: handleRemoveNodeElement,
             portElements,
             setPortElement: handleSetPortElement,
             removePortElement: handleRemovePortElement,
@@ -98,6 +153,9 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
         }),
         [
             context,
+            nodeElements,
+            handleSetNodeElement,
+            handleRemoveNodeElement,
             portElements,
             connectionDraft,
             handleSetConnectionDraft,

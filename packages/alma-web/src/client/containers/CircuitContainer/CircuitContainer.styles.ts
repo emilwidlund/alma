@@ -1,8 +1,8 @@
 import { css } from '@emotion/css';
 
-import { ICircuitSelectionBounds } from '../../providers/CircuitProvider/CircuitProvider.types';
+import { IBounds } from '../../utils/bounds/bounds.types';
 
-export const circuitSelectionStyles = ({ x, y, width, height }: ICircuitSelectionBounds) => css`
+export const circuitSelectionStyles = ({ x, y, width, height }: IBounds) => css`
     position: absolute;
     top: 0;
     left: 0;

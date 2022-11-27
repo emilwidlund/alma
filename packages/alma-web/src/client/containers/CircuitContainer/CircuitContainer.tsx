@@ -10,7 +10,7 @@ import { NodeContainer } from '../NodeContainer/NodeContainer';
 import { circuitContainerStyles, circuitSelectionStyles } from './CircuitContainer.styles';
 import { IConnectionsProps } from './CircuitContainer.types';
 
-const Nodes = () => {
+const Nodes = observer(() => {
     const circuit = useCircuit();
 
     return (
@@ -20,11 +20,12 @@ const Nodes = () => {
             ))}
         </>
     );
-};
+});
 
-const Connections = ({ mousePosition }: IConnectionsProps) => {
+const Connections = observer(({ mousePosition }: IConnectionsProps) => {
     const ref = React.useRef<SVGSVGElement>(null);
     const circuit = useCircuit();
+
     const onClick = React.useCallback(
         (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
             if (ref.current === e.target) {
@@ -43,15 +44,15 @@ const Connections = ({ mousePosition }: IConnectionsProps) => {
             {circuit.connectionDraft && <Connection output={circuit.connectionDraft} point={mousePosition} />}
         </svg>
     );
-};
+});
 
-const Selection = () => {
+const Selection = observer(() => {
     const circuit = useCircuit();
 
     return circuit.selectionBounds ? (
         <div className={circuitSelectionStyles(normalizeBounds(circuit.selectionBounds))} />
     ) : null;
-};
+});
 
 export const CircuitContainer = observer(
     React.forwardRef<HTMLDivElement>((props, ref) => {

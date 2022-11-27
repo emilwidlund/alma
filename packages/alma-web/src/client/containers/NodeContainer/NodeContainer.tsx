@@ -8,8 +8,19 @@ import { useNodeActions } from '../../hooks/useNodeActions/useNodeActions';
 import { INodeContainerProps } from './NodeContainer.types';
 
 export const NodeContainer = observer(({ node }: INodeContainerProps) => {
+    const ref = React.useRef<HTMLDivElement>(null);
     const circuit = useCircuit();
     const actions = useNodeActions(node);
+
+    React.useEffect(() => {
+        if (ref.current) {
+            circuit.setNodeElement(node.id, ref.current);
+
+            return () => {
+                circuit.removeNodeElement(node.id);
+            };
+        }
+    }, []);
 
     const onClick = React.useCallback(
         e => {
@@ -36,6 +47,7 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
 
     return (
         <Node
+            ref={ref}
             name={node.name}
             active={isSelected}
             inputs={Object.values(node.inputs)}
