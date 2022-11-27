@@ -62,15 +62,21 @@ export const CircuitContainer = observer(
                 if (circuit.selectionBounds) {
                     const { x, y, width, height } = circuit.selectionBounds;
 
-                    circuit.setSelectionBounds({ x, y, width: width + e.movementX, height: height + e.movementY });
+                    const bounds = {
+                        x,
+                        y,
+                        width: width + e.movementX,
+                        height: height + e.movementY
+                    };
+
+                    circuit.setSelectionBounds(bounds);
                 }
             },
             [circuit, mouseMoveHandler]
         );
 
         const onMouseDown = React.useCallback(
-            ({ clientX, clientY, nativeEvent }: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-                console.log(nativeEvent.target);
+            ({ clientX, clientY, nativeEvent }: React.MouseEvent<HTMLDivElement>) => {
                 if ((nativeEvent.target as HTMLDivElement).id === 'connections') {
                     circuit.setSelectionBounds({ x: clientX, y: clientY, width: 0, height: 0 });
                 }
