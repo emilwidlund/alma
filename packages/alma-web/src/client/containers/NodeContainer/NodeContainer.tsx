@@ -24,23 +24,32 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
 
     const onClick = React.useCallback(
         e => {
-            circuit.setSelectedNodes([node]);
+            if (!circuit.selectedNodes?.includes(node)) {
+                circuit.setSelectedNodes([node]);
+            }
         },
         [circuit, node]
     );
 
     const onFocus = React.useCallback(() => {
-        circuit.setSelectedNodes([node]);
+        if (!circuit.selectedNodes?.includes(node)) {
+            circuit.setSelectedNodes([node]);
+        }
     }, [circuit, node]);
 
     const handleOnDrag: DraggableEventHandler = React.useCallback(
-        (e, { x, y }) => {
+        (e, { deltaX, deltaY }) => {
             e.preventDefault();
             e.stopPropagation();
 
-            node.setPosition({ x, y });
+            for (const selectedNode of circuit.selectedNodes || []) {
+                selectedNode.setPosition({
+                    x: selectedNode.data.position.x + deltaX,
+                    y: selectedNode.data.position.y + deltaY
+                });
+            }
         },
-        [node]
+        [node, circuit]
     );
 
     const isSelected = React.useMemo(() => circuit.selectedNodes?.indexOf(node) !== -1, [circuit, node]);
