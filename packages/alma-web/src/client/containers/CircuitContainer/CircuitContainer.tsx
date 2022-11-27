@@ -5,6 +5,7 @@ import { Circuit } from '../../components/Circuit/Circuit';
 import { Connection } from '../../components/Connection/Connection';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
+import { normalizeBounds } from '../../utils/bounds/bounds';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
 import { circuitContainerStyles, circuitSelectionStyles } from './CircuitContainer.styles';
 import { IConnectionsProps } from './CircuitContainer.types';
@@ -47,7 +48,9 @@ const Connections = ({ mousePosition }: IConnectionsProps) => {
 const Selection = () => {
     const circuit = useCircuit();
 
-    return circuit.selectionBounds ? <div className={circuitSelectionStyles(circuit.selectionBounds)} /> : null;
+    return circuit.selectionBounds ? (
+        <div className={circuitSelectionStyles(normalizeBounds(circuit.selectionBounds))} />
+    ) : null;
 };
 
 export const CircuitContainer = observer(
