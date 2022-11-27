@@ -8,28 +8,55 @@ import { useNodeActions } from '../../hooks/useNodeActions/useNodeActions';
 import { INodeContainerProps } from './NodeContainer.types';
 
 export const NodeContainer = observer(({ node }: INodeContainerProps) => {
+    const ref = React.useRef<HTMLDivElement>(null);
     const circuit = useCircuit();
     const actions = useNodeActions(node);
 
-    const onClick = React.useCallback(() => {
-        circuit.setSelectedNodes([node]);
-    }, [circuit, node]);
+    React.useEffect(() => {
+        if (ref.current) {
+            circuit.setNodeElement(node.id, ref.current);
+
+            return () => {
+                circuit.removeNodeElement(node.id);
+            };
+        }
+    }, []);
+
+    const onClick = React.useCallback(
+        e => {
+            if (!circuit.selectedNodes?.includes(node)) {
+                circuit.setSelectedNodes([node]);
+            }
+        },
+        [circuit, node]
+    );
 
     const onFocus = React.useCallback(() => {
-        circuit.setSelectedNodes([node]);
+        if (!circuit.selectedNodes?.includes(node)) {
+            circuit.setSelectedNodes([node]);
+        }
     }, [circuit, node]);
 
     const handleOnDrag: DraggableEventHandler = React.useCallback(
-        (e, { x, y }) => {
-            node.setPosition({ x, y });
+        (e, { deltaX, deltaY }) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            for (const selectedNode of circuit.selectedNodes || []) {
+                selectedNode.setPosition({
+                    x: selectedNode.data.position.x + deltaX,
+                    y: selectedNode.data.position.y + deltaY
+                });
+            }
         },
-        [node]
+        [node, circuit]
     );
 
     const isSelected = React.useMemo(() => circuit.selectedNodes?.indexOf(node) !== -1, [circuit, node]);
 
     return (
         <Node
+            ref={ref}
             name={node.name}
             active={isSelected}
             inputs={Object.values(node.inputs)}
