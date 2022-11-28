@@ -9,4 +9,5 @@ export interface IContextMenuContainerSection {
 export interface IContextMenuContainerProps {
     position: IPoint;
     sections: IContextMenuContainerSection[];
+    onClose?(): void;
 }

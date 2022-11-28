@@ -8,6 +8,7 @@ import { IPoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint.ty
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { normalizeBounds } from '../../utils/bounds/bounds';
+import { nodesHierarchy } from '../../utils/nodes/nodes';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
 import { circuitContainerStyles, circuitSelectionStyles } from './CircuitContainer.styles';
 import { IConnectionsProps } from './CircuitContainer.types';
@@ -132,10 +133,7 @@ export const CircuitContainer = observer(
                         sections={[
                             {
                                 title: 'Nodes',
-                                items: [
-                                    { icon: 'add', label: 'New Node' },
-                                    { icon: 'stream', label: 'Hello 456' }
-                                ]
+                                items: [{ icon: 'add', label: 'New Node', items: nodesHierarchy }]
                             },
                             {
                                 items: [
@@ -144,6 +142,7 @@ export const CircuitContainer = observer(
                                 ]
                             }
                         ]}
+                        onClose={() => toggleContextMenu(undefined)}
                     />
                 )}
             </Circuit>

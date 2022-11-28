@@ -8,14 +8,14 @@ export const contextMenuContainerStyles = (position: IPoint) => css`
     padding: 6px;
     border-radius: 12px;
     background-color: var(--panel-background);
-    position: fixed;
+    position: absolute;
     top: ${position.y}px;
     left: ${position.x}px;
     width: 220px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    font-size: var(--font-size-xs);
     font-feature-settings: 'ss02' 1;
+    max-height: 500px;
 `;
 
 export const contextMenuSectionStyles = css`
@@ -30,4 +30,5 @@ export const contextMenuSectionStyles = css`
 
 export const contextMenuSectionTitleStyles = css`
     padding: 0 0 8px 12px;
+    font-size: var(--font-size-xs);
 `;

@@ -13,7 +13,6 @@ export const Modal = ({ modal: { title, children, actions, id }, onClose }: IMod
 
     React.useEffect(() => {
         document.body.classList.add('modal-open');
-
         document.body.addEventListener('keydown', closeOnEscapeKey);
 
         return () => {
