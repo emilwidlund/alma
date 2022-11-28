@@ -1,5 +1,4 @@
-import { Node } from 'alma-graph';
-import { ClassConstructor, nodes, GLSLNode } from 'alma-webgl';
+import { nodes, WebGLContextNode } from 'alma-webgl';
 import * as React from 'react';
 
 import { CommandPalette } from '../../components/CommandPalette/CommandPalette';
@@ -11,7 +10,7 @@ import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
 import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint';
 import { useCircuitContext } from '../../hooks/useCircuitContext/useCircuitContext';
 import { useCodeModal } from '../../hooks/useCodeModal/useCodeModal';
-import { useGLSLModal } from '../../hooks/useGLSLModal/useGLSLModal';
+import { useCreateNode } from '../../hooks/useCreateNode/useCreateNode';
 import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider';
 import { circuitRouteWrapperStyles } from './CircuitRoute.styles';
 
@@ -19,34 +18,11 @@ export const CircuitRoute = () => {
     const ref = React.useRef<HTMLCanvasElement>(null);
     const circuitRef = React.useRef<HTMLDivElement>(null);
     const [commandLineOpen, toggleCommandLine] = React.useState(false);
-    const { open: openGLSLModal } = useGLSLModal();
     const { open: openCodeModal } = useCodeModal();
 
     const context = useCircuitContext(ref);
     const midPoint = useCartesianMidpoint(circuitRef);
-
-    const handleCommandPaletteItemSelect = React.useCallback(
-        (node: ClassConstructor<Node>) => {
-            return () => {
-                if (context) {
-                    new node(context, { data: { position: midPoint.current } });
-                }
-            };
-        },
-        [midPoint, context]
-    );
-
-    const handleCreateGLSLNode = React.useCallback(() => {
-        if (context) {
-            openGLSLModal({
-                onSave: glsl => {
-                    if (context) {
-                        new GLSLNode(context, { data: { glsl, position: midPoint.current } });
-                    }
-                }
-            });
-        }
-    }, [context, midPoint]);
+    const createNode = useCreateNode(context, midPoint.current);
 
     return (
         <CircuitProvider context={context}>
@@ -56,7 +32,7 @@ export const CircuitRoute = () => {
                     <PropertyPanel ref={ref} />
 
                     <Toolbar>
-                        <ToolbarItem label="Stream" icon="stream" onClick={handleCreateGLSLNode} />
+                        <ToolbarItem label="Stream" icon="stream" onClick={console.log} />
                         <ToolbarItem
                             label="View Code"
                             icon="data_object"
@@ -70,10 +46,12 @@ export const CircuitRoute = () => {
 
                     {commandLineOpen && (
                         <CommandPalette
-                            items={[...Object.values(nodes)].map(node => ({
-                                label: node.name.replace('Node', '').trimEnd(),
-                                onSelect: handleCommandPaletteItemSelect(node)
-                            }))}
+                            items={[...Object.values(nodes)]
+                                .filter(node => node !== WebGLContextNode)
+                                .map(node => ({
+                                    label: node.name.replace('Node', '').trimEnd(),
+                                    onSelect: createNode(node)
+                                }))}
                             onClose={toggleCommandLine.bind(undefined, false)}
                         />
                     )}

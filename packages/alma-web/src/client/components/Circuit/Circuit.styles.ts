@@ -8,6 +8,7 @@ export const circuitWrapperStyles = css`
 `;
 
 export const circuitContentStyles = css`
+    position: relative;
     width: 5000px;
     height: 5000px;
 `;

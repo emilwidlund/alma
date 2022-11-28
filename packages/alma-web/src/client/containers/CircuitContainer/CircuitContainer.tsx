@@ -80,12 +80,12 @@ export const CircuitContainer = observer(
         );
 
         const onMouseDown = React.useCallback(
-            ({ clientX, clientY, nativeEvent }: React.MouseEvent<HTMLDivElement>) => {
+            ({ nativeEvent }: React.MouseEvent<HTMLDivElement>) => {
                 if ((nativeEvent.target as HTMLDivElement).id === 'connections') {
-                    circuit.setSelectionBounds({ x: clientX, y: clientY, width: 0, height: 0 });
+                    circuit.setSelectionBounds({ x: mousePosition.x, y: mousePosition.y, width: 0, height: 0 });
                 }
             },
-            [circuit]
+            [circuit, mousePosition]
         );
 
         const onMouseUp = React.useCallback(
