@@ -6,4 +6,5 @@ export type ICircuitProps = React.PropsWithChildren<{
     onMouseUp?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
     onMouseDown?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
     onClick?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
+    onContextMenu?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
 }>;

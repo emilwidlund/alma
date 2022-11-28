@@ -3,6 +3,8 @@ import * as React from 'react';
 
 import { Circuit } from '../../components/Circuit/Circuit';
 import { Connection } from '../../components/Connection/Connection';
+import { ContextMenuContainer } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer';
+import { IPoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint.types';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { normalizeBounds } from '../../utils/bounds/bounds';
@@ -58,6 +60,7 @@ export const CircuitContainer = observer(
     React.forwardRef<HTMLDivElement>((props, ref) => {
         const circuit = useCircuit();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
+        const [contextMenuPosition, toggleContextMenu] = React.useState<IPoint | undefined>(undefined);
 
         const onMouseMove = React.useCallback(
             (e: React.MouseEvent<HTMLDivElement>) => {
@@ -96,6 +99,21 @@ export const CircuitContainer = observer(
             [circuit]
         );
 
+        const onContextMenu = React.useCallback(
+            e => {
+                e.preventDefault();
+
+                toggleContextMenu(position => {
+                    if (position) {
+                        return undefined;
+                    } else {
+                        return mousePosition;
+                    }
+                });
+            },
+            [mousePosition, toggleContextMenu]
+        );
+
         return (
             <Circuit
                 ref={ref}
@@ -103,10 +121,31 @@ export const CircuitContainer = observer(
                 onMouseDown={onMouseDown}
                 onMouseMove={onMouseMove}
                 onMouseUp={onMouseUp}
+                onContextMenu={onContextMenu}
             >
                 <Nodes />
                 <Connections mousePosition={mousePosition} />
                 <Selection />
+                {!!contextMenuPosition && (
+                    <ContextMenuContainer
+                        position={contextMenuPosition}
+                        sections={[
+                            {
+                                title: 'Nodes',
+                                items: [
+                                    { icon: 'add', label: 'New Node' },
+                                    { icon: 'stream', label: 'Hello 456' }
+                                ]
+                            },
+                            {
+                                items: [
+                                    { icon: 'code', label: 'View Fragment' },
+                                    { icon: 'fullscreen', label: 'View Fullscreen' }
+                                ]
+                            }
+                        ]}
+                    />
+                )}
             </Circuit>
         );
     })
