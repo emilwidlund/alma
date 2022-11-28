@@ -27,13 +27,6 @@ export const CommandPalette = ({ items, onClose }: ICommandLineProps) => {
         }
     }, [inputRef.current]);
 
-    const handleBlur = React.useCallback(
-        (e: React.FocusEvent<HTMLInputElement>) => {
-            onClose?.();
-        },
-        [onClose]
-    );
-
     const handleKeyDown = React.useCallback(
         (e: React.KeyboardEvent<HTMLInputElement>) => {
             // Esc
@@ -75,7 +68,6 @@ export const CommandPalette = ({ items, onClose }: ICommandLineProps) => {
                     placeholder="Search..."
                     value={filterQuery}
                     onChange={handleFilter}
-                    onBlur={handleBlur}
                     onKeyDown={handleKeyDown}
                 />
             </div>

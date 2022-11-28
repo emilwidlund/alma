@@ -12,4 +12,8 @@ export const commandPaletteItemWrapperStyles = (active: boolean) => css`
     color: var(--text-light-color);
 
     transition: color 0.15s, background-color 0.15s;
+
+    &:hover {
+        background-color: var(--accent-color);
+    }
 `;

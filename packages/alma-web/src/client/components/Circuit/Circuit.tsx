@@ -5,7 +5,7 @@ import { circuitWrapperStyles, circuitContentStyles } from './Circuit.styles';
 import { ICircuitProps } from './Circuit.types';
 
 export const Circuit = React.forwardRef<HTMLDivElement, ICircuitProps>(
-    ({ children, className, onMouseMove, onClick, onMouseDown, onMouseUp }: ICircuitProps, ref) => {
+    ({ children, className, onMouseMove, onClick, onMouseDown, onMouseUp, onContextMenu }: ICircuitProps, ref) => {
         return (
             <div className={cx(circuitWrapperStyles, className)}>
                 <div
@@ -16,6 +16,7 @@ export const Circuit = React.forwardRef<HTMLDivElement, ICircuitProps>(
                     onMouseDown={onMouseDown}
                     onMouseUp={onMouseUp}
                     onClick={onClick}
+                    onContextMenu={onContextMenu}
                 />
             </div>
         );

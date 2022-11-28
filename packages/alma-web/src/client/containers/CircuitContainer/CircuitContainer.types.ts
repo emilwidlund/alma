@@ -1,6 +1,9 @@
+import { IPoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint.types';
+
 export interface IConnectionsProps {
-    mousePosition: {
-        x: number;
-        y: number;
-    };
+    mousePosition: IPoint;
+}
+
+export interface ICircuitContainerProps {
+    onContextMenu?(e: React.MouseEvent<HTMLDivElement>): void;
 }

@@ -85,6 +85,7 @@ export const tooltipNodeWrapperStyles = (
     font-size: var(--font-size-xs);
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    font-feature-settings: 'ss02' 1;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 9;
     white-space: nowrap;

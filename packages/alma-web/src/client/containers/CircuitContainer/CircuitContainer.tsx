@@ -8,7 +8,7 @@ import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition'
 import { normalizeBounds } from '../../utils/bounds/bounds';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
 import { circuitContainerStyles, circuitSelectionStyles } from './CircuitContainer.styles';
-import { IConnectionsProps } from './CircuitContainer.types';
+import { ICircuitContainerProps, IConnectionsProps } from './CircuitContainer.types';
 
 const Nodes = observer(() => {
     const circuit = useCircuit();
@@ -55,7 +55,7 @@ const Selection = observer(() => {
 });
 
 export const CircuitContainer = observer(
-    React.forwardRef<HTMLDivElement>((props, ref) => {
+    React.forwardRef<HTMLDivElement, ICircuitContainerProps>(({ onContextMenu }, ref) => {
         const circuit = useCircuit();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
 
@@ -80,12 +80,12 @@ export const CircuitContainer = observer(
         );
 
         const onMouseDown = React.useCallback(
-            ({ clientX, clientY, nativeEvent }: React.MouseEvent<HTMLDivElement>) => {
+            ({ nativeEvent }: React.MouseEvent<HTMLDivElement>) => {
                 if ((nativeEvent.target as HTMLDivElement).id === 'connections') {
-                    circuit.setSelectionBounds({ x: clientX, y: clientY, width: 0, height: 0 });
+                    circuit.setSelectionBounds({ x: mousePosition.x, y: mousePosition.y, width: 0, height: 0 });
                 }
             },
-            [circuit]
+            [circuit, mousePosition]
         );
 
         const onMouseUp = React.useCallback(
@@ -103,6 +103,7 @@ export const CircuitContainer = observer(
                 onMouseDown={onMouseDown}
                 onMouseMove={onMouseMove}
                 onMouseUp={onMouseUp}
+                onContextMenu={onContextMenu}
             >
                 <Nodes />
                 <Connections mousePosition={mousePosition} />
