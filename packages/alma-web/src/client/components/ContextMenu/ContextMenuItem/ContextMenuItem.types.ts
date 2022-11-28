@@ -7,4 +7,6 @@ export interface IContextMenuItemProps {
     icon: string;
     items?: IContextMenuContainerSection[];
     onClick?: React.MouseEventHandler<HTMLDivElement>;
+    selected?: boolean;
+    select?(): void;
 }

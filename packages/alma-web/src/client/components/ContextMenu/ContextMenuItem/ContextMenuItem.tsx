@@ -11,39 +11,23 @@ import {
 } from './ContextMenuItem.styles';
 import { IContextMenuItemProps } from './ContextMenuItem.types';
 
-export const ContextMenuItem = ({ label, icon, items, onClick }: IContextMenuItemProps) => {
+export const ContextMenuItem = ({ label, icon, items, onClick, selected, select }: IContextMenuItemProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
 
-    const { onMouseEnter, onMouseLeave, isHovered } = useHover();
+    const { onMouseEnter } = useHover(select);
 
-    const itemsPosition = React.useMemo(() => {
-        if (ref.current) {
-            return {
-                x: 230,
-                y: -14
-            };
-        } else {
-            return {
-                x: 0,
-                y: 0
-            };
-        }
-    }, [ref.current]);
+    const contextMenuContainer = !!items && selected && (
+        <ContextMenuContainer sections={items} position={{ x: 238, y: -10 }} />
+    );
 
     return (
-        <div
-            ref={ref}
-            className={contextMenuItemWrapperStyles}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            onClick={onClick}
-        >
+        <div ref={ref} className={contextMenuItemWrapperStyles(selected)} onMouseEnter={onMouseEnter} onClick={onClick}>
             <div className={cx(contextMenuItemNameWrapperStyles, 'name-wrapper')}>
                 <Icon name={icon} size={16} color="inherit" outlined />
                 <span className={contextMenuItemLabelStyles}>{label}</span>
             </div>
             {!!items && <Icon name="chevron_right" size={16} color="inherit" />}
-            {!!items && isHovered && <ContextMenuContainer position={itemsPosition} sections={items} />}
+            {contextMenuContainer}
         </div>
     );
 };

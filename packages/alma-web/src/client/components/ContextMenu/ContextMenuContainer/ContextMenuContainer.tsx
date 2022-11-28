@@ -11,6 +11,7 @@ import { IContextMenuContainerProps } from './ContextMenuContainer.types';
 
 export const ContextMenuContainer = ({ position, sections, onClose }: IContextMenuContainerProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
+    const [selectedItem, setSelectedItem] = React.useState<string | undefined>(undefined);
 
     useClickOutside(ref, onClose);
 
@@ -35,7 +36,12 @@ export const ContextMenuContainer = ({ position, sections, onClose }: IContextMe
                 <div className={contextMenuSectionStyles} key={index}>
                     {!!section.title && <span className={contextMenuSectionTitleStyles}>{section.title}</span>}
                     {section.items.map(item => (
-                        <ContextMenuItem key={item.label} {...item} />
+                        <ContextMenuItem
+                            key={item.label}
+                            {...item}
+                            selected={item.label === selectedItem}
+                            select={() => setSelectedItem(item.label)}
+                        />
                     ))}
                 </div>
             ))}

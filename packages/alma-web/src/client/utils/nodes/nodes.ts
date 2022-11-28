@@ -24,7 +24,7 @@ import { IContextMenuItemProps } from '../../components/ContextMenu/ContextMenuI
 
 // @ts-ignore
 const extractItem = (node: ClassConstructor<Node>): IContextMenuItemProps => ({
-    label: node.name,
+    label: node.name.replace('Node', ''),
     // @ts-ignore
     icon: node.icon
 });
@@ -33,7 +33,7 @@ export const nodesHierarchy: IContextMenuContainerSection[] = [
     {
         items: [
             {
-                icon: 'stream',
+                icon: 'shapes',
                 label: 'Core',
                 items: [{ items: [TimeNode, UVNode, GLSLNode].map(extractItem) }]
             },
@@ -65,7 +65,7 @@ export const nodesHierarchy: IContextMenuContainerSection[] = [
                 items: [{ items: [SimplexNoiseNode].map(extractItem) }]
             },
             {
-                icon: 'folder',
+                icon: 'construction',
                 label: 'Utilities',
                 items: [{ items: [MixNode, Swizzle2Node, Swizzle3Node, Swizzle4Node].map(extractItem) }]
             }

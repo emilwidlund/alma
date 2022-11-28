@@ -6,7 +6,7 @@ export const contextMenuItemNameWrapperStyles = css`
     align-items: center;
 `;
 
-export const contextMenuItemWrapperStyles = css`
+export const contextMenuItemWrapperStyles = (selected?: boolean) => css`
     position: relative;
     display: flex;
     flex-direction: row;
@@ -16,13 +16,15 @@ export const contextMenuItemWrapperStyles = css`
     transition: background-color 0.1s, color 0.1s;
     border-radius: 8px;
 
-    &:hover {
-        background-color: rgba(255, 255, 255, 0.05);
-    }
-
-    &:hover > .name-wrapper {
+    ${selected
+        ? `
+    background-color: rgba(255, 255, 255, 0.05); 
+    
+    & > .name-wrapper, & > .icon {
         color: var(--text-light-color);
     }
+    `
+        : undefined}
 `;
 
 export const contextMenuItemLabelStyles = css`
