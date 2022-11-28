@@ -15,6 +15,7 @@ export const contextMenuContainerStyles = (position?: IPoint) => css`
     font-feature-settings: 'ss02' 1;
     max-height: 500px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    z-index: 999;
 
     ${position
         ? `top: ${position.y}px;

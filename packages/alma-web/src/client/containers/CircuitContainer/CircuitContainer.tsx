@@ -3,15 +3,12 @@ import * as React from 'react';
 
 import { Circuit } from '../../components/Circuit/Circuit';
 import { Connection } from '../../components/Connection/Connection';
-import { ContextMenuContainer } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer';
-import { IPoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint.types';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { normalizeBounds } from '../../utils/bounds/bounds';
-import { nodesHierarchy } from '../../utils/nodes/nodes';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
 import { circuitContainerStyles, circuitSelectionStyles } from './CircuitContainer.styles';
-import { IConnectionsProps } from './CircuitContainer.types';
+import { ICircuitContainerProps, IConnectionsProps } from './CircuitContainer.types';
 
 const Nodes = observer(() => {
     const circuit = useCircuit();
@@ -58,10 +55,9 @@ const Selection = observer(() => {
 });
 
 export const CircuitContainer = observer(
-    React.forwardRef<HTMLDivElement>((props, ref) => {
+    React.forwardRef<HTMLDivElement, ICircuitContainerProps>(({ onContextMenu }, ref) => {
         const circuit = useCircuit();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
-        const [contextMenuPosition, toggleContextMenu] = React.useState<IPoint | undefined>(undefined);
 
         const onMouseMove = React.useCallback(
             (e: React.MouseEvent<HTMLDivElement>) => {
@@ -100,21 +96,6 @@ export const CircuitContainer = observer(
             [circuit]
         );
 
-        const onContextMenu = React.useCallback(
-            e => {
-                e.preventDefault();
-
-                toggleContextMenu(position => {
-                    if (position) {
-                        return undefined;
-                    } else {
-                        return mousePosition;
-                    }
-                });
-            },
-            [mousePosition, toggleContextMenu]
-        );
-
         return (
             <Circuit
                 ref={ref}
@@ -127,24 +108,6 @@ export const CircuitContainer = observer(
                 <Nodes />
                 <Connections mousePosition={mousePosition} />
                 <Selection />
-                {!!contextMenuPosition && (
-                    <ContextMenuContainer
-                        position={contextMenuPosition}
-                        sections={[
-                            {
-                                title: 'Nodes',
-                                items: [{ icon: 'add', label: 'New Node', items: nodesHierarchy }]
-                            },
-                            {
-                                items: [
-                                    { icon: 'code', label: 'View Fragment' },
-                                    { icon: 'fullscreen', label: 'View Fullscreen' }
-                                ]
-                            }
-                        ]}
-                        onClose={() => toggleContextMenu(undefined)}
-                    />
-                )}
             </Circuit>
         );
     })

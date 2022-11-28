@@ -10,22 +10,20 @@ export const useCreateNode = (context?: WebGLContext, midPoint?: IPoint) => {
 
     const createNode = React.useCallback(
         (node: ClassConstructor<Node>) => {
-            return () => {
-                switch (node) {
-                    case GLSLNode:
-                        openGLSLModal({
-                            onSave: glsl => {
-                                if (context) {
-                                    new GLSLNode(context, { data: { glsl, position: midPoint || { x: 0, y: 0 } } });
-                                }
+            switch (node) {
+                case GLSLNode:
+                    openGLSLModal({
+                        onSave: glsl => {
+                            if (context) {
+                                new GLSLNode(context, { data: { glsl, position: midPoint || { x: 0, y: 0 } } });
                             }
-                        });
-                        break;
-                    default:
-                        new node(context, { data: { position: midPoint } });
-                        break;
-                }
-            };
+                        }
+                    });
+                    break;
+                default:
+                    new node(context, { data: { position: midPoint } });
+                    break;
+            }
         },
         [midPoint, openGLSLModal, context]
     );
