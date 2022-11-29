@@ -58,6 +58,8 @@ export class GLSLNode extends Node {
             );
         }
 
+        this.outputs = {};
+
         this.setGLSL(this.data.glsl);
     }
 
@@ -96,9 +98,9 @@ export class GLSLNode extends Node {
 
         this.inputs = this.buildInputs(decl.parameters, this.inputs);
 
-        const previousConnections = this.outputs?.output.connections;
+        const previousConnections = this.outputs?.output?.connections;
 
-        this.outputs?.output.dispose();
+        this.outputs?.output?.dispose();
 
         this.outputs = {
             output: new Output(this, {

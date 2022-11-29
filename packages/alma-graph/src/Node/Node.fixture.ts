@@ -9,14 +9,12 @@ import { IOutputProps } from '../Output/Output.types';
 import { Node } from './Node';
 import { INodeInputs, INodeOutputs, INodeProps } from './Node.types';
 
-export interface IExtededNodeProps extends INodeProps {
-    inputs?: {
-        input?: IInputProps<'float'>;
-    };
-    outputs?: {
+export type IExtededNodeProps = INodeProps<
+    { input?: IInputProps<'float'> },
+    {
         output?: IOutputProps<'float'>;
-    };
-}
+    }
+>;
 
 export class ExtendedNode extends Node {
     type = '';
