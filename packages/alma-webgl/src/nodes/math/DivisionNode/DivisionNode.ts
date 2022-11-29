@@ -1,23 +1,23 @@
-import { float, add } from '@thi.ng/shader-ast';
+import { div, float } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IAdditionNodeInputs, IAdditionNodeOutputs, IAdditionNodeProps } from './AdditionNode.types';
+import { IDivisionNodeInputs, IDivisionNodeOutputs, IDivisionNodeProps } from './DivisionNode.types';
 
-export class AdditionNode extends PolymorphicNode {
-    static icon = 'add';
-    static description = 'Performs addition on the inputs.';
+export class DivisionNode extends PolymorphicNode {
+    static icon = 'show_chart';
+    static description = 'Performs division on the inputs.';
 
-    name = 'Addition';
-    type = WebGLNodeType.ADDITION;
+    name = 'Division';
+    type = WebGLNodeType.DIVISION;
 
-    inputs: IAdditionNodeInputs;
-    outputs: IAdditionNodeOutputs;
+    inputs: IDivisionNodeInputs;
+    outputs: IDivisionNodeOutputs;
 
-    constructor(context: WebGLContext, props: IAdditionNodeProps = {}) {
+    constructor(context: WebGLContext, props: IDivisionNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -55,7 +55,7 @@ export class AdditionNode extends PolymorphicNode {
                     name: 'Result',
                     type: 'float',
                     value: () => {
-                        return add<'float', 'float'>(
+                        return div<'float', 'float'>(
                             this.resolveValue(this.inputs.a.value),
                             this.resolveValue(this.inputs.b.value)
                         );

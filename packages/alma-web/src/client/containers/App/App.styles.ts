@@ -65,7 +65,7 @@ injectGlobal`
 
         // Colors
         --dark-background: #252628;
-        --panel-background: #2a2b2d;
+        --panel-background: #2d2e2f;
         --light-background: #fff;
         --neutral-background: #f4f4f4;
         --border-color: #424143;

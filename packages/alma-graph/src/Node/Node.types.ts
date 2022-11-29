@@ -1,9 +1,9 @@
 import { Type } from '@thi.ng/shader-ast';
 
 import { Input } from '../Input/Input';
-import { IInputSerialized } from '../Input/Input.types';
+import { IInputProps, IInputSerialized } from '../Input/Input.types';
 import { Output } from '../Output/Output';
-import { IOutputSerialized } from '../Output/Output.types';
+import { IOutputProps, IOutputSerialized } from '../Output/Output.types';
 
 export interface INodePosition {
     x: number;
@@ -25,10 +25,22 @@ export interface INodeOutputs {
     [key: string]: Output<any, any>;
 }
 
-export interface INodeProps {
+export interface INodeInputsProps {
+    [key: string]: IInputProps<any>;
+}
+export interface INodeOutputsProps {
+    [key: string]: IOutputProps<any>;
+}
+
+export interface INodeProps<
+    TInputs extends INodeInputsProps = INodeInputsProps,
+    TOutputs extends INodeOutputsProps = INodeOutputsProps
+> {
     id?: string;
     name?: string;
     data?: INodeData;
+    inputs?: TInputs;
+    outputs?: TOutputs;
 }
 
 export interface INodeSerialized {

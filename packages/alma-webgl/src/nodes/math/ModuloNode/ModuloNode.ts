@@ -1,12 +1,13 @@
 import { float, mod } from '@thi.ng/shader-ast';
-import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
-import { defaults } from 'lodash';
+import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
+import { defaults, defaultsDeep } from 'lodash';
 
+import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { IModuloNodeInputs, IModuloNodeOutputs, IModuloNodeProps } from './ModuloNode.types';
 
-export class ModuloNode extends Node {
+export class ModuloNode extends PolymorphicNode {
     static icon = 'percent';
     static description = 'Performs a modulo operation on inputs. Returns the remainder of a division.';
 
@@ -17,6 +18,15 @@ export class ModuloNode extends Node {
     outputs: IModuloNodeOutputs;
 
     constructor(context: WebGLContext, props: IModuloNodeProps = {}) {
+        defaultsDeep(props, {
+            data: {
+                type: {
+                    selected: 'float',
+                    options: ['float', 'int', 'vec2', 'vec3', 'vec4', 'mat2', 'mat3', 'mat4']
+                }
+            }
+        });
+
         super(context, props);
 
         this.inputs = {

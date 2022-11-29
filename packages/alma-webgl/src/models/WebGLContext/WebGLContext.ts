@@ -47,7 +47,6 @@ export class WebGLContext extends Context<WebGLContextNode> {
             setUniform: action
         });
 
-        this.root.setPosition({ x: 1200, y: 600 });
         this.setUniform('resolution', [this.size.width, this.size.height]);
         this.ctx.viewport(0, 0, this.size.width, this.size.height);
 
