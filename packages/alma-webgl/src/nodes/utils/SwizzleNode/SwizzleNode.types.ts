@@ -8,11 +8,11 @@ export interface ISwizzleNodeInputs {
 }
 
 export interface ISwizzleNodeOutputs {
-    [key: string]: Output<'float', SwizzleNode>;
+    [key: string]: any;
     x: Output<'float', SwizzleNode>;
     y: Output<'float', SwizzleNode>;
-    z: Output<'float', SwizzleNode>;
-    w: Output<'float', SwizzleNode>;
+    z?: Output<'float', SwizzleNode>;
+    w?: Output<'float', SwizzleNode>;
 }
 
 export interface ISwizzleNodeProps extends INodeProps {

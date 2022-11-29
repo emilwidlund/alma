@@ -21,9 +21,9 @@ export abstract class Node {
     /** Node Type */
     public abstract type: string;
     /** Node Inputs */
-    public abstract inputs: INodeInputs;
+    public inputs: INodeInputs;
     /** Node Outputs */
-    public abstract outputs: INodeOutputs;
+    public outputs: INodeOutputs;
     /** Node Data */
     public data: INodeData;
 
@@ -46,11 +46,15 @@ export abstract class Node {
         this.id = id;
         this.name = name;
         this.data = data;
+        this.inputs = {};
+        this.outputs = {};
 
         makeObservable(this, {
             id: observable,
             name: observable,
             data: observable,
+            inputs: observable,
+            outputs: observable,
             ports: computed,
             setPosition: action
         });
