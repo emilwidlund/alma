@@ -1,7 +1,8 @@
 import { float, mul } from '@thi.ng/shader-ast';
-import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
-import { defaults } from 'lodash';
+import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
+import { defaults, defaultsDeep } from 'lodash';
 
+import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import {
@@ -10,7 +11,7 @@ import {
     IMultiplicationNodeProps
 } from './MultiplicationNode.types';
 
-export class MultiplicationNode extends Node {
+export class MultiplicationNode extends PolymorphicNode {
     static icon = 'close';
     static description = 'Performs multiplication on the inputs.';
 
@@ -21,6 +22,15 @@ export class MultiplicationNode extends Node {
     outputs: IMultiplicationNodeOutputs;
 
     constructor(context: WebGLContext, props: IMultiplicationNodeProps = {}) {
+        defaultsDeep(props, {
+            data: {
+                type: {
+                    selected: 'float',
+                    options: ['float', 'int', 'vec2', 'vec3', 'vec4', 'mat2', 'mat3', 'mat4']
+                }
+            }
+        });
+
         super(context, props);
 
         this.inputs = {

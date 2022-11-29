@@ -1,12 +1,13 @@
 import { float, add } from '@thi.ng/shader-ast';
-import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
-import { defaults } from 'lodash';
+import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
+import { defaults, defaultsDeep } from 'lodash';
 
+import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { IAdditionNodeInputs, IAdditionNodeOutputs, IAdditionNodeProps } from './AdditionNode.types';
 
-export class AdditionNode extends Node {
+export class AdditionNode extends PolymorphicNode {
     static icon = 'add';
     static description = 'Performs addition on the inputs.';
 
@@ -17,6 +18,15 @@ export class AdditionNode extends Node {
     outputs: IAdditionNodeOutputs;
 
     constructor(context: WebGLContext, props: IAdditionNodeProps = {}) {
+        defaultsDeep(props, {
+            data: {
+                type: {
+                    selected: 'float',
+                    options: ['float', 'int', 'vec2', 'vec3', 'vec4', 'mat2', 'mat3', 'mat4']
+                }
+            }
+        });
+
         super(context, props);
 
         this.inputs = {

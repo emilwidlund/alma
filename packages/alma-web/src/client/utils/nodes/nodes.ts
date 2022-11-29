@@ -12,9 +12,7 @@ import {
     ModuloNode,
     SimplexNoiseNode,
     SineNode,
-    Swizzle2Node,
-    Swizzle3Node,
-    Swizzle4Node,
+    SwizzleNode,
     TimeNode,
     UVNode,
     Vector2Node,
@@ -84,9 +82,7 @@ export const nodesHierarchy: (
             {
                 icon: 'construction',
                 label: 'Utilities',
-                items: [
-                    { items: [MixNode, Swizzle2Node, Swizzle3Node, Swizzle4Node].map(extractItem(createNodeCallback)) }
-                ]
+                items: [{ items: [MixNode, SwizzleNode].map(extractItem(createNodeCallback)) }]
             }
         ]
     }

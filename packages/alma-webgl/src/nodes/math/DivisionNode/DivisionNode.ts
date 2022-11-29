@@ -1,12 +1,13 @@
 import { div, float } from '@thi.ng/shader-ast';
-import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
-import { defaults } from 'lodash';
+import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
+import { defaults, defaultsDeep } from 'lodash';
 
+import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { IDivisionNodeInputs, IDivisionNodeOutputs, IDivisionNodeProps } from './DivisionNode.types';
 
-export class DivisionNode extends Node {
+export class DivisionNode extends PolymorphicNode {
     static icon = 'show_chart';
     static description = 'Performs division on the inputs.';
 
@@ -17,6 +18,15 @@ export class DivisionNode extends Node {
     outputs: IDivisionNodeOutputs;
 
     constructor(context: WebGLContext, props: IDivisionNodeProps = {}) {
+        defaultsDeep(props, {
+            data: {
+                type: {
+                    selected: 'float',
+                    options: ['float', 'int', 'vec2', 'vec3', 'vec4', 'mat2', 'mat3', 'mat4']
+                }
+            }
+        });
+
         super(context, props);
 
         this.inputs = {

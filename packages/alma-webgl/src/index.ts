@@ -15,9 +15,7 @@ import { Vector4Node } from './nodes/math/Vector4Node/Vector4Node';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
 import { MixNode } from './nodes/utils/MixNode/MixNode';
-import { Swizzle2Node } from './nodes/utils/Swizzle2Node/Swizzle2Node';
-import { Swizzle3Node } from './nodes/utils/Swizzle3Node/Swizzle3Node';
-import { Swizzle4Node } from './nodes/utils/Swizzle4Node/Swizzle4Node';
+import { SwizzleNode } from './nodes/utils/SwizzleNode/SwizzleNode';
 import { IWebGLNodeCollection, WebGLNodeType } from './types';
 
 export const nodes: IWebGLNodeCollection = {
@@ -33,9 +31,7 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.GLSL]: GLSLNode,
     [WebGLNodeType.MODULO]: ModuloNode,
     [WebGLNodeType.TIME]: TimeNode,
-    [WebGLNodeType.SWIZZLE_2]: Swizzle2Node,
-    [WebGLNodeType.SWIZZLE_3]: Swizzle3Node,
-    [WebGLNodeType.SWIZZLE_4]: Swizzle4Node,
+    [WebGLNodeType.SWIZZLE]: SwizzleNode,
     [WebGLNodeType.MIX]: MixNode,
     [WebGLNodeType.UV]: UVNode,
     [WebGLNodeType.VECTOR_2]: Vector2Node,
@@ -76,6 +72,8 @@ export * from './nodes/math/SineNode/SineNode';
 export * from './nodes/math/SineNode/SineNode.types';
 export * from './nodes/math/CosineNode/CosineNode';
 export * from './nodes/math/CosineNode/CosineNode.types';
+
+/** Primitives */
 export * from './nodes/math/Vector2Node/Vector2Node';
 export * from './nodes/math/Vector2Node/Vector2Node.types';
 export * from './nodes/math/Vector3Node/Vector3Node';
@@ -96,11 +94,7 @@ export * from './nodes/glsl/GLSLNode/GLSLNode';
 export * from './nodes/glsl/GLSLNode/GLSLNode.types';
 
 /** Utils */
-export * from './nodes/utils/Swizzle2Node/Swizzle2Node';
-export * from './nodes/utils/Swizzle2Node/Swizzle2Node.types';
-export * from './nodes/utils/Swizzle3Node/Swizzle3Node';
-export * from './nodes/utils/Swizzle3Node/Swizzle3Node.types';
-export * from './nodes/utils/Swizzle4Node/Swizzle4Node';
-export * from './nodes/utils/Swizzle4Node/Swizzle4Node.types';
+export * from './nodes/utils/SwizzleNode/SwizzleNode';
+export * from './nodes/utils/SwizzleNode/SwizzleNode.types';
 export * from './nodes/utils/MixNode/MixNode';
 export * from './nodes/utils/MixNode/MixNode.types';
