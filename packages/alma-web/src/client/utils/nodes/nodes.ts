@@ -1,6 +1,9 @@
 import { Node } from 'alma-graph';
 import {
     AdditionNode,
+    SubtractionNode,
+    MultiplicationNode,
+    DivisionNode,
     CameraNode,
     ClassConstructor,
     CosineNode,
@@ -42,9 +45,14 @@ export const nodesHierarchy: (
     {
         items: [
             {
-                icon: 'hub',
+                icon: 'hive',
                 label: 'Core',
                 items: [{ items: [TimeNode, UVNode, GLSLNode].map(extractItem(createNodeCallback)) }]
+            },
+            {
+                icon: 'shapes',
+                label: 'Primitives',
+                items: [{ items: [Vector2Node, Vector3Node, Vector4Node].map(extractItem(createNodeCallback)) }]
             },
             {
                 icon: 'percent',
@@ -53,12 +61,12 @@ export const nodesHierarchy: (
                     {
                         items: [
                             AdditionNode,
+                            SubtractionNode,
+                            MultiplicationNode,
+                            DivisionNode,
                             ModuloNode,
                             SineNode,
-                            CosineNode,
-                            Vector2Node,
-                            Vector3Node,
-                            Vector4Node
+                            CosineNode
                         ].map(extractItem(createNodeCallback))
                     }
                 ]

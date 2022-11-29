@@ -4,8 +4,11 @@ import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode
 import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
+import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
+import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
+import { SubtractionNode } from './nodes/math/SubtractionNode/SubtractionNode';
 import { Vector2Node } from './nodes/math/Vector2Node/Vector2Node';
 import { Vector3Node } from './nodes/math/Vector3Node/Vector3Node';
 import { Vector4Node } from './nodes/math/Vector4Node/Vector4Node';
@@ -24,6 +27,9 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.SINE]: SineNode,
     [WebGLNodeType.COSINE]: CosineNode,
     [WebGLNodeType.ADDITION]: AdditionNode,
+    [WebGLNodeType.SUBTRACTION]: SubtractionNode,
+    [WebGLNodeType.MULTIPLICATION]: MultiplicationNode,
+    [WebGLNodeType.DIVISION]: DivisionNode,
     [WebGLNodeType.GLSL]: GLSLNode,
     [WebGLNodeType.MODULO]: ModuloNode,
     [WebGLNodeType.TIME]: TimeNode,
@@ -58,6 +64,12 @@ export * from './nodes/core/WebGLContextNode/WebGLContextNode.types';
 /** Math Nodes */
 export * from './nodes/math/AdditionNode/AdditionNode';
 export * from './nodes/math/AdditionNode/AdditionNode.types';
+export * from './nodes/math/SubtractionNode/SubtractionNode';
+export * from './nodes/math/SubtractionNode/SubtractionNode.types';
+export * from './nodes/math/MultiplicationNode/MultiplicationNode';
+export * from './nodes/math/MultiplicationNode/MultiplicationNode.types';
+export * from './nodes/math/DivisionNode/DivisionNode';
+export * from './nodes/math/DivisionNode/DivisionNode.types';
 export * from './nodes/math/ModuloNode/ModuloNode';
 export * from './nodes/math/ModuloNode/ModuloNode.types';
 export * from './nodes/math/SineNode/SineNode';

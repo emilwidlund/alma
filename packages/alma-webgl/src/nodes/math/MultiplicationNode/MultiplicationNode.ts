@@ -1,22 +1,26 @@
-import { float, add } from '@thi.ng/shader-ast';
+import { float, mul } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IAdditionNodeInputs, IAdditionNodeOutputs, IAdditionNodeProps } from './AdditionNode.types';
+import {
+    IMultiplicationNodeInputs,
+    IMultiplicationNodeOutputs,
+    IMultiplicationNodeProps
+} from './MultiplicationNode.types';
 
-export class AdditionNode extends Node {
-    static icon = 'add';
-    static description = 'Performs addition on the inputs.';
+export class MultiplicationNode extends Node {
+    static icon = 'close';
+    static description = 'Performs multiplication on the inputs.';
 
-    name = 'Addition';
-    type = WebGLNodeType.ADDITION;
+    name = 'Multiplication';
+    type = WebGLNodeType.MULTIPLICATION;
 
-    inputs: IAdditionNodeInputs;
-    outputs: IAdditionNodeOutputs;
+    inputs: IMultiplicationNodeInputs;
+    outputs: IMultiplicationNodeOutputs;
 
-    constructor(context: WebGLContext, props: IAdditionNodeProps = {}) {
+    constructor(context: WebGLContext, props: IMultiplicationNodeProps = {}) {
         super(context, props);
 
         this.inputs = {
@@ -45,7 +49,7 @@ export class AdditionNode extends Node {
                     name: 'Result',
                     type: 'float',
                     value: () => {
-                        return add<'float', 'float'>(
+                        return mul<'float', 'float'>(
                             this.resolveValue(this.inputs.a.value),
                             this.resolveValue(this.inputs.b.value)
                         );

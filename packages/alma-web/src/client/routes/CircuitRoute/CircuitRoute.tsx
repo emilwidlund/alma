@@ -8,7 +8,6 @@ import { Toolbar } from '../../components/Toolbar/Toolbar';
 import { ToolbarItem } from '../../components/Toolbar/ToolbarItem';
 import { CircuitContainer } from '../../containers/CircuitContainer/CircuitContainer';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
-import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint';
 import { IPoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint.types';
 import { useCircuitContext } from '../../hooks/useCircuitContext/useCircuitContext';
 import { useCodeModal } from '../../hooks/useCodeModal/useCodeModal';
@@ -24,8 +23,7 @@ export const CircuitRoute = () => {
     const { open: openCodeModal } = useCodeModal();
 
     const context = useCircuitContext(ref);
-    const midPoint = useCartesianMidpoint(circuitRef);
-    const createNode = useCreateNode(context, midPoint.current);
+    const createNode = useCreateNode(context, contextMenuPosition);
 
     const onContextMenuItemClick = React.useCallback(
         (nodeClass: ClassConstructor<Node>) => {

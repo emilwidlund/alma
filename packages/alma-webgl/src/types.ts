@@ -4,8 +4,11 @@ import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode
 import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
+import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
+import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
+import { SubtractionNode } from './nodes/math/SubtractionNode/SubtractionNode';
 import { Vector2Node } from './nodes/math/Vector2Node/Vector2Node';
 import { Vector3Node } from './nodes/math/Vector3Node/Vector3Node';
 import { Vector4Node } from './nodes/math/Vector4Node/Vector4Node';
@@ -23,6 +26,9 @@ export enum WebGLNodeType {
     SINE = 'SINE',
     COSINE = 'COSINE',
     ADDITION = 'ADDITION',
+    SUBTRACTION = 'SUBTRACTION',
+    MULTIPLICATION = 'MULTIPLICATION',
+    DIVISION = 'DIVISION',
     GLSL = 'GLSL',
     MIX = 'MIX',
     MODULO = 'MODULO',
@@ -48,6 +54,9 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.SINE]: ClassConstructor<SineNode>;
     [WebGLNodeType.COSINE]: ClassConstructor<CosineNode>;
     [WebGLNodeType.ADDITION]: ClassConstructor<AdditionNode>;
+    [WebGLNodeType.SUBTRACTION]: ClassConstructor<SubtractionNode>;
+    [WebGLNodeType.MULTIPLICATION]: ClassConstructor<MultiplicationNode>;
+    [WebGLNodeType.DIVISION]: ClassConstructor<DivisionNode>;
     [WebGLNodeType.GLSL]: ClassConstructor<GLSLNode>;
     [WebGLNodeType.MODULO]: ClassConstructor<ModuloNode>;
     [WebGLNodeType.TIME]: ClassConstructor<TimeNode>;
@@ -68,6 +77,9 @@ export type WebGLNode =
     | SineNode
     | CosineNode
     | AdditionNode
+    | SubtractionNode
+    | MultiplicationNode
+    | DivisionNode
     | GLSLNode
     | ModuloNode
     | Swizzle2Node
