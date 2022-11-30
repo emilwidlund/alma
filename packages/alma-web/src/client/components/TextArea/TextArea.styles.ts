@@ -11,7 +11,7 @@ export const textAreaStyles = css`
     border-radius: 12px;
     background-color: rgba(0, 0, 0, 0.2);
     color: var(--text-light-color);
-    font-family: inherit;
+    font-family: monospace;
     padding: 16px;
     min-height: 200px;
 `;
