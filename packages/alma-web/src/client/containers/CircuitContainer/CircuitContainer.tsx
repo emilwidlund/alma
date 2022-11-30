@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { Circuit } from '../../components/Circuit/Circuit';
 import { Connection } from '../../components/Connection/Connection';
+import { CIRCUIT_SIZE } from '../../constants/circuit';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { normalizeBounds } from '../../utils/bounds/bounds';
@@ -100,6 +101,7 @@ export const CircuitContainer = observer(
             <Circuit
                 ref={ref}
                 className={circuitContainerStyles}
+                size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
                 onMouseDown={onMouseDown}
                 onMouseMove={onMouseMove}
                 onMouseUp={onMouseUp}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getCartesianPoint } from '../../utils/coordinates/coordinates';
+import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 import { IPoint } from './useCartesianMidpoint.types';
 
 export const useCartesianMidpoint = (ref: React.MutableRefObject<HTMLElement | null>) => {
@@ -9,7 +9,7 @@ export const useCartesianMidpoint = (ref: React.MutableRefObject<HTMLElement | n
     const observer = new IntersectionObserver(entries => {
         for (const entry of entries) {
             const intersectionRect = entry.intersectionRect;
-            const localMidPoint = getCartesianPoint(intersectionRect.width, intersectionRect.height, 0, 0);
+            const localMidPoint = fromCartesianPoint(intersectionRect.width, intersectionRect.height, 0, 0);
             const mid = {
                 x: localMidPoint.x - entry.boundingClientRect.left,
                 y: localMidPoint.y - entry.boundingClientRect.top

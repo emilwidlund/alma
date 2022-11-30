@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Draggable from 'react-draggable';
 
+import { CIRCUIT_POSITION_OFFSET_X, CIRCUIT_POSITION_OFFSET_Y } from '../../constants/circuit';
 import { useHover } from '../../hooks/useHover/useHover';
 import { Icon } from '../Icon/Icon';
 import {
@@ -42,7 +43,12 @@ export const Node = observer(
             );
 
             return (
-                <Draggable position={position} onDrag={onDrag} handle=".handle">
+                <Draggable
+                    position={position}
+                    onDrag={onDrag}
+                    handle=".handle"
+                    positionOffset={{ x: CIRCUIT_POSITION_OFFSET_X, y: CIRCUIT_POSITION_OFFSET_Y }}
+                >
                     <div
                         ref={ref}
                         className={nodeWrapperStyles(active)}

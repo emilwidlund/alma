@@ -7,8 +7,8 @@ export const circuitWrapperStyles = css`
     overflow: auto;
 `;
 
-export const circuitContentStyles = css`
+export const circuitContentStyles = (size: { width: number; height: number }) => css`
     position: relative;
-    width: 5000px;
-    height: 5000px;
+    width: ${size.width}px;
+    height: ${size.height}px;
 `;
