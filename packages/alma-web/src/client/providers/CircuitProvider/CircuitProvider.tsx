@@ -2,8 +2,10 @@ import { Input, Node, Output } from 'alma-graph';
 import { noop } from 'lodash';
 import * as React from 'react';
 
+import { CIRCUIT_SIZE, NODE_CENTER } from '../../constants/circuit';
 import { normalizeBounds, withinBounds } from '../../utils/bounds/bounds';
 import { IBounds } from '../../utils/bounds/bounds.types';
+import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 import type { ICircuitContextValue, ICircuitProviderProps } from './CircuitProvider.types';
 
 const defaultCircuitValue: ICircuitContextValue = {
@@ -124,7 +126,18 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
                 if (nodeElement) {
                     const nodeRect = nodeElement.getBoundingClientRect();
 
-                    if (withinBounds(bounds, nodeRect)) {
+                    if (
+                        withinBounds(bounds, {
+                            ...fromCartesianPoint(
+                                CIRCUIT_SIZE,
+                                CIRCUIT_SIZE,
+                                node.data.position.x - NODE_CENTER,
+                                node.data.position.y
+                            ),
+                            width: nodeRect.width,
+                            height: nodeRect.height
+                        })
+                    ) {
                         selectionCandidates.push(node);
                     }
                 }

@@ -45,7 +45,7 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
             for (const selectedNode of circuit.selectedNodes || []) {
                 selectedNode.setPosition({
                     x: selectedNode.data.position.x + deltaX,
-                    y: selectedNode.data.position.y + deltaY
+                    y: selectedNode.data.position.y + -deltaY
                 });
             }
         },

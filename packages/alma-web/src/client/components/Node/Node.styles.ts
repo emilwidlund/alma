@@ -1,5 +1,7 @@
 import { css } from '@emotion/css';
 
+import { NODE_WIDTH } from '../../constants/circuit';
+
 export const NODE_CONTENT_PADDING = 12;
 
 export const nodeWrapperStyles = (active: boolean) => css`
@@ -8,7 +10,7 @@ export const nodeWrapperStyles = (active: boolean) => css`
     position: absolute;
     display: flex;
     flex-direction: column;
-    width: 260px;
+    width: ${NODE_WIDTH}px;
     user-select: none;
     z-index: ${active ? 9 : 0};
     border-radius: 12px;
