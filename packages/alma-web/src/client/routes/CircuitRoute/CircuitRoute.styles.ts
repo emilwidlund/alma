@@ -15,3 +15,18 @@ export const circuitRouteWrapperStyles = css`
     background-size: 14px 14px;
     user-select: none;
 `;
+
+export const contextMenuWrapperStyles = css`
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    z-index: 999;
+
+    & > div {
+        bottom: 0;
+    }
+`;

@@ -1,5 +1,7 @@
 import { css } from '@emotion/css';
 
+import { HIERARCHY } from '../../constants/hierarchy';
+
 export const propertyPanelWrapperStyles = css`
     position: absolute;
     top: 0;
@@ -8,7 +10,7 @@ export const propertyPanelWrapperStyles = css`
     flex-direction: column;
     margin: 48px 48px 48px;
     color: var(--text-light-color);
-    z-index: 99;
+    z-index: ${HIERARCHY.propertyPanel};
 `;
 
 export const propertyPanelInfoStyles = css`

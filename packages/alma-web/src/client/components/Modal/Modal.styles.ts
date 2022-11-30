@@ -1,5 +1,7 @@
 import { css } from '@emotion/css';
 
+import { HIERARCHY } from '../../constants/hierarchy';
+
 export const modalWrapperStyles = css`
     display: flex;
     flex-direction: column;
@@ -9,7 +11,7 @@ export const modalWrapperStyles = css`
     inset: 0;
     background-color: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
-    z-index: 9999;
+    z-index: ${HIERARCHY.modal};
     overflow: hidden;
     animation: fade-in 0.1s;
 
