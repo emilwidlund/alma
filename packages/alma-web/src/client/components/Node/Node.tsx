@@ -45,10 +45,14 @@ export const Node = observer(
 
             return (
                 <Draggable
-                    position={fromCartesianPoint(CIRCUIT_SIZE, CIRCUIT_SIZE, position.x, position.y)}
+                    position={fromCartesianPoint(
+                        CIRCUIT_SIZE,
+                        CIRCUIT_SIZE,
+                        position.x - NODE_POSITION_OFFSET_X,
+                        position.y
+                    )}
                     onDrag={onDrag}
                     handle=".handle"
-                    positionOffset={{ x: -NODE_POSITION_OFFSET_X, y: 0 }}
                 >
                     <div
                         ref={ref}
