@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack serve",
-        "build": "webpack",
-        "build:prod": "webpack --mode=production --devtool=source-map"
+        "dev": "webpack serve --mode=development --devtool=inline-source-map",
+        "build": "webpack --mode=development --devtool=inline-source-map",
+        "build:prod": "webpack --mode=production"
     },
     "keywords": [],
     "author": "",
