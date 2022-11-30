@@ -2,6 +2,7 @@ import * as React from 'react';
 
 export type ICircuitProps = React.PropsWithChildren<{
     className?: string;
+    size: { width: number; height: number };
     onMouseMove?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
     onMouseUp?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
     onMouseDown?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;

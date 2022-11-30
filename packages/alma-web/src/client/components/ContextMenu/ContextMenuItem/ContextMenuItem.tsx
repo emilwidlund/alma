@@ -17,7 +17,7 @@ export const ContextMenuItem = ({ label, icon, items, onClick, selected, select 
     const { onMouseEnter } = useHover(select);
 
     const contextMenuContainer = !!items && selected && (
-        <ContextMenuContainer sections={items} position={{ x: 238, y: -10 }} />
+        <ContextMenuContainer sections={items} position={{ x: 218, y: -8 }} />
     );
 
     return (

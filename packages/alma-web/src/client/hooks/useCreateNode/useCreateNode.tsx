@@ -5,7 +5,7 @@ import * as React from 'react';
 import { IPoint } from '../useCartesianMidpoint/useCartesianMidpoint.types';
 import { useGLSLModal } from '../useGLSLModal/useGLSLModal';
 
-export const useCreateNode = (context?: WebGLContext, midPoint?: IPoint) => {
+export const useCreateNode = (context?: WebGLContext, position?: IPoint) => {
     const { open: openGLSLModal } = useGLSLModal();
 
     const createNode = React.useCallback(
@@ -15,17 +15,17 @@ export const useCreateNode = (context?: WebGLContext, midPoint?: IPoint) => {
                     openGLSLModal({
                         onSave: glsl => {
                             if (context) {
-                                new GLSLNode(context, { data: { glsl, position: midPoint || { x: 0, y: 0 } } });
+                                new GLSLNode(context, { data: { glsl, position: position || { x: 0, y: 0 } } });
                             }
                         }
                     });
                     break;
                 default:
-                    new node(context, { data: { position: midPoint } });
+                    new node(context, { data: { position } });
                     break;
             }
         },
-        [midPoint, openGLSLModal, context]
+        [position, openGLSLModal, context]
     );
 
     return createNode;

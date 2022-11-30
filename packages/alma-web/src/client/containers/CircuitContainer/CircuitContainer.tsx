@@ -1,11 +1,20 @@
+import { Node } from 'alma-graph';
+import { ClassConstructor } from 'alma-webgl';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { Circuit } from '../../components/Circuit/Circuit';
 import { Connection } from '../../components/Connection/Connection';
+import { ContextMenuContainer } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer';
+import { CIRCUIT_SIZE } from '../../constants/circuit';
+import { IPoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint.types';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
+import { useCodeModal } from '../../hooks/useCodeModal/useCodeModal';
+import { useCreateNode } from '../../hooks/useCreateNode/useCreateNode';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { normalizeBounds } from '../../utils/bounds/bounds';
+import { toCartesianPoint } from '../../utils/coordinates/coordinates';
+import { nodesHierarchy } from '../../utils/nodes/nodes';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
 import { circuitContainerStyles, circuitSelectionStyles } from './CircuitContainer.styles';
 import { ICircuitContainerProps, IConnectionsProps } from './CircuitContainer.types';
@@ -55,8 +64,10 @@ const Selection = observer(() => {
 });
 
 export const CircuitContainer = observer(
-    React.forwardRef<HTMLDivElement, ICircuitContainerProps>(({ onContextMenu }, ref) => {
+    React.forwardRef<HTMLDivElement, ICircuitContainerProps>((props, ref) => {
+        const [contextMenuPosition, toggleContextMenu] = React.useState<IPoint | undefined>(undefined);
         const circuit = useCircuit();
+        const { open: openCodeModal } = useCodeModal();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
 
         const onMouseMove = React.useCallback(
@@ -96,10 +107,42 @@ export const CircuitContainer = observer(
             [circuit]
         );
 
+        const createNode = useCreateNode(
+            circuit.context,
+            contextMenuPosition
+                ? toCartesianPoint(CIRCUIT_SIZE, CIRCUIT_SIZE, contextMenuPosition.x, contextMenuPosition.y)
+                : undefined
+        );
+
+        const onContextMenuItemClick = React.useCallback(
+            (nodeClass: ClassConstructor<Node>) => {
+                toggleContextMenu(undefined);
+
+                createNode(nodeClass);
+            },
+            [createNode, toggleContextMenu]
+        );
+
+        const onContextMenu = React.useCallback(
+            (e: React.MouseEvent<HTMLDivElement>) => {
+                e.preventDefault();
+
+                toggleContextMenu(position => {
+                    if (position) {
+                        return undefined;
+                    } else {
+                        return mousePosition;
+                    }
+                });
+            },
+            [toggleContextMenu, mousePosition]
+        );
+
         return (
             <Circuit
                 ref={ref}
                 className={circuitContainerStyles}
+                size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
                 onMouseDown={onMouseDown}
                 onMouseMove={onMouseMove}
                 onMouseUp={onMouseUp}
@@ -108,6 +151,34 @@ export const CircuitContainer = observer(
                 <Nodes />
                 <Connections mousePosition={mousePosition} />
                 <Selection />
+                {!!contextMenuPosition && (
+                    <ContextMenuContainer
+                        position={contextMenuPosition}
+                        sections={[
+                            {
+                                title: 'Nodes',
+                                items: [
+                                    {
+                                        icon: 'add',
+                                        label: 'New Node',
+                                        items: nodesHierarchy(onContextMenuItemClick)
+                                    }
+                                ]
+                            },
+                            {
+                                items: [
+                                    {
+                                        icon: 'code',
+                                        label: 'View Fragment',
+                                        onClick: () => openCodeModal(circuit.context?.fragment || '')
+                                    },
+                                    { icon: 'fullscreen', label: 'View Fullscreen' }
+                                ]
+                            }
+                        ]}
+                        onClose={() => toggleContextMenu(undefined)}
+                    />
+                )}
             </Circuit>
         );
     })

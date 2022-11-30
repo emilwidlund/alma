@@ -64,7 +64,12 @@ export const CircuitRoute = () => {
                             onClick={() => openCodeModal(context?.fragment || '')}
                             outlined
                         />
-                        <ToolbarItem label="New Node" icon="add" onClick={console.log} cta />
+                        <ToolbarItem
+                            label="New Node"
+                            icon="add"
+                            onClick={() => toggleContextMenu({ x: 0, y: 0 })}
+                            cta
+                        />
                         <ToolbarItem label="Connection" icon="conversion_path" onClick={console.log} />
                         <ToolbarItem label="Fullscreen" icon="open_in_full" onClick={console.log} />
                     </Toolbar>
@@ -72,28 +77,7 @@ export const CircuitRoute = () => {
                     {!!contextMenuPosition && (
                         <ContextMenuContainer
                             position={contextMenuPosition}
-                            sections={[
-                                {
-                                    title: 'Nodes',
-                                    items: [
-                                        {
-                                            icon: 'add',
-                                            label: 'New Node',
-                                            items: nodesHierarchy(onContextMenuItemClick)
-                                        }
-                                    ]
-                                },
-                                {
-                                    items: [
-                                        {
-                                            icon: 'code',
-                                            label: 'View Fragment',
-                                            onClick: () => openCodeModal(context?.fragment || '')
-                                        },
-                                        { icon: 'fullscreen', label: 'View Fullscreen' }
-                                    ]
-                                }
-                            ]}
+                            sections={nodesHierarchy(onContextMenuItemClick)}
                             onClose={() => toggleContextMenu(undefined)}
                         />
                     )}

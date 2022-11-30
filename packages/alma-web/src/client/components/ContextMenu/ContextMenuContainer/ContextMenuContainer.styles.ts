@@ -9,7 +9,7 @@ export const contextMenuContainerStyles = (position?: IPoint) => css`
     border-radius: 12px;
     background-color: var(--panel-background);
     position: absolute;
-    width: 220px;
+    width: 200px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-feature-settings: 'ss02' 1;

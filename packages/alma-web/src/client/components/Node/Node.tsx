@@ -4,7 +4,9 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Draggable from 'react-draggable';
 
+import { CIRCUIT_SIZE, NODE_POSITION_OFFSET_X } from '../../constants/circuit';
 import { useHover } from '../../hooks/useHover/useHover';
+import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 import { Icon } from '../Icon/Icon';
 import {
     nodeHeaderWrapperStyles,
@@ -42,7 +44,16 @@ export const Node = observer(
             );
 
             return (
-                <Draggable position={position} onDrag={onDrag} handle=".handle">
+                <Draggable
+                    position={fromCartesianPoint(
+                        CIRCUIT_SIZE,
+                        CIRCUIT_SIZE,
+                        position.x - NODE_POSITION_OFFSET_X,
+                        position.y
+                    )}
+                    onDrag={onDrag}
+                    handle=".handle"
+                >
                     <div
                         ref={ref}
                         className={nodeWrapperStyles(active)}

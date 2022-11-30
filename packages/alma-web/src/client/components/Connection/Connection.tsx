@@ -2,14 +2,16 @@ import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
+import { NODE_POSITION_OFFSET_X } from '../../constants/circuit';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
+import { fromCircuitCartesianPoint } from '../../utils/coordinates/coordinates';
 import { IConnectionProps } from './Connection.types';
 import { quadraticCurve } from './Connection.utils';
 
 const INPUT_PORT_OFFSET_X = 12;
 const INPUT_PORT_OFFSET_Y = 12;
 
-const OUTPUT_PORT_OFFSET_X = 12;
+const OUTPUT_PORT_OFFSET_X = 0;
 const OUTPUT_PORT_OFFSET_Y = 12;
 
 const defaultPosition = { x: 0, y: 0 };
@@ -32,13 +34,24 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
         if (outputElement && inputElement) {
             return autorun(() => {
                 if (connection) {
+                    const outputCartesian = fromCircuitCartesianPoint(
+                        connection.from.node.data.position.x + NODE_POSITION_OFFSET_X,
+                        connection.from.node.data.position.y
+                    );
+
+                    const inputCartesian = fromCircuitCartesianPoint(
+                        connection.to.node.data.position.x - NODE_POSITION_OFFSET_X,
+                        connection.to.node.data.position.y
+                    );
+
                     const outputPortPosition = {
-                        x: connection.from.node.data.position.x + outputElement.offsetLeft + outputElement.clientWidth,
-                        y: connection.from.node.data.position.y + outputElement.offsetTop
+                        x: outputCartesian.x,
+                        y: outputCartesian.y + outputElement.offsetTop
                     };
+
                     const inputPortPosition = {
-                        x: connection.to.node.data.position.x + inputElement.offsetLeft,
-                        y: connection.to.node.data.position.y + inputElement.offsetTop
+                        x: inputCartesian.x + inputElement.offsetLeft,
+                        y: inputCartesian.y + inputElement.offsetTop
                     };
 
                     const newFromPos = {
@@ -62,9 +75,14 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
 
     React.useEffect(() => {
         if (output && outputElement && point) {
+            const outputCartesian = fromCircuitCartesianPoint(
+                output.node.data.position.x + NODE_POSITION_OFFSET_X,
+                output.node.data.position.y
+            );
+
             const outputPortPosition = {
-                x: output.node.data.position.x + outputElement.offsetLeft + outputElement.clientWidth,
-                y: output.node.data.position.y + outputElement.offsetTop
+                x: outputCartesian.x,
+                y: outputCartesian.y + outputElement.offsetTop
             };
 
             const newFromPos = {
