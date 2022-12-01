@@ -1,5 +1,7 @@
 import { css } from '@emotion/css';
 
+import { HIERARCHY } from '../../constants/hierarchy';
+
 export const toolbarContainerStyles = css`
     position: fixed;
     bottom: 32px;
@@ -12,5 +14,5 @@ export const toolbarContainerStyles = css`
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
     background-color: var(--panel-background);
     padding: 12px 16px;
-    z-index: 999;
+    z-index: ${HIERARCHY.toolbar};
 `;

@@ -32,7 +32,8 @@ export abstract class Node {
 
         const { id, name, data } = _.defaultsDeep(props, {
             id: uuid(),
-            name: 'Untitled',
+            // @ts-ignore
+            name: this.constructor.nodeName || 'Untitled',
             inputs: {},
             outputs: {},
             data: {

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
+import { CIRCUIT_SIZE } from '../../constants/circuit';
+import { fromCartesianPoint, toCartesianPoint } from '../../utils/coordinates/coordinates';
 import { IPoint } from './useCartesianMidpoint.types';
 
 export const useCartesianMidpoint = (ref: React.MutableRefObject<HTMLElement | null>) => {
@@ -15,7 +16,7 @@ export const useCartesianMidpoint = (ref: React.MutableRefObject<HTMLElement | n
                 y: localMidPoint.y - entry.boundingClientRect.top
             };
 
-            midpoint.current = mid;
+            midpoint.current = toCartesianPoint(CIRCUIT_SIZE, CIRCUIT_SIZE, mid.x, mid.y);
         }
     });
 

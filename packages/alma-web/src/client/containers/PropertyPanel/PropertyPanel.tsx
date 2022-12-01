@@ -17,9 +17,10 @@ import {
     propertyPanelWrapperStyles,
     propertyPanelInfoParagraphStyles
 } from './PropertyPanel.styles';
+import { IPropertyPanelProps } from './PropertyPanel.types';
 
 export const PropertyPanel = observer(
-    React.forwardRef<HTMLCanvasElement>((_, ref) => {
+    React.forwardRef<HTMLCanvasElement, IPropertyPanelProps>(({ artboardSize }, ref) => {
         const circuit = useCircuit();
 
         if (!circuit.selectedNodes) {
@@ -45,7 +46,7 @@ export const PropertyPanel = observer(
 
         return (
             <div className={propertyPanelWrapperStyles}>
-                <Artboard ref={ref} size={{ width: 300, height: 200 }} />
+                <Artboard ref={ref} size={artboardSize} />
                 {shouldRenderInputs && (
                     <Panel className={propertyPanelInfoStyles}>
                         <Icon

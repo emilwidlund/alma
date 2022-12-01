@@ -2,6 +2,7 @@
 
 const CopyPlugin = require('copy-webpack-plugin');
 const dotenv = require('dotenv');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 const webpack = require('webpack');
 
 const path = require('path');
@@ -13,11 +14,10 @@ module.exports = env => {
             filename: 'bundle.js',
             path: path.resolve(__dirname, 'build')
         },
-        devtool: 'inline-source-map',
         resolve: {
             extensions: ['.ts', '.tsx', '.js']
         },
-        mode: 'development',
+        mode: 'production',
         devServer: {
             port: 3000,
             historyApiFallback: true
@@ -38,7 +38,8 @@ module.exports = env => {
                 process: {
                     env: JSON.stringify({ ...dotenv.config().parsed, ...env })
                 }
-            })
+            }),
+            new NodePolyfillPlugin()
         ]
     };
 };

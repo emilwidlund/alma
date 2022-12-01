@@ -10,7 +10,7 @@ export class SineNode extends Node {
     static icon = 'all_inclusive';
     static description = 'Performs a sine operation on input.';
 
-    name = 'Sine';
+    static nodeName = 'Sine';
     type = WebGLNodeType.SINE;
 
     inputs: ISineNodeInputs;

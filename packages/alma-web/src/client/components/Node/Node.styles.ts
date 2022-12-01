@@ -1,6 +1,7 @@
 import { css } from '@emotion/css';
 
 import { NODE_WIDTH } from '../../constants/circuit';
+import { HIERARCHY } from '../../constants/hierarchy';
 
 export const NODE_CONTENT_PADDING = 12;
 
@@ -12,7 +13,7 @@ export const nodeWrapperStyles = (active: boolean) => css`
     flex-direction: column;
     width: ${NODE_WIDTH}px;
     user-select: none;
-    z-index: ${active ? 9 : 0};
+    z-index: ${active ? HIERARCHY.activeNode : HIERARCHY.node};
     border-radius: 12px;
     transition: box-shadow 0.15s;
     font-feature-settings: 'ss02' 1;

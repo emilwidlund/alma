@@ -10,7 +10,7 @@ export class Vector2Node extends Node {
     static icon = 'polyline';
     static description = 'A 2-component vector.';
 
-    name = 'Vector 2';
+    static nodeName = 'Vector 2';
     type = WebGLNodeType.VECTOR_2;
 
     inputs: IVector2NodeInputs;

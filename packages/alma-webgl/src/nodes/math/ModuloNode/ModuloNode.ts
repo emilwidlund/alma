@@ -11,7 +11,7 @@ export class ModuloNode extends PolymorphicNode {
     static icon = 'percent';
     static description = 'Performs a modulo operation on inputs. Returns the remainder of a division.';
 
-    name = 'Modulo';
+    static nodeName = 'Modulo';
     type = WebGLNodeType.MODULO;
 
     inputs: IModuloNodeInputs;
