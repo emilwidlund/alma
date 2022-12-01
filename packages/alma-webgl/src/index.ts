@@ -47,7 +47,6 @@ export * from './models/WebGLContext/WebGLContext';
 export * from './models/WebGLContext/WebGLContext.types';
 export * from './models/CameraManager/CameraManager';
 export * from './models/CameraManager/CameraManager.types';
-export * from './models/Texture/Texture';
 
 /** Core Nodes */
 export * from './nodes/core/TimeNode/TimeNode';

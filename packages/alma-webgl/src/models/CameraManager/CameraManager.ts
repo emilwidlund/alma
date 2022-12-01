@@ -1,7 +1,6 @@
-import { TextureFilter, TextureRepeat } from '@thi.ng/webgl';
+import { Texture, TextureFilter, TextureRepeat } from '@thi.ng/webgl';
 import { makeObservable, observable, action, computed } from 'mobx';
 
-import { Texture } from '../Texture/Texture';
 import { WebGLContext } from '../WebGLContext/WebGLContext';
 import { ICameraManagerProps, TextureResolver } from './CameraManager.types';
 
