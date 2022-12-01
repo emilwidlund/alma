@@ -14,7 +14,7 @@ export class GLSLNode extends Node {
     static icon = 'stream';
     static description = 'This node was automatically generated from GLSL code.';
 
-    name = 'GLSL';
+    static nodeName = 'GLSL';
     type = WebGLNodeType.GLSL;
 
     inputs!: IGLSLNodeInputs;

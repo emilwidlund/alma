@@ -11,7 +11,7 @@ export class SwizzleNode extends Node {
     static icon = 'device_hub';
     static description = 'Destructs a Vector and returns its individual components.';
 
-    name = 'Swizzle';
+    static nodeName = 'Swizzle';
     type = WebGLNodeType.SWIZZLE;
 
     inputs: ISwizzleNodeInputs;

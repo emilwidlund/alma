@@ -10,7 +10,7 @@ export class Vector3Node extends Node {
     static icon = 'polyline';
     static description = 'A 3-component vector.';
 
-    name = 'Vector 3';
+    static nodeName = 'Vector 3';
     type = WebGLNodeType.VECTOR_3;
 
     inputs: IVector3NodeInputs;

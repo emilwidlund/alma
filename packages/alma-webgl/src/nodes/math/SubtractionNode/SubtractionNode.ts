@@ -11,7 +11,7 @@ export class SubtractionNode extends PolymorphicNode {
     static icon = 'remove';
     static description = 'Performs subtraction on the inputs.';
 
-    name = 'Subtraction';
+    static nodeName = 'Subtraction';
     type = WebGLNodeType.SUBTRACTION;
 
     inputs: ISubtractionNodeInputs;

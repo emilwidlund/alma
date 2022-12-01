@@ -11,7 +11,7 @@ export class AdditionNode extends PolymorphicNode {
     static icon = 'add';
     static description = 'Performs addition on the inputs.';
 
-    name = 'Addition';
+    static nodeName = 'Addition';
     type = WebGLNodeType.ADDITION;
 
     inputs: IAdditionNodeInputs;

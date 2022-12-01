@@ -17,18 +17,19 @@ import {
     UVNode,
     Vector2Node,
     Vector3Node,
-    Vector4Node
+    Vector4Node,
+    WebGLNode
 } from 'alma-webgl';
 
 import { IContextMenuContainerSection } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer.types';
 import { IContextMenuItemProps } from '../../components/ContextMenu/ContextMenuItem/ContextMenuItem.types';
 
 const extractItem = (
-    createNodeCallback: (nodeClass: ClassConstructor<Node>) => void
-): ((nodeClass: ClassConstructor<Node>) => IContextMenuItemProps) => {
-    return (nodeClass: ClassConstructor<Node>) => ({
+    createNodeCallback: (nodeClass: ClassConstructor<WebGLNode>) => void
+): ((nodeClass: ClassConstructor<WebGLNode>) => IContextMenuItemProps) => {
+    return (nodeClass: ClassConstructor<WebGLNode>) => ({
         // @ts-ignore
-        label: nodeClass.name.replace('Node', ''),
+        label: nodeClass.nodeName,
         // @ts-ignore
         icon: nodeClass.icon,
         onClick: () => {

@@ -15,7 +15,7 @@ export class MultiplicationNode extends PolymorphicNode {
     static icon = 'close';
     static description = 'Performs multiplication on the inputs.';
 
-    name = 'Multiplication';
+    static nodeName = 'Multiplication';
     type = WebGLNodeType.MULTIPLICATION;
 
     inputs: IMultiplicationNodeInputs;

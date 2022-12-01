@@ -11,7 +11,7 @@ export class DivisionNode extends PolymorphicNode {
     static icon = 'show_chart';
     static description = 'Performs division on the inputs.';
 
-    name = 'Division';
+    static nodeName = 'Division';
     type = WebGLNodeType.DIVISION;
 
     inputs: IDivisionNodeInputs;
