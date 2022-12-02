@@ -7,6 +7,7 @@ import { action, computed, IReactionDisposer, makeObservable, observable, reacti
 
 import { WebGLContextNode } from '../../nodes/core/WebGLContextNode/WebGLContextNode';
 import { CameraManager } from '../CameraManager/CameraManager';
+import { TextureManager } from '../TextureManager/TextureManager';
 import { DrawingSize, ICompiledUniforms, INodesCollection, IWebGLContextProps } from './WebGLContext.types';
 
 export class WebGLContext extends Context<WebGLContextNode> {
@@ -18,6 +19,8 @@ export class WebGLContext extends Context<WebGLContextNode> {
     public uniforms!: ICompiledUniforms;
     /** WebGL Model Spec */
     public model!: ModelSpec;
+    /** Texture Manager */
+    public textureManager: TextureManager;
     /** Camera Manager */
     public cameraManager: CameraManager;
     /** Nodes Collection to resolve from */
@@ -35,6 +38,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
         super(props);
 
         this.ctx = ctx;
+        this.textureManager = new TextureManager(this, props.textureManager);
         this.cameraManager = new CameraManager(this, props.cameraManager);
         this.nodesCollection = props.nodesCollection;
         this.onFrameEnd = props.onFrameEnd;
@@ -77,6 +81,12 @@ export class WebGLContext extends Context<WebGLContextNode> {
 
     /** Creates a WebGL Model */
     public createModel(): ModelSpec {
+        const textureKeys = Array.from(this.textureManager.textures.keys());
+        const textureUniforms = textureKeys.reduce((acc, key, index) => {
+            return { ...acc, [key]: ['sampler2D', index] };
+        }, {});
+        const textures = Array.from(this.textureManager.textures.values());
+
         const model: ModelSpec = {
             ...defQuadModel({ uv: false }),
             shader: defShader(this.ctx, {
@@ -86,10 +96,10 @@ export class WebGLContext extends Context<WebGLContextNode> {
                     resolution: ['vec2', [this.size.width, this.size.height]],
                     time: ['float', 0],
                     mouse: ['vec2', [0, 0]],
-                    cameraTexture: ['sampler2D', 0]
+                    ...textureUniforms
                 }
             }),
-            textures: [this.cameraManager.texture]
+            textures
         };
 
         compileModel(this.ctx, model);
@@ -180,7 +190,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
             this.connectionReactionDisposer();
         }
 
-        this.cameraManager.dispose();
+        this.cameraManager?.dispose();
 
         return this;
     }

@@ -4,6 +4,7 @@ import { IContextProps } from 'alma-graph';
 
 import { ClassConstructor, WebGLNode } from '../../types';
 import { ICameraManagerProps } from '../CameraManager/CameraManager.types';
+import { ITextureManagerProps } from '../TextureManager/TextureManager.types';
 
 export interface IUniforms {
     mouse: UniformDecl;
@@ -13,6 +14,7 @@ export interface IUniforms {
 }
 
 export interface ICompiledUniforms {
+    [key: string]: any;
     mouse: Sym<'vec2'>;
     time: Sym<'float'>;
     resolution: Sym<'vec2'>;
@@ -29,6 +31,7 @@ export interface INodesCollection {
 }
 
 export interface IWebGLContextProps extends IContextProps {
+    textureManager: ITextureManagerProps;
     cameraManager: ICameraManagerProps;
     nodesCollection: INodesCollection;
     onFrameEnd?: () => void;

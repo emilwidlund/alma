@@ -14,6 +14,7 @@ import { Vector3Node } from './nodes/math/Vector3Node/Vector3Node';
 import { Vector4Node } from './nodes/math/Vector4Node/Vector4Node';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
+import { TextureNode } from './nodes/textures/TextureNode/TextureNode';
 import { MixNode } from './nodes/utils/MixNode/MixNode';
 import { SwizzleNode } from './nodes/utils/SwizzleNode/SwizzleNode';
 import { IWebGLNodeCollection, WebGLNodeType } from './types';
@@ -30,6 +31,7 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.DIVISION]: DivisionNode,
     [WebGLNodeType.GLSL]: GLSLNode,
     [WebGLNodeType.MODULO]: ModuloNode,
+    [WebGLNodeType.TEXTURE]: TextureNode,
     [WebGLNodeType.TIME]: TimeNode,
     [WebGLNodeType.SWIZZLE]: SwizzleNode,
     [WebGLNodeType.MIX]: MixNode,
@@ -85,6 +87,8 @@ export * from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 export * from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode.types';
 
 /** Textures */
+export * from './nodes/textures/TextureNode/TextureNode';
+export * from './nodes/textures/TextureNode/TextureNode.types';
 export * from './nodes/textures/CameraNode/CameraNode';
 export * from './nodes/textures/CameraNode/CameraNode.types';
 

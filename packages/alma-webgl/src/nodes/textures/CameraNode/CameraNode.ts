@@ -1,4 +1,4 @@
-import { texture } from '@thi.ng/shader-ast';
+import { Sym, texture, vec4 } from '@thi.ng/shader-ast';
 import { fragUV } from '@thi.ng/shader-ast-stdlib';
 import { Node, IOutputProps, Output, Input, IInputProps } from 'alma-graph';
 import { defaults } from 'lodash';
@@ -42,7 +42,8 @@ export class CameraNode extends Node {
                     name: 'Texture',
                     type: 'vec4',
                     value: () => {
-                        return texture(context.uniforms.cameraTexture, this.resolveValue(this.inputs.uv.value));
+                        const sampler = context.uniforms[context.cameraManager.textureId] as Sym<'sampler2D'>;
+                        return sampler ? texture(sampler, this.resolveValue(this.inputs.uv.value)) : vec4(0, 0, 0, 1);
                     }
                 })
             )

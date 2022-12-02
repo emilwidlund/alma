@@ -18,7 +18,8 @@ import {
     Vector2Node,
     Vector3Node,
     Vector4Node,
-    WebGLNode
+    WebGLNode,
+    TextureNode
 } from 'alma-webgl';
 
 import { IContextMenuContainerSection } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer.types';
@@ -73,7 +74,7 @@ export const nodesHierarchy: (
             {
                 icon: 'texture',
                 label: 'Textures',
-                items: [{ items: [CameraNode].map(extractItem(createNodeCallback)) }]
+                items: [{ items: [TextureNode, CameraNode].map(extractItem(createNodeCallback)) }]
             },
             {
                 icon: 'grain',
