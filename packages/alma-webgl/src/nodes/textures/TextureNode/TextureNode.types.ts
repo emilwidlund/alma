@@ -1,10 +1,9 @@
-import { IInputProps, INodeData, INodeProps, Input, IOutputProps, Output } from 'alma-graph';
+import { INodeData, INodeProps, IOutputProps, Output } from 'alma-graph';
 
 import { TextureNode } from './TextureNode';
 
 export interface ITextureNodeInputs {
-    [key: string]: Input<'vec2', TextureNode>;
-    uv: Input<'vec2', TextureNode>;
+    [key: string]: never;
 }
 
 export interface ITextureNodeOutputs {
@@ -17,9 +16,7 @@ export interface ITextureNodeData extends INodeData {
 }
 
 export interface ITextureNodeProps extends INodeProps {
-    inputs?: {
-        uv?: IInputProps<'vec2'>;
-    };
+    inputs?: {};
     outputs?: {
         texture?: IOutputProps<'vec4'>;
     };

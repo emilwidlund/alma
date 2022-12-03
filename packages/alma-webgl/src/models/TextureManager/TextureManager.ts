@@ -32,8 +32,8 @@ export class TextureManager {
         const texture = new Texture(this.context.ctx, undefined, {
             image: new Image(),
             flip: true,
-            filter: TextureFilter.LINEAR,
-            wrap: TextureRepeat.CLAMP
+            filter: TextureFilter.NEAREST,
+            wrap: TextureRepeat.REPEAT
         });
 
         this.textures.set(id, texture);
@@ -50,9 +50,11 @@ export class TextureManager {
             texture.configure({
                 image: textureSource,
                 flip: true,
-                filter: TextureFilter.LINEAR,
-                wrap: TextureRepeat.CLAMP
+                filter: TextureFilter.NEAREST,
+                wrap: TextureRepeat.REPEAT
             });
+
+            this.context.setUniform(`${id}AspectRatio`, [textureSource.width / textureSource.height]);
         }
     }
 }

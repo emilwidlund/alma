@@ -1,10 +1,10 @@
-import { $xy, ternary, bool } from '@thi.ng/shader-ast';
-import { fragUV, aspectCorrectedUV } from '@thi.ng/shader-ast-stdlib';
-import { Node, IOutputProps, Output, Input, IInputProps } from 'alma-graph';
+import { $xy } from '@thi.ng/shader-ast';
+import { Node, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
+import { aspectCorrectedUV } from '../../../utils/shaders/shaders';
 import { IUVNodeInputs, IUVNodeOutputs, IUVNodeProps } from './UVNode.types';
 
 export class UVNode extends Node {
@@ -20,16 +20,7 @@ export class UVNode extends Node {
     constructor(context: WebGLContext, props: IUVNodeProps = {}) {
         super(context, props);
 
-        this.inputs = {
-            center: new Input(
-                this,
-                defaults<Partial<IInputProps<'bool'>> | undefined, IInputProps<'bool'>>(props.inputs?.center, {
-                    name: 'center',
-                    type: 'bool',
-                    defaultValue: bool(false)
-                })
-            )
-        };
+        this.inputs = {};
 
         this.outputs = {
             uv: new Output(
@@ -38,11 +29,7 @@ export class UVNode extends Node {
                     name: 'UV',
                     type: 'vec2',
                     value: () => {
-                        return ternary(
-                            this.resolveValue(this.inputs.center.value),
-                            aspectCorrectedUV($xy(context.target.gl_FragCoord), context.uniforms.resolution),
-                            fragUV(context.target.gl_FragCoord, context.uniforms.resolution)
-                        );
+                        return aspectCorrectedUV($xy(context.target.gl_FragCoord), context.uniforms.resolution);
                     }
                 })
             )

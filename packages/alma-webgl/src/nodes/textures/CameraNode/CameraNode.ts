@@ -1,10 +1,10 @@
-import { Sym, texture, vec4 } from '@thi.ng/shader-ast';
-import { fragUV } from '@thi.ng/shader-ast-stdlib';
-import { Node, IOutputProps, Output, Input, IInputProps } from 'alma-graph';
+import { $xy, float, Sym, texture, vec4 } from '@thi.ng/shader-ast';
+import { Node, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
+import { aspectCorrectedTextureUV } from '../../../utils/shaders/shaders';
 import { ICameraNodeInputs, ICameraNodeOutputs, ICameraNodeProps } from './CameraNode.types';
 
 export class CameraNode extends Node {
@@ -24,16 +24,7 @@ export class CameraNode extends Node {
             context.cameraManager.start();
         }
 
-        this.inputs = {
-            uv: new Input(
-                this,
-                defaults<Partial<IInputProps<'vec2'>> | undefined, IInputProps<'vec2'>>(props.inputs?.uv, {
-                    name: 'UV',
-                    type: 'vec2',
-                    defaultValue: fragUV(context.target.gl_FragCoord, context.uniforms.resolution)
-                })
-            )
-        };
+        this.inputs = {};
 
         this.outputs = {
             camera: new Output(
@@ -43,7 +34,16 @@ export class CameraNode extends Node {
                     type: 'vec4',
                     value: () => {
                         const sampler = context.uniforms[context.cameraManager.textureId] as Sym<'sampler2D'>;
-                        return sampler ? texture(sampler, this.resolveValue(this.inputs.uv.value)) : vec4(0, 0, 0, 1);
+                        return sampler
+                            ? texture(
+                                  sampler,
+                                  aspectCorrectedTextureUV(
+                                      context.uniforms[`${context.cameraManager.textureId}AspectRatio`] || float(1),
+                                      $xy(context.target.gl_FragCoord),
+                                      context.uniforms.resolution
+                                  )
+                              )
+                            : vec4(0, 0, 0, 1);
                     }
                 })
             )
