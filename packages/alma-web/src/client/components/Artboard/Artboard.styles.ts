@@ -10,7 +10,7 @@ export const artboardWrapperStyles = css`
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     z-index: 19;
     background-color: var(--panel-background);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-xxs);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.1em;

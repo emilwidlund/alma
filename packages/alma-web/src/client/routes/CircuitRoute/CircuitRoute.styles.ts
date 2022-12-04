@@ -8,7 +8,6 @@ export const circuitRouteWrapperStyles = css`
     display: flex;
     flex-direction: row;
     height: 100%;
-    font-size: 12px;
     line-height: 1.4em;
     background-image: radial-gradient(var(--circuit-dot-color) 10%, var(--circuit-background-color) 10%);
     background-position: 0 0;

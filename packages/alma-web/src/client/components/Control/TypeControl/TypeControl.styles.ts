@@ -12,7 +12,7 @@ export const typeControlInputStyles = css`
     width: 120px;
     background-color: var(--panel-background);
     color: var(--text-light-color);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-xxs);
     font-family: 'Inter var';
     text-transform: uppercase;
     line-height: 1;

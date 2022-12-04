@@ -9,12 +9,10 @@ export const Heading = ({ className, children, size, signifier, marginTop, margi
     const Element = React.useMemo(() => {
         switch (size) {
             case Size.LG:
-                return 'h1';
-            case Size.MD:
                 return 'h2';
-            case Size.SM:
+            case Size.MD:
                 return 'h3';
-            case Size.XS:
+            case Size.SM:
                 return 'h4';
         }
     }, [size]);

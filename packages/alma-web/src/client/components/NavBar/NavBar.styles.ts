@@ -20,7 +20,7 @@ export const navBarLinkStyles = css`
     flex-direction: row;
     margin-left: 42px;
     color: var(--text-light-color);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-xxs);
     text-decoration: none;
 
     &:first-of-type {
