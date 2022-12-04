@@ -1,6 +1,7 @@
 import { noop } from 'lodash';
 import * as React from 'react';
 
+import { ButtonVariant } from '../../components/Button/Button.types';
 import { TextArea } from '../../components/TextArea/TextArea';
 import { GLSL_EDITOR_MODAL_ID } from '../../constants/modals';
 import { ModalContext } from '../../providers/ModalProvider/ModalProvider';
@@ -27,6 +28,7 @@ export const GLSLModalContent = ({ glsl: defaultGLSL, onSave, onCancel }: IGLSLM
                     },
                     {
                         label: 'Cancel',
+                        variant: ButtonVariant.SECONDARY,
                         onPress: () => {
                             modal.close(GLSL_EDITOR_MODAL_ID);
                             onCancel?.(code);
@@ -58,6 +60,7 @@ export const useGLSLModal = () => {
                     { label: 'Save', disabled: true, onPress: noop },
                     {
                         label: 'Cancel',
+                        variant: ButtonVariant.SECONDARY,
                         onPress: () => {
                             modal.close(GLSL_EDITOR_MODAL_ID);
                             onCancel?.('');

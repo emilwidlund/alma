@@ -83,7 +83,7 @@ export const tooltipNodeWrapperStyles = (
     border-radius: 6px;
     background-color: var(--tooltip-background-color);
     color: var(--text-light-color);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-xxs);
     text-transform: uppercase;
     letter-spacing: 0.15em;
     font-feature-settings: 'ss02' 1;

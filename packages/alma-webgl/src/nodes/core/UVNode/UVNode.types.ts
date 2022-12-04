@@ -1,10 +1,9 @@
-import { IInputProps, INodeProps, Input, IOutputProps, Output } from 'alma-graph';
+import { IInputProps, INodeProps, IOutputProps, Output } from 'alma-graph';
 
 import { UVNode } from './UVNode';
 
 export interface IUVNodeInputs {
-    [key: string]: Input<'bool', UVNode>;
-    center: Input<'bool', UVNode>;
+    [key: string]: never;
 }
 
 export interface IUVNodeOutputs {

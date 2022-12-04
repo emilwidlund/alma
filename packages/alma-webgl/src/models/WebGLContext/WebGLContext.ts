@@ -1,12 +1,21 @@
 import { defMain, Sym, assign, vec4, program } from '@thi.ng/shader-ast';
 import { GLSLTarget, targetGLSL } from '@thi.ng/shader-ast-glsl';
-import { compileModel, defQuadModel, defShader, draw, FX_SHADER_SPEC, ModelSpec, UniformValues } from '@thi.ng/webgl';
+import {
+    compileModel,
+    defQuadModel,
+    defShader,
+    draw,
+    ModelSpec,
+    PASSTHROUGH_VS_UV,
+    UniformValues
+} from '@thi.ng/webgl';
 import { Context, INodeSerialized, Node } from 'alma-graph';
 import { isFunction } from 'lodash';
 import { action, computed, IReactionDisposer, makeObservable, observable, reaction } from 'mobx';
 
 import { WebGLContextNode } from '../../nodes/core/WebGLContextNode/WebGLContextNode';
 import { CameraManager } from '../CameraManager/CameraManager';
+import { TextureManager } from '../TextureManager/TextureManager';
 import { DrawingSize, ICompiledUniforms, INodesCollection, IWebGLContextProps } from './WebGLContext.types';
 
 export class WebGLContext extends Context<WebGLContextNode> {
@@ -14,10 +23,14 @@ export class WebGLContext extends Context<WebGLContextNode> {
     public ctx: WebGL2RenderingContext;
     /** GLSL Target */
     public target!: GLSLTarget;
+    /** Attributes */
+    public varying!: Record<string, Sym<any>>;
     /** Uniforms */
     public uniforms!: ICompiledUniforms;
     /** WebGL Model Spec */
     public model!: ModelSpec;
+    /** Texture Manager */
+    public textureManager: TextureManager;
     /** Camera Manager */
     public cameraManager: CameraManager;
     /** Nodes Collection to resolve from */
@@ -35,6 +48,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
         super(props);
 
         this.ctx = ctx;
+        this.textureManager = new TextureManager(this, props.textureManager);
         this.cameraManager = new CameraManager(this, props.cameraManager);
         this.nodesCollection = props.nodesCollection;
         this.onFrameEnd = props.onFrameEnd;
@@ -77,19 +91,28 @@ export class WebGLContext extends Context<WebGLContextNode> {
 
     /** Creates a WebGL Model */
     public createModel(): ModelSpec {
+        const textureEntries = Array.from(this.textureManager.textures.entries());
+        const textureUniforms = textureEntries.reduce((acc, [key, value], index) => {
+            const resolutionKey = `${key}AspectRatio`;
+            return { ...acc, [key]: ['sampler2D', index], [resolutionKey]: ['float', value.size[0] / value.size[1]] };
+        }, {});
+        const textures = Array.from(this.textureManager.textures.values());
+
         const model: ModelSpec = {
-            ...defQuadModel({ uv: false }),
+            ...defQuadModel(),
             shader: defShader(this.ctx, {
-                ...FX_SHADER_SPEC,
+                vs: PASSTHROUGH_VS_UV,
                 fs: this.compileGraph.bind(this),
                 uniforms: {
                     resolution: ['vec2', [this.size.width, this.size.height]],
                     time: ['float', 0],
                     mouse: ['vec2', [0, 0]],
-                    cameraTexture: ['sampler2D', 0]
-                }
+                    ...textureUniforms
+                },
+                attribs: { position: 'vec2', uv: 'vec2' },
+                varying: { v_uv: 'vec2' }
             }),
-            textures: [this.cameraManager.texture]
+            textures
         };
 
         compileModel(this.ctx, model);
@@ -101,10 +124,11 @@ export class WebGLContext extends Context<WebGLContextNode> {
     private compileGraph(
         gl: GLSLTarget,
         uniforms: Record<string, Sym<any>>,
-        _: Record<string, Sym<any>>,
+        ins: Record<string, Sym<any>>,
         outs: Record<string, Sym<any>>
     ) {
         this.target = targetGLSL();
+        this.varying = ins;
         this.uniforms = uniforms as unknown as ICompiledUniforms;
 
         const value = this.root ? this.root.resolveValue(this.root.inputs.color.value) : vec4(0, 0, 0, 1);
@@ -180,7 +204,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
             this.connectionReactionDisposer();
         }
 
-        this.cameraManager.dispose();
+        this.cameraManager?.dispose();
 
         return this;
     }

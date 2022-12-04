@@ -29,5 +29,5 @@ export const contextMenuItemWrapperStyles = (selected?: boolean) => css`
 
 export const contextMenuItemLabelStyles = css`
     margin-left: 10px;
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-xxs);
 `;

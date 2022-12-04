@@ -31,6 +31,7 @@ export const modalContainerStyles = css`
     flex-direction: column;
     width: 540px;
     border-radius: 24px;
+    font-size: var(--font-size-xs);
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
     background-color: var(--panel-background);
 `;
@@ -43,12 +44,16 @@ export const modalContentStyles = css`
 
 export const modalFooterStyles = css`
     display: flex;
-    flex-direction: row-reverse;
-    justify-items: flex-end;
-    padding: 32px;
-    border-top: 1px solid var(--border-color);
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 42px 42px 42px;
 
     * {
-        margin-left: 16px;
+        margin-right: 16px;
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
 `;

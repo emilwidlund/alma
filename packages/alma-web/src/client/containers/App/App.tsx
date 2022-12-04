@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, useSearchParams } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
+import { useWelcomeModal } from '../../hooks/useWelcomeModal/useWelcomeModal';
 import { ModalProvider } from '../../providers/ModalProvider/ModalProvider';
 import { CircuitRoute } from '../../routes/CircuitRoute/CircuitRoute';
 import { transitionGroupWrapperStyles } from './App.styles';
@@ -17,7 +18,19 @@ export const App = () => {
 };
 
 export const AppRoutes = () => {
+    const { open: openWelcomeModal } = useWelcomeModal();
     const location = useLocation();
+    const [params] = useSearchParams();
+
+    React.useEffect(() => {
+        if (!localStorage.getItem('welcome') || params.get('welcome') === 'true') {
+            openWelcomeModal({
+                onClose: () => {
+                    localStorage.setItem('welcome', 'true');
+                }
+            });
+        }
+    }, []);
 
     return (
         <TransitionGroup className={transitionGroupWrapperStyles}>

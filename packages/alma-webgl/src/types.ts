@@ -14,6 +14,7 @@ import { Vector3Node } from './nodes/math/Vector3Node/Vector3Node';
 import { Vector4Node } from './nodes/math/Vector4Node/Vector4Node';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
+import { TextureNode } from './nodes/textures/TextureNode/TextureNode';
 import { MixNode } from './nodes/utils/MixNode/MixNode';
 import { SwizzleNode } from './nodes/utils/SwizzleNode/SwizzleNode';
 
@@ -30,6 +31,7 @@ export enum WebGLNodeType {
     GLSL = 'GLSL',
     MIX = 'MIX',
     MODULO = 'MODULO',
+    TEXTURE = 'TEXTURE',
     TIME = 'TIME',
     SWIZZLE = 'SWIZZLE',
     UV = 'UV',
@@ -55,6 +57,7 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.DIVISION]: ClassConstructor<DivisionNode>;
     [WebGLNodeType.GLSL]: ClassConstructor<GLSLNode>;
     [WebGLNodeType.MODULO]: ClassConstructor<ModuloNode>;
+    [WebGLNodeType.TEXTURE]: ClassConstructor<TextureNode>;
     [WebGLNodeType.TIME]: ClassConstructor<TimeNode>;
     [WebGLNodeType.SWIZZLE]: ClassConstructor<SwizzleNode>;
     [WebGLNodeType.MIX]: ClassConstructor<MixNode>;
@@ -78,6 +81,7 @@ export type WebGLNode =
     | ModuloNode
     | SwizzleNode
     | MixNode
+    | TextureNode
     | TimeNode
     | UVNode
     | Vector2Node

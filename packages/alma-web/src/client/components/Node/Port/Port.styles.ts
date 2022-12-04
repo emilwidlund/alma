@@ -7,7 +7,7 @@ export const portWrapperStyles = (highlighted: boolean, reverseDirection: boolea
     flex-grow: 1;
     align-items: center;
     padding: 4px 0;
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-xxs);
     text-transform: uppercase;
     line-height: 1;
     letter-spacing: 0.1em;

@@ -5,7 +5,7 @@ injectGlobal`
     html { 
         height: 100%;
         font-family: 'Inter', sans-serif; 
-        font-size: 22px;
+        font-size: 12px;
         color: var(--text-neutral-color);
         font-feature-settings: "ss01" 1, "cv01" 1;
     }
@@ -36,7 +36,13 @@ injectGlobal`
 
         p {
             font-size: var(--font-size-sm);
-            line-height: .9rem;
+            line-height: 1.8em;
+        }
+
+        a {
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-color);
+            color: var(--accent-color);
         }
 
         #root {
@@ -58,10 +64,11 @@ injectGlobal`
         // Font Sizes
         --font-size-hero: 5em;
         --font-size-xl: 4em;
-        --font-size-lg: 2.5em;
-        --font-size-md: 1.4em;
-        --font-size-sm: 1em;
-        --font-size-xs: .8em;
+        --font-size-lg: 3em;
+        --font-size-md: 2em;
+        --font-size-sm: 1.2em;
+        --font-size-xs: 1em;
+        --font-size-xxs: .8em;
 
         // Colors
         --dark-background: #252628;
@@ -73,7 +80,7 @@ injectGlobal`
         --accent-color: #1e62ff;
         --accent-color-subtle: rgba(30, 98, 255, .8);
         --text-light-color: #fff;
-        --text-neutral-color: #888;
+        --text-neutral-color: #999;
         --text-dark-color: #000;
 
         --system-red: #ff4444;

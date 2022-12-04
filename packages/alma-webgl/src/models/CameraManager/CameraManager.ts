@@ -1,13 +1,15 @@
-import { TextureFilter, TextureRepeat } from '@thi.ng/webgl';
+import { Texture } from '@thi.ng/webgl';
 import { makeObservable, observable, action, computed } from 'mobx';
 
-import { Texture } from '../Texture/Texture';
+import { TextureResolver } from '../TextureManager/TextureManager.types';
 import { WebGLContext } from '../WebGLContext/WebGLContext';
-import { ICameraManagerProps, TextureResolver } from './CameraManager.types';
+import { ICameraManagerProps } from './CameraManager.types';
 
 export class CameraManager {
     /** WebGL Context */
     public context: WebGLContext;
+    /** WebGL Texture Id */
+    public textureId: string;
     /** WebGL Texture */
     public texture: Texture;
     /** Camera Texture Resolver */
@@ -22,8 +24,11 @@ export class CameraManager {
     constructor(context: WebGLContext, props: ICameraManagerProps) {
         this.context = context;
         this.textureResolver = props.textureResolver;
-        this.texture = new Texture(context.ctx);
         this.onInit = props.onInit;
+
+        const [textureId, texture] = this.context.textureManager.create();
+        this.textureId = textureId;
+        this.texture = texture;
 
         makeObservable(this, {
             texture: observable,
@@ -48,12 +53,9 @@ export class CameraManager {
 
     /** Resolves the camera texture */
     public async resolve(): Promise<Texture> {
-        this.texture.configure({
-            image: await this.textureResolver(),
-            flip: true,
-            filter: TextureFilter.LINEAR,
-            wrap: TextureRepeat.CLAMP
-        });
+        const image = await this.textureResolver();
+
+        this.context.textureManager.update(this.textureId, image);
 
         return this.texture;
     }

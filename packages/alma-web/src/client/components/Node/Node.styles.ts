@@ -33,7 +33,7 @@ export const nodeHeaderWrapperStyles = (active: boolean) => css`
     align-items: center;
     justify-content: space-between;
     padding: 10px 12px;
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-xxs);
     font-weight: 500;
     background-color: var(--node-background);
     line-height: 1;

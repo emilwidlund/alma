@@ -33,19 +33,29 @@ export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>) => {
                 });
             };
 
-            const cameraTextureResolver = () =>
-                new Promise<TexImageSource>((resolve, reject) => {
-                    webcamCanvas.getContext('2d')?.drawImage(video, 0, 0, webcamCanvas.width, webcamCanvas.height);
+            const cameraTextureResolver = () => {
+                webcamCanvas.getContext('2d')?.drawImage(video, 0, 0, webcamCanvas.width, webcamCanvas.height);
 
-                    webcamImage.src = webcamCanvas.toDataURL('image/jpeg');
+                webcamImage.src = webcamCanvas.toDataURL('image/jpeg');
 
-                    resolve(webcamImage);
+                return webcamImage;
+            };
+
+            const textureResolver = (uri: string) =>
+                new Promise((resolve, reject) => {
+                    const image = new Image();
+                    image.crossOrigin = 'anonymous';
+                    image.onload = () => resolve(image);
+                    image.src = uri;
                 });
 
             const ctx = new WebGLContext(gl, {
                 cameraManager: {
                     onInit: onCameraResolverInit,
                     textureResolver: cameraTextureResolver
+                },
+                textureManager: {
+                    textureResolver: textureResolver
                 },
                 nodesCollection: nodes,
                 ...JSON.parse(localStorage.getItem('context') || '{}')
