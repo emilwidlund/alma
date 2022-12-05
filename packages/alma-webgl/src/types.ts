@@ -1,6 +1,7 @@
 import { TimeNode } from './nodes/core/TimeNode/TimeNode';
 import { UVNode } from './nodes/core/UVNode/UVNode';
 import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode';
+import { CreationEffectNode } from './nodes/effects/CreationEffectNode/CreationEffectNode';
 import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
@@ -37,7 +38,10 @@ export enum WebGLNodeType {
     UV = 'UV',
     VECTOR_2 = 'VECTOR_2',
     VECTOR_3 = 'VECTOR_3',
-    VECTOR_4 = 'VECTOR_4'
+    VECTOR_4 = 'VECTOR_4',
+
+    // Effects
+    CREATION_EFFECT = 'CREATION_EFFECT'
 }
 
 export interface ClassConstructor<T> {
@@ -65,7 +69,12 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.VECTOR_2]: ClassConstructor<Vector2Node>;
     [WebGLNodeType.VECTOR_3]: ClassConstructor<Vector3Node>;
     [WebGLNodeType.VECTOR_4]: ClassConstructor<Vector4Node>;
+
+    // Effects
+    [WebGLNodeType.CREATION_EFFECT]: ClassConstructor<CreationEffectNode>;
 }
+
+export type WebGLEffectNode = CreationEffectNode;
 
 export type WebGLNode =
     | WebGLContextNode
@@ -86,4 +95,5 @@ export type WebGLNode =
     | UVNode
     | Vector2Node
     | Vector3Node
-    | Vector4Node;
+    | Vector4Node
+    | WebGLEffectNode;

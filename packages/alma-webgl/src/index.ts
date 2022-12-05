@@ -1,6 +1,7 @@
 import { TimeNode } from './nodes/core/TimeNode/TimeNode';
 import { UVNode } from './nodes/core/UVNode/UVNode';
 import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode';
+import { CreationEffectNode } from './nodes/effects/CreationEffectNode/CreationEffectNode';
 import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
@@ -38,7 +39,10 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.UV]: UVNode,
     [WebGLNodeType.VECTOR_2]: Vector2Node,
     [WebGLNodeType.VECTOR_3]: Vector3Node,
-    [WebGLNodeType.VECTOR_4]: Vector4Node
+    [WebGLNodeType.VECTOR_4]: Vector4Node,
+
+    // Effects
+    [WebGLNodeType.CREATION_EFFECT]: CreationEffectNode
 };
 
 /** Types */
@@ -57,6 +61,9 @@ export * from './nodes/core/UVNode/UVNode';
 export * from './nodes/core/UVNode/UVNode.types';
 export * from './nodes/core/WebGLContextNode/WebGLContextNode';
 export * from './nodes/core/WebGLContextNode/WebGLContextNode.types';
+
+/** Effect Nodes */
+export * from './nodes/effects/CreationEffectNode/CreationEffectNode';
 
 /** Math Nodes */
 export * from './nodes/math/AdditionNode/AdditionNode';
