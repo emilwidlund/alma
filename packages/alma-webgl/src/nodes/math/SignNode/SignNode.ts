@@ -1,23 +1,24 @@
-import { float, fract, Prim } from '@thi.ng/shader-ast';
+import { float, Prim, sign } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IFractionalNodeInputs, IFractionalNodeOutputs, IFractionalNodeProps } from './FractionalNode.types';
+import { ISignNodeInputs, ISignNodeOutputs, ISignNodeProps } from './SignNode.types';
 
-export class FractionalNode extends PolymorphicNode {
-    static icon = 'stacked_line_chart';
-    static description = 'Computes the fractional part of the input.';
+export class SignNode extends PolymorphicNode {
+    static icon = 'turn_sharp_right';
+    static description =
+        'Returns -1.0 if input is less than 0.0, 0.0 if input is equal to 0.0, and +1.0 if input is greater than 0.0.';
 
-    static nodeName = 'Fractional';
-    type = WebGLNodeType.FRACTIONAL;
+    static nodeName = 'Sign';
+    type = WebGLNodeType.SIGN;
 
-    inputs: IFractionalNodeInputs;
-    outputs: IFractionalNodeOutputs;
+    inputs: ISignNodeInputs;
+    outputs: ISignNodeOutputs;
 
-    constructor(context: WebGLContext, props: IFractionalNodeProps = {}) {
+    constructor(context: WebGLContext, props: ISignNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -47,7 +48,7 @@ export class FractionalNode extends PolymorphicNode {
                     name: 'Output',
                     type: 'float',
                     value: () => {
-                        return fract(this.resolveValue(this.inputs.input.value));
+                        return sign(this.resolveValue(this.inputs.input.value));
                     }
                 })
             )

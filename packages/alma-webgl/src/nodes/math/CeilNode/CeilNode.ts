@@ -1,23 +1,23 @@
-import { float, fract, Prim } from '@thi.ng/shader-ast';
+import { ceil, float, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IFractionalNodeInputs, IFractionalNodeOutputs, IFractionalNodeProps } from './FractionalNode.types';
+import { ICeilNodeInputs, ICeilNodeOutputs, ICeilNodeProps } from './CeilNode.types';
 
-export class FractionalNode extends PolymorphicNode {
-    static icon = 'stacked_line_chart';
-    static description = 'Computes the fractional part of the input.';
+export class CeilNode extends PolymorphicNode {
+    static icon = 'vertical_align_top';
+    static description = 'Returns a value equal to the nearest integer that is greater than or equal to input.';
 
-    static nodeName = 'Fractional';
-    type = WebGLNodeType.FRACTIONAL;
+    static nodeName = 'Ceil';
+    type = WebGLNodeType.CEIL;
 
-    inputs: IFractionalNodeInputs;
-    outputs: IFractionalNodeOutputs;
+    inputs: ICeilNodeInputs;
+    outputs: ICeilNodeOutputs;
 
-    constructor(context: WebGLContext, props: IFractionalNodeProps = {}) {
+    constructor(context: WebGLContext, props: ICeilNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -47,7 +47,7 @@ export class FractionalNode extends PolymorphicNode {
                     name: 'Output',
                     type: 'float',
                     value: () => {
-                        return fract(this.resolveValue(this.inputs.input.value));
+                        return ceil(this.resolveValue(this.inputs.input.value));
                     }
                 })
             )

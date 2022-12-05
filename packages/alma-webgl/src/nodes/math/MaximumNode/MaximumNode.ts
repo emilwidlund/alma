@@ -8,7 +8,7 @@ import { WebGLNodeType } from '../../../types';
 import { IMaximumNodeInputs, IMaximumNodeOutputs, IMaximumNodeProps } from './MaximumNode.types';
 
 export class MaximumNode extends PolymorphicNode {
-    static icon = 'vertical_align_top';
+    static icon = 'arrow_upward';
     static description = 'Returns the greater value of the given inputs.';
     static nodeName = 'Maximum';
 

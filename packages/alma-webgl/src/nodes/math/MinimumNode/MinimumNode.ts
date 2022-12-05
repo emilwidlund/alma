@@ -8,7 +8,7 @@ import { WebGLNodeType } from '../../../types';
 import { IMinimumNodeInputs, IMinimumNodeOutputs, IMinimumNodeProps } from './MinimumNode.types';
 
 export class MinimumNode extends PolymorphicNode {
-    static icon = 'vertical_align_bottom';
+    static icon = 'arrow_downward';
     static description = 'Returns the lesser value of the given inputs.';
     static nodeName = 'Minimum';
 

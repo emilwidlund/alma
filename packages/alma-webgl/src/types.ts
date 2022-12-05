@@ -3,14 +3,18 @@ import { UVNode } from './nodes/core/UVNode/UVNode';
 import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode';
 import { CreationEffectNode } from './nodes/effects/CreationEffectNode/CreationEffectNode';
 import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
+import { AbsoluteNode } from './nodes/math/AbsoluteNode/AbsoluteNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
+import { CeilNode } from './nodes/math/CeilNode/CeilNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
+import { FloorNode } from './nodes/math/FloorNode/FloorNode';
 import { FractionalNode } from './nodes/math/FractionalNode/FractionalNode';
 import { MaximumNode } from './nodes/math/MaximumNode/MaximumNode';
 import { MinimumNode } from './nodes/math/MinimumNode/MinimumNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
+import { SignNode } from './nodes/math/SignNode/SignNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
 import { SubtractionNode } from './nodes/math/SubtractionNode/SubtractionNode';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
@@ -19,7 +23,10 @@ import { Vector3Node } from './nodes/primitives/Vector3Node/Vector3Node';
 import { Vector4Node } from './nodes/primitives/Vector4Node/Vector4Node';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
 import { TextureNode } from './nodes/textures/TextureNode/TextureNode';
+import { DistanceNode } from './nodes/utils/DistanceNode/DistanceNode';
+import { LengthNode } from './nodes/utils/LengthNode/LengthNode';
 import { MixNode } from './nodes/utils/MixNode/MixNode';
+import { NormalizeNode } from './nodes/utils/NormalizeNode/NormalizeNode';
 import { SwizzleNode } from './nodes/utils/SwizzleNode/SwizzleNode';
 
 export enum WebGLNodeType {
@@ -35,6 +42,13 @@ export enum WebGLNodeType {
     FRACTIONAL = 'FRACTIONAL',
     MINIMUM = 'MINIMUM',
     MAXIMUM = 'MAXIMUM',
+    ABSOLUTE = 'ABSOLUTE',
+    SIGN = 'SIGN',
+    FLOOR = 'FLOOR',
+    CEIL = 'CEIL',
+    LENGTH = 'LENGTH',
+    DISTANCE = 'DISTANCE',
+    NORMALIZE = 'NORMALIZE',
     GLSL = 'GLSL',
     MIX = 'MIX',
     MODULO = 'MODULO',
@@ -68,6 +82,13 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.FRACTIONAL]: ClassConstructor<FractionalNode>;
     [WebGLNodeType.MINIMUM]: ClassConstructor<MinimumNode>;
     [WebGLNodeType.MAXIMUM]: ClassConstructor<MaximumNode>;
+    [WebGLNodeType.ABSOLUTE]: ClassConstructor<AbsoluteNode>;
+    [WebGLNodeType.SIGN]: ClassConstructor<SignNode>;
+    [WebGLNodeType.FLOOR]: ClassConstructor<FloorNode>;
+    [WebGLNodeType.CEIL]: ClassConstructor<CeilNode>;
+    [WebGLNodeType.LENGTH]: ClassConstructor<LengthNode>;
+    [WebGLNodeType.DISTANCE]: ClassConstructor<DistanceNode>;
+    [WebGLNodeType.NORMALIZE]: ClassConstructor<NormalizeNode>;
     [WebGLNodeType.GLSL]: ClassConstructor<GLSLNode>;
     [WebGLNodeType.MODULO]: ClassConstructor<ModuloNode>;
     [WebGLNodeType.TEXTURE]: ClassConstructor<TextureNode>;
@@ -98,6 +119,13 @@ export type WebGLNode =
     | FractionalNode
     | MinimumNode
     | MaximumNode
+    | AbsoluteNode
+    | SignNode
+    | FloorNode
+    | CeilNode
+    | LengthNode
+    | DistanceNode
+    | NormalizeNode
     | GLSLNode
     | ModuloNode
     | SwizzleNode

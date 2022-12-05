@@ -1,23 +1,23 @@
-import { float, fract, Prim } from '@thi.ng/shader-ast';
+import { abs, float, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IFractionalNodeInputs, IFractionalNodeOutputs, IFractionalNodeProps } from './FractionalNode.types';
+import { IAbsoluteNodeInputs, IAbsoluteNodeOutputs, IAbsoluteNodeProps } from './AbsoluteNode.types';
 
-export class FractionalNode extends PolymorphicNode {
-    static icon = 'stacked_line_chart';
-    static description = 'Computes the fractional part of the input.';
+export class AbsoluteNode extends PolymorphicNode {
+    static icon = 'call_missed_outgoing';
+    static description = 'Computes the absolute value of the input.';
 
-    static nodeName = 'Fractional';
-    type = WebGLNodeType.FRACTIONAL;
+    static nodeName = 'Absolute';
+    type = WebGLNodeType.ABSOLUTE;
 
-    inputs: IFractionalNodeInputs;
-    outputs: IFractionalNodeOutputs;
+    inputs: IAbsoluteNodeInputs;
+    outputs: IAbsoluteNodeOutputs;
 
-    constructor(context: WebGLContext, props: IFractionalNodeProps = {}) {
+    constructor(context: WebGLContext, props: IAbsoluteNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -47,7 +47,7 @@ export class FractionalNode extends PolymorphicNode {
                     name: 'Output',
                     type: 'float',
                     value: () => {
-                        return fract(this.resolveValue(this.inputs.input.value));
+                        return abs(this.resolveValue(this.inputs.input.value));
                     }
                 })
             )
