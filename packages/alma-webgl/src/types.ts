@@ -1,40 +1,42 @@
-import { TimeNode } from './nodes/core/TimeNode/TimeNode';
-import { UVNode } from './nodes/core/UVNode/UVNode';
-import { WebGLContextNode } from './nodes/core/WebGLContextNode/WebGLContextNode';
+import { MixNode } from './nodes/common/MixNode/MixNode';
+import { TimeNode } from './nodes/common/TimeNode/TimeNode';
+import { UVNode } from './nodes/common/UVNode/UVNode';
+import { WebGLContextNode } from './nodes/common/WebGLContextNode/WebGLContextNode';
 import { CreationEffectNode } from './nodes/effects/CreationEffectNode/CreationEffectNode';
+import { ExponentiationNode } from './nodes/exponential/ExponentiationNode/ExponentiationNode';
+import { InverseSquareRootNode } from './nodes/exponential/InverseSquareRootNode/InverseSquareRootNode';
+import { LogarithmNode } from './nodes/exponential/LogarithmNode/LogarithmNode';
+import { PowerNode } from './nodes/exponential/PowerNode/PowerNode';
+import { SquareRootNode } from './nodes/exponential/SquareRootNode/SquareRootNode';
 import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
 import { AbsoluteNode } from './nodes/math/AbsoluteNode/AbsoluteNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
-import { ArccosineNode } from './nodes/math/ArccosineNode/ArccosineNode';
-import { ArcsineNode } from './nodes/math/ArcsineNode/ArcsineNode';
-import { ArctangentNode } from './nodes/math/ArctangentNode/ArctangentNode';
 import { CeilNode } from './nodes/math/CeilNode/CeilNode';
-import { CosineNode } from './nodes/math/CosineNode/CosineNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
 import { FloorNode } from './nodes/math/FloorNode/FloorNode';
 import { FractionalNode } from './nodes/math/FractionalNode/FractionalNode';
-import { InverseSquareRootNode } from './nodes/math/InverseSquareRootNode/InverseSquareRootNode';
 import { MaximumNode } from './nodes/math/MaximumNode/MaximumNode';
 import { MinimumNode } from './nodes/math/MinimumNode/MinimumNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
-import { PowerNode } from './nodes/math/PowerNode/PowerNode';
 import { SignNode } from './nodes/math/SignNode/SignNode';
-import { SineNode } from './nodes/math/SineNode/SineNode';
-import { SquareRootNode } from './nodes/math/SquareRootNode/SquareRootNode';
 import { SubtractionNode } from './nodes/math/SubtractionNode/SubtractionNode';
-import { TangentNode } from './nodes/math/TangentNode/TangentNode';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
-import { Vector2Node } from './nodes/primitives/Vector2Node/Vector2Node';
-import { Vector3Node } from './nodes/primitives/Vector3Node/Vector3Node';
-import { Vector4Node } from './nodes/primitives/Vector4Node/Vector4Node';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
 import { TextureNode } from './nodes/textures/TextureNode/TextureNode';
-import { DistanceNode } from './nodes/utils/DistanceNode/DistanceNode';
-import { LengthNode } from './nodes/utils/LengthNode/LengthNode';
-import { MixNode } from './nodes/utils/MixNode/MixNode';
-import { NormalizeNode } from './nodes/utils/NormalizeNode/NormalizeNode';
+import { ArccosineNode } from './nodes/trigonometry/ArccosineNode/ArccosineNode';
+import { ArcsineNode } from './nodes/trigonometry/ArcsineNode/ArcsineNode';
+import { ArctangentNode } from './nodes/trigonometry/ArctangentNode/ArctangentNode';
+import { CosineNode } from './nodes/trigonometry/CosineNode/CosineNode';
+import { SineNode } from './nodes/trigonometry/SineNode/SineNode';
+import { TangentNode } from './nodes/trigonometry/TangentNode/TangentNode';
 import { SwizzleNode } from './nodes/utils/SwizzleNode/SwizzleNode';
+import { DistanceNode } from './nodes/vectors/DistanceNode/DistanceNode';
+import { LengthNode } from './nodes/vectors/LengthNode/LengthNode';
+import { NormalizeNode } from './nodes/vectors/NormalizeNode/NormalizeNode';
+import { Vector2Node } from './nodes/vectors/Vector2Node/Vector2Node';
+import { Vector3Node } from './nodes/vectors/Vector3Node/Vector3Node';
+import { Vector4Node } from './nodes/vectors/Vector4Node/Vector4Node';
 
 export enum WebGLNodeType {
     WEBGL_CONTEXT = 'WEBGL_CONTEXT',
@@ -63,6 +65,8 @@ export enum WebGLNodeType {
     INVERSE_SQUARE_ROOT = 'INVERSE_SQUARE_ROOT',
     TANGENT = 'TANGENT',
     ARCTANGENT = 'ARCTANGENT',
+    EXPONENTIATION = 'EXPONENTIATION',
+    LOGARITHM = 'LOGARITHM',
     GLSL = 'GLSL',
     MIX = 'MIX',
     MODULO = 'MODULO',
@@ -110,6 +114,8 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.NORMALIZE]: ClassConstructor<NormalizeNode>;
     [WebGLNodeType.TANGENT]: ClassConstructor<TangentNode>;
     [WebGLNodeType.ARCTANGENT]: ClassConstructor<ArctangentNode>;
+    [WebGLNodeType.EXPONENTIATION]: ClassConstructor<ExponentiationNode>;
+    [WebGLNodeType.LOGARITHM]: ClassConstructor<LogarithmNode>;
     [WebGLNodeType.GLSL]: ClassConstructor<GLSLNode>;
     [WebGLNodeType.MODULO]: ClassConstructor<ModuloNode>;
     [WebGLNodeType.TEXTURE]: ClassConstructor<TextureNode>;
@@ -154,6 +160,8 @@ export type WebGLNode =
     | PowerNode
     | SquareRootNode
     | InverseSquareRootNode
+    | ExponentiationNode
+    | LogarithmNode
     | GLSLNode
     | ModuloNode
     | SwizzleNode
