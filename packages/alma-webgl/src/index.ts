@@ -1,4 +1,15 @@
+import { AbsoluteNode } from './nodes/common/AbsoluteNode/AbsoluteNode';
+import { CeilNode } from './nodes/common/CeilNode/CeilNode';
+import { ClampNode } from './nodes/common/ClampNode/ClampNode';
+import { FloorNode } from './nodes/common/FloorNode/FloorNode';
+import { FractionalNode } from './nodes/common/FractionalNode/FractionalNode';
+import { MaximumNode } from './nodes/common/MaximumNode/MaximumNode';
+import { MinimumNode } from './nodes/common/MinimumNode/MinimumNode';
 import { MixNode } from './nodes/common/MixNode/MixNode';
+import { ModuloNode } from './nodes/common/ModuloNode/ModuloNode';
+import { SignNode } from './nodes/common/SignNode/SignNode';
+import { SmoothstepNode } from './nodes/common/SmoothstepNode/SmoothstepNode';
+import { StepNode } from './nodes/common/StepNode/StepNode';
 import { TimeNode } from './nodes/common/TimeNode/TimeNode';
 import { UVNode } from './nodes/common/UVNode/UVNode';
 import { WebGLContextNode } from './nodes/common/WebGLContextNode/WebGLContextNode';
@@ -9,17 +20,9 @@ import { LogarithmNode } from './nodes/exponential/LogarithmNode/LogarithmNode';
 import { PowerNode } from './nodes/exponential/PowerNode/PowerNode';
 import { SquareRootNode } from './nodes/exponential/SquareRootNode/SquareRootNode';
 import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
-import { AbsoluteNode } from './nodes/math/AbsoluteNode/AbsoluteNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
-import { CeilNode } from './nodes/math/CeilNode/CeilNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
-import { FloorNode } from './nodes/math/FloorNode/FloorNode';
-import { FractionalNode } from './nodes/math/FractionalNode/FractionalNode';
-import { MaximumNode } from './nodes/math/MaximumNode/MaximumNode';
-import { MinimumNode } from './nodes/math/MinimumNode/MinimumNode';
-import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
-import { SignNode } from './nodes/math/SignNode/SignNode';
 import { SubtractionNode } from './nodes/math/SubtractionNode/SubtractionNode';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
@@ -78,6 +81,9 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.TIME]: TimeNode,
     [WebGLNodeType.SWIZZLE]: SwizzleNode,
     [WebGLNodeType.MIX]: MixNode,
+    [WebGLNodeType.CLAMP]: ClampNode,
+    [WebGLNodeType.STEP]: StepNode,
+    [WebGLNodeType.SMOOTHSTEP]: SmoothstepNode,
     [WebGLNodeType.UV]: UVNode,
     [WebGLNodeType.VECTOR_2]: Vector2Node,
     [WebGLNodeType.VECTOR_3]: Vector3Node,
@@ -97,24 +103,30 @@ export * from './models/CameraManager/CameraManager';
 export * from './models/CameraManager/CameraManager.types';
 
 /** Common Nodes */
-export * from './nodes/math/ModuloNode/ModuloNode';
-export * from './nodes/math/ModuloNode/ModuloNode.types';
+export * from './nodes/common/ModuloNode/ModuloNode';
+export * from './nodes/common/ModuloNode/ModuloNode.types';
 export * from './nodes/common/MixNode/MixNode';
 export * from './nodes/common/MixNode/MixNode.types';
-export * from './nodes/math/FractionalNode/FractionalNode';
-export * from './nodes/math/FractionalNode/FractionalNode.types';
-export * from './nodes/math/MinimumNode/MinimumNode';
-export * from './nodes/math/MinimumNode/MinimumNode.types';
-export * from './nodes/math/MaximumNode/MaximumNode';
-export * from './nodes/math/MaximumNode/MaximumNode.types';
-export * from './nodes/math/AbsoluteNode/AbsoluteNode';
-export * from './nodes/math/AbsoluteNode/AbsoluteNode.types';
-export * from './nodes/math/SignNode/SignNode';
-export * from './nodes/math/SignNode/SignNode.types';
-export * from './nodes/math/FloorNode/FloorNode';
-export * from './nodes/math/FloorNode/FloorNode.types';
-export * from './nodes/math/CeilNode/CeilNode';
-export * from './nodes/math/CeilNode/CeilNode.types';
+export * from './nodes/common/FractionalNode/FractionalNode';
+export * from './nodes/common/FractionalNode/FractionalNode.types';
+export * from './nodes/common/MinimumNode/MinimumNode';
+export * from './nodes/common/MinimumNode/MinimumNode.types';
+export * from './nodes/common/MaximumNode/MaximumNode';
+export * from './nodes/common/MaximumNode/MaximumNode.types';
+export * from './nodes/common/AbsoluteNode/AbsoluteNode';
+export * from './nodes/common/AbsoluteNode/AbsoluteNode.types';
+export * from './nodes/common/SignNode/SignNode';
+export * from './nodes/common/SignNode/SignNode.types';
+export * from './nodes/common/FloorNode/FloorNode';
+export * from './nodes/common/FloorNode/FloorNode.types';
+export * from './nodes/common/CeilNode/CeilNode';
+export * from './nodes/common/CeilNode/CeilNode.types';
+export * from './nodes/common/ClampNode/ClampNode';
+export * from './nodes/common/ClampNode/ClampNode.types';
+export * from './nodes/common/StepNode/StepNode';
+export * from './nodes/common/StepNode/StepNode.types';
+export * from './nodes/common/SmoothstepNode/SmoothstepNode';
+export * from './nodes/common/SmoothstepNode/SmoothstepNode.types';
 
 /** Accessor Nodes */
 export * from './nodes/common/TimeNode/TimeNode';

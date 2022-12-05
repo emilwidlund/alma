@@ -1,4 +1,15 @@
+import { AbsoluteNode } from './nodes/common/AbsoluteNode/AbsoluteNode';
+import { CeilNode } from './nodes/common/CeilNode/CeilNode';
+import { ClampNode } from './nodes/common/ClampNode/ClampNode';
+import { FloorNode } from './nodes/common/FloorNode/FloorNode';
+import { FractionalNode } from './nodes/common/FractionalNode/FractionalNode';
+import { MaximumNode } from './nodes/common/MaximumNode/MaximumNode';
+import { MinimumNode } from './nodes/common/MinimumNode/MinimumNode';
 import { MixNode } from './nodes/common/MixNode/MixNode';
+import { ModuloNode } from './nodes/common/ModuloNode/ModuloNode';
+import { SignNode } from './nodes/common/SignNode/SignNode';
+import { SmoothstepNode } from './nodes/common/SmoothstepNode/SmoothstepNode';
+import { StepNode } from './nodes/common/StepNode/StepNode';
 import { TimeNode } from './nodes/common/TimeNode/TimeNode';
 import { UVNode } from './nodes/common/UVNode/UVNode';
 import { WebGLContextNode } from './nodes/common/WebGLContextNode/WebGLContextNode';
@@ -9,17 +20,9 @@ import { LogarithmNode } from './nodes/exponential/LogarithmNode/LogarithmNode';
 import { PowerNode } from './nodes/exponential/PowerNode/PowerNode';
 import { SquareRootNode } from './nodes/exponential/SquareRootNode/SquareRootNode';
 import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
-import { AbsoluteNode } from './nodes/math/AbsoluteNode/AbsoluteNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
-import { CeilNode } from './nodes/math/CeilNode/CeilNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
-import { FloorNode } from './nodes/math/FloorNode/FloorNode';
-import { FractionalNode } from './nodes/math/FractionalNode/FractionalNode';
-import { MaximumNode } from './nodes/math/MaximumNode/MaximumNode';
-import { MinimumNode } from './nodes/math/MinimumNode/MinimumNode';
-import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
-import { SignNode } from './nodes/math/SignNode/SignNode';
 import { SubtractionNode } from './nodes/math/SubtractionNode/SubtractionNode';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
@@ -73,10 +76,13 @@ export enum WebGLNodeType {
     LOGARITHM = 'LOGARITHM',
     GLSL = 'GLSL',
     MIX = 'MIX',
+    STEP = 'STEP',
+    SMOOTHSTEP = 'SMOOTHSTEP',
     MODULO = 'MODULO',
     TEXTURE = 'TEXTURE',
     TIME = 'TIME',
     SWIZZLE = 'SWIZZLE',
+    CLAMP = 'CLAMP',
     UV = 'UV',
     VECTOR_2 = 'VECTOR_2',
     VECTOR_3 = 'VECTOR_3',
@@ -127,7 +133,10 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.TEXTURE]: ClassConstructor<TextureNode>;
     [WebGLNodeType.TIME]: ClassConstructor<TimeNode>;
     [WebGLNodeType.SWIZZLE]: ClassConstructor<SwizzleNode>;
+    [WebGLNodeType.CLAMP]: ClassConstructor<ClampNode>;
     [WebGLNodeType.MIX]: ClassConstructor<MixNode>;
+    [WebGLNodeType.STEP]: ClassConstructor<StepNode>;
+    [WebGLNodeType.SMOOTHSTEP]: ClassConstructor<SmoothstepNode>;
     [WebGLNodeType.UV]: ClassConstructor<UVNode>;
     [WebGLNodeType.VECTOR_2]: ClassConstructor<Vector2Node>;
     [WebGLNodeType.VECTOR_3]: ClassConstructor<Vector3Node>;
@@ -173,7 +182,10 @@ export type WebGLNode =
     | GLSLNode
     | ModuloNode
     | SwizzleNode
+    | ClampNode
     | MixNode
+    | StepNode
+    | SmoothstepNode
     | TextureNode
     | TimeNode
     | UVNode
