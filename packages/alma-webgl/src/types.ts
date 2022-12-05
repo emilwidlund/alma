@@ -28,6 +28,8 @@ import { ArccosineNode } from './nodes/trigonometry/ArccosineNode/ArccosineNode'
 import { ArcsineNode } from './nodes/trigonometry/ArcsineNode/ArcsineNode';
 import { ArctangentNode } from './nodes/trigonometry/ArctangentNode/ArctangentNode';
 import { CosineNode } from './nodes/trigonometry/CosineNode/CosineNode';
+import { DegreesNode } from './nodes/trigonometry/DegreesNode/DegreesNode';
+import { RadiansNode } from './nodes/trigonometry/RadiansNode/RadiansNode';
 import { SineNode } from './nodes/trigonometry/SineNode/SineNode';
 import { TangentNode } from './nodes/trigonometry/TangentNode/TangentNode';
 import { SwizzleNode } from './nodes/utils/SwizzleNode/SwizzleNode';
@@ -65,6 +67,8 @@ export enum WebGLNodeType {
     INVERSE_SQUARE_ROOT = 'INVERSE_SQUARE_ROOT',
     TANGENT = 'TANGENT',
     ARCTANGENT = 'ARCTANGENT',
+    RADIANS = 'RADIANS',
+    DEGREES = 'DEGREES',
     EXPONENTIATION = 'EXPONENTIATION',
     LOGARITHM = 'LOGARITHM',
     GLSL = 'GLSL',
@@ -114,6 +118,8 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.NORMALIZE]: ClassConstructor<NormalizeNode>;
     [WebGLNodeType.TANGENT]: ClassConstructor<TangentNode>;
     [WebGLNodeType.ARCTANGENT]: ClassConstructor<ArctangentNode>;
+    [WebGLNodeType.RADIANS]: ClassConstructor<RadiansNode>;
+    [WebGLNodeType.DEGREES]: ClassConstructor<DegreesNode>;
     [WebGLNodeType.EXPONENTIATION]: ClassConstructor<ExponentiationNode>;
     [WebGLNodeType.LOGARITHM]: ClassConstructor<LogarithmNode>;
     [WebGLNodeType.GLSL]: ClassConstructor<GLSLNode>;
@@ -157,6 +163,8 @@ export type WebGLNode =
     | NormalizeNode
     | TangentNode
     | ArctangentNode
+    | RadiansNode
+    | DegreesNode
     | PowerNode
     | SquareRootNode
     | InverseSquareRootNode

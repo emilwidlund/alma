@@ -28,6 +28,8 @@ import { ArccosineNode } from './nodes/trigonometry/ArccosineNode/ArccosineNode'
 import { ArcsineNode } from './nodes/trigonometry/ArcsineNode/ArcsineNode';
 import { ArctangentNode } from './nodes/trigonometry/ArctangentNode/ArctangentNode';
 import { CosineNode } from './nodes/trigonometry/CosineNode/CosineNode';
+import { DegreesNode } from './nodes/trigonometry/DegreesNode/DegreesNode';
+import { RadiansNode } from './nodes/trigonometry/RadiansNode/RadiansNode';
 import { SineNode } from './nodes/trigonometry/SineNode/SineNode';
 import { TangentNode } from './nodes/trigonometry/TangentNode/TangentNode';
 import { SwizzleNode } from './nodes/utils/SwizzleNode/SwizzleNode';
@@ -63,6 +65,8 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.NORMALIZE]: NormalizeNode,
     [WebGLNodeType.TANGENT]: TangentNode,
     [WebGLNodeType.ARCTANGENT]: ArctangentNode,
+    [WebGLNodeType.RADIANS]: RadiansNode,
+    [WebGLNodeType.DEGREES]: DegreesNode,
     [WebGLNodeType.POWER]: PowerNode,
     [WebGLNodeType.SQUARE_ROOT]: SquareRootNode,
     [WebGLNodeType.INVERSE_SQUARE_ROOT]: InverseSquareRootNode,
@@ -131,6 +135,10 @@ export * from './nodes/math/DivisionNode/DivisionNode';
 export * from './nodes/math/DivisionNode/DivisionNode.types';
 
 /** Trigonometry */
+export * from './nodes/trigonometry/RadiansNode/RadiansNode';
+export * from './nodes/trigonometry/RadiansNode/RadiansNode.types';
+export * from './nodes/trigonometry/DegreesNode/DegreesNode';
+export * from './nodes/trigonometry/DegreesNode/DegreesNode.types';
 export * from './nodes/trigonometry/SineNode/SineNode';
 export * from './nodes/trigonometry/SineNode/SineNode.types';
 export * from './nodes/trigonometry/ArcsineNode/ArcsineNode';
