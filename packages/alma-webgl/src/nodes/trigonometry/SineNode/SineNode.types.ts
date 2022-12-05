@@ -1,22 +1,23 @@
+import { Prim } from '@thi.ng/shader-ast';
 import { IInputProps, INodeProps, Input, IOutputProps, Output } from 'alma-graph';
 
 import { SineNode } from './SineNode';
 
 export interface ISineNodeInputs {
-    [key: string]: Input<'float', SineNode>;
-    input: Input<'float', SineNode>;
+    [key: string]: Input<Prim, SineNode>;
+    input: Input<Prim, SineNode>;
 }
 
 export interface ISineNodeOutputs {
-    [key: string]: Output<'float', SineNode>;
-    output: Output<'float', SineNode>;
+    [key: string]: Output<Prim, SineNode>;
+    output: Output<Prim, SineNode>;
 }
 
 export interface ISineNodeProps extends INodeProps {
     inputs?: {
-        input?: IInputProps<'float'>;
+        input?: IInputProps<Prim>;
     };
     outputs?: {
-        output?: IOutputProps<'float'>;
+        output?: IOutputProps<Prim>;
     };
 }
