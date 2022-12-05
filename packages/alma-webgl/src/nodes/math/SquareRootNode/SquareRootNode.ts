@@ -1,23 +1,23 @@
-import { float, cos, Prim } from '@thi.ng/shader-ast';
+import { float, Prim, sqrt } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ICosineNodeInputs, ICosineNodeOutputs, ICosineNodeProps } from './CosineNode.types';
+import { ISquareRootNodeInputs, ISquareRootNodeOutputs, ISquareRootNodeProps } from './SquareRootNode.types';
 
-export class CosineNode extends PolymorphicNode {
-    static icon = 'all_inclusive';
-    static description = 'Returns the cosine of the given input.';
+export class SquareRootNode extends PolymorphicNode {
+    static icon = 'file_download_done';
+    static description = 'Returns the square root of the given input.';
 
-    static nodeName = 'Cosine';
-    type = WebGLNodeType.COSINE;
+    static nodeName = 'Square Root';
+    type = WebGLNodeType.SQUARE_ROOT;
 
-    inputs: ICosineNodeInputs;
-    outputs: ICosineNodeOutputs;
+    inputs: ISquareRootNodeInputs;
+    outputs: ISquareRootNodeOutputs;
 
-    constructor(context: WebGLContext, props: ICosineNodeProps = {}) {
+    constructor(context: WebGLContext, props: ISquareRootNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -47,7 +47,7 @@ export class CosineNode extends PolymorphicNode {
                     name: 'Output',
                     type: 'float',
                     value: () => {
-                        return cos(this.resolveValue(this.inputs.input.value));
+                        return sqrt<Prim>(this.resolveValue(this.inputs.input.value));
                     }
                 })
             )

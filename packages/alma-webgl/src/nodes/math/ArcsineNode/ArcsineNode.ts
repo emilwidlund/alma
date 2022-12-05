@@ -1,23 +1,23 @@
-import { float, cos, Prim } from '@thi.ng/shader-ast';
+import { asin, float, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ICosineNodeInputs, ICosineNodeOutputs, ICosineNodeProps } from './CosineNode.types';
+import { IArcsineNodeInputs, IArcsineNodeOutputs, IArcsineNodeProps } from './ArcsineNode.types';
 
-export class CosineNode extends PolymorphicNode {
-    static icon = 'all_inclusive';
-    static description = 'Returns the cosine of the given input.';
+export class ArcsineNode extends PolymorphicNode {
+    static icon = 'conversion_path';
+    static description = 'Returns the angle whose trigonometric sine is the input.';
 
-    static nodeName = 'Cosine';
-    type = WebGLNodeType.COSINE;
+    static nodeName = 'Arcsine';
+    type = WebGLNodeType.ARCSINE;
 
-    inputs: ICosineNodeInputs;
-    outputs: ICosineNodeOutputs;
+    inputs: IArcsineNodeInputs;
+    outputs: IArcsineNodeOutputs;
 
-    constructor(context: WebGLContext, props: ICosineNodeProps = {}) {
+    constructor(context: WebGLContext, props: IArcsineNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -47,7 +47,7 @@ export class CosineNode extends PolymorphicNode {
                     name: 'Output',
                     type: 'float',
                     value: () => {
-                        return cos(this.resolveValue(this.inputs.input.value));
+                        return asin<Prim>(this.resolveValue(this.inputs.input.value));
                     }
                 })
             )

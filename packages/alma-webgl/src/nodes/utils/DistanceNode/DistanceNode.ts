@@ -27,7 +27,7 @@ export class DistanceNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(context, props, false);
 
         this.inputs = {
             a: new Input(

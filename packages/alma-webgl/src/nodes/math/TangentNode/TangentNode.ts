@@ -1,23 +1,23 @@
-import { float, cos, Prim } from '@thi.ng/shader-ast';
+import { float, Prim, tan } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ICosineNodeInputs, ICosineNodeOutputs, ICosineNodeProps } from './CosineNode.types';
+import { ITangentNodeInputs, ITangentNodeOutputs, ITangentNodeProps } from './TangentNode.types';
 
-export class CosineNode extends PolymorphicNode {
-    static icon = 'all_inclusive';
-    static description = 'Returns the cosine of the given input.';
+export class TangentNode extends PolymorphicNode {
+    static icon = 'swap_calls';
+    static description = 'Returns the trigonometric tangent of the input.';
 
-    static nodeName = 'Cosine';
-    type = WebGLNodeType.COSINE;
+    static nodeName = 'Tangent';
+    type = WebGLNodeType.TANGENT;
 
-    inputs: ICosineNodeInputs;
-    outputs: ICosineNodeOutputs;
+    inputs: ITangentNodeInputs;
+    outputs: ITangentNodeOutputs;
 
-    constructor(context: WebGLContext, props: ICosineNodeProps = {}) {
+    constructor(context: WebGLContext, props: ITangentNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -47,7 +47,7 @@ export class CosineNode extends PolymorphicNode {
                     name: 'Output',
                     type: 'float',
                     value: () => {
-                        return cos(this.resolveValue(this.inputs.input.value));
+                        return tan<Prim>(this.resolveValue(this.inputs.input.value));
                     }
                 })
             )

@@ -5,18 +5,25 @@ import { CreationEffectNode } from './nodes/effects/CreationEffectNode/CreationE
 import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
 import { AbsoluteNode } from './nodes/math/AbsoluteNode/AbsoluteNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
+import { ArccosineNode } from './nodes/math/ArccosineNode/ArccosineNode';
+import { ArcsineNode } from './nodes/math/ArcsineNode/ArcsineNode';
+import { ArctangentNode } from './nodes/math/ArctangentNode/ArctangentNode';
 import { CeilNode } from './nodes/math/CeilNode/CeilNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
 import { FloorNode } from './nodes/math/FloorNode/FloorNode';
 import { FractionalNode } from './nodes/math/FractionalNode/FractionalNode';
+import { InverseSquareRootNode } from './nodes/math/InverseSquareRootNode/InverseSquareRootNode';
 import { MaximumNode } from './nodes/math/MaximumNode/MaximumNode';
 import { MinimumNode } from './nodes/math/MinimumNode/MinimumNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
+import { PowerNode } from './nodes/math/PowerNode/PowerNode';
 import { SignNode } from './nodes/math/SignNode/SignNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
+import { SquareRootNode } from './nodes/math/SquareRootNode/SquareRootNode';
 import { SubtractionNode } from './nodes/math/SubtractionNode/SubtractionNode';
+import { TangentNode } from './nodes/math/TangentNode/TangentNode';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { Vector2Node } from './nodes/primitives/Vector2Node/Vector2Node';
 import { Vector3Node } from './nodes/primitives/Vector3Node/Vector3Node';
@@ -35,7 +42,9 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.SIMPLEX_NOISE]: SimplexNoiseNode,
     [WebGLNodeType.CAMERA]: CameraNode,
     [WebGLNodeType.SINE]: SineNode,
+    [WebGLNodeType.ARCSINE]: ArcsineNode,
     [WebGLNodeType.COSINE]: CosineNode,
+    [WebGLNodeType.ARCCOSINE]: ArccosineNode,
     [WebGLNodeType.ADDITION]: AdditionNode,
     [WebGLNodeType.SUBTRACTION]: SubtractionNode,
     [WebGLNodeType.MULTIPLICATION]: MultiplicationNode,
@@ -50,6 +59,11 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.LENGTH]: LengthNode,
     [WebGLNodeType.DISTANCE]: DistanceNode,
     [WebGLNodeType.NORMALIZE]: NormalizeNode,
+    [WebGLNodeType.TANGENT]: TangentNode,
+    [WebGLNodeType.ARCTANGENT]: ArctangentNode,
+    [WebGLNodeType.POWER]: PowerNode,
+    [WebGLNodeType.SQUARE_ROOT]: SquareRootNode,
+    [WebGLNodeType.INVERSE_SQUARE_ROOT]: InverseSquareRootNode,
     [WebGLNodeType.GLSL]: GLSLNode,
     [WebGLNodeType.MODULO]: ModuloNode,
     [WebGLNodeType.TEXTURE]: TextureNode,
@@ -98,8 +112,12 @@ export * from './nodes/math/ModuloNode/ModuloNode';
 export * from './nodes/math/ModuloNode/ModuloNode.types';
 export * from './nodes/math/SineNode/SineNode';
 export * from './nodes/math/SineNode/SineNode.types';
+export * from './nodes/math/ArcsineNode/ArcsineNode';
+export * from './nodes/math/ArcsineNode/ArcsineNode.types';
 export * from './nodes/math/CosineNode/CosineNode';
 export * from './nodes/math/CosineNode/CosineNode.types';
+export * from './nodes/math/ArccosineNode/ArccosineNode';
+export * from './nodes/math/ArccosineNode/ArccosineNode.types';
 export * from './nodes/math/FractionalNode/FractionalNode';
 export * from './nodes/math/FractionalNode/FractionalNode.types';
 export * from './nodes/math/MinimumNode/MinimumNode';
@@ -114,6 +132,16 @@ export * from './nodes/math/FloorNode/FloorNode';
 export * from './nodes/math/FloorNode/FloorNode.types';
 export * from './nodes/math/CeilNode/CeilNode';
 export * from './nodes/math/CeilNode/CeilNode.types';
+export * from './nodes/math/PowerNode/PowerNode';
+export * from './nodes/math/PowerNode/PowerNode.types';
+export * from './nodes/math/SquareRootNode/SquareRootNode';
+export * from './nodes/math/SquareRootNode/SquareRootNode.types';
+export * from './nodes/math/InverseSquareRootNode/InverseSquareRootNode';
+export * from './nodes/math/InverseSquareRootNode/InverseSquareRootNode.types';
+export * from './nodes/math/TangentNode/TangentNode';
+export * from './nodes/math/TangentNode/TangentNode.types';
+export * from './nodes/math/ArctangentNode/ArctangentNode';
+export * from './nodes/math/ArctangentNode/ArctangentNode.types';
 
 /** Primitives */
 export * from './nodes/primitives/Vector2Node/Vector2Node';

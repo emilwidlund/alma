@@ -5,18 +5,25 @@ import { CreationEffectNode } from './nodes/effects/CreationEffectNode/CreationE
 import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
 import { AbsoluteNode } from './nodes/math/AbsoluteNode/AbsoluteNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
+import { ArccosineNode } from './nodes/math/ArccosineNode/ArccosineNode';
+import { ArcsineNode } from './nodes/math/ArcsineNode/ArcsineNode';
+import { ArctangentNode } from './nodes/math/ArctangentNode/ArctangentNode';
 import { CeilNode } from './nodes/math/CeilNode/CeilNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
 import { FloorNode } from './nodes/math/FloorNode/FloorNode';
 import { FractionalNode } from './nodes/math/FractionalNode/FractionalNode';
+import { InverseSquareRootNode } from './nodes/math/InverseSquareRootNode/InverseSquareRootNode';
 import { MaximumNode } from './nodes/math/MaximumNode/MaximumNode';
 import { MinimumNode } from './nodes/math/MinimumNode/MinimumNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
+import { PowerNode } from './nodes/math/PowerNode/PowerNode';
 import { SignNode } from './nodes/math/SignNode/SignNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
+import { SquareRootNode } from './nodes/math/SquareRootNode/SquareRootNode';
 import { SubtractionNode } from './nodes/math/SubtractionNode/SubtractionNode';
+import { TangentNode } from './nodes/math/TangentNode/TangentNode';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 import { Vector2Node } from './nodes/primitives/Vector2Node/Vector2Node';
 import { Vector3Node } from './nodes/primitives/Vector3Node/Vector3Node';
@@ -34,7 +41,9 @@ export enum WebGLNodeType {
     SIMPLEX_NOISE = 'SIMPLEX_NOISE',
     CAMERA = 'CAMERA',
     SINE = 'SINE',
+    ARCSINE = 'ARCSINE',
     COSINE = 'COSINE',
+    ARCCOSINE = 'ARCCOSINE',
     ADDITION = 'ADDITION',
     SUBTRACTION = 'SUBTRACTION',
     MULTIPLICATION = 'MULTIPLICATION',
@@ -49,6 +58,11 @@ export enum WebGLNodeType {
     LENGTH = 'LENGTH',
     DISTANCE = 'DISTANCE',
     NORMALIZE = 'NORMALIZE',
+    POWER = 'POWER',
+    SQUARE_ROOT = 'SQUARE_ROOT',
+    INVERSE_SQUARE_ROOT = 'INVERSE_SQUARE_ROOT',
+    TANGENT = 'TANGENT',
+    ARCTANGENT = 'ARCTANGENT',
     GLSL = 'GLSL',
     MIX = 'MIX',
     MODULO = 'MODULO',
@@ -74,6 +88,8 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.SIMPLEX_NOISE]: ClassConstructor<SimplexNoiseNode>;
     [WebGLNodeType.CAMERA]: ClassConstructor<CameraNode>;
     [WebGLNodeType.SINE]: ClassConstructor<SineNode>;
+    [WebGLNodeType.ARCSINE]: ClassConstructor<ArcsineNode>;
+    [WebGLNodeType.ARCCOSINE]: ClassConstructor<ArccosineNode>;
     [WebGLNodeType.COSINE]: ClassConstructor<CosineNode>;
     [WebGLNodeType.ADDITION]: ClassConstructor<AdditionNode>;
     [WebGLNodeType.SUBTRACTION]: ClassConstructor<SubtractionNode>;
@@ -88,7 +104,12 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.CEIL]: ClassConstructor<CeilNode>;
     [WebGLNodeType.LENGTH]: ClassConstructor<LengthNode>;
     [WebGLNodeType.DISTANCE]: ClassConstructor<DistanceNode>;
+    [WebGLNodeType.POWER]: ClassConstructor<PowerNode>;
+    [WebGLNodeType.SQUARE_ROOT]: ClassConstructor<SquareRootNode>;
+    [WebGLNodeType.INVERSE_SQUARE_ROOT]: ClassConstructor<InverseSquareRootNode>;
     [WebGLNodeType.NORMALIZE]: ClassConstructor<NormalizeNode>;
+    [WebGLNodeType.TANGENT]: ClassConstructor<TangentNode>;
+    [WebGLNodeType.ARCTANGENT]: ClassConstructor<ArctangentNode>;
     [WebGLNodeType.GLSL]: ClassConstructor<GLSLNode>;
     [WebGLNodeType.MODULO]: ClassConstructor<ModuloNode>;
     [WebGLNodeType.TEXTURE]: ClassConstructor<TextureNode>;
@@ -111,7 +132,9 @@ export type WebGLNode =
     | SimplexNoiseNode
     | CameraNode
     | SineNode
+    | ArcsineNode
     | CosineNode
+    | ArccosineNode
     | AdditionNode
     | SubtractionNode
     | MultiplicationNode
@@ -126,6 +149,11 @@ export type WebGLNode =
     | LengthNode
     | DistanceNode
     | NormalizeNode
+    | TangentNode
+    | ArctangentNode
+    | PowerNode
+    | SquareRootNode
+    | InverseSquareRootNode
     | GLSLNode
     | ModuloNode
     | SwizzleNode

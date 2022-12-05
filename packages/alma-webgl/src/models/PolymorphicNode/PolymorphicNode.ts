@@ -1,11 +1,11 @@
 import { bool, float, int, Lit, mat2, mat3, mat4, Type, vec2, vec3, vec4 } from '@thi.ng/shader-ast';
-import { Context, INodeProps, Node } from 'alma-graph';
+import { Context, INodeProps, Node, Output } from 'alma-graph';
 import { IReactionDisposer, reaction } from 'mobx';
 
 export abstract class PolymorphicNode extends Node {
     reactionDisposer: IReactionDisposer;
 
-    constructor(context: Context, props: INodeProps = {}) {
+    constructor(context: Context, props: INodeProps = {}, convertOutputTypes = true) {
         super(context, props);
 
         this.reactionDisposer = reaction(
@@ -13,6 +13,8 @@ export abstract class PolymorphicNode extends Node {
             (type, previous) => {
                 if (type && type !== previous) {
                     for (const port of this.ports) {
+                        if (!convertOutputTypes && port instanceof Output) continue;
+
                         port.dispose();
                     }
 
@@ -24,6 +26,8 @@ export abstract class PolymorphicNode extends Node {
                     }
 
                     for (const port of this.ports) {
+                        if (!convertOutputTypes && port instanceof Output) continue;
+
                         port.type = type;
                     }
                 }

@@ -27,17 +27,19 @@ export class LengthNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(context, props, false);
+
+        const input = new Input(
+            this,
+            defaults<Partial<IInputProps<Vec>> | undefined, IInputProps<Vec>>(props.inputs?.input, {
+                name: 'Input',
+                type: 'vec2',
+                defaultValue: vec2()
+            })
+        );
 
         this.inputs = {
-            input: new Input(
-                this,
-                defaults<Partial<IInputProps<Vec>> | undefined, IInputProps<Vec>>(props.inputs?.input, {
-                    name: 'Input',
-                    type: 'vec2',
-                    defaultValue: vec2()
-                })
-            )
+            input
         };
 
         this.outputs = {
