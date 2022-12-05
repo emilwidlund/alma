@@ -6,14 +6,15 @@ import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
+import { FractionalNode } from './nodes/math/FractionalNode/FractionalNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
 import { SubtractionNode } from './nodes/math/SubtractionNode/SubtractionNode';
-import { Vector2Node } from './nodes/math/Vector2Node/Vector2Node';
-import { Vector3Node } from './nodes/math/Vector3Node/Vector3Node';
-import { Vector4Node } from './nodes/math/Vector4Node/Vector4Node';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
+import { Vector2Node } from './nodes/primitives/Vector2Node/Vector2Node';
+import { Vector3Node } from './nodes/primitives/Vector3Node/Vector3Node';
+import { Vector4Node } from './nodes/primitives/Vector4Node/Vector4Node';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
 import { TextureNode } from './nodes/textures/TextureNode/TextureNode';
 import { MixNode } from './nodes/utils/MixNode/MixNode';
@@ -30,6 +31,7 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.SUBTRACTION]: SubtractionNode,
     [WebGLNodeType.MULTIPLICATION]: MultiplicationNode,
     [WebGLNodeType.DIVISION]: DivisionNode,
+    [WebGLNodeType.FRACTIONAL]: FractionalNode,
     [WebGLNodeType.GLSL]: GLSLNode,
     [WebGLNodeType.MODULO]: ModuloNode,
     [WebGLNodeType.TEXTURE]: TextureNode,
@@ -80,14 +82,16 @@ export * from './nodes/math/SineNode/SineNode';
 export * from './nodes/math/SineNode/SineNode.types';
 export * from './nodes/math/CosineNode/CosineNode';
 export * from './nodes/math/CosineNode/CosineNode.types';
+export * from './nodes/math/FractionalNode/FractionalNode';
+export * from './nodes/math/FractionalNode/FractionalNode.types';
 
 /** Primitives */
-export * from './nodes/math/Vector2Node/Vector2Node';
-export * from './nodes/math/Vector2Node/Vector2Node.types';
-export * from './nodes/math/Vector3Node/Vector3Node';
-export * from './nodes/math/Vector3Node/Vector3Node.types';
-export * from './nodes/math/Vector4Node/Vector4Node';
-export * from './nodes/math/Vector4Node/Vector4Node.types';
+export * from './nodes/primitives/Vector2Node/Vector2Node';
+export * from './nodes/primitives/Vector2Node/Vector2Node.types';
+export * from './nodes/primitives/Vector3Node/Vector3Node';
+export * from './nodes/primitives/Vector3Node/Vector3Node.types';
+export * from './nodes/primitives/Vector4Node/Vector4Node';
+export * from './nodes/primitives/Vector4Node/Vector4Node.types';
 
 /** Noise */
 export * from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';

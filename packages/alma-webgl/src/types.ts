@@ -6,14 +6,15 @@ import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
+import { FractionalNode } from './nodes/math/FractionalNode/FractionalNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
 import { SubtractionNode } from './nodes/math/SubtractionNode/SubtractionNode';
-import { Vector2Node } from './nodes/math/Vector2Node/Vector2Node';
-import { Vector3Node } from './nodes/math/Vector3Node/Vector3Node';
-import { Vector4Node } from './nodes/math/Vector4Node/Vector4Node';
 import { SimplexNoiseNode } from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
+import { Vector2Node } from './nodes/primitives/Vector2Node/Vector2Node';
+import { Vector3Node } from './nodes/primitives/Vector3Node/Vector3Node';
+import { Vector4Node } from './nodes/primitives/Vector4Node/Vector4Node';
 import { CameraNode } from './nodes/textures/CameraNode/CameraNode';
 import { TextureNode } from './nodes/textures/TextureNode/TextureNode';
 import { MixNode } from './nodes/utils/MixNode/MixNode';
@@ -29,6 +30,7 @@ export enum WebGLNodeType {
     SUBTRACTION = 'SUBTRACTION',
     MULTIPLICATION = 'MULTIPLICATION',
     DIVISION = 'DIVISION',
+    FRACTIONAL = 'FRACTIONAL',
     GLSL = 'GLSL',
     MIX = 'MIX',
     MODULO = 'MODULO',
@@ -59,6 +61,7 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.SUBTRACTION]: ClassConstructor<SubtractionNode>;
     [WebGLNodeType.MULTIPLICATION]: ClassConstructor<MultiplicationNode>;
     [WebGLNodeType.DIVISION]: ClassConstructor<DivisionNode>;
+    [WebGLNodeType.FRACTIONAL]: ClassConstructor<FractionalNode>;
     [WebGLNodeType.GLSL]: ClassConstructor<GLSLNode>;
     [WebGLNodeType.MODULO]: ClassConstructor<ModuloNode>;
     [WebGLNodeType.TEXTURE]: ClassConstructor<TextureNode>;
@@ -86,6 +89,7 @@ export type WebGLNode =
     | SubtractionNode
     | MultiplicationNode
     | DivisionNode
+    | FractionalNode
     | GLSLNode
     | ModuloNode
     | SwizzleNode
