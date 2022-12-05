@@ -7,6 +7,8 @@ import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
 import { FractionalNode } from './nodes/math/FractionalNode/FractionalNode';
+import { MaximumNode } from './nodes/math/MaximumNode/MaximumNode';
+import { MinimumNode } from './nodes/math/MinimumNode/MinimumNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
@@ -31,6 +33,8 @@ export enum WebGLNodeType {
     MULTIPLICATION = 'MULTIPLICATION',
     DIVISION = 'DIVISION',
     FRACTIONAL = 'FRACTIONAL',
+    MINIMUM = 'MINIMUM',
+    MAXIMUM = 'MAXIMUM',
     GLSL = 'GLSL',
     MIX = 'MIX',
     MODULO = 'MODULO',
@@ -62,6 +66,8 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.MULTIPLICATION]: ClassConstructor<MultiplicationNode>;
     [WebGLNodeType.DIVISION]: ClassConstructor<DivisionNode>;
     [WebGLNodeType.FRACTIONAL]: ClassConstructor<FractionalNode>;
+    [WebGLNodeType.MINIMUM]: ClassConstructor<MinimumNode>;
+    [WebGLNodeType.MAXIMUM]: ClassConstructor<MaximumNode>;
     [WebGLNodeType.GLSL]: ClassConstructor<GLSLNode>;
     [WebGLNodeType.MODULO]: ClassConstructor<ModuloNode>;
     [WebGLNodeType.TEXTURE]: ClassConstructor<TextureNode>;
@@ -90,6 +96,8 @@ export type WebGLNode =
     | MultiplicationNode
     | DivisionNode
     | FractionalNode
+    | MinimumNode
+    | MaximumNode
     | GLSLNode
     | ModuloNode
     | SwizzleNode

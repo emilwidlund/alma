@@ -7,6 +7,8 @@ import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { CosineNode } from './nodes/math/CosineNode/CosineNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
 import { FractionalNode } from './nodes/math/FractionalNode/FractionalNode';
+import { MaximumNode } from './nodes/math/MaximumNode/MaximumNode';
+import { MinimumNode } from './nodes/math/MinimumNode/MinimumNode';
 import { ModuloNode } from './nodes/math/ModuloNode/ModuloNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
 import { SineNode } from './nodes/math/SineNode/SineNode';
@@ -32,6 +34,8 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.MULTIPLICATION]: MultiplicationNode,
     [WebGLNodeType.DIVISION]: DivisionNode,
     [WebGLNodeType.FRACTIONAL]: FractionalNode,
+    [WebGLNodeType.MINIMUM]: MinimumNode,
+    [WebGLNodeType.MAXIMUM]: MaximumNode,
     [WebGLNodeType.GLSL]: GLSLNode,
     [WebGLNodeType.MODULO]: ModuloNode,
     [WebGLNodeType.TEXTURE]: TextureNode,
@@ -84,6 +88,10 @@ export * from './nodes/math/CosineNode/CosineNode';
 export * from './nodes/math/CosineNode/CosineNode.types';
 export * from './nodes/math/FractionalNode/FractionalNode';
 export * from './nodes/math/FractionalNode/FractionalNode.types';
+export * from './nodes/math/MinimumNode/MinimumNode';
+export * from './nodes/math/MinimumNode/MinimumNode.types';
+export * from './nodes/math/MaximumNode/MaximumNode';
+export * from './nodes/math/MaximumNode/MaximumNode.types';
 
 /** Primitives */
 export * from './nodes/primitives/Vector2Node/Vector2Node';
