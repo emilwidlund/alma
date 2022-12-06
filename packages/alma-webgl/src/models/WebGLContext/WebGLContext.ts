@@ -1,5 +1,5 @@
-import { defMain, Sym, assign, vec4, program } from '@thi.ng/shader-ast';
-import { GLSLTarget, targetGLSL } from '@thi.ng/shader-ast-glsl';
+import { defMain, Sym, assign, vec4 } from '@thi.ng/shader-ast';
+import { GLSLTarget, GLSLVersion, targetGLSL } from '@thi.ng/shader-ast-glsl';
 import {
     compileModel,
     defQuadModel,
@@ -7,6 +7,8 @@ import {
     draw,
     ModelSpec,
     PASSTHROUGH_VS_UV,
+    shaderSourceFromAST,
+    ShaderSpec,
     UniformValues
 } from '@thi.ng/webgl';
 import { Context, INodeSerialized, Node } from 'alma-graph';
@@ -35,6 +37,8 @@ export class WebGLContext extends Context<WebGLContextNode> {
     public cameraManager: CameraManager;
     /** Nodes Collection to resolve from */
     public nodesCollection: INodesCollection;
+    /** Compiled Fragment Shader */
+    public fragment: string;
     /** Frame Id */
     public frameId?: number;
     /** Start Time */
@@ -54,11 +58,14 @@ export class WebGLContext extends Context<WebGLContextNode> {
         this.onFrameEnd = props.onFrameEnd;
         this.model = this.createModel();
         this.root = this.initialize();
+        this.fragment = '';
 
         makeObservable(this, {
             root: observable,
+            fragment: observable,
             size: computed,
-            setUniform: action
+            setUniform: action,
+            setFragment: action
         });
 
         this.setUniform('resolution', [this.size.width, this.size.height]);
@@ -75,18 +82,14 @@ export class WebGLContext extends Context<WebGLContextNode> {
         };
     }
 
-    /** Fragment output */
-    public get fragment(): string {
-        const value = this.root ? this.root.resolveValue(this.root.inputs.color.value) : vec4(0, 0, 0, 1);
-
-        return this.target(
-            program([defMain(() => [assign(this.target.gl_FragColor, isFunction(value) ? value() : value)])])
-        );
-    }
-
     /** Sets uniform by key & value */
     public setUniform<TKey extends keyof UniformValues>(key: TKey, value: UniformValues[TKey]): void {
         this.model.uniforms![key] = value;
+    }
+
+    /** Sets the fragment */
+    public setFragment(fragment: string) {
+        this.fragment = fragment;
     }
 
     /** Creates a WebGL Model */
@@ -98,22 +101,26 @@ export class WebGLContext extends Context<WebGLContextNode> {
         }, {});
         const textures = Array.from(this.textureManager.textures.values());
 
+        const shaderSpec: ShaderSpec = {
+            vs: PASSTHROUGH_VS_UV,
+            fs: this.compileGraph.bind(this),
+            uniforms: {
+                resolution: ['vec2', [this.size.width, this.size.height]],
+                time: ['float', 0],
+                mouse: ['vec2', [0, 0]],
+                ...textureUniforms
+            },
+            attribs: { position: 'vec2', uv: 'vec2' },
+            varying: { v_uv: 'vec2' }
+        };
+
         const model: ModelSpec = {
             ...defQuadModel(),
-            shader: defShader(this.ctx, {
-                vs: PASSTHROUGH_VS_UV,
-                fs: this.compileGraph.bind(this),
-                uniforms: {
-                    resolution: ['vec2', [this.size.width, this.size.height]],
-                    time: ['float', 0],
-                    mouse: ['vec2', [0, 0]],
-                    ...textureUniforms
-                },
-                attribs: { position: 'vec2', uv: 'vec2' },
-                varying: { v_uv: 'vec2' }
-            }),
+            shader: defShader(this.ctx, shaderSpec),
             textures
         };
+
+        this.setFragment(shaderSourceFromAST(shaderSpec, 'fs', GLSLVersion.GLES_300));
 
         compileModel(this.ctx, model);
 
