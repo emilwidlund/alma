@@ -44,7 +44,10 @@ import {
     DegreesNode,
     ClampNode,
     StepNode,
-    SmoothstepNode
+    SmoothstepNode,
+    CrossProductNode,
+    DotProductNode,
+    PINode
 } from 'alma-webgl';
 
 import { IContextMenuContainerSection } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer.types';
@@ -97,7 +100,7 @@ export const nodesHierarchy: (
                 label: 'Accessor',
                 items: [
                     {
-                        items: [TimeNode, UVNode].map(extractItem(createNodeCallback))
+                        items: [TimeNode, UVNode, PINode].map(extractItem(createNodeCallback))
                     }
                 ]
             },
@@ -157,6 +160,8 @@ export const nodesHierarchy: (
                             LengthNode,
                             DistanceNode,
                             NormalizeNode,
+                            CrossProductNode,
+                            DotProductNode,
                             SwizzleNode
                         ].map(extractItem(createNodeCallback))
                     }

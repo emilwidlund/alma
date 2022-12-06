@@ -18,11 +18,12 @@ export const propertyPanelInfoStyles = css`
     flex-direction: column;
     align-items: center;
     margin-top: 24px;
-    padding: 6px 0 12px 0;
+    padding: 16px 0 16px 0;
     text-align: center;
 `;
 
 export const propertyPanelInfoHeadingStyles = css`
+    font-weight: 500;
     margin: 24px 0 8px;
 `;
 
@@ -31,6 +32,7 @@ export const propertyPanelInfoParagraphStyles = css`
     color: var(--text-neutral-color);
     font-size: 12px;
     line-height: 1.6em;
+    padding: 0 12px;
 `;
 
 export const propertyPanelPortsContainerStyles = css`

@@ -4,7 +4,7 @@ export const panelWrapperStyles = css`
     display: flex;
     flex-direction: column;
     background-color: var(--panel-background);
-    width: 300px;
+    width: 320px;
     border-radius: 32px;
     box-sizing: border-box;
     overflow: auto;

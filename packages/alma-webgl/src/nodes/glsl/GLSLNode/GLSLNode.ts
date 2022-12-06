@@ -47,7 +47,7 @@ export class GLSLNode extends Node {
                         _.defaults<Partial<IInputProps<any>> | undefined, IInputProps<any>>(
                             this.properties.inputs?.[name],
                             {
-                                name,
+                                name: startCase(name),
                                 type,
                                 defaultValue: this.getTypesafeValue(type)
                             }
@@ -77,7 +77,7 @@ export class GLSLNode extends Node {
                     return {
                         ...accumulated,
                         [key]: new Input(this, {
-                            name: param.name,
+                            name: startCase(param.name),
                             type: param.type,
                             defaultValue: this.getTypesafeValue(param.type)
                         })

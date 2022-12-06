@@ -34,7 +34,6 @@ export const PropertyPanel = observer(
         const inputs = selectedCandidate?.inputs;
 
         const inputControls = Object.values(inputs || [])
-            .filter(input => !input.connected)
             .map(input => {
                 switch (input.type) {
                     case 'vec2':

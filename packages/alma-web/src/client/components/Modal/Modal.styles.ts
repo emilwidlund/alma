@@ -13,15 +13,17 @@ export const modalWrapperStyles = css`
     backdrop-filter: blur(10px);
     z-index: ${HIERARCHY.modal};
     overflow: hidden;
-    animation: fade-in 0.1s;
+    animation: fade-in 0.15s;
 
     @keyframes fade-in {
         from {
             opacity: 0;
+            transform: translate(0, 50px);
         }
 
         to {
             opacity: 1;
+            transform: translate(0, 0px);
         }
     }
 `;
