@@ -2,8 +2,7 @@ import { css } from '@emotion/css';
 
 export const booleanControlNameStyles = css`
     flex-grow: 1;
-    font-size: var(--font-size-sm);
-    font-weight: 600;
+    font-size: 12px;
     width: 120px;
     margin-right: 24px;
 `;

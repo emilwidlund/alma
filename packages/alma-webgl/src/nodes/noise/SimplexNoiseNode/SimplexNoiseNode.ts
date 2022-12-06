@@ -38,7 +38,7 @@ export class SimplexNoiseNode extends Node {
                 defaults<Partial<IInputProps<'vec2'>> | undefined, IInputProps<'vec2'>>(props.inputs?.shift, {
                     name: 'Shift',
                     type: 'vec2',
-                    defaultValue: vec2(2)
+                    defaultValue: vec2(2, 2)
                 })
             ),
             decay: new Input(

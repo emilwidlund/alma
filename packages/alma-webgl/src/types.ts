@@ -1,3 +1,7 @@
+import { PINode } from './nodes/accessor/PINode/PINode';
+import { TimeNode } from './nodes/accessor/TimeNode/TimeNode';
+import { UVNode } from './nodes/accessor/UVNode/UVNode';
+import { WebGLContextNode } from './nodes/accessor/WebGLContextNode/WebGLContextNode';
 import { AbsoluteNode } from './nodes/common/AbsoluteNode/AbsoluteNode';
 import { CeilNode } from './nodes/common/CeilNode/CeilNode';
 import { ClampNode } from './nodes/common/ClampNode/ClampNode';
@@ -10,9 +14,6 @@ import { ModuloNode } from './nodes/common/ModuloNode/ModuloNode';
 import { SignNode } from './nodes/common/SignNode/SignNode';
 import { SmoothstepNode } from './nodes/common/SmoothstepNode/SmoothstepNode';
 import { StepNode } from './nodes/common/StepNode/StepNode';
-import { TimeNode } from './nodes/common/TimeNode/TimeNode';
-import { UVNode } from './nodes/common/UVNode/UVNode';
-import { WebGLContextNode } from './nodes/common/WebGLContextNode/WebGLContextNode';
 import { CreationEffectNode } from './nodes/effects/CreationEffectNode/CreationEffectNode';
 import { ExponentiationNode } from './nodes/exponential/ExponentiationNode/ExponentiationNode';
 import { InverseSquareRootNode } from './nodes/exponential/InverseSquareRootNode/InverseSquareRootNode';
@@ -35,10 +36,12 @@ import { DegreesNode } from './nodes/trigonometry/DegreesNode/DegreesNode';
 import { RadiansNode } from './nodes/trigonometry/RadiansNode/RadiansNode';
 import { SineNode } from './nodes/trigonometry/SineNode/SineNode';
 import { TangentNode } from './nodes/trigonometry/TangentNode/TangentNode';
-import { SwizzleNode } from './nodes/utils/SwizzleNode/SwizzleNode';
+import { CrossProductNode } from './nodes/vectors/CrossProductNode/CrossProductNode';
 import { DistanceNode } from './nodes/vectors/DistanceNode/DistanceNode';
+import { DotProductNode } from './nodes/vectors/DotProductNode/DotProductNode';
 import { LengthNode } from './nodes/vectors/LengthNode/LengthNode';
 import { NormalizeNode } from './nodes/vectors/NormalizeNode/NormalizeNode';
+import { SwizzleNode } from './nodes/vectors/SwizzleNode/SwizzleNode';
 import { Vector2Node } from './nodes/vectors/Vector2Node/Vector2Node';
 import { Vector3Node } from './nodes/vectors/Vector3Node/Vector3Node';
 import { Vector4Node } from './nodes/vectors/Vector4Node/Vector4Node';
@@ -65,6 +68,8 @@ export enum WebGLNodeType {
     LENGTH = 'LENGTH',
     DISTANCE = 'DISTANCE',
     NORMALIZE = 'NORMALIZE',
+    CROSS_PRODUCT = 'CROSS_PRODUCT',
+    DOT_PRODUCT = 'DOT_PRODUCT',
     POWER = 'POWER',
     SQUARE_ROOT = 'SQUARE_ROOT',
     INVERSE_SQUARE_ROOT = 'INVERSE_SQUARE_ROOT',
@@ -87,6 +92,7 @@ export enum WebGLNodeType {
     VECTOR_2 = 'VECTOR_2',
     VECTOR_3 = 'VECTOR_3',
     VECTOR_4 = 'VECTOR_4',
+    PI = 'PI',
 
     // Effects
     CREATION_EFFECT = 'CREATION_EFFECT'
@@ -118,6 +124,8 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.CEIL]: ClassConstructor<CeilNode>;
     [WebGLNodeType.LENGTH]: ClassConstructor<LengthNode>;
     [WebGLNodeType.DISTANCE]: ClassConstructor<DistanceNode>;
+    [WebGLNodeType.CROSS_PRODUCT]: ClassConstructor<CrossProductNode>;
+    [WebGLNodeType.DOT_PRODUCT]: ClassConstructor<DotProductNode>;
     [WebGLNodeType.POWER]: ClassConstructor<PowerNode>;
     [WebGLNodeType.SQUARE_ROOT]: ClassConstructor<SquareRootNode>;
     [WebGLNodeType.INVERSE_SQUARE_ROOT]: ClassConstructor<InverseSquareRootNode>;
@@ -141,6 +149,7 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.VECTOR_2]: ClassConstructor<Vector2Node>;
     [WebGLNodeType.VECTOR_3]: ClassConstructor<Vector3Node>;
     [WebGLNodeType.VECTOR_4]: ClassConstructor<Vector4Node>;
+    [WebGLNodeType.PI]: ClassConstructor<PINode>;
 
     // Effects
     [WebGLNodeType.CREATION_EFFECT]: ClassConstructor<CreationEffectNode>;
@@ -169,6 +178,8 @@ export type WebGLNode =
     | CeilNode
     | LengthNode
     | DistanceNode
+    | CrossProductNode
+    | DotProductNode
     | NormalizeNode
     | TangentNode
     | ArctangentNode
@@ -192,4 +203,5 @@ export type WebGLNode =
     | Vector2Node
     | Vector3Node
     | Vector4Node
+    | PINode
     | WebGLEffectNode;

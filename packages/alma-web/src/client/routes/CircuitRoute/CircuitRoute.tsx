@@ -63,7 +63,7 @@ export const CircuitRoute = () => {
         }
     }, []);
 
-    const canvasSize = isInFullscreen ? window.screen : { width: 300, height: 200 };
+    const canvasSize = isInFullscreen ? window.screen : { width: 320, height: 220 };
 
     return (
         <CircuitProvider context={context}>

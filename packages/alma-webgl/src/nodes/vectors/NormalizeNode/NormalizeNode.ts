@@ -34,7 +34,7 @@ export class NormalizeNode extends PolymorphicNode {
             defaults<Partial<IInputProps<Vec>> | undefined, IInputProps<Vec>>(props.inputs?.input, {
                 name: 'Input',
                 type: 'vec2',
-                defaultValue: vec2()
+                defaultValue: vec2(0, 0)
             })
         );
 

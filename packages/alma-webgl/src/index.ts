@@ -1,3 +1,7 @@
+import { PINode } from './nodes/accessor/PINode/PINode';
+import { TimeNode } from './nodes/accessor/TimeNode/TimeNode';
+import { UVNode } from './nodes/accessor/UVNode/UVNode';
+import { WebGLContextNode } from './nodes/accessor/WebGLContextNode/WebGLContextNode';
 import { AbsoluteNode } from './nodes/common/AbsoluteNode/AbsoluteNode';
 import { CeilNode } from './nodes/common/CeilNode/CeilNode';
 import { ClampNode } from './nodes/common/ClampNode/ClampNode';
@@ -10,9 +14,6 @@ import { ModuloNode } from './nodes/common/ModuloNode/ModuloNode';
 import { SignNode } from './nodes/common/SignNode/SignNode';
 import { SmoothstepNode } from './nodes/common/SmoothstepNode/SmoothstepNode';
 import { StepNode } from './nodes/common/StepNode/StepNode';
-import { TimeNode } from './nodes/common/TimeNode/TimeNode';
-import { UVNode } from './nodes/common/UVNode/UVNode';
-import { WebGLContextNode } from './nodes/common/WebGLContextNode/WebGLContextNode';
 import { CreationEffectNode } from './nodes/effects/CreationEffectNode/CreationEffectNode';
 import { ExponentiationNode } from './nodes/exponential/ExponentiationNode/ExponentiationNode';
 import { InverseSquareRootNode } from './nodes/exponential/InverseSquareRootNode/InverseSquareRootNode';
@@ -35,10 +36,12 @@ import { DegreesNode } from './nodes/trigonometry/DegreesNode/DegreesNode';
 import { RadiansNode } from './nodes/trigonometry/RadiansNode/RadiansNode';
 import { SineNode } from './nodes/trigonometry/SineNode/SineNode';
 import { TangentNode } from './nodes/trigonometry/TangentNode/TangentNode';
-import { SwizzleNode } from './nodes/utils/SwizzleNode/SwizzleNode';
+import { CrossProductNode } from './nodes/vectors/CrossProductNode/CrossProductNode';
 import { DistanceNode } from './nodes/vectors/DistanceNode/DistanceNode';
+import { DotProductNode } from './nodes/vectors/DotProductNode/DotProductNode';
 import { LengthNode } from './nodes/vectors/LengthNode/LengthNode';
 import { NormalizeNode } from './nodes/vectors/NormalizeNode/NormalizeNode';
+import { SwizzleNode } from './nodes/vectors/SwizzleNode/SwizzleNode';
 import { Vector2Node } from './nodes/vectors/Vector2Node/Vector2Node';
 import { Vector3Node } from './nodes/vectors/Vector3Node/Vector3Node';
 import { Vector4Node } from './nodes/vectors/Vector4Node/Vector4Node';
@@ -66,6 +69,8 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.LENGTH]: LengthNode,
     [WebGLNodeType.DISTANCE]: DistanceNode,
     [WebGLNodeType.NORMALIZE]: NormalizeNode,
+    [WebGLNodeType.CROSS_PRODUCT]: CrossProductNode,
+    [WebGLNodeType.DOT_PRODUCT]: DotProductNode,
     [WebGLNodeType.TANGENT]: TangentNode,
     [WebGLNodeType.ARCTANGENT]: ArctangentNode,
     [WebGLNodeType.RADIANS]: RadiansNode,
@@ -88,6 +93,7 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.VECTOR_2]: Vector2Node,
     [WebGLNodeType.VECTOR_3]: Vector3Node,
     [WebGLNodeType.VECTOR_4]: Vector4Node,
+    [WebGLNodeType.PI]: PINode,
 
     // Effects
     [WebGLNodeType.CREATION_EFFECT]: CreationEffectNode
@@ -129,12 +135,14 @@ export * from './nodes/common/SmoothstepNode/SmoothstepNode';
 export * from './nodes/common/SmoothstepNode/SmoothstepNode.types';
 
 /** Accessor Nodes */
-export * from './nodes/common/TimeNode/TimeNode';
-export * from './nodes/common/TimeNode/TimeNode.types';
-export * from './nodes/common/UVNode/UVNode';
-export * from './nodes/common/UVNode/UVNode.types';
-export * from './nodes/common/WebGLContextNode/WebGLContextNode';
-export * from './nodes/common/WebGLContextNode/WebGLContextNode.types';
+export * from './nodes/accessor/TimeNode/TimeNode';
+export * from './nodes/accessor/TimeNode/TimeNode.types';
+export * from './nodes/accessor/UVNode/UVNode';
+export * from './nodes/accessor/UVNode/UVNode.types';
+export * from './nodes/accessor/PINode/PINode';
+export * from './nodes/accessor/PINode/PINode.types';
+export * from './nodes/accessor/WebGLContextNode/WebGLContextNode';
+export * from './nodes/accessor/WebGLContextNode/WebGLContextNode.types';
 
 /** Math Nodes */
 export * from './nodes/math/AdditionNode/AdditionNode';
@@ -189,8 +197,12 @@ export * from './nodes/vectors/DistanceNode/DistanceNode';
 export * from './nodes/vectors/DistanceNode/DistanceNode.types';
 export * from './nodes/vectors/NormalizeNode/NormalizeNode';
 export * from './nodes/vectors/NormalizeNode/NormalizeNode.types';
-export * from './nodes/utils/SwizzleNode/SwizzleNode';
-export * from './nodes/utils/SwizzleNode/SwizzleNode.types';
+export * from './nodes/vectors/CrossProductNode/CrossProductNode';
+export * from './nodes/vectors/CrossProductNode/CrossProductNode.types';
+export * from './nodes/vectors/DotProductNode/DotProductNode';
+export * from './nodes/vectors/DotProductNode/DotProductNode.types';
+export * from './nodes/vectors/SwizzleNode/SwizzleNode';
+export * from './nodes/vectors/SwizzleNode/SwizzleNode.types';
 
 /** Textures */
 export * from './nodes/textures/TextureNode/TextureNode';

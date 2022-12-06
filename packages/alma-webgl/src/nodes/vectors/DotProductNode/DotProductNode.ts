@@ -1,23 +1,23 @@
-import { distance, Vec, vec2 } from '@thi.ng/shader-ast';
+import { dot, Vec, vec2 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IDistanceNodeInputs, IDistanceNodeOutputs, IDistanceNodeProps } from './DistanceNode.types';
+import { IDotProductNodeInputs, IDotProductNodeOutputs, IDotProductNodeProps } from './DotProductNode.types';
 
-export class DistanceNode extends PolymorphicNode {
-    static icon = 'open_in_full';
-    static description = 'Returns the distance between the inputs.';
+export class DotProductNode extends PolymorphicNode {
+    static icon = 'multiple_stop';
+    static description = 'Returns the dot product of two vectors, A and B.';
+    static nodeName = 'Dot Product';
 
-    static nodeName = 'Distance';
-    type = WebGLNodeType.DISTANCE;
+    type = WebGLNodeType.DOT_PRODUCT;
 
-    inputs: IDistanceNodeInputs;
-    outputs: IDistanceNodeOutputs;
+    inputs: IDotProductNodeInputs;
+    outputs: IDotProductNodeOutputs;
 
-    constructor(context: WebGLContext, props: IDistanceNodeProps = {}) {
+    constructor(context: WebGLContext, props: IDotProductNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -49,13 +49,13 @@ export class DistanceNode extends PolymorphicNode {
         };
 
         this.outputs = {
-            distance: new Output(
+            output: new Output(
                 this,
-                defaults<Partial<IOutputProps<'float'>> | undefined, IOutputProps<'float'>>(props.outputs?.distance, {
-                    name: 'Distance',
+                defaults<Partial<IOutputProps<'float'>> | undefined, IOutputProps<'float'>>(props.outputs?.output, {
+                    name: 'Output',
                     type: 'float',
                     value: () => {
-                        return distance<Vec, Vec>(
+                        return dot<Vec, Vec>(
                             this.resolveValue(this.inputs.a.value),
                             this.resolveValue(this.inputs.b.value)
                         );

@@ -13,7 +13,7 @@ import { Context, INodeSerialized, Node } from 'alma-graph';
 import { isFunction } from 'lodash';
 import { action, computed, IReactionDisposer, makeObservable, observable, reaction } from 'mobx';
 
-import { WebGLContextNode } from '../../nodes/common/WebGLContextNode/WebGLContextNode';
+import { WebGLContextNode } from '../../nodes/accessor/WebGLContextNode/WebGLContextNode';
 import { CameraManager } from '../CameraManager/CameraManager';
 import { TextureManager } from '../TextureManager/TextureManager';
 import { DrawingSize, ICompiledUniforms, INodesCollection, IWebGLContextProps } from './WebGLContext.types';
