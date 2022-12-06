@@ -32,6 +32,9 @@ export const NumberControl = observer(({ port }: INumberControlProps) => {
                 onChange={onChange}
                 value={value}
                 type="range"
+                min={-10}
+                max={10}
+                step={0.1}
                 disabled={disabled}
             />
             <Input

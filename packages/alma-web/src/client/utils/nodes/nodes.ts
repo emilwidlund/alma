@@ -9,9 +9,13 @@ import {
     CosineNode,
     GLSLNode,
     MixNode,
+    MinimumNode,
+    MaximumNode,
     ModuloNode,
     SimplexNoiseNode,
     SineNode,
+    ArccosineNode,
+    SignNode,
     SwizzleNode,
     TimeNode,
     UVNode,
@@ -19,7 +23,28 @@ import {
     Vector3Node,
     Vector4Node,
     WebGLNode,
-    TextureNode
+    TextureNode,
+    CreationEffectNode,
+    FractionalNode,
+    AbsoluteNode,
+    FloorNode,
+    CeilNode,
+    PowerNode,
+    SquareRootNode,
+    InverseSquareRootNode,
+    ArcsineNode,
+    TangentNode,
+    ArctangentNode,
+    ExponentiationNode,
+    LogarithmNode,
+    LengthNode,
+    DistanceNode,
+    NormalizeNode,
+    RadiansNode,
+    DegreesNode,
+    ClampNode,
+    StepNode,
+    SmoothstepNode
 } from 'alma-webgl';
 
 import { IContextMenuContainerSection } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer.types';
@@ -45,35 +70,101 @@ export const nodesHierarchy: (
     {
         items: [
             {
-                icon: 'hive',
-                label: 'Core',
-                items: [{ items: [TimeNode, UVNode, GLSLNode].map(extractItem(createNodeCallback)) }]
+                icon: 'shapes',
+                label: 'Common',
+                items: [
+                    {
+                        items: [
+                            ModuloNode,
+                            MixNode,
+                            FractionalNode,
+                            MinimumNode,
+                            MaximumNode,
+                            AbsoluteNode,
+                            SignNode,
+                            FloorNode,
+                            CeilNode,
+                            ClampNode,
+                            StepNode,
+                            SmoothstepNode,
+                            GLSLNode
+                        ].map(extractItem(createNodeCallback))
+                    }
+                ]
             },
             {
-                icon: 'shapes',
-                label: 'Primitives',
-                items: [{ items: [Vector2Node, Vector3Node, Vector4Node].map(extractItem(createNodeCallback)) }]
+                icon: 'hive',
+                label: 'Accessor',
+                items: [
+                    {
+                        items: [TimeNode, UVNode].map(extractItem(createNodeCallback))
+                    }
+                ]
             },
             {
                 icon: 'percent',
                 label: 'Math',
                 items: [
                     {
+                        items: [AdditionNode, SubtractionNode, MultiplicationNode, DivisionNode].map(
+                            extractItem(createNodeCallback)
+                        )
+                    }
+                ]
+            },
+            {
+                icon: 'change_history',
+                label: 'Trigonometry',
+                items: [
+                    {
                         items: [
-                            AdditionNode,
-                            SubtractionNode,
-                            MultiplicationNode,
-                            DivisionNode,
-                            ModuloNode,
+                            RadiansNode,
+                            DegreesNode,
                             SineNode,
-                            CosineNode
+                            ArcsineNode,
+                            CosineNode,
+                            ArccosineNode,
+                            TangentNode,
+                            ArctangentNode
+                        ].map(extractItem(createNodeCallback))
+                    }
+                ]
+            },
+            {
+                icon: 'trending_up',
+                label: 'Exponential',
+                items: [
+                    {
+                        items: [
+                            ExponentiationNode,
+                            LogarithmNode,
+                            PowerNode,
+                            SquareRootNode,
+                            InverseSquareRootNode
+                        ].map(extractItem(createNodeCallback))
+                    }
+                ]
+            },
+            {
+                icon: 'polyline',
+                label: 'Vector',
+                items: [
+                    {
+                        items: [
+                            Vector2Node,
+                            Vector3Node,
+                            Vector4Node,
+                            LengthNode,
+                            DistanceNode,
+                            NormalizeNode,
+                            SwizzleNode
                         ].map(extractItem(createNodeCallback))
                     }
                 ]
             },
             {
                 icon: 'texture',
-                label: 'Textures',
+                label: 'Texture',
                 items: [{ items: [TextureNode, CameraNode].map(extractItem(createNodeCallback)) }]
             },
             {
@@ -82,9 +173,9 @@ export const nodesHierarchy: (
                 items: [{ items: [SimplexNoiseNode].map(extractItem(createNodeCallback)) }]
             },
             {
-                icon: 'construction',
-                label: 'Utilities',
-                items: [{ items: [MixNode, SwizzleNode].map(extractItem(createNodeCallback)) }]
+                icon: 'stream',
+                label: 'Effect',
+                items: [{ items: [CreationEffectNode].map(extractItem(createNodeCallback)) }]
             }
         ]
     }

@@ -12,13 +12,14 @@ export const buttonStyles = (variant?: ButtonVariant) => css`
     text-transform: uppercase;
     letter-spacing: 0.15em;
     font-feature-settings: 'ss01' 1, 'cv01' 1;
-    padding: 16px 24px;
+    padding: 14px 24px;
     line-height: inherit;
-    background-color: ${variant === ButtonVariant.SECONDARY ? 'rgba(255, 255, 255, .1)' : 'var(--accent-color)'};
+    background-color: ${variant === ButtonVariant.SECONDARY ? 'transparent' : 'var(--accent-color)'};
     border: none;
     border-radius: 8px;
     color: var(--text-light-color);
     transition: opacity 0.15s;
+    box-shadow: ${variant === ButtonVariant.SECONDARY ? 'none' : '0 5px 10px rgba(0, 0, 0, .1)'};
 
     &:hover:not(:disabled) {
         opacity: 0.6;

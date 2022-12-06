@@ -14,7 +14,6 @@ export const contextMenuContainerStyles = (position?: IPoint) => css`
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-feature-settings: 'ss02' 1;
-    max-height: 500px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     z-index: ${HIERARCHY.contextMenu};
 
@@ -37,5 +36,5 @@ export const contextMenuSectionStyles = css`
 export const contextMenuSectionTitleStyles = css`
     margin-top: 4px;
     padding: 0 0 8px 12px;
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-xxs);
 `;

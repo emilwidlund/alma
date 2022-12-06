@@ -5,6 +5,7 @@ import { Artboard } from '../../components/Artboard/Artboard';
 import { BooleanControl } from '../../components/Control/BooleanControl/BooleanControl';
 import { NumberControl } from '../../components/Control/NumberControl/NumberControl';
 import { TypeControl } from '../../components/Control/TypeControl/TypeControl';
+import { VectorControl } from '../../components/Control/VectorControl/VectorControl';
 import { Heading } from '../../components/Heading/Heading';
 import { Icon } from '../../components/Icon/Icon';
 import { Panel } from '../../components/Panel/Panel';
@@ -36,6 +37,10 @@ export const PropertyPanel = observer(
             .filter(input => !input.connected)
             .map(input => {
                 switch (input.type) {
+                    case 'vec2':
+                    case 'vec3':
+                    case 'vec4':
+                        return <VectorControl key={input.id} port={input} />;
                     case 'float':
                         return <NumberControl key={input.id} port={input} />;
                     case 'bool':

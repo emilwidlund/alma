@@ -8,7 +8,7 @@ import { WebGLNodeType } from '../../../types';
 import { ISmoothstepNodeInputs, ISmoothstepNodeOutputs, ISmoothstepNodeProps } from './SmoothstepNode.types';
 
 export class SmoothstepNode extends PolymorphicNode {
-    static icon = 'u_turn_right';
+    static icon = 'border_vertical';
     static description = 'Returns a smooth Hermite interpolation between 0 and 1 when Edge A < Input < Edge B.';
     static nodeName = 'Smoothstep';
 

@@ -9,7 +9,7 @@ export const typeControlNameStyles = css`
 `;
 
 export const typeControlInputStyles = css`
-    width: 120px;
+    width: 136px;
     background-color: var(--panel-background);
     color: var(--text-light-color);
     font-size: var(--font-size-xxs);
