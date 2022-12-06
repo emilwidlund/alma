@@ -8,6 +8,7 @@ injectGlobal`
         font-size: 12px;
         color: var(--text-neutral-color);
         font-feature-settings: "ss01" 1, "cv01" 1;
+        color-scheme: dark;
     }
 
     @supports (font-variation-settings: normal) {
