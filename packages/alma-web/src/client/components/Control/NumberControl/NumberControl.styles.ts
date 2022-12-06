@@ -34,7 +34,7 @@ export const numberControlRangeStyles = css`
         background: var(--accent-color);
         cursor: pointer;
         border: none;
-        margin-top: -4px;
+        margin-top: -5px;
     }
 
     /* All the same stuff for Firefox */

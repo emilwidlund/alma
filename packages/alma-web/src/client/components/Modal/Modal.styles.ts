@@ -18,12 +18,10 @@ export const modalWrapperStyles = css`
     @keyframes fade-in {
         from {
             opacity: 0;
-            transform: translate(0, 50px);
         }
 
         to {
             opacity: 1;
-            transform: translate(0, 0px);
         }
     }
 `;
@@ -31,7 +29,7 @@ export const modalWrapperStyles = css`
 export const modalContainerStyles = css`
     display: flex;
     flex-direction: column;
-    width: 540px;
+    width: 600px;
     border-radius: 24px;
     font-size: var(--font-size-xs);
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
@@ -41,7 +39,7 @@ export const modalContainerStyles = css`
 export const modalContentStyles = css`
     display: flex;
     flex-direction: column;
-    padding: 32px;
+    padding: 42px;
 `;
 
 export const modalFooterStyles = css`

@@ -64,7 +64,7 @@ const Selection = observer(() => {
 });
 
 export const CircuitContainer = observer(
-    React.forwardRef<HTMLDivElement, ICircuitContainerProps>((props, ref) => {
+    React.forwardRef<HTMLDivElement, ICircuitContainerProps>(({ onFullscreen }, ref) => {
         const [contextMenuPosition, toggleContextMenu] = React.useState<IPoint | undefined>(undefined);
         const circuit = useCircuit();
         const { open: openCodeModal } = useCodeModal();
@@ -172,7 +172,7 @@ export const CircuitContainer = observer(
                                         label: 'View Fragment',
                                         onClick: () => openCodeModal(circuit.context?.fragment || '')
                                     },
-                                    { icon: 'fullscreen', label: 'View Fullscreen' }
+                                    { icon: 'fullscreen', label: 'View Fullscreen', onClick: onFullscreen }
                                 ]
                             }
                         ]}

@@ -23,10 +23,10 @@ export const AppRoutes = () => {
     const [params] = useSearchParams();
 
     React.useEffect(() => {
-        if (!localStorage.getItem('welcome') || params.get('welcome') === 'true') {
+        if (!localStorage.getItem('onboardingCompleted') || params.get('onboarding') === 'true') {
             openWelcomeModal({
                 onClose: () => {
-                    localStorage.setItem('welcome', 'true');
+                    localStorage.setItem('onboardingCompleted', 'true');
                 }
             });
         }

@@ -13,5 +13,5 @@ export const textAreaStyles = css`
     color: var(--text-light-color);
     font-family: monospace;
     padding: 16px;
-    min-height: 200px;
+    min-height: 260px;
 `;
