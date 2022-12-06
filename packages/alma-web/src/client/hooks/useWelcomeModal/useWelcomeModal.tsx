@@ -16,8 +16,8 @@ const WelcomeModalContent = () => {
                 Welcome to Alma
             </Heading>
             <p>
-                Alma is an interactive playground for generative graphics. It lets you assemble nodes to craft beautiful
-                effects and effects - all through an intuitive user interface.
+                Alma is an interactive playground for generative graphics. It lets you compose nodes to craft beautiful
+                effects and visual experiences - all through an intuitive user interface.
             </p>
             <p>
                 This is a very early preview version.

@@ -8,7 +8,7 @@ import { WebGLNodeType } from '../../../types';
 import { IStepNodeInputs, IStepNodeOutputs, IStepNodeProps } from './StepNode.types';
 
 export class StepNode extends PolymorphicNode {
-    static icon = 'turn_right';
+    static icon = 'horizontal_distribute';
     static description = 'Generates a step function by comparing input to edge.';
 
     static nodeName = 'Step';
