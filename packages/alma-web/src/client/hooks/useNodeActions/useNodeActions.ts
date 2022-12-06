@@ -1,5 +1,5 @@
 import { Node } from 'alma-graph';
-import { GLSLNode } from 'alma-webgl';
+import { GLSLNode, WebGLNodeType } from 'alma-webgl';
 import { useCallback, useMemo } from 'react';
 
 import { INodeActionProps } from '../../components/Node/Node.types';
@@ -52,8 +52,9 @@ export const useNodeActions = (node: Node): INodeActionProps[] => {
         [onClose]
     );
 
-    switch (node.constructor) {
-        case GLSLNode:
+    switch (node.type) {
+        case WebGLNodeType.GLSL:
+        case WebGLNodeType.CREATION_EFFECT:
             return [editNodeAction, closeAction];
         default:
             return [closeAction];
