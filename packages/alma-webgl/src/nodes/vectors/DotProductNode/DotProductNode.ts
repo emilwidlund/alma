@@ -27,7 +27,7 @@ export class DotProductNode extends PolymorphicNode {
             }
         });
 
-        super(context, props, false);
+        super(context, props, true, false);
 
         this.inputs = {
             a: new Input(

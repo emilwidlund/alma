@@ -10,8 +10,8 @@ import { IMixNodeData, IMixNodeInputs, IMixNodeOutputs, IMixNodeProps } from './
 export class MixNode extends PolymorphicNode {
     static icon = 'tonality';
     static description = 'Performs a linear interpolation between A and B using T to weight between them.';
-
     static nodeName = 'Mix';
+
     type = WebGLNodeType.MIX;
 
     inputs: IMixNodeInputs;
@@ -28,7 +28,7 @@ export class MixNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(context, props, ['a', 'b']);
 
         const inputA = new Input(
             this,
@@ -64,17 +64,14 @@ export class MixNode extends PolymorphicNode {
         this.outputs = {
             output: new Output(
                 this,
-                // @ts-ignore
-                defaults<Partial<IOutputProps<'float'>> | undefined, IOutputProps<'float'>>(props.outputs?.output, {
+                defaults<Partial<IOutputProps<Prim>> | undefined, IOutputProps<Prim>>(props.outputs?.output, {
                     name: 'Output',
                     get type() {
                         return inputA.type;
                     },
                     value: () => {
-                        return mix(
-                            // @ts-ignore
+                        return mix<Prim, Prim, Prim>(
                             this.resolveValue(this.inputs.a.value),
-                            // @ts-ignore
                             this.resolveValue(this.inputs.b.value),
                             this.resolveValue(this.inputs.t.value)
                         );

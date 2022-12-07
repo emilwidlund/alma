@@ -27,7 +27,7 @@ export class LengthNode extends PolymorphicNode {
             }
         });
 
-        super(context, props, false);
+        super(context, props, true, false);
 
         const input = new Input(
             this,
