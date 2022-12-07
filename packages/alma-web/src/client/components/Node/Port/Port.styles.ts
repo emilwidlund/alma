@@ -13,6 +13,7 @@ export const portWrapperStyles = (highlighted: boolean, reverseDirection: boolea
     letter-spacing: 0.1em;
     cursor: pointer;
     user-select: none;
+    -webkit-user-select: none;
     transition: opacity 0.15s;
 
     ${reverseDirection ? 'padding-left' : 'padding-right'}: 16px;

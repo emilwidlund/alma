@@ -13,6 +13,7 @@ export const nodeWrapperStyles = (active: boolean) => css`
     flex-direction: column;
     width: ${NODE_WIDTH}px;
     user-select: none;
+    -webkit-user-select: none;
     z-index: ${active ? HIERARCHY.activeNode : HIERARCHY.node};
     border-radius: 12px;
     transition: box-shadow 0.15s;

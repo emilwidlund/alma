@@ -1,4 +1,4 @@
-import { Node } from 'alma-graph';
+import { IContextSerialized, Node } from 'alma-graph';
 import { ClassConstructor } from 'alma-webgl';
 import * as React from 'react';
 
@@ -14,13 +14,14 @@ import { useCodeModal } from '../../hooks/useCodeModal/useCodeModal';
 import { useCreateNode } from '../../hooks/useCreateNode/useCreateNode';
 import { useFragmentModal } from '../../hooks/useFragmentModal/useFragmentModal';
 import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider';
-import { nodesHierarchy } from '../../utils/nodes/nodes';
-import { circuitRouteWrapperStyles, contextMenuWrapperStyles } from './CircuitRoute.styles';
+import { examplesHierarchy, nodesHierarchy } from '../../utils/nodes/nodes';
+import { circuitRouteWrapperStyles, contextMenuWrapperStyles, examplesMenuWrapperStyles } from './CircuitRoute.styles';
 
 export const CircuitRoute = () => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const circuitRef = React.useRef<HTMLDivElement>(null);
-    const [contextMenuVisible, toggleContextMenu] = React.useState(false);
+    const [nodesMenuVisible, toggleNodesMenu] = React.useState(false);
+    const [examplesMenuVisible, toggleExamplesMenu] = React.useState(false);
     const [isInFullscreen, setIsInFullscreen] = React.useState(false);
     const { open: openFragmentModal } = useFragmentModal();
     const { open: openCodeModal } = useCodeModal();
@@ -31,11 +32,20 @@ export const CircuitRoute = () => {
 
     const onContextMenuItemClick = React.useCallback(
         (nodeClass: ClassConstructor<Node>) => {
-            toggleContextMenu(false);
+            toggleNodesMenu(false);
 
             createNode(nodeClass);
         },
-        [createNode, toggleContextMenu]
+        [createNode, toggleNodesMenu]
+    );
+
+    const onExamplesMenuItemClick = React.useCallback(
+        (serialized: IContextSerialized) => {
+            buildContext(serialized);
+
+            toggleExamplesMenu(false);
+        },
+        [createNode, toggleNodesMenu]
     );
 
     const onImportExportClick = React.useCallback(() => {
@@ -51,9 +61,9 @@ export const CircuitRoute = () => {
         e => {
             e.preventDefault();
 
-            toggleContextMenu(position => !position);
+            toggleNodesMenu(position => !position);
         },
-        [toggleContextMenu]
+        [toggleNodesMenu]
     );
 
     React.useEffect(() => {
@@ -70,7 +80,29 @@ export const CircuitRoute = () => {
 
     const onFullscreenClick = React.useCallback(() => {
         if (canvasRef.current) {
-            canvasRef.current.requestFullscreen();
+            const docEl = canvasRef.current;
+
+            const requestFullScreen =
+                docEl.requestFullscreen ||
+                docEl.mozRequestFullScreen ||
+                docEl.webkitRequestFullscreen ||
+                docEl.msRequestFullscreen;
+            const cancelFullScreen =
+                document.exitFullscreen ||
+                document.mozCancelFullScreen ||
+                document.webkitExitFullscreen ||
+                document.msExitFullscreen;
+
+            if (
+                !document.fullscreenElement &&
+                !document.mozFullScreenElement &&
+                !document.webkitFullscreenElement &&
+                !document.msFullscreenElement
+            ) {
+                requestFullScreen.call(docEl);
+            } else {
+                cancelFullScreen.call(document);
+            }
         }
     }, []);
 
@@ -89,16 +121,29 @@ export const CircuitRoute = () => {
                             onClick={() => openFragmentModal(context?.fragment || '')}
                             outlined
                         />
-                        <ToolbarItem label="Connection" icon="conversion_path" onClick={console.log} />
-                        <ToolbarItem label="New Node" icon="add" onClick={toggleContextMenu.bind(this, true)} cta />
+                        <ToolbarItem
+                            label="Examples"
+                            icon="shape_line"
+                            onClick={toggleExamplesMenu.bind(this, true)}
+                            outlined
+                        />
+                        <ToolbarItem label="New Node" icon="add" onClick={toggleNodesMenu.bind(this, true)} cta />
                         <ToolbarItem label="Import / Export" icon="save" onClick={onImportExportClick} />
                         <ToolbarItem label="Fullscreen" icon="open_in_full" onClick={onFullscreenClick} />
                     </Toolbar>
-                    {!!contextMenuVisible && (
+                    {!!nodesMenuVisible && (
                         <div className={contextMenuWrapperStyles}>
                             <ContextMenuContainer
                                 sections={nodesHierarchy(onContextMenuItemClick)}
-                                onClose={toggleContextMenu.bind(this, false)}
+                                onClose={toggleNodesMenu.bind(this, false)}
+                            />
+                        </div>
+                    )}
+                    {!!examplesMenuVisible && (
+                        <div className={examplesMenuWrapperStyles}>
+                            <ContextMenuContainer
+                                sections={examplesHierarchy(onExamplesMenuItemClick)}
+                                onClose={toggleExamplesMenu.bind(this, false)}
                             />
                         </div>
                     )}

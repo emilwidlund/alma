@@ -43,6 +43,7 @@ export const NumberControl = observer(({ port }: INumberControlProps) => {
                 onChange={onChange}
                 value={value}
                 type="number"
+                step={0.1}
                 disabled={disabled}
             />
         </BaseControl>

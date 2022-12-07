@@ -1,4 +1,4 @@
-import { Node } from 'alma-graph';
+import { IContextSerialized, Node } from 'alma-graph';
 import {
     AdditionNode,
     SubtractionNode,
@@ -52,6 +52,7 @@ import {
 
 import { IContextMenuContainerSection } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer.types';
 import { IContextMenuItemProps } from '../../components/ContextMenu/ContextMenuItem/ContextMenuItem.types';
+import * as example1 from '../../examples/example1.json';
 
 const extractItem = (
     createNodeCallback: (nodeClass: ClassConstructor<WebGLNode>) => void
@@ -181,6 +182,20 @@ export const nodesHierarchy: (
                 icon: 'stream',
                 label: 'Effect',
                 items: [{ items: [CreationEffectNode].map(extractItem(createNodeCallback)) }]
+            }
+        ]
+    }
+];
+
+export const examplesHierarchy: (
+    createNodeCallback: (serialized: IContextSerialized) => void
+) => IContextMenuContainerSection[] = createContextCallback => [
+    {
+        items: [
+            {
+                label: 'Example 1',
+                icon: 'stream',
+                onClick: () => createContextCallback(example1 as IContextSerialized)
             }
         ]
     }
