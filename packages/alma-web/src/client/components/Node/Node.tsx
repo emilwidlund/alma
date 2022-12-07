@@ -1,5 +1,4 @@
 import { cx } from '@emotion/css';
-import { Input, Output } from 'alma-graph';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Draggable from 'react-draggable';
@@ -23,25 +22,7 @@ import { Port } from './Port/Port';
 export const Node = observer(
     React.forwardRef<HTMLDivElement, INodeProps>(
         ({ name, active, inputs, outputs, position, actions, icon, onDrag, onClick, onFocus }, ref) => {
-            const [isCollapsed, setCollapsed] = React.useState(false);
             const { onMouseEnter, onMouseLeave, isHovered } = useHover();
-
-            const onKeyPress = React.useCallback(
-                (e: React.KeyboardEvent<HTMLDivElement>) => {
-                    if (e.key === ' ') {
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                        setCollapsed(!isCollapsed);
-                    }
-                },
-                [setCollapsed, isCollapsed]
-            );
-
-            const portPredicate = React.useCallback(
-                (port: Input<any> | Output<any>) => (isCollapsed ? port.connected : true),
-                [isCollapsed]
-            );
 
             return (
                 <Draggable
@@ -61,7 +42,6 @@ export const Node = observer(
                         onFocus={onFocus}
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}
-                        onKeyPress={onKeyPress}
                         tabIndex={0}
                     >
                         <div className={cx(nodeHeaderWrapperStyles(active), 'handle')}>
@@ -78,8 +58,8 @@ export const Node = observer(
                             )}
                         </div>
                         <div className={nodeContentWrapperStyles}>
-                            <NodePorts ports={Object.values(inputs).filter(portPredicate)} />
-                            <NodePorts ports={Object.values(outputs).filter(portPredicate)} isOutputWrapper={true} />
+                            <NodePorts ports={Object.values(inputs)} />
+                            <NodePorts ports={Object.values(outputs)} isOutputWrapper={true} />
                         </div>
                     </div>
                 </Draggable>
