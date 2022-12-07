@@ -12,6 +12,7 @@ import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartes
 import { useCircuitContext } from '../../hooks/useCircuitContext/useCircuitContext';
 import { useCodeModal } from '../../hooks/useCodeModal/useCodeModal';
 import { useCreateNode } from '../../hooks/useCreateNode/useCreateNode';
+import { useFragmentModal } from '../../hooks/useFragmentModal/useFragmentModal';
 import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider';
 import { nodesHierarchy } from '../../utils/nodes/nodes';
 import { circuitRouteWrapperStyles, contextMenuWrapperStyles } from './CircuitRoute.styles';
@@ -21,10 +22,11 @@ export const CircuitRoute = () => {
     const circuitRef = React.useRef<HTMLDivElement>(null);
     const [contextMenuVisible, toggleContextMenu] = React.useState(false);
     const [isInFullscreen, setIsInFullscreen] = React.useState(false);
+    const { open: openFragmentModal } = useFragmentModal();
     const { open: openCodeModal } = useCodeModal();
     const midPoint = useCartesianMidpoint(circuitRef);
 
-    const context = useCircuitContext(canvasRef);
+    const { context, buildContext } = useCircuitContext(canvasRef, JSON.parse(localStorage.getItem('context') || '{}'));
     const createNode = useCreateNode(context, midPoint.current);
 
     const onContextMenuItemClick = React.useCallback(
@@ -35,6 +37,15 @@ export const CircuitRoute = () => {
         },
         [createNode, toggleContextMenu]
     );
+
+    const onImportExportClick = React.useCallback(() => {
+        openCodeModal({
+            content: JSON.stringify(context, undefined, 4),
+            onSave: code => {
+                buildContext(JSON.parse(code));
+            }
+        });
+    }, [openCodeModal, context]);
 
     const onContextMenu = React.useCallback(
         e => {
@@ -72,15 +83,15 @@ export const CircuitRoute = () => {
                     <CircuitContainer ref={circuitRef} onContextMenu={onContextMenu} onFullscreen={onFullscreenClick} />
                     <PropertyPanel ref={canvasRef} artboardSize={canvasSize} />
                     <Toolbar>
-                        <ToolbarItem label="Stream" icon="stream" onClick={console.log} />
                         <ToolbarItem
                             label="View Code"
                             icon="data_object"
-                            onClick={() => openCodeModal(context?.fragment || '')}
+                            onClick={() => openFragmentModal(context?.fragment || '')}
                             outlined
                         />
-                        <ToolbarItem label="New Node" icon="add" onClick={toggleContextMenu.bind(this, true)} cta />
                         <ToolbarItem label="Connection" icon="conversion_path" onClick={console.log} />
+                        <ToolbarItem label="New Node" icon="add" onClick={toggleContextMenu.bind(this, true)} cta />
+                        <ToolbarItem label="Import / Export" icon="save" onClick={onImportExportClick} />
                         <ToolbarItem label="Fullscreen" icon="open_in_full" onClick={onFullscreenClick} />
                     </Toolbar>
                     {!!contextMenuVisible && (

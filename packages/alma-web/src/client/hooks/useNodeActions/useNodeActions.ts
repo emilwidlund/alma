@@ -4,11 +4,11 @@ import { useCallback, useMemo } from 'react';
 
 import { INodeActionProps } from '../../components/Node/Node.types';
 import { useCircuit } from '../useCircuit/useCircuit';
-import { useGLSLModal } from '../useGLSLModal/useGLSLModal';
+import { useCodeModal } from '../useCodeModal/useCodeModal';
 
 export const useNodeActions = (node: Node): INodeActionProps[] => {
     const circuit = useCircuit();
-    const { open: openGLSLEditor } = useGLSLModal();
+    const { open: openGLSLEditor } = useCodeModal();
 
     const onEditSave = useCallback(
         glsl => {
@@ -22,7 +22,7 @@ export const useNodeActions = (node: Node): INodeActionProps[] => {
     const onEditClick = useCallback(() => {
         if (node instanceof GLSLNode) {
             openGLSLEditor({
-                glsl: node.data.glsl,
+                content: node.data.glsl,
                 onSave: onEditSave
             });
         }

@@ -9,8 +9,8 @@ import { ContextMenuContainer } from '../../components/ContextMenu/ContextMenuCo
 import { CIRCUIT_SIZE } from '../../constants/circuit';
 import { IPoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint.types';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
-import { useCodeModal } from '../../hooks/useCodeModal/useCodeModal';
 import { useCreateNode } from '../../hooks/useCreateNode/useCreateNode';
+import { useFragmentModal } from '../../hooks/useFragmentModal/useFragmentModal';
 import { useKeyboardActions } from '../../hooks/useKeyboardActions/useKeyboardActions';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { normalizeBounds } from '../../utils/bounds/bounds';
@@ -68,7 +68,7 @@ export const CircuitContainer = observer(
     React.forwardRef<HTMLDivElement, ICircuitContainerProps>(({ onFullscreen }, ref) => {
         const [contextMenuPosition, toggleContextMenu] = React.useState<IPoint | undefined>(undefined);
         const circuit = useCircuit();
-        const { open: openCodeModal } = useCodeModal();
+        const { open: openCodeModal } = useFragmentModal();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
         useKeyboardActions();
 
