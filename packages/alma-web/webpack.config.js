@@ -27,16 +27,12 @@ module.exports = env => {
                 {
                     test: /\.tsx?$/,
                     loader: 'ts-loader'
-                },
-                {
-                    test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                    type: 'asset/resource'
                 }
             ]
         },
         plugins: [
             new CopyPlugin({
-                patterns: [{ from: 'src/client/templates' }]
+                patterns: [{ from: 'src/client/templates' }, { from: 'src/client/assets', to: 'assets' }]
             }),
             new webpack.DefinePlugin({
                 process: {

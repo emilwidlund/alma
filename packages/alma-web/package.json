@@ -27,6 +27,7 @@
         "copy-webpack-plugin": "^10.2.4",
         "dotenv": "^16.0.0",
         "emotion": "^11.0.0",
+        "file-loader": "^6.2.0",
         "lodash": "^4.17.21",
         "mobx": "^6.4.2",
         "mobx-react-lite": "^3.4.0",

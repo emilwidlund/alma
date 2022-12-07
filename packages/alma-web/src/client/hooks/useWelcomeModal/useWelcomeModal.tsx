@@ -1,8 +1,5 @@
 import * as React from 'react';
 
-import ConnectionImage from '../../assets/connection.png';
-import GLSLImage from '../../assets/glsl.png';
-import NodeImage from '../../assets/node.png';
 import { Heading } from '../../components/Heading/Heading';
 import { Icon } from '../../components/Icon/Icon';
 import { WELCOME_MODAL_ID } from '../../constants/modals';
@@ -45,7 +42,7 @@ const WelcomeModalContent = () => {
 const WelcomeOnboarding1 = () => {
     return (
         <div className={onboardingModalContentStyles}>
-            <img className={onboardingModalImageStyles} src={NodeImage} width="100%" />
+            <img className={onboardingModalImageStyles} src="/assets/images/node.png" width="100%" />
             <div className={onboardingModalContentHeadingStyles}>
                 <Icon name="settop_component" size={32} color="var(--accent-color)" outlined />
                 <Heading className={onboardingModalContentTitleStyles} size={Size.MD} marginTop={24}>
@@ -69,7 +66,7 @@ const WelcomeOnboarding1 = () => {
 const WelcomeOnboarding2 = () => {
     return (
         <div className={onboardingModalContentStyles}>
-            <img className={onboardingModalImageStyles} src={ConnectionImage} width="100%" />
+            <img className={onboardingModalImageStyles} src="/assets/images/connection.png" width="100%" />
             <div className={onboardingModalContentHeadingStyles}>
                 <Icon name="conversion_path" size={32} color="var(--accent-color)" outlined />
                 <Heading className={onboardingModalContentTitleStyles} size={Size.MD} marginTop={24}>
@@ -92,19 +89,19 @@ const WelcomeOnboarding2 = () => {
 const WelcomeOnboarding3 = () => {
     return (
         <div className={onboardingModalContentStyles}>
-            <img className={onboardingModalImageStyles} src={GLSLImage} width="100%" />
+            <img className={onboardingModalImageStyles} src="/assets/images/glsl.png" width="100%" />
             <div className={onboardingModalContentHeadingStyles}>
                 <Icon name="code" size={32} color="var(--accent-color)" outlined />
                 <Heading className={onboardingModalContentTitleStyles} size={Size.MD} marginTop={24}>
-                    GLSL Functions
+                    Code Nodes
                 </Heading>
             </div>
             <p>
-                Want to build some complicated GLSL logic, without having to setup a lot of nodes? We've got you
-                covered. The GLSL Node allows you to provide a GLSL function - which automatically will be converted to
-                a Node which is compatible with all other nodes in your graph.
+                Want to build some complicated logic, without having to setup a lot of nodes? We've got you covered. The
+                GLSL Node allows you to provide a GLSL function - which automatically will be converted to a Node which
+                is compatible with all other nodes in your circuit.
             </p>
-            <p>{'You can find the GLSL Node under Common > GLSL in the Node browser.'}</p>
+            <p>{'You can find this Node under Common > GLSL in the Node browser.'}</p>
         </div>
     );
 };
