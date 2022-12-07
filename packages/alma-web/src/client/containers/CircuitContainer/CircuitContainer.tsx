@@ -11,6 +11,7 @@ import { IPoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint.ty
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { useCodeModal } from '../../hooks/useCodeModal/useCodeModal';
 import { useCreateNode } from '../../hooks/useCreateNode/useCreateNode';
+import { useKeyboardActions } from '../../hooks/useKeyboardActions/useKeyboardActions';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { normalizeBounds } from '../../utils/bounds/bounds';
 import { toCartesianPoint } from '../../utils/coordinates/coordinates';
@@ -69,6 +70,7 @@ export const CircuitContainer = observer(
         const circuit = useCircuit();
         const { open: openCodeModal } = useCodeModal();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
+        useKeyboardActions();
 
         const onMouseMove = React.useCallback(
             (e: React.MouseEvent<HTMLDivElement>) => {

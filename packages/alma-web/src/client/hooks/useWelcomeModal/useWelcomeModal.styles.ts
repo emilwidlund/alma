@@ -21,9 +21,15 @@ export const onboardingModalContentStyles = css`
     line-height: 1.6em;
 `;
 
-export const onboardingModalImageStyles = css`
+export const onboardingModalImageStyles = (url: string) => css`
     border-radius: 16px;
     border: 1px solid var(--border-color);
+    background-color: var(--dark-background);
+    background-image: url(${url});
+    background-size: cover;
+    background-position: center center;
+    height: 300px;
+    width: 100%;
 `;
 
 export const onboardingModalContentHeadingStyles = css`
