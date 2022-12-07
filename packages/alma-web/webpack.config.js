@@ -32,7 +32,7 @@ module.exports = env => {
         },
         plugins: [
             new CopyPlugin({
-                patterns: [{ from: 'src/client/templates' }]
+                patterns: [{ from: 'src/client/templates' }, { from: 'src/client/assets', to: 'assets' }]
             }),
             new webpack.DefinePlugin({
                 process: {

@@ -18,6 +18,7 @@ injectGlobal`
     body {
         height: 100%;
         margin: 0;
+        background-color: var(--dark-background);
 
         h1 {
             font-size: var(--font-size-xl);

@@ -69,7 +69,7 @@ export const CircuitRoute = () => {
         <CircuitProvider context={context}>
             <Scene>
                 <div className={circuitRouteWrapperStyles}>
-                    <CircuitContainer ref={circuitRef} onContextMenu={onContextMenu} />
+                    <CircuitContainer ref={circuitRef} onContextMenu={onContextMenu} onFullscreen={onFullscreenClick} />
                     <PropertyPanel ref={canvasRef} artboardSize={canvasSize} />
                     <Toolbar>
                         <ToolbarItem label="Stream" icon="stream" onClick={console.log} />
