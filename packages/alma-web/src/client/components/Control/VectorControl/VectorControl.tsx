@@ -63,6 +63,7 @@ export const VectorControl = observer(({ port }: IVectorControlProps) => {
                     onChange={createOnChangeHandler(vectorLabels[index])}
                     value={component}
                     type="number"
+                    step={0.1}
                     disabled={disabled}
                 />
             ))}

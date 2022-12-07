@@ -13,6 +13,7 @@ export const circuitRouteWrapperStyles = css`
     background-position: 0 0;
     background-size: 14px 14px;
     user-select: none;
+    -webkit-user-select: none;
 `;
 
 export const contextMenuWrapperStyles = css`
@@ -24,6 +25,22 @@ export const contextMenuWrapperStyles = css`
     margin-right: auto;
     width: 200px;
     z-index: 999;
+
+    & > div {
+        bottom: 0;
+    }
+`;
+
+export const examplesMenuWrapperStyles = css`
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    z-index: 999;
+    transform: translate(-100px, 0);
 
     & > div {
         bottom: 0;

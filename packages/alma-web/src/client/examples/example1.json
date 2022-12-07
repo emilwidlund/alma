@@ -1,0 +1,394 @@
+{
+    "id": "946cbf0c-555c-4a23-8871-153033dcb299",
+    "name": "Untitled",
+    "nodes": [
+        [
+            "a5d5896a-c233-4f19-b2d1-0ce65639cb6b",
+            {
+                "id": "a5d5896a-c233-4f19-b2d1-0ce65639cb6b",
+                "name": "UV",
+                "type": "UV",
+                "data": { "position": { "x": -365, "y": 112 } },
+                "inputs": {},
+                "outputs": { "uv": { "id": "44391751-7541-48a1-9875-963907b5446b", "name": "UV", "type": "vec2" } }
+            }
+        ],
+        [
+            "cf72709d-c074-46a8-8ffa-704d62d0ccfb",
+            {
+                "id": "cf72709d-c074-46a8-8ffa-704d62d0ccfb",
+                "name": "Time",
+                "type": "TIME",
+                "data": { "position": { "x": -2292, "y": -134 } },
+                "inputs": {},
+                "outputs": { "time": { "id": "1fe7b740-1f2d-48a4-9c91-ab07a5e14c38", "name": "Time", "type": "float" } }
+            }
+        ],
+        [
+            "c85eb3c1-8f13-4d8f-87eb-b7b80e637ee8",
+            {
+                "id": "c85eb3c1-8f13-4d8f-87eb-b7b80e637ee8",
+                "name": "Power",
+                "type": "POWER",
+                "data": {
+                    "position": { "x": -971, "y": -69 },
+                    "type": { "selected": "float", "options": ["float", "vec2", "vec3", "vec4"] }
+                },
+                "inputs": {
+                    "a": {
+                        "id": "01b85577-8690-435f-958e-62d7688ef8c9",
+                        "name": "A",
+                        "type": "float",
+                        "defaultValue": { "tag": "lit", "type": "float", "val": 0 }
+                    },
+                    "b": {
+                        "id": "1c2b39c1-2c51-4426-a0b8-94351aaf0e1e",
+                        "name": "B",
+                        "type": "float",
+                        "defaultValue": { "tag": "lit", "type": "float", "val": 0 },
+                        "value": { "tag": "lit", "type": "float", "val": 2 }
+                    }
+                },
+                "outputs": {
+                    "output": { "id": "c03622f8-e9c0-46ed-bb4c-8235dbc541e5", "name": "Output", "type": "float" }
+                }
+            }
+        ],
+        [
+            "9c8e440a-a095-4d67-804d-6411ee2a2778",
+            {
+                "id": "9c8e440a-a095-4d67-804d-6411ee2a2778",
+                "name": "Sine",
+                "type": "SINE",
+                "data": {
+                    "position": { "x": -1825, "y": -194 },
+                    "type": { "selected": "float", "options": ["float", "vec2", "vec3", "vec4"] }
+                },
+                "inputs": {
+                    "input": {
+                        "id": "7b169eb5-0b50-402a-a201-a97aa5b93f3b",
+                        "name": "Input",
+                        "type": "float",
+                        "defaultValue": { "tag": "lit", "type": "float", "val": 0 }
+                    }
+                },
+                "outputs": {
+                    "output": { "id": "4824dcf5-c8d1-43cf-9ca5-6fbadd65b9f7", "name": "Output", "type": "float" }
+                }
+            }
+        ],
+        [
+            "abaca396-d6b0-4f76-99b4-575bcb993e9c",
+            {
+                "id": "abaca396-d6b0-4f76-99b4-575bcb993e9c",
+                "name": "Multiplication",
+                "type": "MULTIPLICATION",
+                "data": {
+                    "position": { "x": -1574, "y": 1 },
+                    "type": {
+                        "selected": "float",
+                        "options": ["float", "int", "vec2", "vec3", "vec4", "mat2", "mat3", "mat4"]
+                    }
+                },
+                "inputs": {
+                    "a": {
+                        "id": "21f09619-ecb4-4a04-8c73-542b6b935588",
+                        "name": "A",
+                        "type": "float",
+                        "defaultValue": { "tag": "lit", "type": "float", "val": 0 }
+                    },
+                    "b": {
+                        "id": "5c6446c6-5d60-45d6-857a-6ee6619d4228",
+                        "name": "B",
+                        "type": "float",
+                        "defaultValue": { "tag": "lit", "type": "float", "val": 0 },
+                        "value": { "tag": "lit", "type": "float", "val": 0.5 }
+                    }
+                },
+                "outputs": {
+                    "result": { "id": "2dc4c664-d18b-444d-b520-f686b0b0fec3", "name": "Result", "type": "float" }
+                }
+            }
+        ],
+        [
+            "02dd1c65-9594-40be-9e0c-83c7f13e5958",
+            {
+                "id": "02dd1c65-9594-40be-9e0c-83c7f13e5958",
+                "name": "Absolute",
+                "type": "ABSOLUTE",
+                "data": {
+                    "position": { "x": -655, "y": 8 },
+                    "type": { "selected": "float", "options": ["float", "vec2", "vec3", "vec4"] }
+                },
+                "inputs": {
+                    "input": {
+                        "id": "02087bbc-0d51-41db-9d37-4c273c5f9393",
+                        "name": "Input",
+                        "type": "float",
+                        "defaultValue": { "tag": "lit", "type": "float", "val": 0 }
+                    }
+                },
+                "outputs": {
+                    "output": { "id": "b2c78365-5892-4afa-b4d0-9c51c5ebe9b2", "name": "Output", "type": "float" }
+                }
+            }
+        ],
+        [
+            "d4c5569d-28a7-4c27-94f0-1ce5c6ce7068",
+            {
+                "id": "d4c5569d-28a7-4c27-94f0-1ce5c6ce7068",
+                "name": "Addition",
+                "type": "ADDITION",
+                "data": {
+                    "position": { "x": -300, "y": -104 },
+                    "type": {
+                        "selected": "float",
+                        "options": ["float", "int", "vec2", "vec3", "vec4", "mat2", "mat3", "mat4"]
+                    }
+                },
+                "inputs": {
+                    "a": {
+                        "id": "ad47f3b8-b7bd-4721-9c3a-bcba7aec023c",
+                        "name": "A",
+                        "type": "float",
+                        "defaultValue": { "tag": "lit", "type": "float", "val": 0 }
+                    },
+                    "b": {
+                        "id": "307f5cea-e7c1-4985-965f-1ae70fc7b9be",
+                        "name": "B",
+                        "type": "float",
+                        "defaultValue": { "tag": "lit", "type": "float", "val": 0 },
+                        "value": { "tag": "lit", "type": "float", "val": 2 }
+                    }
+                },
+                "outputs": {
+                    "result": { "id": "4c84be8a-6c72-4625-9178-bbcc2254128c", "name": "Result", "type": "float" }
+                }
+            }
+        ],
+        [
+            "afbba913-6dfb-4b56-bbc0-e32ec0cbeaed",
+            {
+                "id": "afbba913-6dfb-4b56-bbc0-e32ec0cbeaed",
+                "name": "Length",
+                "type": "LENGTH",
+                "data": {
+                    "position": { "x": -1939, "y": 77 },
+                    "type": { "selected": "vec2", "options": ["vec2", "vec3", "vec4"] }
+                },
+                "inputs": {
+                    "input": {
+                        "id": "5bddb314-142c-4beb-875e-4ead60aec2da",
+                        "name": "Input",
+                        "type": "vec2",
+                        "defaultValue": {
+                            "tag": "lit",
+                            "type": "vec2",
+                            "info": "n",
+                            "val": [{ "tag": "lit", "type": "float", "val": 0 }]
+                        }
+                    }
+                },
+                "outputs": {
+                    "length": { "id": "8313b8e8-c2cc-40b4-bb32-d6cc32741d91", "name": "Length", "type": "float" }
+                }
+            }
+        ],
+        [
+            "298a7c3a-bda4-42a7-a710-009a2890a986",
+            {
+                "id": "298a7c3a-bda4-42a7-a710-009a2890a986",
+                "name": "UV",
+                "type": "UV",
+                "data": { "position": { "x": -2291, "y": 22 } },
+                "inputs": {},
+                "outputs": { "uv": { "id": "26f5c1f3-2e3c-449a-96b6-cc4ffbc3c832", "name": "UV", "type": "vec2" } }
+            }
+        ],
+        [
+            "6bebde36-81ec-44f8-8ad9-f58442f789e5",
+            {
+                "id": "6bebde36-81ec-44f8-8ad9-f58442f789e5",
+                "name": "WebGL Context",
+                "type": "WEBGL_CONTEXT",
+                "data": { "position": { "x": 377, "y": 93 } },
+                "inputs": {
+                    "color": {
+                        "id": "f5e3e68b-3bbf-444d-a0b0-009f802155c4",
+                        "name": "Color",
+                        "type": "vec4",
+                        "defaultValue": {
+                            "tag": "lit",
+                            "type": "vec4",
+                            "val": [
+                                { "tag": "lit", "type": "float", "val": 0 },
+                                { "tag": "lit", "type": "float", "val": 0 },
+                                { "tag": "lit", "type": "float", "val": 0 },
+                                { "tag": "lit", "type": "float", "val": 1 }
+                            ]
+                        }
+                    }
+                },
+                "outputs": {}
+            }
+        ],
+        [
+            "68d2ad90-958a-4a56-ae87-9cdbafec27e1",
+            {
+                "id": "68d2ad90-958a-4a56-ae87-9cdbafec27e1",
+                "name": "Addition",
+                "type": "ADDITION",
+                "data": {
+                    "position": { "x": -1291, "y": -133 },
+                    "type": {
+                        "selected": "float",
+                        "options": ["float", "int", "vec2", "vec3", "vec4", "mat2", "mat3", "mat4"]
+                    }
+                },
+                "inputs": {
+                    "a": {
+                        "id": "78519518-d106-4d5e-8329-958636503a19",
+                        "name": "A",
+                        "type": "float",
+                        "defaultValue": { "tag": "lit", "type": "float", "val": 0 }
+                    },
+                    "b": {
+                        "id": "a5c295be-67a6-4dd9-a3bc-f3019199073a",
+                        "name": "B",
+                        "type": "float",
+                        "defaultValue": { "tag": "lit", "type": "float", "val": 0 }
+                    }
+                },
+                "outputs": {
+                    "result": { "id": "bec6e7a1-cf97-439b-ae60-27dfe0f1451c", "name": "Result", "type": "float" }
+                }
+            }
+        ],
+        [
+            "fd4db84c-59b0-49aa-8368-0556d51e4762",
+            {
+                "id": "fd4db84c-59b0-49aa-8368-0556d51e4762",
+                "name": "Creation",
+                "type": "CREATION_EFFECT",
+                "data": {
+                    "position": { "x": 16, "y": 35 },
+                    "glsl": "vec4 creation(in vec2 uv, in float time) {\n\tvec3 c;\n\tfloat l, z = abs(time);\n\n\tfor(int i = 0; i < 3; i++) {\n\t\tvec2 u, p = uv / 2.;\n\t\tu = p;\n\t\tz += .07;\n\t\tl = length(p);\n\t\tu += p / l * (sin(z) + 1.) * abs(sin(l * 9. - z - z));\n\t\tc[i] = .01 / length(mod(u, 1.) - .5);\n\t}\n\t\n\treturn vec4(c / l, abs(time));\n}"
+                },
+                "inputs": {
+                    "uv": {
+                        "id": "5ba58e52-c975-49d7-8a22-aba75f2c4e24",
+                        "name": "uv",
+                        "type": "vec2",
+                        "defaultValue": {
+                            "tag": "lit",
+                            "type": "vec2",
+                            "val": [
+                                { "tag": "lit", "type": "float", "val": 0 },
+                                { "tag": "lit", "type": "float", "val": 0 }
+                            ]
+                        }
+                    },
+                    "time": {
+                        "id": "e772810f-57f9-43ab-9b89-76960bfab144",
+                        "name": "time",
+                        "type": "float",
+                        "defaultValue": { "tag": "lit", "type": "float", "val": 0 }
+                    }
+                },
+                "outputs": {
+                    "output": { "id": "3ef906e5-0e8b-4a7a-bb3b-64c82bde0ace", "name": "Output", "type": "vec4" }
+                }
+            }
+        ]
+    ],
+    "connections": [
+        [
+            "14f8153f-ef9f-40c7-812f-4b76575115a9",
+            {
+                "id": "14f8153f-ef9f-40c7-812f-4b76575115a9",
+                "from": "1fe7b740-1f2d-48a4-9c91-ab07a5e14c38",
+                "to": "7b169eb5-0b50-402a-a201-a97aa5b93f3b"
+            }
+        ],
+        [
+            "d7b3e0fa-666f-439d-886e-c319497fea49",
+            {
+                "id": "d7b3e0fa-666f-439d-886e-c319497fea49",
+                "from": "c03622f8-e9c0-46ed-bb4c-8235dbc541e5",
+                "to": "02087bbc-0d51-41db-9d37-4c273c5f9393"
+            }
+        ],
+        [
+            "0c0660af-8c3d-48d9-b597-5379aae41c23",
+            {
+                "id": "0c0660af-8c3d-48d9-b597-5379aae41c23",
+                "from": "b2c78365-5892-4afa-b4d0-9c51c5ebe9b2",
+                "to": "ad47f3b8-b7bd-4721-9c3a-bcba7aec023c"
+            }
+        ],
+        [
+            "6fc12856-e482-4883-91d2-ba3f7aa0f054",
+            {
+                "id": "6fc12856-e482-4883-91d2-ba3f7aa0f054",
+                "from": "26f5c1f3-2e3c-449a-96b6-cc4ffbc3c832",
+                "to": "5bddb314-142c-4beb-875e-4ead60aec2da"
+            }
+        ],
+        [
+            "15274b87-1cba-40d3-a151-204b32c5f2f9",
+            {
+                "id": "15274b87-1cba-40d3-a151-204b32c5f2f9",
+                "from": "bec6e7a1-cf97-439b-ae60-27dfe0f1451c",
+                "to": "01b85577-8690-435f-958e-62d7688ef8c9"
+            }
+        ],
+        [
+            "48a3a4ee-9dca-4097-a1e0-e8314acc6f10",
+            {
+                "id": "48a3a4ee-9dca-4097-a1e0-e8314acc6f10",
+                "from": "2dc4c664-d18b-444d-b520-f686b0b0fec3",
+                "to": "78519518-d106-4d5e-8329-958636503a19"
+            }
+        ],
+        [
+            "7b3776c2-420c-4654-a66a-873f9fc0e618",
+            {
+                "id": "7b3776c2-420c-4654-a66a-873f9fc0e618",
+                "from": "4824dcf5-c8d1-43cf-9ca5-6fbadd65b9f7",
+                "to": "a5c295be-67a6-4dd9-a3bc-f3019199073a"
+            }
+        ],
+        [
+            "3b223c71-f3fa-4acf-b8ae-fad0f8b28c57",
+            {
+                "id": "3b223c71-f3fa-4acf-b8ae-fad0f8b28c57",
+                "from": "8313b8e8-c2cc-40b4-bb32-d6cc32741d91",
+                "to": "21f09619-ecb4-4a04-8c73-542b6b935588"
+            }
+        ],
+        [
+            "52fce5dc-2766-446f-84f8-5365eb6f1414",
+            {
+                "id": "52fce5dc-2766-446f-84f8-5365eb6f1414",
+                "from": "44391751-7541-48a1-9875-963907b5446b",
+                "to": "5ba58e52-c975-49d7-8a22-aba75f2c4e24"
+            }
+        ],
+        [
+            "7047167a-7f1a-4af3-a84e-b88575072032",
+            {
+                "id": "7047167a-7f1a-4af3-a84e-b88575072032",
+                "from": "4c84be8a-6c72-4625-9178-bbcc2254128c",
+                "to": "e772810f-57f9-43ab-9b89-76960bfab144"
+            }
+        ],
+        [
+            "881429a7-d303-4918-8749-d01d4c9656de",
+            {
+                "id": "881429a7-d303-4918-8749-d01d4c9656de",
+                "from": "3ef906e5-0e8b-4a7a-bb3b-64c82bde0ace",
+                "to": "f5e3e68b-3bbf-444d-a0b0-009f802155c4"
+            }
+        ]
+    ]
+}

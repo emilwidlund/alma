@@ -19,6 +19,8 @@ injectGlobal`
         height: 100%;
         margin: 0;
         background-color: var(--dark-background);
+        user-select: none;
+        -webkit-user-select: none;
 
         h1 {
             font-size: var(--font-size-xl);
