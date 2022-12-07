@@ -42,7 +42,7 @@ const WelcomeModalContent = () => {
 const WelcomeOnboarding1 = () => {
     return (
         <div className={onboardingModalContentStyles}>
-            <img className={onboardingModalImageStyles} src="/assets/images/node.png" width="100%" />
+            <div className={onboardingModalImageStyles('/assets/images/node.png')} />
             <div className={onboardingModalContentHeadingStyles}>
                 <Icon name="settop_component" size={32} color="var(--accent-color)" outlined />
                 <Heading className={onboardingModalContentTitleStyles} size={Size.MD} marginTop={24}>
@@ -66,7 +66,7 @@ const WelcomeOnboarding1 = () => {
 const WelcomeOnboarding2 = () => {
     return (
         <div className={onboardingModalContentStyles}>
-            <img className={onboardingModalImageStyles} src="/assets/images/connection.png" width="100%" />
+            <div className={onboardingModalImageStyles('/assets/images/connection.png')} />
             <div className={onboardingModalContentHeadingStyles}>
                 <Icon name="conversion_path" size={32} color="var(--accent-color)" outlined />
                 <Heading className={onboardingModalContentTitleStyles} size={Size.MD} marginTop={24}>
@@ -89,7 +89,7 @@ const WelcomeOnboarding2 = () => {
 const WelcomeOnboarding3 = () => {
     return (
         <div className={onboardingModalContentStyles}>
-            <img className={onboardingModalImageStyles} src="/assets/images/glsl.png" width="100%" />
+            <div className={onboardingModalImageStyles('/assets/images/glsl.png')} />
             <div className={onboardingModalContentHeadingStyles}>
                 <Icon name="code" size={32} color="var(--accent-color)" outlined />
                 <Heading className={onboardingModalContentTitleStyles} size={Size.MD} marginTop={24}>

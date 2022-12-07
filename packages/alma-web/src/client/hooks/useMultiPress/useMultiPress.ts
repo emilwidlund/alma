@@ -1,15 +1,22 @@
 import * as React from 'react';
 
-export const useMultiKeyPress = () => {
-    const [keysPressed, setKeyPressed] = React.useState<Set<string>>(new Set([]));
+import { KeyboardKey } from '../../global';
 
-    const downHandler = ({ key }: KeyboardEvent) => {
-        setKeyPressed(keysPressed.add(key));
+export const useMultiKeyPress = () => {
+    const [keysPressed, setKeyPressed] = React.useState<Set<KeyboardKey>>(new Set([]));
+
+    const downHandler = (e: KeyboardEvent) => {
+        e.preventDefault();
+
+        setKeyPressed(keys => {
+            keys.add(e.key as KeyboardKey);
+            return new Set(keys);
+        });
     };
 
     const upHandler = ({ key }: KeyboardEvent) => {
-        keysPressed.delete(key);
-        setKeyPressed(keysPressed);
+        keysPressed.delete(key as KeyboardKey);
+        setKeyPressed(new Set(keysPressed));
     };
 
     React.useEffect(() => {

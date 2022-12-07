@@ -3,10 +3,10 @@ import { ClassConstructor, GLSLNode, WebGLContext } from 'alma-webgl';
 import * as React from 'react';
 
 import { IPoint } from '../useCartesianMidpoint/useCartesianMidpoint.types';
-import { useGLSLModal } from '../useGLSLModal/useGLSLModal';
+import { useCodeModal } from '../useCodeModal/useCodeModal';
 
 export const useCreateNode = (context?: WebGLContext, position?: IPoint) => {
-    const { open: openGLSLModal } = useGLSLModal();
+    const { open: openGLSLModal } = useCodeModal();
 
     const createNode = React.useCallback(
         (node: ClassConstructor<Node>) => {
