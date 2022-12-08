@@ -106,6 +106,30 @@ const WelcomeOnboarding3 = () => {
     );
 };
 
+const WelcomeOnboarding4 = () => {
+    return (
+        <div className={onboardingModalContentStyles}>
+            <div className={onboardingModalImageStyles('/assets/images/toolbar.png')} />
+            <div className={onboardingModalContentHeadingStyles}>
+                <Icon name="construction" size={32} color="var(--accent-color)" outlined />
+                <Heading className={onboardingModalContentTitleStyles} size={Size.MD} marginTop={24}>
+                    Toolbar
+                </Heading>
+            </div>
+            <p>
+                You can find some handy utilities in the toolbar. This is where you can view the final GLSL code.Use the
+                examples menu to get some inspiration on what you can create. Or use the "New Node" CTA button to start
+                deploying nodes on your circuit. The fourth button opens up a window where you can import / export a
+                serialized circuit. Lastly - use the Fullscreen-button to view your creation on the big screen.
+            </p>
+            <p>
+                Alright, I think you're getting the hang of it. Time to let you loose. Have fun, and please be a aware
+                that this is very much alpha-software. There will be bugs. Good luck!
+            </p>
+        </div>
+    );
+};
+
 export const useWelcomeModal = () => {
     const modal = React.useContext(ModalContext);
 
@@ -184,6 +208,29 @@ export const useWelcomeModal = () => {
                 id: WELCOME_MODAL_ID,
                 title: '',
                 children: <WelcomeOnboarding3 />,
+                actions: [
+                    {
+                        label: `Next`,
+                        onPress: () => {
+                            modal.close(WELCOME_MODAL_ID);
+
+                            setTimeout(() => {
+                                openOnboardingStep4({ onClose });
+                            }, 0);
+                        }
+                    }
+                ]
+            });
+        },
+        [modal]
+    );
+
+    const openOnboardingStep4 = React.useCallback(
+        ({ onClose }: IWelcomeModalOpenProps) => {
+            modal.queue({
+                id: WELCOME_MODAL_ID,
+                title: '',
+                children: <WelcomeOnboarding4 />,
                 actions: [
                     {
                         label: `Get Started`,
