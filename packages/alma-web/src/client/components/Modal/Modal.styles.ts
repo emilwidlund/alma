@@ -37,9 +37,12 @@ export const modalContainerStyles = css`
 `;
 
 export const modalContentStyles = css`
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 42px;
+    max-height: 440px;
+    overflow-y: auto;
 `;
 
 export const modalFooterStyles = css`
@@ -47,7 +50,8 @@ export const modalFooterStyles = css`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 16px 42px 42px 42px;
+    padding: 32px 42px 42px 42px;
+    border-top: 1px solid var(--border-color);
 
     * {
         margin-right: 16px;
