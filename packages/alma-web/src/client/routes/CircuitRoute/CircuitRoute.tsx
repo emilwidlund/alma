@@ -8,6 +8,7 @@ import { Toolbar } from '../../components/Toolbar/Toolbar';
 import { ToolbarItem } from '../../components/Toolbar/ToolbarItem';
 import { CircuitContainer } from '../../containers/CircuitContainer/CircuitContainer';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
+import * as creationExample from '../../examples/creation.json';
 import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint';
 import { useCircuitContext } from '../../hooks/useCircuitContext/useCircuitContext';
 import { useCodeModal } from '../../hooks/useCodeModal/useCodeModal';
@@ -27,7 +28,11 @@ export const CircuitRoute = () => {
     const { open: openCodeModal } = useCodeModal();
     const midPoint = useCartesianMidpoint(circuitRef);
 
-    const { context, buildContext } = useCircuitContext(canvasRef, JSON.parse(localStorage.getItem('context') || '{}'));
+    const serializedCtx = localStorage.getItem('context')
+        ? JSON.parse(localStorage.getItem('context') || '{}')
+        : creationExample;
+
+    const { context, buildContext } = useCircuitContext(canvasRef, serializedCtx);
     const createNode = useCreateNode(context, midPoint.current);
 
     const onContextMenuItemClick = React.useCallback(

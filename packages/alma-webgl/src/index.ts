@@ -1,4 +1,5 @@
 import { PINode } from './nodes/accessor/PINode/PINode';
+import { ResolutionNode } from './nodes/accessor/ResolutionNode/ResolutionNode';
 import { TimeNode } from './nodes/accessor/TimeNode/TimeNode';
 import { UVNode } from './nodes/accessor/UVNode/UVNode';
 import { WebGLContextNode } from './nodes/accessor/WebGLContextNode/WebGLContextNode';
@@ -94,6 +95,7 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.VECTOR_3]: Vector3Node,
     [WebGLNodeType.VECTOR_4]: Vector4Node,
     [WebGLNodeType.PI]: PINode,
+    [WebGLNodeType.RESOLUTION]: ResolutionNode,
 
     // Effects
     [WebGLNodeType.CREATION_EFFECT]: CreationEffectNode
@@ -139,6 +141,8 @@ export * from './nodes/accessor/TimeNode/TimeNode';
 export * from './nodes/accessor/TimeNode/TimeNode.types';
 export * from './nodes/accessor/UVNode/UVNode';
 export * from './nodes/accessor/UVNode/UVNode.types';
+export * from './nodes/accessor/ResolutionNode/ResolutionNode';
+export * from './nodes/accessor/ResolutionNode/ResolutionNode.types';
 export * from './nodes/accessor/PINode/PINode';
 export * from './nodes/accessor/PINode/PINode.types';
 export * from './nodes/accessor/WebGLContextNode/WebGLContextNode';

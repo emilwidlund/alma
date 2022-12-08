@@ -7,5 +7,12 @@ export const Input = React.forwardRef<
     HTMLInputElement,
     React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 >((props, ref) => {
-    return <input {...props} ref={ref} className={cx(inputWrapperStyles, props.className)} />;
+    return (
+        <input
+            {...props}
+            ref={ref}
+            className={cx(inputWrapperStyles, props.className)}
+            onKeyDown={e => e.stopPropagation()}
+        />
+    );
 });

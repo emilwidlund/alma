@@ -19,6 +19,7 @@ export const TextArea = ({ value, placeholder, disabled, readOnly, onChange }: I
             onChange={onChange}
             disabled={disabled}
             readOnly={readOnly}
+            onKeyDown={e => e.stopPropagation()}
         />
     );
 };
