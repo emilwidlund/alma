@@ -1,3 +1,4 @@
+import { inject } from '@vercel/analytics';
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, useSearchParams } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -6,6 +7,8 @@ import { useWelcomeModal } from '../../hooks/useWelcomeModal/useWelcomeModal';
 import { ModalProvider } from '../../providers/ModalProvider/ModalProvider';
 import { CircuitRoute } from '../../routes/CircuitRoute/CircuitRoute';
 import { transitionGroupWrapperStyles } from './App.styles';
+
+inject();
 
 export const App = () => {
     return (
