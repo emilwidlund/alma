@@ -23,6 +23,7 @@ export const VectorControl = observer(({ port }: IVectorControlProps) => {
 
                     const vectorValues = portValue.val.map((literal: Lit<Vec>) => literal.val);
                     const indexToUpdate = vectorLabels.indexOf(component);
+
                     vectorValues[indexToUpdate] = e.target.valueAsNumber;
 
                     switch (portValue.type) {
@@ -63,6 +64,7 @@ export const VectorControl = observer(({ port }: IVectorControlProps) => {
                     onChange={createOnChangeHandler(vectorLabels[index])}
                     value={component}
                     type="number"
+                    step={0.1}
                     disabled={disabled}
                 />
             ))}

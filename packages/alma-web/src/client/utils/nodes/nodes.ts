@@ -1,4 +1,4 @@
-import { Node } from 'alma-graph';
+import { IContextSerialized, Node } from 'alma-graph';
 import {
     AdditionNode,
     SubtractionNode,
@@ -47,11 +47,14 @@ import {
     SmoothstepNode,
     CrossProductNode,
     DotProductNode,
-    PINode
+    PINode,
+    ResolutionNode
 } from 'alma-webgl';
 
 import { IContextMenuContainerSection } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer.types';
 import { IContextMenuItemProps } from '../../components/ContextMenu/ContextMenuItem/ContextMenuItem.types';
+import * as creationExample from '../../examples/creation.json';
+import * as gradientExample from '../../examples/gradient.json';
 
 const extractItem = (
     createNodeCallback: (nodeClass: ClassConstructor<WebGLNode>) => void
@@ -97,10 +100,10 @@ export const nodesHierarchy: (
             },
             {
                 icon: 'hive',
-                label: 'Accessor',
+                label: 'Accessors',
                 items: [
                     {
-                        items: [TimeNode, UVNode, PINode].map(extractItem(createNodeCallback))
+                        items: [TimeNode, UVNode, ResolutionNode, PINode].map(extractItem(createNodeCallback))
                     }
                 ]
             },
@@ -181,6 +184,25 @@ export const nodesHierarchy: (
                 icon: 'stream',
                 label: 'Effect',
                 items: [{ items: [CreationEffectNode].map(extractItem(createNodeCallback)) }]
+            }
+        ]
+    }
+];
+
+export const examplesHierarchy: (
+    createNodeCallback: (serialized: IContextSerialized) => void
+) => IContextMenuContainerSection[] = createContextCallback => [
+    {
+        items: [
+            {
+                label: 'Gradient',
+                icon: 'stream',
+                onClick: () => createContextCallback(gradientExample as IContextSerialized)
+            },
+            {
+                label: 'Creation',
+                icon: 'stream',
+                onClick: () => createContextCallback(creationExample as IContextSerialized)
             }
         ]
     }

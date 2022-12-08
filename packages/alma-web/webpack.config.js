@@ -15,7 +15,7 @@ module.exports = env => {
             path: path.resolve(__dirname, 'build')
         },
         resolve: {
-            extensions: ['.ts', '.tsx', '.js']
+            extensions: ['.ts', '.tsx', '.js', '.json']
         },
         mode: 'production',
         devServer: {
