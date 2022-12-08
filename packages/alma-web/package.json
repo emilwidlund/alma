@@ -21,6 +21,7 @@
         "@types/react-dom": "^17.0.11",
         "@types/react-transition-group": "^4.4.5",
         "@types/uuid": "^8.3.4",
+        "@vercel/analytics": "^0.1.5",
         "alma-graph": "*",
         "alma-webgl": "*",
         "color": "^4.2.3",
