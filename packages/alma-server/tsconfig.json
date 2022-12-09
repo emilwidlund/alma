@@ -1,17 +1,20 @@
 {
     "compilerOptions": {
         "lib": ["esnext"],
-        "module": "commonjs",
         "outDir": "build",
+        "target": "ESNext",
         "strict": true,
         "sourceMap": true,
+        "skipLibCheck": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "strictPropertyInitialization": false,
+        "moduleResolution": "node",
         "paths": {
             "~": ["./src/"]
         }
     },
-    "include": ["./src", "./types"]
+    "include": ["./src", "./types"],
+    "files": ["./types/index.d.ts", "./types/express.d.ts"]
 }

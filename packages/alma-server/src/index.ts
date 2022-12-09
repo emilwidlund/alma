@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import 'reflect-metadata';
 
 import { start } from './server';
 

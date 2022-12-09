@@ -15,22 +15,22 @@ model User {
   email       String    @unique
   name        String
   username    String
-  media       String?
-  posts       Post[]
+  mediaUrl    String?
+  projects    Project[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt @default(now())
   deletedAt   DateTime? 
 }
 
-model Post {
+model Project {
   id          String    @id @default(cuid())
-  title       String
-  fragment    String
-  media       String
-  published   Boolean   @default(false)
-  author      User      @relation(fields: [authorId], references: [id])
-  authorId    String
+  name        String
+  mediaUrl    String?
+  circuit     String
+  private     Boolean   @default(false)
+  ownerId     String
+  owner       User      @relation(fields: [ownerId], references: [id])
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt @default(now())
-  deletedAt   DateTime?
+  deletedAt   DateTime? 
 }

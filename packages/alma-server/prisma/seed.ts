@@ -98,25 +98,7 @@ const userData: Prisma.UserCreateInput[] = [
         name: 'Emil Widlund',
         email: 'hello@emilwidlund.com',
         username: 'emilwidlund',
-        media: 'https://pbs.twimg.com/profile_images/1543286859828174849/2JmJgBEK_400x400.jpg',
-        posts: {
-            createMany: {
-                data: [
-                    {
-                        title: 'Kaleidoscope',
-                        fragment: KALEIDOSCOPE,
-                        media: '',
-                        published: true
-                    },
-                    {
-                        title: 'Invert',
-                        fragment: INVERT,
-                        media: '',
-                        published: true
-                    }
-                ]
-            }
-        }
+        mediaUrl: 'https://pbs.twimg.com/profile_images/1543286859828174849/2JmJgBEK_400x400.jpg'
     }
 ];
 

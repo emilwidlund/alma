@@ -41,5 +41,10 @@ export const start = async (db: PrismaClient) => {
         }
     });
 
+    await apollo.start();
     apollo.applyMiddleware({ app });
+
+    app.listen(3000, () => {
+        console.log(`Server running on port ${3000}`);
+    });
 };
