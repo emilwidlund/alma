@@ -1,7 +1,23 @@
-import { Arg, Args, ArgsType, Ctx, Field, Mutation, Query, Resolver, Root, Subscription } from 'type-graphql';
+import { Prisma } from '@prisma/client';
+import {
+    Arg,
+    Args,
+    ArgsType,
+    Ctx,
+    Field,
+    Mutation,
+    Publisher,
+    PubSub,
+    Query,
+    Resolver,
+    Root,
+    Subscription
+} from 'type-graphql';
 
 import { IContext } from '../../../../types';
 import { Project } from '../../models/Project/Project';
+import { pubSub } from '../../subscriptions';
+import { ProjectSubscriptionTrigger } from './ProjectResolver.types';
 
 @ArgsType()
 class UpdateProjectDataArgs {
@@ -35,18 +51,23 @@ export class ProjectResolver {
     async updateProject(
         @Arg('id') id: string,
         @Args() { name, mediaUrl, circuit, private: priv }: UpdateProjectDataArgs,
-        @Ctx() context: IContext
+        @Ctx() context: IContext,
+        @PubSub(ProjectSubscriptionTrigger.PROJECT_UPDATE)
+        publish: Publisher<Prisma.ProjectGetPayload<Prisma.ProjectArgs>>
     ) {
-        return context.db.project.update({
+        const results = await context.db.project.update({
             where: { id },
             data: { name, mediaUrl, circuit, private: priv },
             include: { owner: true }
         });
+
+        publish(results);
+
+        return results;
     }
 
     @Subscription({
-        topics: `PROJECT:UPDATE`,
-        filter: ({ payload, args }: { payload: Project; args: { id: string } }) => payload.id === args.id
+        subscribe: () => pubSub.asyncIterator([ProjectSubscriptionTrigger.PROJECT_UPDATE])
     })
     projectUpdate(@Root() projectPayload: Project, @Arg('id') id: string): Project {
         return projectPayload;

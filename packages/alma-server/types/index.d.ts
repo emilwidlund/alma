@@ -10,6 +10,7 @@ declare global {
         interface ProcessEnv {
             ALMA_SESSION_SECRET: string;
             ALMA_DATABASE_URL: string;
+            ALMA_REDIS_URL: string;
         }
     }
 }
