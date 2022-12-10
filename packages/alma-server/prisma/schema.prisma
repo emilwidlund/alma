@@ -6,12 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgres"
   url      = env("ALMA_DATABASE_URL")
 }
 
 model User {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(cuid())
   email       String    @unique
   name        String
   username    String
@@ -23,12 +23,12 @@ model User {
 }
 
 model Project {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(cuid())
   name        String
   mediaUrl    String?
   circuit     String
   private     Boolean   @default(false)
-  ownerId     String    @db.ObjectId
+  ownerId     String    
   owner       User      @relation(fields: [ownerId], references: [id])
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt @default(now())

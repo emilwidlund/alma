@@ -1,7 +1,6 @@
-import { PrismaClient } from '@prisma/client';
-import { Arg, Args, ArgsType, Field, Mutation, Query, Resolver, Root, Subscription } from 'type-graphql';
-import { Service } from 'typedi';
+import { Arg, Args, ArgsType, Ctx, Field, Mutation, Query, Resolver, Root, Subscription } from 'type-graphql';
 
+import { IContext } from '../../../../types';
 import { Project } from '../../models/Project/Project';
 
 @ArgsType()
@@ -19,25 +18,26 @@ class UpdateProjectDataArgs {
     private?: boolean;
 }
 
-@Service()
 @Resolver(Project)
 export class ProjectResolver {
-    constructor(private readonly db: PrismaClient) {}
-
     @Query(() => Project)
-    async getProject(@Arg('id') id: string) {
-        return this.db.project.findFirst({ where: { id, private: false } });
+    async getProject(@Arg('id') id: string, @Ctx() context: IContext) {
+        return context.db.project.findFirst({ where: { id, private: false } });
     }
 
     @Query(() => [Project])
-    async getProjects(@Arg('userId') id: string) {
-        return this.db.project.findMany({ where: { ownerId: id, private: false } });
+    async getProjects(@Arg('userId') id: string, @Ctx() context: IContext) {
+        return context.db.project.findMany({ where: { ownerId: id, private: false } });
     }
 
     // @Authorized()
     @Mutation(() => Project)
-    async updateProject(@Arg('id') id: string, @Args() { name, mediaUrl, circuit }: UpdateProjectDataArgs) {
-        return this.db.project.update({ where: { id }, data: { name, mediaUrl, circuit } });
+    async updateProject(
+        @Arg('id') id: string,
+        @Args() { name, mediaUrl, circuit }: UpdateProjectDataArgs,
+        @Ctx() context: IContext
+    ) {
+        return context.db.project.update({ where: { id }, data: { name, mediaUrl, circuit } });
     }
 
     @Subscription({

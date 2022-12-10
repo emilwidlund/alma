@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:lts
 
 WORKDIR /alma
 
@@ -11,7 +11,13 @@ COPY packages/alma-server/prisma ./packages/alma-server/prisma/
 # COPY tsconfig.json file
 COPY packages/alma-server/tsconfig.json ./packages/alma-server/
 
-COPY . .
+COPY packages/alma-server ./packages/alma-server
+
+COPY package*.json ./
+
+COPY lerna.json ./
+
+COPY patches ./
 
 RUN npm install
 

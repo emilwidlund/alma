@@ -2,7 +2,6 @@ import { PrismaClient } from '@prisma/client';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
-import { Container } from 'typedi';
 
 import { IContext } from '../../types';
 import { schema } from '../graphql/schema';
@@ -26,24 +25,12 @@ export const start = async (db: PrismaClient) => {
         schema: await schema,
         csrfPrevention: true,
         cache: 'bounded',
-        plugins: [
-            ApolloServerPluginLandingPageLocalDefault({ embed: true }),
-            {
-                requestDidStart: async () => ({
-                    willSendResponse: async ({ context }) => {
-                        Container.reset(context.requestId);
-                    }
-                })
-            }
-        ],
+        plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
         context: ({ req, res }) => {
-            const container = Container.of((req as Express.Request).id);
             const context: IContext = {
                 requestId: req.id,
-                db,
-                container: container
+                db
             };
-            container.set('context', context);
             return context;
         }
     });

@@ -1,15 +1,17 @@
 version: '3.9'
 services:
-    mongodb:
-        image: mongo:latest
-        container_name: mongodb
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: alma
-            MONGO_INITDB_ROOT_PASSWORD: almapassword
+    postgres:
+        image: postgres:latest
+        container_name: postgres
+        hostname: postgres
         ports:
-            - 27017:27017
+            - 5432:5432
+        environment:
+            POSTGRES_USER: alma
+            POSTGRES_PASSWORD: almapassword
+            POSTGRES_DB: alma
         volumes:
-            - mongodb-data:/data/db
+            - postgres-data:/var/lib/postgresql/data
         restart: unless-stopped
 
     server:
@@ -19,10 +21,10 @@ services:
             dockerfile: Dockerfile
         container_name: server
         environment:
-            ALMA_DATABASE_URL: mongodb://alma:almapassword@mongodb:27017/alma
+            ALMA_DATABASE_URL: postgresql://alma:almapassword@postgres:5432/alma
             ALMA_SESSION_SECRET: gjnkdA2/a43fs%1Sdmasjkq299
         depends_on:
-            - mongodb
+            - postgres
         ports:
             - '3001:3001'
         volumes:
@@ -30,4 +32,4 @@ services:
         restart: always
 
 volumes:
-    mongodb-data:
+    postgres-data:

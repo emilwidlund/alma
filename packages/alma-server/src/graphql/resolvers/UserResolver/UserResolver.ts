@@ -1,16 +1,12 @@
-import { PrismaClient } from '@prisma/client';
-import { Arg, Query, Resolver } from 'type-graphql';
-import { Service } from 'typedi';
+import { Arg, Ctx, Query, Resolver } from 'type-graphql';
 
+import { IContext } from '../../../../types';
 import { User } from '../../models/User/User';
 
-@Service()
 @Resolver(User)
 export class UserResolver {
-    constructor(private readonly db: PrismaClient) {}
-
     @Query(() => User)
-    async getUser(@Arg('id') id: string) {
-        return this.db.user.findFirst({ where: { id: id } });
+    async getUser(@Arg('id') id: string, @Ctx() context: IContext) {
+        return context.db.user.findFirst({ where: { id: id } });
     }
 }

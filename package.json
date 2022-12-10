@@ -13,7 +13,7 @@
         "postinstall": "patch-package",
         "start": "run-p build:dev dev",
         "test": "npx lerna run test",
-        "docker:build": "docker-compose build --no-cache",
+        "docker:build": "docker-compose build",
         "docker:start": "docker-compose up -d",
         "docker:stop": "docker-compose down",
         "docker:clean": "docker system prune",
