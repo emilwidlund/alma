@@ -27,7 +27,7 @@ model Project {
   id          String    @id @default(cuid())
   name        String
   mediaUrl    String?
-  circuit     String
+  circuit     Json
   private     Boolean   @default(false)
   ownerId     String    
   owner       User      @relation(fields: [ownerId], references: [id])

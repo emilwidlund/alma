@@ -22,22 +22,26 @@ class UpdateProjectDataArgs {
 export class ProjectResolver {
     @Query(() => Project)
     async getProject(@Arg('id') id: string, @Ctx() context: IContext) {
-        return context.db.project.findFirst({ where: { id, private: false } });
+        return context.db.project.findFirst({ where: { id, private: false }, include: { owner: true } });
     }
 
     @Query(() => [Project])
     async getProjects(@Arg('userId') id: string, @Ctx() context: IContext) {
-        return context.db.project.findMany({ where: { ownerId: id, private: false } });
+        return context.db.project.findMany({ where: { ownerId: id, private: false }, include: { owner: true } });
     }
 
     // @Authorized()
     @Mutation(() => Project)
     async updateProject(
         @Arg('id') id: string,
-        @Args() { name, mediaUrl, circuit }: UpdateProjectDataArgs,
+        @Args() { name, mediaUrl, circuit, private: priv }: UpdateProjectDataArgs,
         @Ctx() context: IContext
     ) {
-        return context.db.project.update({ where: { id }, data: { name, mediaUrl, circuit } });
+        return context.db.project.update({
+            where: { id },
+            data: { name, mediaUrl, circuit, private: priv },
+            include: { owner: true }
+        });
     }
 
     @Subscription({
