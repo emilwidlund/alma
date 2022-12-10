@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { Arg, Args, ArgsType, Authorized, Field, Mutation, Query, Resolver, Root, Subscription } from 'type-graphql';
+import { Arg, Args, ArgsType, Field, Mutation, Query, Resolver, Root, Subscription } from 'type-graphql';
 import { Service } from 'typedi';
 
 import { Project } from '../../models/Project/Project';
@@ -34,7 +34,7 @@ export class ProjectResolver {
         return this.db.project.findMany({ where: { ownerId: id, private: false } });
     }
 
-    @Authorized()
+    // @Authorized()
     @Mutation(() => Project)
     async updateProject(@Arg('id') id: string, @Args() { name, mediaUrl, circuit }: UpdateProjectDataArgs) {
         return this.db.project.update({ where: { id }, data: { name, mediaUrl, circuit } });

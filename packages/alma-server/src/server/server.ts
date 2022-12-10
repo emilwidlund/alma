@@ -4,16 +4,23 @@ import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import { Container } from 'typedi';
 
-import { IContext } from '../types';
-import { schema } from './graphql/schema';
+import { IContext } from '../../types';
+import { schema } from '../graphql/schema';
 import { requestId } from './middlewares/requestId/requestId';
+import { initializePassport, initializeSession } from './session';
 
 /** Starts the Alma Server */
 export const start = async (db: PrismaClient) => {
     const app = express();
 
+    /** Initialize Passport handlers */
+    initializePassport(db);
+
     /** Assign unique identifier to each incoming request */
     app.use(requestId);
+
+    /** Initialize Session */
+    initializeSession(app);
 
     const apollo = new ApolloServer({
         schema: await schema,
@@ -42,9 +49,10 @@ export const start = async (db: PrismaClient) => {
     });
 
     await apollo.start();
+
     apollo.applyMiddleware({ app });
 
-    app.listen(3000, () => {
-        console.log(`Server running on port ${3000}`);
+    app.listen(3001, () => {
+        console.log(`Server running on port ${3001}`);
     });
 };

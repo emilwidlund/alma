@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+    mongodb:
+        image: mongo:latest
+        container_name: mongodb
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: alma
+            MONGO_INITDB_ROOT_PASSWORD: almapassword
+        ports:
+            - 27017:27017
+        volumes:
+            - mongodb-data:/data/db
+        restart: unless-stopped
+
+    server:
+        stdin_open: true
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: server
+        environment:
+            ALMA_DATABASE_URL: mongodb://alma:almapassword@mongodb:27017/alma
+            ALMA_SESSION_SECRET: gjnkdA2/a43fs%1Sdmasjkq299
+        depends_on:
+            - mongodb
+        ports:
+            - '3001:3001'
+        volumes:
+            - .:/alma
+        restart: always
+
+volumes:
+    mongodb-data:

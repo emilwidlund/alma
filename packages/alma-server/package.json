@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "ts-node ./src",
+        "start:dev": "npx ts-node-dev ./src",
         "db:generate": "npx prisma generate",
         "db:migrate": "npx prisma migrate dev",
         "db:seed": "npx prisma db seed"
@@ -13,7 +14,9 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@types/express-session": "^1.17.5",
         "@types/node": "^18.7.14",
+        "@types/passport": "^1.0.11",
         "@types/uuid": "^8.3.4",
         "prisma": "^4.3.1",
         "ts-node": "^10.9.1",
@@ -26,8 +29,12 @@
         "apollo-server-express": "^3.10.2",
         "class-validator": "^0.13.2",
         "express": "^4.18.1",
+        "express-session": "^1.17.3",
         "graphql": "^15.8.0",
         "graphql-scalars": "^1.18.0",
+        "passport": "^0.6.0",
+        "reflect-metadata": "^0.1.13",
+        "ts-node-dev": "^2.0.0",
         "tslib": "^2.4.0",
         "type-graphql": "^1.1.1",
         "typedi": "^0.10.0",
