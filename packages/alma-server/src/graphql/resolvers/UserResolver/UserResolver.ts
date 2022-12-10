@@ -5,7 +5,7 @@ import { User } from '../../models/User/User';
 
 @Resolver(User)
 export class UserResolver {
-    @Query(() => User)
+    @Query(() => User, { nullable: true })
     async getUser(@Arg('id') id: string, @Ctx() context: IContext) {
         return context.db.user.findFirst({ where: { id: id } });
     }
