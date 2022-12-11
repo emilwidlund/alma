@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client';
+import { withFilter } from 'graphql-subscriptions';
 import {
     Arg,
     Args,
@@ -67,7 +68,12 @@ export class ProjectResolver {
     }
 
     @Subscription({
-        subscribe: () => pubSub.asyncIterator([ProjectSubscriptionTrigger.PROJECT_UPDATE])
+        subscribe: withFilter(
+            () => pubSub.asyncIterator([ProjectSubscriptionTrigger.PROJECT_UPDATE]),
+            (payload: Prisma.ProjectGetPayload<Prisma.ProjectArgs>, variables: { id: string }) => {
+                return payload.id === variables.id;
+            }
+        )
     })
     projectUpdate(@Root() projectPayload: Project, @Arg('id') id: string): Project {
         return projectPayload;

@@ -5,7 +5,7 @@ import express from 'express';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { WebSocketServer } from 'ws';
 
-import { createServer } from 'https';
+import { createServer } from 'http';
 
 import { IContext } from '../../types';
 import { schema as buildSchema } from '../graphql/schema';
@@ -31,10 +31,7 @@ export const start = async (db: PrismaClient) => {
     const schema = await buildSchema;
 
     const websocketServer = new WebSocketServer({
-        // This is the `httpServer` we created in a previous step.
         server: httpsServer,
-        // Pass a different path here if app.use
-        // serves expressMiddleware at a different path
         path: '/graphql'
     });
 
@@ -72,7 +69,7 @@ export const start = async (db: PrismaClient) => {
 
     apollo.applyMiddleware({ app });
 
-    app.listen(3001, () => {
+    httpsServer.listen(3001, () => {
         console.log(`Server running on port ${3001}`);
     });
 };

@@ -14,6 +14,16 @@ services:
             - postgres-data:/var/lib/postgresql/data
         restart: unless-stopped
 
+    redis:
+        image: redis:6.2-alpine
+        environment:
+            ALLOW_EMPTY_PASSWORD: 'yes'
+        restart: always
+        ports:
+            - '6379:6379'
+        volumes:
+            - redis-data:/var/lib/redis/data
+
     server:
         stdin_open: true
         build:
@@ -21,10 +31,12 @@ services:
             dockerfile: Dockerfile
         container_name: server
         environment:
+            ALMA_REDIS_URL: redis://redis:6379
             ALMA_DATABASE_URL: postgresql://alma:almapassword@postgres:5432/alma
             ALMA_SESSION_SECRET: gjnkdA2/a43fs%1Sdmasjkq299
         depends_on:
             - postgres
+            - redis
         ports:
             - '3001:3001'
         volumes:
@@ -33,3 +45,4 @@ services:
 
 volumes:
     postgres-data:
+    redis-data:

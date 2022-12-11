@@ -19,6 +19,8 @@ COPY lerna.json ./
 
 COPY patches ./
 
+RUN apt-get -qy update && apt-get -qy install openssl
+
 RUN npm install
 
 RUN npx lerna run db:generate
