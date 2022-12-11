@@ -34,6 +34,7 @@ services:
             ALMA_REDIS_URL: redis://redis:6379
             ALMA_DATABASE_URL: postgresql://alma:almapassword@postgres:5432/alma
             ALMA_SESSION_SECRET: gjnkdA2/a43fs%1Sdmasjkq299
+            ALMA_JWT_SECRET: j92=8&4i2%3uh2!rhwers7
         depends_on:
             - postgres
             - redis

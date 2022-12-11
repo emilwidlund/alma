@@ -6,5 +6,10 @@ export const userSeed: Prisma.UserCreateInput[] = [
         email: 'hello@emilwidlund.com',
         username: 'emilwidlund',
         mediaUrl: 'https://pbs.twimg.com/profile_images/1543286859828174849/2JmJgBEK_400x400.jpg'
+    },
+    {
+        name: 'William Widlund',
+        email: 'hello@williamwidlund.com',
+        username: 'willewalle'
     }
 ];

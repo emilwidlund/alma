@@ -15,7 +15,7 @@ model User {
   id          String    @id @default(cuid())
   email       String    @unique
   name        String
-  username    String
+  username    String    @unique
   mediaUrl    String?
   projects    Project[]
   createdAt   DateTime  @default(now())

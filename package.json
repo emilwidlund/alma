@@ -14,7 +14,7 @@
         "start": "run-p build:dev dev",
         "test": "npx lerna run test",
         "docker:build": "docker-compose build",
-        "docker:start": "docker-compose up -d --force-recreate",
+        "docker:start": "docker-compose up --force-recreate",
         "docker:stop": "docker-compose down",
         "docker:clean": "docker system prune",
         "docker:dev": "npm run docker:stop && npm run docker:clean && npm run docker:build && npm run docker:start"

@@ -1,12 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
-import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
-import { useServer } from 'graphql-ws/lib/use/ws';
-import { WebSocketServer } from 'ws';
+import { expressjwt as jwt } from 'express-jwt';
 
-import { IContext } from '../../types';
-import { schema as buildSchema } from '../graphql/schema';
+import { createApolloServer } from '../graphql/apollo';
 import { buildHttpsServer } from './https';
 import { requestId } from './middlewares/requestId/requestId';
 import { initializePassport, initializeSession } from './session';
@@ -21,52 +17,28 @@ export const start = async (db: PrismaClient) => {
     /** Assign unique identifier to each incoming request */
     app.use(requestId);
 
+    /** Authenticate incoming request */
+    app.use(
+        jwt({
+            secret: process.env.ALMA_JWT_SECRET,
+            credentialsRequired: false,
+            algorithms: ['HS256'],
+            getToken: req => {
+                if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+                    return req.headers.authorization.split(' ')[1];
+                }
+            }
+        })
+    );
+
     /** Initialize Session */
     initializeSession(app);
 
     /** Create HTTPS Server */
     const httpsServer = buildHttpsServer(app);
 
-    const schema = await buildSchema;
-
-    const websocketServer = new WebSocketServer({
-        server: httpsServer,
-        path: '/graphql'
-    });
-
-    // Hand in the schema we just created and have the
-    // WebSocketServer start listening.
-    const serverCleanup = useServer({ schema }, websocketServer);
-
-    const apollo = new ApolloServer({
-        schema,
-        csrfPrevention: true,
-        cache: 'bounded',
-        plugins: [
-            ApolloServerPluginLandingPageLocalDefault({ embed: true }),
-            ApolloServerPluginDrainHttpServer({ httpServer: httpsServer }), // Proper shutdown for the WebSocket server.
-            {
-                async serverWillStart() {
-                    return {
-                        async drainServer() {
-                            await serverCleanup.dispose();
-                        }
-                    };
-                }
-            }
-        ],
-        context: ({ req, res }) => {
-            const context: IContext = {
-                requestId: req.id,
-                db
-            };
-            return context;
-        }
-    });
-
-    await apollo.start();
-
-    apollo.applyMiddleware({ app });
+    /** Create Apollo Server */
+    createApolloServer(httpsServer, app, db);
 
     httpsServer.listen(3001, () => {
         console.log(`Server running on port ${3001}`);

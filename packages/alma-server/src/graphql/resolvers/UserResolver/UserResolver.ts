@@ -1,4 +1,4 @@
-import { Arg, Ctx, Query, Resolver } from 'type-graphql';
+import { Arg, Authorized, Ctx, Query, Resolver } from 'type-graphql';
 
 import { IContext } from '../../../../types';
 import { User } from '../../models/User/User';
@@ -7,6 +7,15 @@ import { User } from '../../models/User/User';
 export class UserResolver {
     @Query(() => User, { nullable: true })
     async getUser(@Arg('id') id: string, @Ctx() context: IContext) {
-        return context.db.user.findFirst({ where: { id: id }, include: { projects: true } });
+        return context.db.user.findFirst({ where: { id, deletedAt: undefined }, include: { projects: true } });
+    }
+
+    @Authorized()
+    @Query(() => User)
+    async me(@Ctx() context: IContext) {
+        return context.db.user.findFirstOrThrow({
+            where: { id: context.user?.id, deletedAt: undefined },
+            include: { projects: true }
+        });
     }
 }

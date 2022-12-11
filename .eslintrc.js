@@ -23,7 +23,10 @@ module.exports = {
             1,
             {
                 'newlines-between': 'always',
-                groups: ['external', 'builtin', ['internal', 'sibling', 'parent', 'index']],
+                groups: [
+                    ['external', 'builtin'],
+                    ['internal', 'sibling', 'parent', 'index']
+                ],
                 alphabetize: {
                     order: 'asc',
                     caseInsensitive: true
