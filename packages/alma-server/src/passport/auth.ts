@@ -12,7 +12,7 @@ import { googleStrategy } from './google/strategy';
  * Valid for 15 minutes
  */
 export const getUserJWT = (user: User): string => {
-    return jwt.sign({ id: user.id }, process.env.ALMA_JWT_SECRET, { algorithm: 'HS256', expiresIn: '15m' });
+    return jwt.sign({ userId: user.id }, process.env.ALMA_JWT_SECRET, { algorithm: 'HS256', expiresIn: '15m' });
 };
 
 /**

@@ -1,9 +1,16 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
+import { JwtPayload } from 'jsonwebtoken';
+
+export type AuthJWTPayload = JwtPayload & {
+    userId: string;
+};
+
+export type ResolvedUser = User;
 
 export interface IContext {
     requestId: string;
     db: PrismaClient;
-    user?: { id: string };
+    user?: ResolvedUser;
 }
 
 declare global {

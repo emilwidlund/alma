@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
-import { expressjwt as jwt } from 'express-jwt';
 
 import { createApolloServer } from '../graphql/apollo';
 import { buildHttpsServer } from './https';
+import { authToken } from './middlewares/authToken/authToken';
 import { requestId } from './middlewares/requestId/requestId';
 import { initializePassport, initializeSession } from './session';
 
@@ -18,18 +18,7 @@ export const start = async (db: PrismaClient) => {
     app.use(requestId);
 
     /** Authenticate incoming request */
-    app.use(
-        jwt({
-            secret: process.env.ALMA_JWT_SECRET,
-            credentialsRequired: false,
-            algorithms: ['HS256'],
-            getToken: req => {
-                if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-                    return req.headers.authorization.split(' ')[1];
-                }
-            }
-        })
-    );
+    app.use(authToken(db));
 
     /** Initialize Session */
     initializeSession(app);
