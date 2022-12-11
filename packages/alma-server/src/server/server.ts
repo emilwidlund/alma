@@ -2,17 +2,18 @@ import { PrismaClient } from '@prisma/client';
 import express from 'express';
 
 import { createApolloServer } from '../graphql/apollo';
+import { initializePassport } from '../passport/auth';
 import { buildHttpsServer } from './https';
 import { authToken } from './middlewares/authToken/authToken';
 import { requestId } from './middlewares/requestId/requestId';
-import { initializePassport, initializeSession } from './session';
+import { initializeSession } from './session';
 
 /** Starts the Alma Server */
 export const start = async (db: PrismaClient) => {
     const app = express();
 
     /** Initialize Passport handlers */
-    initializePassport(db);
+    initializePassport(app, db);
 
     /** Assign unique identifier to each incoming request */
     app.use(requestId);

@@ -1,9 +1,8 @@
-import { User } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
 import passport from 'passport';
 
-import { IContext } from '../../types';
 import { Route } from '../server/routes';
 import { googleStrategy } from './google/strategy';
 
@@ -38,9 +37,9 @@ export const authSuccessCallback = (req: express.Request, res: express.Response)
 /**
  * Initializes the Passport strategies used for authentication
  */
-export const initializePassport = (app: express.Application, context: IContext) => {
+export const initializePassport = (app: express.Application, db: PrismaClient) => {
     /** Register Strategies */
-    passport.use(googleStrategy(context));
+    passport.use(googleStrategy(db));
 
     /** Google OAuth */
     app.get(Route.GOOGLE_OAUTH, passport.authenticate('google', { scope: ['profile'] }));
