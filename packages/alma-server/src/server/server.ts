@@ -5,10 +5,9 @@ import express from 'express';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { WebSocketServer } from 'ws';
 
-import { createServer } from 'http';
-
 import { IContext } from '../../types';
 import { schema as buildSchema } from '../graphql/schema';
+import { buildHttpsServer } from './https';
 import { requestId } from './middlewares/requestId/requestId';
 import { initializePassport, initializeSession } from './session';
 
@@ -26,7 +25,7 @@ export const start = async (db: PrismaClient) => {
     initializeSession(app);
 
     /** Create HTTPS Server */
-    const httpsServer = createServer(app);
+    const httpsServer = buildHttpsServer(app);
 
     const schema = await buildSchema;
 

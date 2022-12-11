@@ -1,3 +1,7 @@
 # Keep environment variables out of version control
 .env
+.pem
+.crt
+.key
 generated
+ssl
