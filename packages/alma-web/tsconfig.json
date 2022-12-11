@@ -9,7 +9,10 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "downlevelIteration": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "allowJs": true,
+        "checkJs": false,
+        "typeRoots": ["./node_modules/@types", "./src/types"]
     },
-    "include": ["./src"]
+    "include": ["./src", "./**/*.gql"]
 }

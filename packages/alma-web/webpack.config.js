@@ -3,9 +3,8 @@
 const CopyPlugin = require('copy-webpack-plugin');
 const dotenv = require('dotenv');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
-const webpack = require('webpack');
-
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = env => {
     return {
@@ -27,6 +26,11 @@ module.exports = env => {
                 {
                     test: /\.tsx?$/,
                     loader: 'ts-loader'
+                },
+                {
+                    test: /\.(graphql|gql)$/,
+                    exclude: /node_modules/,
+                    loader: 'graphql-tag/loader'
                 }
             ]
         },

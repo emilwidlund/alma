@@ -2,7 +2,6 @@ import { PrismaClient } from '@prisma/client';
 import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import * as express from 'express';
-import { Request } from 'express-jwt';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { Server } from 'https';
 import { WebSocketServer } from 'ws';
@@ -38,7 +37,7 @@ export const createApolloServer = async (server: Server, app: express.Applicatio
                 }
             }
         ],
-        context: ({ req, res }: { req: Request; res: express.Response }): IContext => ({
+        context: ({ req, res }: { req: express.Request; res: express.Response }): IContext => ({
             requestId: req.id,
             db,
             user: req.user

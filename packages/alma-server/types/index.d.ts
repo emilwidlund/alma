@@ -10,7 +10,7 @@ export type ResolvedUser = User;
 export interface IContext {
     requestId: string;
     db: PrismaClient;
-    user?: ResolvedUser;
+    user?: ResolvedUser | null;
 }
 
 declare global {
@@ -24,6 +24,13 @@ declare global {
             /** OAuth Client IDs & Secrets */
             ALMA_GOOGLE_OAUTH_CLIENT_ID: string;
             ALMA_GOOGLE_OAUTH_CLIENT_SECRET: string;
+        }
+    }
+
+    namespace Express {
+        export interface Request {
+            id: string;
+            user?: ResolvedUser | null;
         }
     }
 }

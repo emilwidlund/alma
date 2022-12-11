@@ -4,15 +4,19 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack serve --mode=development --devtool=inline-source-map",
-        "build": "webpack --mode=development --devtool=inline-source-map",
-        "build:prod": "webpack --mode=production"
+        "dev": "npm run graphql:generate && webpack serve --mode=development --devtool=inline-source-map",
+        "build": "npm run graphql:generate && webpack --mode=development --devtool=inline-source-map",
+        "build:prod": "npm run graphql:generate && webpack --mode=production",
+        "graphql:generate": "graphql-code-generator --config ./codegen.ts"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@apollo/client": "^3.7.2",
         "@emotion/css": "^11.7.1",
+        "@graphql-codegen/cli": "^2.16.1",
+        "@graphql-codegen/typescript": "^2.8.5",
         "@thi.ng/shader-ast": "^0.12.29",
         "@thi.ng/shader-ast-glsl": "^0.4.29",
         "@thi.ng/webgl": "^6.2.13",
@@ -29,6 +33,7 @@
         "dotenv": "^16.0.0",
         "emotion": "^11.0.0",
         "file-loader": "^6.2.0",
+        "graphql-tag": "^2.12.6",
         "lodash": "^4.17.21",
         "mobx": "^6.4.2",
         "mobx-react-lite": "^3.4.0",

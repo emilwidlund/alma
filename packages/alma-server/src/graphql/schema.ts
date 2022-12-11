@@ -1,3 +1,4 @@
+import path from 'path';
 import { AuthChecker, buildSchema } from 'type-graphql';
 
 import { IContext } from '../../types';
@@ -13,5 +14,8 @@ export const authChecker: AuthChecker<IContext> = async ({ root, args, context, 
 export const schema = buildSchema({
     resolvers: [UserResolver, ProjectResolver],
     pubSub,
-    authChecker
+    authChecker,
+    emitSchemaFile: {
+        path: path.resolve(__dirname, '../../generated/schema.gql')
+    }
 });

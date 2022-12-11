@@ -21,7 +21,7 @@ export const LandingRoute = () => {
 
     return (
         <Scene>
-            <div className={landingRouteContentOuterStyles(true)}>
+            <div className={landingRouteContentOuterStyles()}>
                 <div className={landingRouteContentStyles(false)}>
                     <NavBar>
                         <NavBarItem to="/gallery" children="Gallery" />
@@ -33,8 +33,8 @@ export const LandingRoute = () => {
                     <div className={landingRouteHeroStyles}>
                         <Heading size={Size.LG}>Λlma</Heading>
                         <p>Your digital playground for generative graphics</p>
+                        <Button label="Get Started" onPress={handleNavigateToCTA} />
                     </div>
-                    <Button label="Try the demo" onPress={handleNavigateToCTA} />
                 </div>
             </div>
             <div className={landingRouteContentOuterStyles()}>

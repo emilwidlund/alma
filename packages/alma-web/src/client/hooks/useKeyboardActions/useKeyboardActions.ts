@@ -1,7 +1,7 @@
 import { nodes as webglNodes } from 'alma-webgl';
 import * as React from 'react';
 
-import { KeyboardKey } from '../../global';
+import { KeyboardKey } from '../../../types';
 import { useCircuit } from '../useCircuit/useCircuit';
 import { KeyboardAction } from './useKeyboardAction.types';
 

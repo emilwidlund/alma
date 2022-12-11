@@ -5,7 +5,6 @@ export const navBarWrapperStyles = css`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--accent-color);
     padding: 24px 0;
 `;
 
@@ -20,7 +19,7 @@ export const navBarLinkStyles = css`
     flex-direction: row;
     margin-left: 42px;
     color: var(--text-light-color);
-    font-size: var(--font-size-xxs);
+    font-size: var(--font-size-sm);
     text-decoration: none;
 
     &:first-of-type {

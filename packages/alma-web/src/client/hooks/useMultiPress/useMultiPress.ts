@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { KeyboardKey } from '../../global';
+import { KeyboardKey } from '../../../types';
 
 export const useMultiKeyPress = () => {
     const [keysPressed, setKeyPressed] = React.useState<Set<KeyboardKey>>(new Set([]));

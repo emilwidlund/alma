@@ -1,0 +1,8 @@
+query GetUser($id: String!) {
+    getUser(id: $id) {
+        id
+        name
+        username
+        mediaUrl
+    }
+}

@@ -12,10 +12,10 @@
         "strictPropertyInitialization": false,
         "moduleResolution": "node",
         "resolveJsonModule": true,
+        "typeRoots": ["./node_modules/@types", "./types"],
         "paths": {
             "~": ["./src/"]
         }
     },
-    "include": ["./src", "./types"],
-    "files": ["./types/index.d.ts", "./types/express.d.ts"]
+    "include": ["./src"]
 }
