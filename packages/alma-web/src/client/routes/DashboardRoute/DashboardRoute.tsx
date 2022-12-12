@@ -1,19 +1,20 @@
 import { useQuery } from '@apollo/client';
 import * as React from 'react';
 
-import { Query, QueryGetUserArgs } from '../../../generated/graphql';
-import GET_USER_QUERY from '../../apollo/queries/getUser.gql';
+import { Query } from '../../../generated/graphql';
+import PROFILE_QUERY from '../../apollo/queries/profile.gql';
 import { Avatar } from '../../components/Avatar/Avatar';
 import { Heading } from '../../components/Heading/Heading';
 import { Scene } from '../../components/Scene/Scene';
+import { ProjectsGrid } from '../../containers/ProjectsGrid/ProjectsGrid';
 import { Size } from '../../types';
 
 export const DashboardRoute = () => {
-    const { data, loading } = useQuery<Query, QueryGetUserArgs>(GET_USER_QUERY, {
-        variables: { id: 'clbiempla0000wwszwq301dbf' }
+    const { data, loading } = useQuery<Query>(PROFILE_QUERY, {
+        variables: { userId: 'clbiempla0000wwszwq301dbf' }
     });
 
-    if (loading || !data?.getUser) {
+    if (loading || !data?.getUser || !data?.getProjects) {
         return null;
     }
 
@@ -27,6 +28,7 @@ export const DashboardRoute = () => {
                     <Heading size={Size.SM}>{data.getUser.username}</Heading>
                 </div>
             </div>
+            <ProjectsGrid items={data.getProjects} />
         </Scene>
     );
 };

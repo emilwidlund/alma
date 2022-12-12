@@ -1,3 +1,4 @@
+import { GraphQLJSONObject } from 'graphql-type-json';
 import { Field, ObjectType } from 'type-graphql';
 
 import { User } from '../User/User';
@@ -17,8 +18,8 @@ export class Project {
     mediaUrl?: string;
 
     /** Serialized Circuit */
-    @Field()
-    circuit: string;
+    @Field(() => GraphQLJSONObject)
+    circuit: object;
 
     /** Private Flag */
     @Field()

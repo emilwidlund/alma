@@ -1,0 +1,20 @@
+query Profile($userId: String!) {
+    getUser(id: $userId) {
+        id
+        name
+        username
+        mediaUrl
+    }
+    getProjects(userId: $userId) {
+        id
+        name
+        circuit
+        owner {
+            username
+            name
+            mediaUrl
+        }
+        createdAt
+        updatedAt
+    }
+}
