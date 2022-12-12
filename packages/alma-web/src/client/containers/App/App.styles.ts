@@ -17,7 +17,7 @@ injectGlobal`
     body {
         height: 100%;
         margin: 0;
-        background-color: var(--dark-background);
+        background-color: var(--dark-contrast-background);
         user-select: none;
         -webkit-user-select: none;
 
@@ -73,6 +73,7 @@ injectGlobal`
         --font-size-xxs: .8em;
 
         // Colors
+        --dark-contrast-background: #151618;
         --dark-background: #252628;
         --panel-background: #2d2e2f;
         --light-background: #fff;

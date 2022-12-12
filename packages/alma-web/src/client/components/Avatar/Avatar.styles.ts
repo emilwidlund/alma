@@ -18,9 +18,8 @@ export const avatarWrapperStyles = (size: AvatarSize, url?: string) => css`
     width: ${getAvatarSize(size)}px;
     height: ${getAvatarSize(size)}px;
     border-radius: ${getAvatarSize(size) / 2}px;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(0, 0, 0, 1);
     background-image: url(${url});
     background-position: center center;
     background-size: cover;
-    border: 1px solid var(--border-color);
 `;

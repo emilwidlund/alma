@@ -32,11 +32,11 @@ export const DashboardRoute = () => {
 
     return (
         <Scene>
+            <NavBar>
+                <NavBarItem to="/explore" children="Explore" />
+                <NavBarItem to="/dashboard" children="Dashboard" />
+            </NavBar>
             <SceneContent>
-                <NavBar>
-                    <NavBarItem to="/explore" children="Explore" />
-                    <NavBarItem to="/dashboard" children="Dashboard" />
-                </NavBar>
                 <div className={dashboardWrapperStyles}>
                     <div className={dashboardHeaderWrapperStyles}>
                         <div className={dashboardHeaderContentStyles}>
