@@ -9,6 +9,7 @@ query Profile($userId: String!) {
         id
         name
         circuit
+        mediaUrl
         owner {
             username
             name

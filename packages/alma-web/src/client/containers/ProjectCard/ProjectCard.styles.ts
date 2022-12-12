@@ -7,7 +7,7 @@ export const projectCardWrapperStyles = css`
 `;
 
 export const projectCardMediaStyles = (url?: string) => css`
-    width: 300px;
+    width: 320px;
     height: 360px;
     background-color: #000;
     background-image: url(${url});
@@ -17,10 +17,10 @@ export const projectCardMediaStyles = (url?: string) => css`
 `;
 
 export const projectCardCanvasStyles = css`
-    width: 300px;
+    width: 320px;
     height: 360px;
     border-radius: 32px;
-    animation: fade-in 1s;
+    animation: fade-in 2s;
 
     @keyframes fade-in {
         from {

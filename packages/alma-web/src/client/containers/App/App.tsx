@@ -43,7 +43,7 @@ export const AppRoutes = () => {
 
     return (
         <TransitionGroup className={transitionGroupWrapperStyles}>
-            <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
+            <CSSTransition key={location.pathname} classNames="fade" timeout={500}>
                 <Routes location={location}>
                     <Route path="/" element={<LandingRoute />} index />
                     <Route path="/dashboard" element={<DashboardRoute />} />

@@ -34,7 +34,7 @@ export const ProjectCard = ({ item }: IProjectCardProps) => {
     return (
         <div className={projectCardWrapperStyles} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
             {isHovered ? (
-                <canvas ref={canvasRef} className={projectCardCanvasStyles} width={300} height={360} />
+                <canvas ref={canvasRef} className={projectCardCanvasStyles} width={320} height={360} />
             ) : (
                 <div className={projectCardMediaStyles(item.mediaUrl)} />
             )}
