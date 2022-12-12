@@ -16,6 +16,12 @@ export const projectCardMediaStyles = (url?: string) => css`
     border-radius: 32px;
 `;
 
+export const projectCardCanvasStyles = css`
+    width: 300px;
+    height: 360px;
+    border-radius: 32px;
+`;
+
 export const projectCardContentStyles = css`
     display: flex;
     flex-direction: column;
