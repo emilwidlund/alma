@@ -14,7 +14,7 @@ import { dashboardHeaderIdentityStyles, dashboardHeaderWrapperStyles } from './D
 
 export const DashboardRoute = () => {
     const { data, loading } = useQuery<Query>(PROFILE_QUERY, {
-        variables: { userId: 'clbiempla0000wwszwq301dbf' }
+        variables: { userId: 'clbl5lsnw0000p1yhy95aygjr' }
     });
 
     if (loading || !data?.getUser || !data?.getProjects) {

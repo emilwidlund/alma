@@ -20,6 +20,17 @@ export const projectCardCanvasStyles = css`
     width: 300px;
     height: 360px;
     border-radius: 32px;
+    animation: fade-in 1s;
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
 `;
 
 export const projectCardContentStyles = css`
