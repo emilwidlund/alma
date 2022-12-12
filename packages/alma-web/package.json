@@ -30,6 +30,7 @@
         "alma-webgl": "*",
         "color": "^4.2.3",
         "copy-webpack-plugin": "^10.2.4",
+        "dayjs": "^1.11.7",
         "dotenv": "^16.0.0",
         "emotion": "^11.0.0",
         "file-loader": "^6.2.0",

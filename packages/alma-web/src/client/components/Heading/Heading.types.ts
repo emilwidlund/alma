@@ -8,5 +8,4 @@ export interface IHeadingProps {
     size: Extract<Size, Size.LG | Size.MD | Size.SM>;
     marginTop?: number;
     marginBottom?: number;
-    signifier?: ReactNode;
 }

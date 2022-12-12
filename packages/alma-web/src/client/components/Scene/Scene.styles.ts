@@ -6,7 +6,6 @@ export const sceneWrapperStyles = css`
     flex-direction: column;
     height: 100%;
     width: 100%;
-    background-color: var(--panel-background-color);
 
     &.fade-enter {
         opacity: 0;

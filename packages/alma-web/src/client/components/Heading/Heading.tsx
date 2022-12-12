@@ -2,10 +2,10 @@ import { cx } from '@emotion/css';
 import * as React from 'react';
 
 import { Size } from '../../types';
-import { headingSignifierWrapperStyles, headingWrapperStyles } from './Heading.styles';
+import { headingWrapperStyles } from './Heading.styles';
 import { IHeadingProps } from './Heading.types';
 
-export const Heading = ({ className, children, size, signifier, marginTop, marginBottom }: IHeadingProps) => {
+export const Heading = ({ className, children, size, marginTop, marginBottom }: IHeadingProps) => {
     const Element = React.useMemo(() => {
         switch (size) {
             case Size.LG:
@@ -17,27 +17,10 @@ export const Heading = ({ className, children, size, signifier, marginTop, margi
         }
     }, [size]);
 
-    const content = React.useMemo(
-        () =>
-            signifier ? (
-                <>
-                    <HeadingSignifier children={signifier} />
-                    {children}
-                </>
-            ) : (
-                children
-            ),
-        [signifier, children]
-    );
-
     return (
         <Element
             className={cx(headingWrapperStyles(marginTop, marginBottom), 'heading', className)}
-            children={content}
+            children={children}
         />
     );
-};
-
-const HeadingSignifier = ({ children }: React.PropsWithChildren<{}>) => {
-    return <span className={headingSignifierWrapperStyles}>{children}</span>;
 };

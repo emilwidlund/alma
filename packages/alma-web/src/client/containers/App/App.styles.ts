@@ -1,7 +1,6 @@
 import { css, injectGlobal } from '@emotion/css';
 
 injectGlobal`
-
     html { 
         height: 100%;
         font-family: 'Inter', sans-serif; 
@@ -45,7 +44,6 @@ injectGlobal`
 
         a {
             text-decoration: none;
-            border-bottom: 1px solid var(--accent-color);
             color: var(--accent-color);
         }
 

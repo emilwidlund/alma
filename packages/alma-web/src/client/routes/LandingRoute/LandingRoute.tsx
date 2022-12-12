@@ -24,8 +24,7 @@ export const LandingRoute = () => {
             <div className={landingRouteContentOuterStyles()}>
                 <div className={landingRouteContentStyles(false)}>
                     <NavBar>
-                        <NavBarItem to="/gallery" children="Gallery" />
-                        <NavBarItem to="/about" children="About" />
+                        <NavBarItem to="/explore" children="Explore" />
                         <NavBarItem to="/dashboard" children="Dashboard" />
                     </NavBar>
                 </div>
@@ -39,17 +38,13 @@ export const LandingRoute = () => {
             </div>
             <div className={landingRouteContentOuterStyles()}>
                 <div className={landingRouteContentStyles()}>
-                    <Heading size={Size.SM} signifier="01.">
-                        Nodes, Knobs & Sliders
-                    </Heading>
+                    <Heading size={Size.SM}>Nodes, Knobs & Sliders</Heading>
                     <p>
                         Alma was created to bring parameterized inputs to the world of generative art. Twist, turn, move
                         & adjust values and see them affect your creation in realtime - all through an intuitive user
                         interface.
                     </p>
-                    <Heading size={Size.SM} signifier="02.">
-                        WebGL or Canvas
-                    </Heading>
+                    <Heading size={Size.SM}>WebGL or Canvas</Heading>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec maximus turpis ut lobortis porta.
                         Fusce sit amet leo euismod est ullamcorper tristique ac a lacus. Sed sed ligula malesuada,

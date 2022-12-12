@@ -1,6 +1,7 @@
 import { IContextSerialized, Node } from 'alma-graph';
 import { ClassConstructor } from 'alma-webgl';
 import * as React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { ContextMenuContainer } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { Scene } from '../../components/Scene/Scene';
@@ -8,7 +9,6 @@ import { Toolbar } from '../../components/Toolbar/Toolbar';
 import { ToolbarItem } from '../../components/Toolbar/ToolbarItem';
 import { CircuitContainer } from '../../containers/CircuitContainer/CircuitContainer';
 import { PropertyPanel } from '../../containers/PropertyPanel/PropertyPanel';
-import * as creationExample from '../../examples/creation.json';
 import { useCartesianMidpoint } from '../../hooks/useCartesianMidpoint/useCartesianMidpoint';
 import { useCircuitContext } from '../../hooks/useCircuitContext/useCircuitContext';
 import { useCodeModal } from '../../hooks/useCodeModal/useCodeModal';
@@ -27,10 +27,9 @@ export const CircuitRoute = () => {
     const { open: openFragmentModal } = useFragmentModal();
     const { open: openCodeModal } = useCodeModal();
     const midPoint = useCartesianMidpoint(circuitRef);
+    const location = useLocation();
 
-    const serializedCtx = localStorage.getItem('context')
-        ? JSON.parse(localStorage.getItem('context') || '{}')
-        : creationExample;
+    const serializedCtx = location.state.circuit;
 
     const { context, buildContext } = useCircuitContext(canvasRef, serializedCtx);
     const createNode = useCreateNode(context, midPoint.current);
