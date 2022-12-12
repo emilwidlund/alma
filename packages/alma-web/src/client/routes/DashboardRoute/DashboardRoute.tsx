@@ -7,7 +7,6 @@ import { Avatar } from '../../components/Avatar/Avatar';
 import { Button } from '../../components/Button/Button';
 import { Heading } from '../../components/Heading/Heading';
 import { Icon } from '../../components/Icon/Icon';
-import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
 import { SceneContent } from '../../components/Scene/SceneContent';
 import { ProjectsGrid } from '../../containers/ProjectsGrid/ProjectsGrid';
@@ -32,10 +31,6 @@ export const DashboardRoute = () => {
 
     return (
         <Scene>
-            <NavBar>
-                <NavBarItem to="/explore" children="Explore" />
-                <NavBarItem to="/dashboard" children="Dashboard" />
-            </NavBar>
             <SceneContent>
                 <div className={dashboardWrapperStyles}>
                     <div className={dashboardHeaderWrapperStyles}>

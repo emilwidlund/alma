@@ -1,0 +1,17 @@
+query GetProject($id: String!) {
+    getProject(id: $id) {
+        id
+        name
+        private
+        mediaUrl
+        circuit
+        owner {
+            id
+            name
+            username
+            mediaUrl
+        }
+        createdAt
+        updatedAt
+    }
+}

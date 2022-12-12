@@ -1,9 +1,24 @@
 import { css } from '@emotion/css';
 
-export const projectCardWrapperStyles = css`
+export const projectCardWrapperStyles = (index: number) => css`
     display: flex;
     flex-direction: column;
     flex-grow: 0;
+    transform: translate(0, 20px);
+    opacity: 0;
+    animation: fade-up 1s calc(${index} * 0.12s) forwards;
+
+    @keyframes fade-up {
+        from {
+            transform: translate(0, 20px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translate(0, 0);
+            opacity: 1;
+        }
+    }
 `;
 
 export const projectCardMediaStyles = (url?: string) => css`

@@ -1,8 +1,12 @@
+import { useQuery, useSubscription } from '@apollo/client';
 import { IContextSerialized, Node } from 'alma-graph';
 import { ClassConstructor } from 'alma-webgl';
 import * as React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
+import { Query } from '../../../generated/graphql';
+import GET_PROJECT_QUERY from '../../apollo/queries/getProject.gql';
+import PROJECT_UPDATE_SUBSCRIPTION from '../../apollo/subscriptions/projectUpdate.gql';
 import { ContextMenuContainer } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { Scene } from '../../components/Scene/Scene';
 import { Toolbar } from '../../components/Toolbar/Toolbar';
@@ -27,11 +31,14 @@ export const CircuitRoute = () => {
     const { open: openFragmentModal } = useFragmentModal();
     const { open: openCodeModal } = useCodeModal();
     const midPoint = useCartesianMidpoint(circuitRef);
-    const location = useLocation();
+    const { id } = useParams();
 
-    const serializedCtx = location.state.circuit;
+    const { data: getProjectData } = useQuery<Query>(GET_PROJECT_QUERY, { variables: { id } });
+    const { data: projectUpdatedData } = useSubscription<Query>(PROJECT_UPDATE_SUBSCRIPTION, { variables: { id } });
 
-    const { context, buildContext } = useCircuitContext(canvasRef, serializedCtx);
+    const serializedCircuit = JSON.parse(JSON.stringify(getProjectData?.getProject.circuit || {}));
+
+    const { context, buildContext } = useCircuitContext(canvasRef, serializedCircuit);
     const createNode = useCreateNode(context, midPoint.current);
 
     const onContextMenuItemClick = React.useCallback(
@@ -109,6 +116,14 @@ export const CircuitRoute = () => {
             }
         }
     }, []);
+
+    React.useEffect(() => {
+        buildContext(JSON.parse(JSON.stringify(getProjectData?.getProject.circuit || {})));
+    }, [getProjectData]);
+
+    if (!getProjectData?.getProject) {
+        return null;
+    }
 
     const canvasSize = isInFullscreen ? window.screen : { width: 320, height: 220 };
 

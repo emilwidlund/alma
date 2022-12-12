@@ -18,7 +18,7 @@ import {
 } from './ProjectCard.styles';
 import { IProjectCardProps } from './ProjectCard.types';
 
-export const ProjectCard = ({ item }: IProjectCardProps) => {
+export const ProjectCard = ({ index, item }: IProjectCardProps) => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const { buildContext } = useCircuitContext(canvasRef);
     const { onMouseEnter, onMouseLeave, isHovered } = useHover();
@@ -32,7 +32,7 @@ export const ProjectCard = ({ item }: IProjectCardProps) => {
     const updatedAgo = dayJS(item.updatedAt).fromNow(false);
 
     return (
-        <div className={projectCardWrapperStyles} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        <div className={projectCardWrapperStyles(index)} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
             {isHovered ? (
                 <canvas ref={canvasRef} className={projectCardCanvasStyles} width={320} height={360} />
             ) : (

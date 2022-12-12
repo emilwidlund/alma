@@ -8,9 +8,9 @@ import { IProjectsGridProps } from './ProjectsGrid.types';
 export const ProjectsGrid = ({ items }: IProjectsGridProps) => {
     return (
         <div className={projectsGridWrapperStyles}>
-            {items.map(item => (
-                <Link key={item.id} to={`/project/${item.id}`} state={item}>
-                    <ProjectCard item={item} />
+            {items.map((item, index) => (
+                <Link key={item.id} to={`/project/${item.id}`}>
+                    <ProjectCard item={item} index={index} />
                 </Link>
             ))}
         </div>
