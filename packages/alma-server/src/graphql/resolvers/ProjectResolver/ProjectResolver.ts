@@ -39,7 +39,7 @@ export class ProjectResolver {
         });
     }
 
-    @Authorized()
+    // @Authorized()
     @Mutation(() => Project)
     async updateProject(
         @Args() { id, name, mediaUrl, circuit, private: priv }: UpdateProjectDataArgs,
@@ -50,9 +50,9 @@ export class ProjectResolver {
         const project = await context.db.project.findUnique({ where: { id } });
 
         /** Make sure that project belongs to the authenticated user */
-        if (project?.ownerId !== context.user?.id) {
+        /* if (project?.ownerId !== context.user?.id) {
             return new ApolloError('Not Authorized to perform this action');
-        }
+        } */
 
         const results = await context.db.project.update({
             where: { id },

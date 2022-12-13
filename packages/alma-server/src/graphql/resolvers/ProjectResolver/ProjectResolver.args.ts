@@ -1,3 +1,4 @@
+import { GraphQLJSONObject } from 'graphql-scalars';
 import { ArgsType, Field } from 'type-graphql';
 
 @ArgsType()
@@ -11,8 +12,8 @@ export class UpdateProjectDataArgs {
     @Field({ nullable: true })
     mediaUrl?: string;
 
-    @Field({ nullable: true })
-    circuit?: string;
+    @Field(() => GraphQLJSONObject, { nullable: true })
+    circuit?: object;
 
     @Field({ nullable: true })
     private?: boolean;

@@ -5,7 +5,11 @@ import { autorun } from 'mobx';
 import * as React from 'react';
 import { useState } from 'react';
 
-export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>, serialized?: IContextSerialized | null) => {
+export const useCircuitContext = (
+    ref: React.RefObject<HTMLCanvasElement>,
+    serialized?: IContextSerialized | null,
+    onChange?: (serializedContext: IContextSerialized) => void
+) => {
     const [context, setContext] = useState<WebGLContext | undefined>();
 
     const buildContext = (serialized?: IContextSerialized | null) => {
@@ -66,9 +70,9 @@ export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>, seria
 
             const valueReactionDisposer = autorun(
                 () => {
-                    localStorage.setItem('context', JSON.stringify(ctx));
+                    onChange?.(JSON.parse(JSON.stringify(ctx || {})));
                 },
-                /** Debounce serialization upon changes */
+                /** Debounce onChange upon changes */
                 { delay: 200 }
             );
 

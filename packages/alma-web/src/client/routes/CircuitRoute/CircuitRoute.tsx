@@ -1,10 +1,11 @@
-import { useQuery, useSubscription } from '@apollo/client';
+import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import { IContextSerialized, Node } from 'alma-graph';
 import { ClassConstructor } from 'alma-webgl';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Query } from '../../../generated/graphql';
+import UPDATE_PROJECT_MUTATION from '../../apollo/mutations/updateProject.gql';
 import GET_PROJECT_QUERY from '../../apollo/queries/getProject.gql';
 import PROJECT_UPDATE_SUBSCRIPTION from '../../apollo/subscriptions/projectUpdate.gql';
 import { ContextMenuContainer } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer';
@@ -22,6 +23,30 @@ import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider
 import { examplesHierarchy, nodesHierarchy } from '../../utils/nodes/nodes';
 import { circuitRouteWrapperStyles, contextMenuWrapperStyles, examplesMenuWrapperStyles } from './CircuitRoute.styles';
 
+const useServerData = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
+    const { id } = useParams();
+    const { data: getProjectData } = useQuery<Query>(GET_PROJECT_QUERY, { variables: { id } });
+    const { data: projectUpdatedData } = useSubscription<Query>(PROJECT_UPDATE_SUBSCRIPTION, { variables: { id } });
+    const [updateProject] = useMutation<Query>(UPDATE_PROJECT_MUTATION, {
+        variables: { id }
+    });
+
+    const serializedCircuit = JSON.parse(JSON.stringify(getProjectData?.getProject.circuit || {}));
+
+    const handleUpdateProject = React.useCallback(
+        circuit => {
+            if (circuit) {
+                updateProject({ variables: { circuit } });
+            }
+        },
+        [updateProject, id]
+    );
+
+    const { context, buildContext } = useCircuitContext(canvasRef, serializedCircuit, handleUpdateProject);
+
+    return { context, buildContext };
+};
+
 export const CircuitRoute = () => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const circuitRef = React.useRef<HTMLDivElement>(null);
@@ -31,14 +56,9 @@ export const CircuitRoute = () => {
     const { open: openFragmentModal } = useFragmentModal();
     const { open: openCodeModal } = useCodeModal();
     const midPoint = useCartesianMidpoint(circuitRef);
-    const { id } = useParams();
 
-    const { data: getProjectData } = useQuery<Query>(GET_PROJECT_QUERY, { variables: { id } });
-    const { data: projectUpdatedData } = useSubscription<Query>(PROJECT_UPDATE_SUBSCRIPTION, { variables: { id } });
+    const { context, buildContext } = useServerData(canvasRef);
 
-    const serializedCircuit = JSON.parse(JSON.stringify(getProjectData?.getProject.circuit || {}));
-
-    const { context, buildContext } = useCircuitContext(canvasRef, serializedCircuit);
     const createNode = useCreateNode(context, midPoint.current);
 
     const onContextMenuItemClick = React.useCallback(
@@ -117,11 +137,7 @@ export const CircuitRoute = () => {
         }
     }, []);
 
-    React.useEffect(() => {
-        buildContext(JSON.parse(JSON.stringify(getProjectData?.getProject.circuit || {})));
-    }, [getProjectData]);
-
-    if (!getProjectData?.getProject) {
+    if (!context) {
         return null;
     }
 

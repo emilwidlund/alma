@@ -1,4 +1,4 @@
-import { GraphQLJSONObject } from 'graphql-type-json';
+import { GraphQLJSONObject } from 'graphql-scalars';
 import { Field, ObjectType } from 'type-graphql';
 
 import { User } from '../User/User';
