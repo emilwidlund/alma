@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useSubscription } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { IContextSerialized, Node } from 'alma-graph';
 import { ClassConstructor } from 'alma-webgl';
 import * as React from 'react';
@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import { Query } from '../../../generated/graphql';
 import UPDATE_PROJECT_MUTATION from '../../apollo/mutations/updateProject.gql';
 import GET_PROJECT_QUERY from '../../apollo/queries/getProject.gql';
-import PROJECT_UPDATE_SUBSCRIPTION from '../../apollo/subscriptions/projectUpdate.gql';
 import { ContextMenuContainer } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { Scene } from '../../components/Scene/Scene';
 import { Toolbar } from '../../components/Toolbar/Toolbar';
@@ -26,25 +25,22 @@ import { circuitRouteWrapperStyles, contextMenuWrapperStyles, examplesMenuWrappe
 const useServerData = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
     const { id } = useParams();
     const { data: getProjectData } = useQuery<Query>(GET_PROJECT_QUERY, { variables: { id } });
-    const { data: projectUpdatedData } = useSubscription<Query>(PROJECT_UPDATE_SUBSCRIPTION, { variables: { id } });
-    const [updateProject] = useMutation<Query>(UPDATE_PROJECT_MUTATION, {
-        variables: { id }
-    });
+    const [updateProject] = useMutation<Query>(UPDATE_PROJECT_MUTATION);
+    const buildCircuit = useCircuitContext(canvasRef);
 
-    const serializedCircuit = JSON.parse(JSON.stringify(getProjectData?.getProject.circuit || {}));
+    const initialDataCircuit = getProjectData?.getProject.circuit
+        ? JSON.parse(JSON.stringify(getProjectData?.getProject.circuit || {}))
+        : undefined;
 
     const handleUpdateProject = React.useCallback(
         circuit => {
-            if (circuit) {
-                updateProject({ variables: { circuit } });
-            }
+            console.log(circuit);
+            updateProject({ variables: { id, circuit } });
         },
         [updateProject, id]
     );
 
-    const { context, buildContext } = useCircuitContext(canvasRef, serializedCircuit, handleUpdateProject);
-
-    return { context, buildContext };
+    const circuit = initialDataCircuit ? buildCircuit(initialDataCircuit) : undefined;
 };
 
 export const CircuitRoute = () => {
@@ -99,6 +95,7 @@ export const CircuitRoute = () => {
 
     React.useEffect(() => {
         const handler = (e: HTMLElementEventMap['fullscreenchange']) => {
+            context.reset();
             setIsInFullscreen(!!document.fullscreenElement);
         };
 
@@ -136,10 +133,6 @@ export const CircuitRoute = () => {
             }
         }
     }, []);
-
-    if (!context) {
-        return null;
-    }
 
     const canvasSize = isInFullscreen ? window.screen : { width: 320, height: 220 };
 

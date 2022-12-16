@@ -1,17 +1,9 @@
 import { IContextSerialized } from 'alma-graph';
 import { nodes, WebGLContext } from 'alma-webgl';
 import { TextureResolver } from 'alma-webgl/build/models/TextureManager/TextureManager.types';
-import { autorun } from 'mobx';
 import * as React from 'react';
-import { useState } from 'react';
 
-export const useCircuitContext = (
-    ref: React.RefObject<HTMLCanvasElement>,
-    serialized?: IContextSerialized | null,
-    onChange?: (serializedContext: IContextSerialized) => void
-) => {
-    const [context, setContext] = useState<WebGLContext | undefined>();
-
+export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>) => {
     const buildContext = (serialized?: IContextSerialized | null) => {
         if (ref.current) {
             const gl = ref.current.getContext('webgl2');
@@ -67,33 +59,8 @@ export const useCircuitContext = (
                 nodesCollection: nodes,
                 ...(serialized ? serialized : undefined)
             });
-
-            const valueReactionDisposer = autorun(
-                () => {
-                    onChange?.(JSON.parse(JSON.stringify(ctx || {})));
-                },
-                /** Debounce onChange upon changes */
-                { delay: 200 }
-            );
-
-            setContext(ctx);
-
-            document.addEventListener('fullscreenchange', () => {
-                if (ref.current) {
-                    ctx.reset();
-                }
-            });
-
-            return () => {
-                ctx?.dispose();
-                valueReactionDisposer();
-            };
         }
     };
 
-    React.useEffect(() => {
-        return buildContext(serialized);
-    }, []);
-
-    return { context, buildContext };
+    return buildContext;
 };
