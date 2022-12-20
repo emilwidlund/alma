@@ -1,11 +1,15 @@
 import { IContextSerialized } from 'alma-graph';
 import { nodes, WebGLContext } from 'alma-webgl';
 import { TextureResolver } from 'alma-webgl/build/models/TextureManager/TextureManager.types';
+import { IReactionDisposer, reaction } from 'mobx';
 import * as React from 'react';
+import { useState } from 'react';
 
-export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>) => {
+export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>, serialized?: IContextSerialized | null) => {
+    const [context, setContext] = useState<WebGLContext | undefined>();
+
     const buildContext = (serialized?: IContextSerialized | null) => {
-        if (ref.current) {
+        if (ref.current && serialized) {
             const gl = ref.current.getContext('webgl2');
 
             if (!gl) {
@@ -57,10 +61,49 @@ export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>) => {
                     textureResolver: textureResolver
                 },
                 nodesCollection: nodes,
-                ...(serialized ? serialized : undefined)
+                ...serialized
             });
+
+            let valueReactionDisposer: IReactionDisposer;
+
+            const setWindowConfirm = () => {
+                window.onbeforeunload = e => {
+                    e.preventDefault();
+
+                    return (e.returnValue =
+                        'Changes have been made, but not saved. Work might be lost. Want to continue?');
+                };
+
+                valueReactionDisposer();
+            };
+
+            valueReactionDisposer = reaction(
+                () => JSON.parse(JSON.stringify(ctx)),
+                (value, previous) => {
+                    setWindowConfirm();
+                },
+                /** Debounce onChange upon changes */
+                { delay: 500 }
+            );
+
+            setContext(ctx);
+
+            document.addEventListener('fullscreenchange', () => {
+                if (ref.current) {
+                    ctx.reset();
+                }
+            });
+
+            return () => {
+                ctx?.dispose();
+                valueReactionDisposer?.();
+            };
         }
     };
 
-    return buildContext;
+    React.useEffect(() => {
+        return buildContext(serialized);
+    }, []);
+
+    return { context, buildContext };
 };
