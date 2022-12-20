@@ -88,16 +88,22 @@ export const CircuitRoute = () => {
     );
 
     React.useEffect(() => {
-        const handler = (e: HTMLElementEventMap['fullscreenchange']) => {
+        const canvasFullscreenHandler = (e: HTMLElementEventMap['fullscreenchange']) => {
             setIsInFullscreen(!!document.fullscreenElement);
         };
 
-        canvasRef.current?.addEventListener('fullscreenchange', handler);
+        const documentFullscreenHandler = (e: DocumentEventMap['fullscreenchange']) => {
+            context?.reset();
+        };
+
+        canvasRef.current?.addEventListener('fullscreenchange', canvasFullscreenHandler);
+        document.addEventListener('fullscreenchange', documentFullscreenHandler);
 
         return () => {
-            canvasRef.current?.removeEventListener('fullscreenchange', handler);
+            canvasRef.current?.removeEventListener('fullscreenchange', canvasFullscreenHandler);
+            document.removeEventListener('fullscreenchange', documentFullscreenHandler);
         };
-    }, []);
+    }, [context]);
 
     const onFullscreenClick = React.useCallback(() => {
         if (canvasRef.current) {

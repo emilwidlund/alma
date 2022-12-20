@@ -88,12 +88,6 @@ export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>, seria
 
             setContext(ctx);
 
-            document.addEventListener('fullscreenchange', () => {
-                if (ref.current) {
-                    ctx.reset();
-                }
-            });
-
             return () => {
                 ctx?.dispose();
                 valueReactionDisposer?.();
