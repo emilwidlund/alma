@@ -8,8 +8,8 @@ import { apolloClient } from '../../apollo/client';
 import { useWelcomeModal } from '../../hooks/useWelcomeModal/useWelcomeModal';
 import { ModalProvider } from '../../providers/ModalProvider/ModalProvider';
 import { CircuitRoute } from '../../routes/CircuitRoute/CircuitRoute';
-import { DashboardRoute } from '../../routes/DashboardRoute/DashboardRoute';
 import { LandingRoute } from '../../routes/LandingRoute/LandingRoute';
+import { ProfileRoute } from '../../routes/ProfileRoute/ProfileRoute';
 import { transitionGroupWrapperStyles } from './App.styles';
 
 injectAnalytics();
@@ -46,8 +46,9 @@ export const AppRoutes = () => {
             <CSSTransition key={location.pathname} classNames="fade" timeout={500}>
                 <Routes location={location}>
                     <Route path="/" element={<LandingRoute />} index />
-                    <Route path="/dashboard" element={<DashboardRoute />} />
-                    <Route path="/project/:id" element={<CircuitRoute />} />
+                    <Route path="/dashboard" element={<ProfileRoute />} />
+                    <Route path="/:username" element={<ProfileRoute />} />
+                    <Route path="/:username/:projectId" element={<CircuitRoute />} />
                 </Routes>
             </CSSTransition>
         </TransitionGroup>

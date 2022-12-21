@@ -28,7 +28,7 @@ export const CodeModalContent = ({ content: defaultContent, onSave, onCancel }: 
                     },
                     {
                         label: 'Cancel',
-                        variant: ButtonVariant.SECONDARY,
+                        variant: ButtonVariant.TERTIARY,
                         onPress: () => {
                             modal.close(GLSL_EDITOR_MODAL_ID);
                             onCancel?.(content);
@@ -60,7 +60,7 @@ export const useCodeModal = () => {
                     { label: 'Save', disabled: true, onPress: noop },
                     {
                         label: 'Cancel',
-                        variant: ButtonVariant.SECONDARY,
+                        variant: ButtonVariant.TERTIARY,
                         onPress: () => {
                             modal.close(GLSL_EDITOR_MODAL_ID);
                             onCancel?.('');

@@ -1,10 +1,10 @@
 import { css } from '@emotion/css';
 
-export const dashboardWrapperStyles = css`
+export const profileWrapperStyles = css`
     margin: 82px 0;
 `;
 
-export const dashboardHeaderWrapperStyles = css`
+export const profileHeaderWrapperStyles = css`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -13,17 +13,17 @@ export const dashboardHeaderWrapperStyles = css`
     color: var(--text-light-color);
 `;
 
-export const dashboardHeaderContentStyles = css`
+export const profileHeaderContentStyles = css`
     display: flex;
     flex-direction: row;
     align-items: center;
 `;
 
-export const dashboardHeaderIdentityStyles = css`
+export const profileHeaderIdentityStyles = css`
     margin-left: 32px;
 `;
 
-export const dashboardHeaderMetaStyles = css`
+export const profileHeaderMetaStyles = css`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -39,7 +39,7 @@ export const dashboardHeaderMetaStyles = css`
     }
 `;
 
-export const dashboardHeaderFollwersStyles = css`
+export const profileHeaderFollwersStyles = css`
     display: flex;
     flex-direction: row;
     align-items: center;

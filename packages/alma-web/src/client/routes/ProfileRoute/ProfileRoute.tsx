@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import * as React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Query } from '../../../generated/graphql';
 import PROFILE_QUERY from '../../apollo/queries/profile.gql';
@@ -12,37 +13,38 @@ import { SceneContent } from '../../components/Scene/SceneContent';
 import { ProjectsGrid } from '../../containers/ProjectsGrid/ProjectsGrid';
 import { Size } from '../../types';
 import {
-    dashboardHeaderContentStyles,
-    dashboardHeaderFollwersStyles,
-    dashboardHeaderIdentityStyles,
-    dashboardHeaderMetaStyles,
-    dashboardHeaderWrapperStyles,
-    dashboardWrapperStyles
-} from './DashboardRoute.styles';
+    profileHeaderContentStyles,
+    profileHeaderFollwersStyles,
+    profileHeaderIdentityStyles,
+    profileHeaderMetaStyles,
+    profileHeaderWrapperStyles,
+    profileWrapperStyles
+} from './ProfileRoute.styles';
 
-export const DashboardRoute = () => {
+export const ProfileRoute = () => {
+    const { username } = useParams();
     const { data, loading } = useQuery<Query>(PROFILE_QUERY, {
-        variables: { userId: 'clbl6axp80000p13d361e0eis' }
+        variables: { username }
     });
 
-    if (loading || !data?.getUser || !data?.getProjects) {
+    if (loading || !data?.getUser) {
         return null;
     }
 
     return (
         <Scene>
             <SceneContent>
-                <div className={dashboardWrapperStyles}>
-                    <div className={dashboardHeaderWrapperStyles}>
-                        <div className={dashboardHeaderContentStyles}>
+                <div className={profileWrapperStyles}>
+                    <div className={profileHeaderWrapperStyles}>
+                        <div className={profileHeaderContentStyles}>
                             <Avatar size={Size.LG} media={data.getUser.mediaUrl} />
-                            <div className={dashboardHeaderIdentityStyles}>
+                            <div className={profileHeaderIdentityStyles}>
                                 <Heading size={Size.MD} marginTop={0} marginBottom={16}>
                                     {data.getUser.name}
                                 </Heading>
-                                <div className={dashboardHeaderMetaStyles}>
+                                <div className={profileHeaderMetaStyles}>
                                     <span>@{data.getUser.username}</span>
-                                    <div className={dashboardHeaderFollwersStyles}>
+                                    <div className={profileHeaderFollwersStyles}>
                                         <Icon name="face" size={20} />
                                         <span>287 followers</span>
                                     </div>
@@ -53,7 +55,7 @@ export const DashboardRoute = () => {
                             <Button label="Follow" />
                         </div>
                     </div>
-                    <ProjectsGrid items={data.getProjects} />
+                    <ProjectsGrid items={data.getUser.projects} />
                 </div>
             </SceneContent>
         </Scene>

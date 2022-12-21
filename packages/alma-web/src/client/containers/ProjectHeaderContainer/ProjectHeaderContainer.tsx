@@ -30,20 +30,34 @@ export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps
 
     const handleUpdateProject = React.useCallback(async () => {
         if (circuit.context) {
+            const mediaUrl = circuit.context.ctx.canvas.toDataURL('image/jpeg');
+
             const { data } = await updateProject({
-                variables: { id: project.id, circuit: JSON.parse(JSON.stringify(circuit.context)) }
+                variables: { id: project.id, circuit: JSON.parse(JSON.stringify(circuit.context)), mediaUrl }
             });
 
             if (data?.updateProject) {
-                window.onbeforeunload = null;
+                circuit.setIsDirty(false);
             }
         }
     }, [updateProject, project, circuit]);
 
+    React.useEffect(() => {
+        if (circuit.isDirty) {
+            window.onbeforeunload = e => {
+                e.preventDefault();
+
+                return (e.returnValue = 'Changes have been made, but not saved. Work might be lost. Want to continue?');
+            };
+        } else {
+            window.onbeforeunload = null;
+        }
+    }, [circuit]);
+
     return (
         <div className={projectHeaderContainerWrapperStyles}>
             <div className={projectHeaderContainerInfoStyles}>
-                <Button label="Back" variant={ButtonVariant.SECONDARY} onPress={() => navigate('..')} />
+                <Button icon="west" variant={ButtonVariant.SECONDARY} onPress={() => navigate('..')} />
                 <div className={projectHeaderContainerInfoTextStyles}>
                     <span>{project.owner.name}</span>
                     <Heading size={Size.SM} marginTop={8} marginBottom={0}>
@@ -53,7 +67,7 @@ export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps
             </div>
             <div className={projectHeaderContainerMetaStyles}>
                 <div className={projectHeaderContainerActionsStyles}>
-                    <Button label="Save" onPress={handleUpdateProject} />
+                    <Button label="Save" onPress={handleUpdateProject} disabled={!circuit.isDirty} />
                 </div>
                 <div>
                     <Avatar media={project.owner.mediaUrl} size={Size.SM} />

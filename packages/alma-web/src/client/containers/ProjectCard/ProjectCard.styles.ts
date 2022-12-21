@@ -35,16 +35,23 @@ export const projectCardCanvasStyles = css`
     width: 320px;
     height: 360px;
     border-radius: 32px;
-    animation: fade-in 2s;
 
-    @keyframes fade-in {
-        from {
-            opacity: 0;
-        }
+    &.fade-enter {
+        opacity: 0;
+    }
 
-        to {
-            opacity: 1;
-        }
+    &.fade-enter-active {
+        opacity: 1;
+        transition: opacity 1s;
+    }
+
+    &.fade-exit {
+        opacity: 1;
+    }
+
+    &.fade-exit-active {
+        opacity: 0;
+        transition: opacity 1s;
     }
 `;
 

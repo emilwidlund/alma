@@ -18,7 +18,7 @@ export const projectHeaderContainerInfoStyles = css`
 export const projectHeaderContainerInfoTextStyles = css`
     display: flex;
     flex-direction: column;
-    margin-left: 16px;
+    margin-left: 24px;
 `;
 
 export const projectHeaderContainerUsernameStyles = css``;

@@ -31,8 +31,8 @@ export const CircuitRoute = () => {
     const { open: openFragmentModal } = useFragmentModal();
     const { open: openCodeModal } = useCodeModal();
     const midPoint = useCartesianMidpoint(circuitRef);
-    const { id } = useParams();
-    const { data: getProjectData } = useQuery<Query>(GET_PROJECT_QUERY, { variables: { id } });
+    const { projectId } = useParams();
+    const { data: getProjectData } = useQuery<Query>(GET_PROJECT_QUERY, { variables: { id: projectId } });
 
     const serializedCircuit = React.useMemo(
         () =>
@@ -135,10 +135,12 @@ export const CircuitRoute = () => {
 
     const canvasSize = isInFullscreen ? window.screen : { width: 320, height: 220 };
 
+    if (!getProjectData?.getProject) return null;
+
     return (
         <CircuitProvider context={context}>
             <Scene>
-                {getProjectData?.getProject && <ProjectHeaderContainer project={getProjectData.getProject} />}
+                <ProjectHeaderContainer project={getProjectData.getProject} />
                 <div className={circuitRouteWrapperStyles}>
                     <CircuitContainer ref={circuitRef} onContextMenu={onContextMenu} onFullscreen={onFullscreenClick} />
                     <PropertyPanel ref={canvasRef} artboardSize={canvasSize} />

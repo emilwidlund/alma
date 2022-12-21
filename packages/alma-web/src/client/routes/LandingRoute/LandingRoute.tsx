@@ -25,7 +25,7 @@ export const LandingRoute = () => {
                 <div className={landingRouteContentStyles(false)}>
                     <NavBar>
                         <NavBarItem to="/explore" children="Explore" />
-                        <NavBarItem to="/dashboard" children="Dashboard" />
+                        <NavBarItem to="/emilwidlund" children="Dashboard" />
                     </NavBar>
                 </div>
                 <div className={landingRouteContentStyles()}>

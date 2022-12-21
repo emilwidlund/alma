@@ -1,5 +1,6 @@
 import { Input, Node, Output } from 'alma-graph';
 import { noop } from 'lodash';
+import { reaction } from 'mobx';
 import * as React from 'react';
 
 import { CIRCUIT_SIZE, NODE_CENTER } from '../../constants/circuit';
@@ -22,7 +23,9 @@ const defaultCircuitValue: ICircuitContextValue = {
     selectedNodes: [],
     setSelectedNodes: noop,
     selectionBounds: undefined,
-    setSelectionBounds: noop
+    setSelectionBounds: noop,
+    isDirty: false,
+    setIsDirty: noop
 };
 
 export const CircuitContext = React.createContext(defaultCircuitValue);
@@ -33,6 +36,7 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
     const [connectionDraft, setConnectionDraft] = React.useState<Output<any> | undefined>();
     const [selectedNodes, setSelectedNodes] = React.useState<Node[] | undefined>([]);
     const [selectionBounds, setSelectionBounds] = React.useState<IBounds | undefined>(undefined);
+    const [isDirty, setIsDirty] = React.useState(false);
 
     const handleSetNodeElement = React.useCallback(
         (nodeId: string, nodeElement: HTMLDivElement) => {
@@ -147,6 +151,23 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
         }
     }, [context, selectionBounds, nodeElements]);
 
+    React.useEffect(() => {
+        if (context) {
+            const valueReactionDisposer = reaction(
+                () => JSON.parse(JSON.stringify(context)),
+                (value, previous, { dispose }) => {
+                    setIsDirty(true);
+
+                    dispose();
+                }
+            );
+
+            return () => {
+                valueReactionDisposer?.();
+            };
+        }
+    }, [context, setIsDirty]);
+
     const value = React.useMemo<ICircuitContextValue>(
         () => ({
             context,
@@ -162,10 +183,13 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
             selectedNodes,
             setSelectedNodes: handleSetSelectedNodes,
             selectionBounds,
-            setSelectionBounds: handleSetSelectionBounds
+            setSelectionBounds: handleSetSelectionBounds,
+            isDirty,
+            setIsDirty
         }),
         [
             context,
+            isDirty,
             nodeElements,
             handleSetNodeElement,
             handleRemoveNodeElement,
@@ -178,7 +202,9 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
             handleSetSelectedNodes,
             selectedNodes,
             selectionBounds,
-            setSelectionBounds
+            setSelectionBounds,
+            isDirty,
+            setIsDirty
         ]
     );
 
