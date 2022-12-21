@@ -173,7 +173,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
         if (!this.frameId) {
             /** Reset entire context if connections are updated */
             this.connectionReactionDisposer = reaction(
-                () => this.values,
+                () => JSON.parse(JSON.stringify(this)),
                 () => {
                     this.reset();
                 },

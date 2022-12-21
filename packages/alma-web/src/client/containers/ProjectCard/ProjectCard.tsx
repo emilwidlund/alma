@@ -1,10 +1,7 @@
 import * as dayJS from 'dayjs';
-import * as relativeTime from 'dayjs/plugin/relativeTime';
 import { capitalize } from 'lodash';
 import * as React from 'react';
 import { CSSTransition } from 'react-transition-group';
-
-dayJS.extend(relativeTime);
 
 import { Heading } from '../../components/Heading/Heading';
 import { useCircuitContext } from '../../hooks/useCircuitContext/useCircuitContext';

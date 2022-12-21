@@ -31,6 +31,7 @@ export const CircuitRoute = () => {
     const { open: openFragmentModal } = useFragmentModal();
     const { open: openCodeModal } = useCodeModal();
     const midPoint = useCartesianMidpoint(circuitRef);
+
     const { projectId } = useParams();
     const { data: getProjectData } = useQuery<Query>(GET_PROJECT_QUERY, { variables: { id: projectId } });
 

@@ -155,10 +155,10 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
         if (context) {
             const valueReactionDisposer = reaction(
                 () => JSON.parse(JSON.stringify(context)),
-                (value, previous, { dispose }) => {
+                (value, previous, reaction) => {
                     setIsDirty(true);
 
-                    dispose();
+                    reaction.dispose();
                 }
             );
 

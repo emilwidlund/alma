@@ -1,5 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
 import { inject as injectAnalytics } from '@vercel/analytics';
+import * as dayJS from 'dayjs';
+import * as relativeTime from 'dayjs/plugin/relativeTime';
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, useSearchParams } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -14,6 +16,7 @@ import { ProjectRoute } from '../../routes/ProjectRoute/ProjectRoute';
 import { transitionGroupWrapperStyles } from './App.styles';
 
 injectAnalytics();
+dayJS.extend(relativeTime);
 
 export const App = () => {
     return (
@@ -44,7 +47,7 @@ export const AppRoutes = () => {
 
     return (
         <TransitionGroup className={transitionGroupWrapperStyles}>
-            <CSSTransition key={location.pathname} classNames="fade" timeout={500}>
+            <CSSTransition key={location.pathname} classNames="fade" timeout={500} unmountOnExit>
                 <Routes location={location}>
                     <Route path="/" element={<LandingRoute />} index />
                     <Route path="/:username" element={<ProfileRoute />} />

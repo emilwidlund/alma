@@ -5,7 +5,7 @@ import { ButtonVariant } from './Button.types';
 const getBackgroundColor = (variant?: ButtonVariant) => {
     switch (variant) {
         case ButtonVariant.SECONDARY:
-            return 'rgba(0, 0, 0, .15)';
+            return 'rgba(0, 0, 0, .2)';
         case ButtonVariant.TERTIARY:
             return 'transparent';
         case ButtonVariant.PRIMARY:
@@ -26,7 +26,7 @@ export const buttonStyles = (label: boolean, icon: boolean, variant?: ButtonVari
     text-transform: uppercase;
     letter-spacing: 0.15em;
     font-feature-settings: 'ss01' 1, 'cv01' 1;
-    padding: ${icon && !label ? '10px' : '10px 18px'};
+    padding: ${icon && !label ? '12px' : '12px 20px'};
     line-height: inherit;
     background-color: ${getBackgroundColor(variant)};
     border: none;

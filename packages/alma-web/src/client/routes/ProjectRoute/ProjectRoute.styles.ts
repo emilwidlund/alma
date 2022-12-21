@@ -32,6 +32,20 @@ export const projectInfoPanelStyles = css`
 `;
 
 export const projectInfoUsernameStyles = css`
-    margin: 24px 0 56px;
+    margin: 24px 0 64px;
     font-size: var(--font-size-sm);
+`;
+
+export const projectInfoSeparatorStyles = css`
+    margin: 0 8px;
+`;
+
+export const projectActionButtonsStyles = css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`;
+
+export const projectCloneButtonStyles = css`
+    margin-left: 16px;
 `;

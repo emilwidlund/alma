@@ -42,6 +42,22 @@ export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps
         }
     }, [updateProject, project, circuit]);
 
+    const handleNavigateBack = React.useCallback(() => {
+        if (circuit.isDirty) {
+            const forceNavigate = confirm(
+                'Changes have been made, but not saved. Work might be lost. Want to continue?'
+            );
+
+            if (forceNavigate) {
+                navigate(-1);
+                window.onbeforeunload = null;
+            }
+        } else {
+            navigate(-1);
+            window.onbeforeunload = null;
+        }
+    }, [circuit, navigate]);
+
     React.useEffect(() => {
         if (circuit.isDirty) {
             window.onbeforeunload = e => {
@@ -57,7 +73,7 @@ export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps
     return (
         <div className={projectHeaderContainerWrapperStyles}>
             <div className={projectHeaderContainerInfoStyles}>
-                <Button icon="west" variant={ButtonVariant.SECONDARY} onPress={() => navigate('..')} />
+                <Button icon="west" variant={ButtonVariant.SECONDARY} onPress={handleNavigateBack} />
                 <div className={projectHeaderContainerInfoTextStyles}>
                     <span>{project.owner.name}</span>
                     <Heading size={Size.SM} marginTop={8} marginBottom={0}>
@@ -67,7 +83,7 @@ export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps
             </div>
             <div className={projectHeaderContainerMetaStyles}>
                 <div className={projectHeaderContainerActionsStyles}>
-                    <Button label="Save" onPress={handleUpdateProject} disabled={!circuit.isDirty} />
+                    <Button icon="save" label="Save" onPress={handleUpdateProject} disabled={!circuit.isDirty} />
                 </div>
                 <div>
                     <Avatar media={project.owner.mediaUrl} size={Size.SM} />

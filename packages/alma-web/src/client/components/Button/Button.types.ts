@@ -7,6 +7,7 @@ export enum ButtonVariant {
 }
 
 export interface IButtonProps {
+    className?: string;
     label?: string;
     variant?: ButtonVariant;
     icon?: string;

@@ -51,6 +51,8 @@ export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>, seria
                     image.src = uri || '';
                 });
 
+            context?.dispose();
+
             const ctx = new WebGLContext(gl, {
                 cameraManager: {
                     onInit: onCameraResolverInit,
@@ -64,15 +66,11 @@ export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>, seria
             });
 
             setContext(ctx);
-
-            return () => {
-                ctx?.dispose();
-            };
         }
     };
 
     React.useEffect(() => {
-        return buildContext(serialized);
+        buildContext(serialized);
     }, []);
 
     return { context, buildContext };
