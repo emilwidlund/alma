@@ -5,7 +5,8 @@ module.exports = function (api) {
         plugins: [
             '@babel/plugin-transform-runtime',
             'babel-plugin-transform-import-meta',
-            'babel-plugin-transform-vite-meta-env'
+            'babel-plugin-transform-vite-meta-env',
+            'import-graphql'
         ]
     };
 };

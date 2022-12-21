@@ -1,0 +1,16 @@
+query Me {
+    me {
+        id
+        name
+        mediaUrl
+        projects {
+            id
+            name
+            circuit
+            private
+            mediaUrl
+            createdAt
+            updatedAt
+        }
+    }
+}

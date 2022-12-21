@@ -30,7 +30,7 @@ export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps
 
     const handleUpdateProject = React.useCallback(async () => {
         if (circuit.context) {
-            const mediaUrl = circuit.context.ctx.canvas.toDataURL('image/jpeg');
+            const mediaUrl = (circuit.context.ctx.canvas as HTMLCanvasElement).toDataURL('image/jpeg');
 
             const { data } = await updateProject({
                 variables: { id: project.id, circuit: JSON.parse(JSON.stringify(circuit.context)), mediaUrl }

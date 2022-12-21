@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { GLView } from 'expo-gl';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { RecordButton } from '../../components/RecordButton/RecordButton';

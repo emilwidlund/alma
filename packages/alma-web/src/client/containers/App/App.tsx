@@ -10,6 +10,7 @@ import { ModalProvider } from '../../providers/ModalProvider/ModalProvider';
 import { CircuitRoute } from '../../routes/CircuitRoute/CircuitRoute';
 import { LandingRoute } from '../../routes/LandingRoute/LandingRoute';
 import { ProfileRoute } from '../../routes/ProfileRoute/ProfileRoute';
+import { ProjectRoute } from '../../routes/ProjectRoute/ProjectRoute';
 import { transitionGroupWrapperStyles } from './App.styles';
 
 injectAnalytics();
@@ -46,9 +47,9 @@ export const AppRoutes = () => {
             <CSSTransition key={location.pathname} classNames="fade" timeout={500}>
                 <Routes location={location}>
                     <Route path="/" element={<LandingRoute />} index />
-                    <Route path="/dashboard" element={<ProfileRoute />} />
                     <Route path="/:username" element={<ProfileRoute />} />
-                    <Route path="/:username/:projectId" element={<CircuitRoute />} />
+                    <Route path="/:username/:projectId" element={<ProjectRoute />} />
+                    <Route path="/:username/:projectId/circuit" element={<CircuitRoute />} />
                 </Routes>
             </CSSTransition>
         </TransitionGroup>

@@ -1,17 +1,20 @@
 {
     "name": "alma-app",
     "version": "1.0.0",
-    "main": "AppEntry.js",
+    "main": "index.js",
     "scripts": {
-        "start": "expo start",
+        "start": "rm -rf ./node_modules/.cache/babel-loader && expo start -c",
         "android": "expo start --android",
         "ios": "expo start --ios",
-        "web": "expo start --web"
+        "web": "expo start --web",
+        "graphql:generate": "graphql-code-generator --config ./codegen.ts"
     },
     "dependencies": {
+        "@apollo/client": "^3.7.3",
         "@babel/plugin-transform-runtime": "^7.19.6",
         "@expo/vector-icons": "^13.0.0",
         "@expo/webpack-config": "^0.17.0",
+        "@graphql-codegen/cli": "^2.16.1",
         "@react-navigation/bottom-tabs": "^6.3.3",
         "@react-navigation/native": "^6.0.12",
         "@react-navigation/native-stack": "^6.8.0",
@@ -30,9 +33,10 @@
         "expo-three": "^6.2.0",
         "gl-matrix": "^3.4.3",
         "glslify": "^7.1.1",
+        "graphql": "^16.6.0",
         "prop-types": "^15.8.1",
         "react": "18.0.0",
-        "react-native": "0.69.6",
+        "react-native": "^0.69.6",
         "react-native-get-random-values": "~1.8.0",
         "react-native-safe-area-context": "4.3.1",
         "react-native-screens": "~3.15.0",
@@ -42,7 +46,7 @@
         "@babel/core": "^7.12.9",
         "@types/react-native": "~0.69.1",
         "@types/three": "^0.143.1",
+        "babel-plugin-import-graphql": "^2.8.1",
         "typescript": "^4.6.3"
-    },
-    "type": "module"
+    }
 }

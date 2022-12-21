@@ -21,8 +21,12 @@ export const useArtboardContext = () => {
     const onContextCreate = useCallback(async (gl: ExpoWebGLRenderingContext) => {
         const context = new WebGLContext(gl, {
             nodesCollection: nodes,
-            // @ts-ignore
-            cameraTextureResolver: () => null,
+            cameraManager: {
+                textureResolver: () => null
+            },
+            textureManager: {
+                textureResolver: () => null
+            },
             onFrameEnd: () => {
                 gl.endFrameEXP();
             }

@@ -1,18 +1,21 @@
 import 'react-native-get-random-values';
+import { ApolloProvider } from '@apollo/client';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import * as React from 'react';
 
+import { apolloClient } from './src/apollo/client';
 import { TabNavigator } from './src/containers/TabNavigator/TabNavigator';
 import { ArtboardPage } from './src/pages/ArtboardPage/ArtboardPage';
-import { DashboardPage } from './src/pages/DashboardPage/DashboardPage';
+import { ExplorePage } from './src/pages/ExplorePage/ExplorePage';
 import { ProfilePage } from './src/pages/ProfilePage/ProfilePage';
 
 export type RootStackParamList = {
     Dashboard: undefined;
+    Explore: undefined;
     Artboard: { fragmentShaderSource: string; vertexShaderSource: string };
     Profile: undefined;
 };
@@ -30,7 +33,7 @@ const theme = {
 const ProjectStack = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Dashboard" component={DashboardPage} />
+            <Stack.Screen name="Explore" component={ExplorePage} />
             <Stack.Screen name="Artboard" component={ArtboardPage} />
         </Stack.Navigator>
     );
@@ -51,7 +54,7 @@ export default function App() {
     });
 
     return fontsLoaded ? (
-        <>
+        <ApolloProvider client={apolloClient}>
             <StatusBar style="dark" />
             <NavigationContainer theme={theme}>
                 <Tab.Navigator tabBar={props => <TabNavigator {...props} />} screenOptions={{ headerShown: false }}>
@@ -59,6 +62,6 @@ export default function App() {
                     <Tab.Screen name="Profile" component={ProfilePage} />
                 </Tab.Navigator>
             </NavigationContainer>
-        </>
+        </ApolloProvider>
     ) : null;
 }

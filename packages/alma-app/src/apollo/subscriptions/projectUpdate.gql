@@ -1,0 +1,17 @@
+subscription ProjectUpdate($id: String!) {
+    projectUpdate(id: $id) {
+        id
+        name
+        private
+        mediaUrl
+        circuit
+        owner {
+            id
+            name
+            username
+            mediaUrl
+        }
+        createdAt
+        updatedAt
+    }
+}
