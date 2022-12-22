@@ -26,7 +26,7 @@
             }
         },
         "extra": {
-            "ALMA_GRAPHQL_ENDPOINT": "http://172.20.10.5:3001/graphql"
+            "ALMA_GRAPHQL_ENDPOINT": "http://192.168.86.25:3001/graphql"
         },
         "web": {
             "favicon": "./assets/favicon.png"

@@ -31,6 +31,7 @@
         "expo-camera": "~12.3.0",
         "expo-font": "~10.2.0",
         "expo-gl": "~11.4.0",
+        "expo-linear-gradient": "~11.4.0",
         "expo-status-bar": "~1.4.0",
         "expo-three": "^6.2.0",
         "gl-matrix": "^3.4.3",
