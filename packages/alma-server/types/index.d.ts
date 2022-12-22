@@ -16,10 +16,10 @@ export interface IContext {
 declare global {
     namespace NodeJS {
         interface ProcessEnv {
+            PORT: string;
             ALMA_JWT_SECRET: string;
             ALMA_SESSION_SECRET: string;
             ALMA_DATABASE_URL: string;
-            ALMA_REDIS_URL: string;
 
             /** OAuth Client IDs & Secrets */
             ALMA_GOOGLE_OAUTH_CLIENT_ID: string;
