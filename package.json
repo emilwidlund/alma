@@ -47,6 +47,9 @@
         "patch-package": "^6.5.0"
     },
     "workspaces": [
+        "packages/alma-graph",
+        "packages/alma-glsl",
+        "packages/alma-webgl",
         "packages/*"
     ],
     "engines": {
