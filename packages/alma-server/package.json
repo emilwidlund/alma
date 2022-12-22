@@ -5,6 +5,7 @@
     "main": "index.js",
     "private": true,
     "scripts": {
+        "build": "yarn run db:generate && tsc",
         "start": "yarn run db:generate && ts-node ./src",
         "start:dev": "yarn run db:generate && npx ts-node-dev ./src",
         "db:generate": "npx prisma generate",
