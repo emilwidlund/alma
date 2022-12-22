@@ -6,7 +6,7 @@
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "yarn workspaces run lint -- --fix",
-        "build": "yarn workspaces run build",
+        "build": " yarn workspace alma-server run graphql:generate && yarn workspaces run build",
         "build:prod": "yarn workspaces run build:prod",
         "build:dev": "yarn workspaces run build -- --watch",
         "dev": "yarn workspace alma-web run dev",
