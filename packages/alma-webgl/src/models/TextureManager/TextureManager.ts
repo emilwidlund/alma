@@ -30,7 +30,8 @@ export class TextureManager {
         const id = randomHash(8);
 
         const texture = new Texture(this.context.ctx, undefined, {
-            image: new Image(),
+            // image: new Image(),
+            image: new Float64Array(),
             flip: true,
             filter: TextureFilter.NEAREST,
             wrap: TextureRepeat.REPEAT
