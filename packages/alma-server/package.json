@@ -10,7 +10,8 @@
         "start:dev": "yarn run db:generate && npx ts-node-dev ./src",
         "db:generate": "npx prisma generate",
         "db:migrate": "npx prisma migrate dev",
-        "db:seed": "npx prisma db seed"
+        "db:seed": "npx prisma db seed",
+        "graphql:generate": "npx ts-node ./schema.ts"
     },
     "keywords": [],
     "author": "",
