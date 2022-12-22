@@ -42,7 +42,7 @@ export const ProjectRoute = () => {
 
     React.useEffect(() => {
         if (getProjectData) {
-            buildContext(JSON.parse(JSON.stringify(getProjectData.getProject.circuit)));
+            return buildContext(JSON.parse(JSON.stringify(getProjectData.getProject.circuit)));
         }
     }, [getProjectData]);
 

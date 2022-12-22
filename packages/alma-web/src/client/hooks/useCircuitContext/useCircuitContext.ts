@@ -4,7 +4,7 @@ import { TextureResolver } from 'alma-webgl/build/models/TextureManager/TextureM
 import * as React from 'react';
 import { useState } from 'react';
 
-export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>, serialized?: IContextSerialized | null) => {
+export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>) => {
     const [context, setContext] = useState<WebGLContext | undefined>();
 
     const buildContext = (serialized?: IContextSerialized | null) => {
@@ -66,12 +66,12 @@ export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>, seria
             });
 
             setContext(ctx);
+
+            return () => {
+                ctx.dispose();
+            };
         }
     };
-
-    React.useEffect(() => {
-        buildContext(serialized);
-    }, []);
 
     return { context, buildContext };
 };

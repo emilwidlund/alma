@@ -23,7 +23,7 @@ export const ProjectCard = ({ index, item }: IProjectCardProps) => {
 
     React.useEffect(() => {
         if (isHovered) {
-            buildContext(JSON.parse(JSON.stringify(item.circuit)));
+            return buildContext(JSON.parse(JSON.stringify(item.circuit)));
         }
     }, [isHovered]);
 

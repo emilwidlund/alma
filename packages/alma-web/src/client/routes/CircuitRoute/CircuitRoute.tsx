@@ -43,12 +43,12 @@ export const CircuitRoute = () => {
         [getProjectData]
     );
 
-    const { context, buildContext } = useCircuitContext(canvasRef, serializedCircuit);
+    const { context, buildContext } = useCircuitContext(canvasRef);
     const createNode = useCreateNode(context, midPoint.current);
 
     React.useEffect(() => {
         if (serializedCircuit) {
-            buildContext(serializedCircuit);
+            return buildContext(serializedCircuit);
         }
     }, [serializedCircuit]);
 
