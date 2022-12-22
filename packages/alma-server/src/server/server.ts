@@ -30,7 +30,7 @@ export const start = async (db: PrismaClient) => {
     /** Create Apollo Server */
     createApolloServer(httpServer, app, db);
 
-    httpServer.listen(process.env.PORT, () => {
+    httpServer.listen(process.env.PORT || 3001, () => {
         console.log(`Server running on port ${process.env.PORT}`);
     });
 };
