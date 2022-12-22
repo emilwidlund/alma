@@ -80,7 +80,7 @@ export const CircuitRoute = () => {
     }, [openCodeModal, context]);
 
     const onContextMenu = React.useCallback(
-        e => {
+        (e: React.MouseEvent<HTMLDivElement>) => {
             e.preventDefault();
 
             toggleNodesMenu(position => !position);

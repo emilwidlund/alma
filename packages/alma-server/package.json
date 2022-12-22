@@ -3,9 +3,10 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
+    "private": true,
     "scripts": {
-        "start": "ts-node ./src",
-        "start:dev": "npx ts-node-dev ./src",
+        "start": "yarn run db:generate && ts-node ./src",
+        "start:dev": "yarn run db:generate && npx ts-node-dev ./src",
         "db:generate": "npx prisma generate",
         "db:migrate": "npx prisma migrate dev",
         "db:seed": "npx prisma db seed"

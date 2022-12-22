@@ -2,6 +2,7 @@
     "name": "alma-graph",
     "version": "1.0.0",
     "description": "",
+    "private": true,
     "main": "build/index.js",
     "types": "build/index.d.ts",
     "scripts": {

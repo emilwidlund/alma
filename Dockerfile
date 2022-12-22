@@ -2,31 +2,22 @@ FROM node:lts
 
 WORKDIR /alma
 
-# COPY package.json and package-lock.json files
-COPY packages/alma-server/package*.json ./
-
-# generated prisma files
-COPY packages/alma-server/prisma ./packages/alma-server/prisma/
-
-# COPY tsconfig.json file
-COPY packages/alma-server/tsconfig.json ./packages/alma-server/
-
 COPY packages/alma-server ./packages/alma-server
 
-COPY package*.json ./
+COPY package.json ./
 
-COPY lerna.json ./
+COPY yarn.lock ./
 
 COPY patches ./
 
 RUN apt-get -qy update && apt-get -qy install openssl
 
-RUN npm install
+RUN npm install yarn
 
-RUN npx lerna run db:generate
+RUN yarn
 
 # Run and expose the server on port 3001
 EXPOSE 3001
 
 # A command to start the server
-CMD npx lerna run start:dev
+CMD yarn workspace alma-server run start:dev

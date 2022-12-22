@@ -2,6 +2,7 @@
     "name": "alma-webgl",
     "version": "1.0.0",
     "description": "A visual programming environment for generative graphics.",
+    "private": true,
     "main": "build/index.js",
     "types": "build/index.d.ts",
     "scripts": {

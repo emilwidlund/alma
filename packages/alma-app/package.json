@@ -2,6 +2,7 @@
     "name": "alma-app",
     "version": "1.0.0",
     "main": "index.js",
+    "private": true,
     "scripts": {
         "start": "rm -rf ./node_modules/.cache/babel-loader && expo start -c",
         "android": "expo start --android",
@@ -35,7 +36,7 @@
         "glslify": "^7.1.1",
         "graphql": "^16.6.0",
         "prop-types": "^15.8.1",
-        "react": "18.0.0",
+        "react": "^18.0.0",
         "react-native": "^0.69.6",
         "react-native-get-random-values": "~1.8.0",
         "react-native-safe-area-context": "4.3.1",

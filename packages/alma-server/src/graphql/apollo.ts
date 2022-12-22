@@ -3,7 +3,7 @@ import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDe
 import { ApolloServer } from 'apollo-server-express';
 import * as express from 'express';
 import { useServer } from 'graphql-ws/lib/use/ws';
-import { Server } from 'https';
+import { Server } from 'http';
 import { WebSocketServer } from 'ws';
 
 import { IContext } from '../../types';

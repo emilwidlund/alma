@@ -3,14 +3,14 @@ import * as React from 'react';
 export const useClickOutside = <
     T extends HTMLElement,
     R extends React.RefObject<T | undefined>,
-    A extends React.MouseEventHandler<T>
+    A extends (event: MouseEvent | TouchEvent) => any
 >(
     ref: R,
     handler?: A
 ) => {
     const listener = React.useCallback(
-        event => {
-            if (!ref.current || ref.current.contains(event.target)) {
+        (event: MouseEvent | TouchEvent) => {
+            if (!ref.current || (event.target && ref.current.contains(event.target as Node))) {
                 return;
             }
 

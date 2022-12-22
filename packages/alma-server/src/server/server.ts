@@ -3,7 +3,7 @@ import express from 'express';
 
 import { createApolloServer } from '../graphql/apollo';
 import { initializePassport } from '../passport/auth';
-import { buildHttpsServer } from './https';
+import { buildHttpServer } from './http';
 import { authToken } from './middlewares/authToken/authToken';
 import { requestId } from './middlewares/requestId/requestId';
 import { initializeSession } from './session';
@@ -24,8 +24,8 @@ export const start = async (db: PrismaClient) => {
     /** Initialize Session */
     initializeSession(app);
 
-    /** Create HTTPS Server */
-    const httpsServer = buildHttpsServer(app);
+    /** Create HTTP Server */
+    const httpsServer = buildHttpServer(app);
 
     /** Create Apollo Server */
     createApolloServer(httpsServer, app, db);

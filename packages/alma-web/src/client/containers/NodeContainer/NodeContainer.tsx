@@ -23,7 +23,7 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
     }, []);
 
     const onClick = React.useCallback(
-        e => {
+        (e: React.MouseEvent<HTMLDivElement>) => {
             if (!circuit.selectedNodes?.includes(node)) {
                 circuit.setSelectedNodes([node]);
             }
