@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         position: 'relative',
         flex: 1,
         marginHorizontal: 20,
-        backgroundColor: '#fff',
+        backgroundColor: '#151618',
         borderRadius: 60,
         shadowRadius: 10,
         shadowOpacity: 0.1,

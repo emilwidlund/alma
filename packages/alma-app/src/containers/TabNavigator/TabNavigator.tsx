@@ -30,7 +30,7 @@ const TabNavigatorItem = ({ navigation, route, active, icon, onPress }: ITabNavi
     return (
         <TouchableOpacity key={route.key} style={styles.itemContainer} onPress={routePressHandler}>
             {/** @ts-ignore */}
-            <MaterialIcons name={icon} size={24} color={active ? '#000' : '#ccc'} />
+            <MaterialIcons name={icon} size={24} color={active ? '#1e62ff' : 'rgba(255, 255, 255, .15)'} />
         </TouchableOpacity>
     );
 };

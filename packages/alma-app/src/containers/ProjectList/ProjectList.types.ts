@@ -1,11 +1,6 @@
-import { IProjectCardProps } from '../../components/ProjectCard/ProjectCard.types';
-
-export interface IProjectListItemProps extends IProjectCardProps {
-    vertexShaderSource: string;
-    fragmentShaderSource: string;
-}
+import { Project } from '../../generated/graphql';
 
 export interface IProjectListContainerProps {
     header?: JSX.Element;
-    projects: IProjectListItemProps[];
+    projects: Project[];
 }

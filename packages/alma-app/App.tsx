@@ -8,7 +8,6 @@ import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 
 import { apolloClient } from './src/apollo/client';
-import { TabNavigator } from './src/containers/TabNavigator/TabNavigator';
 import { ArtboardPage } from './src/pages/ArtboardPage/ArtboardPage';
 import { ExplorePage } from './src/pages/ExplorePage/ExplorePage';
 import { ProfilePage } from './src/pages/ProfilePage/ProfilePage';
@@ -26,7 +25,7 @@ const theme = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
-        background: '#fff'
+        background: '#000'
     }
 };
 
@@ -57,7 +56,8 @@ export default function App() {
         <ApolloProvider client={apolloClient}>
             <StatusBar style="dark" />
             <NavigationContainer theme={theme}>
-                <Tab.Navigator tabBar={props => <TabNavigator {...props} />} screenOptions={{ headerShown: false }}>
+                {/* <Tab.Navigator tabBar={props => <TabNavigator {...props} />} screenOptions={{ headerShown: false }}> */}
+                <Tab.Navigator tabBar={() => null} screenOptions={{ headerShown: false }}>
                     <Tab.Screen name="ProjectStack" component={ProjectStack} />
                     <Tab.Screen name="Profile" component={ProfilePage} />
                 </Tab.Navigator>
