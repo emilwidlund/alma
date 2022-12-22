@@ -3,6 +3,7 @@
         "lib": ["esnext"],
         "outDir": "build",
         "target": "ESNext",
+        "module": "CommonJS",
         "strict": true,
         "sourceMap": true,
         "skipLibCheck": true,

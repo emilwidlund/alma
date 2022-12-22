@@ -2,11 +2,11 @@
     "name": "alma-server",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "build/index.js",
     "private": true,
     "scripts": {
         "build": "yarn run db:generate && tsc",
-        "start": "yarn run db:generate && ts-node ./src",
+        "start": "yarn run db:generate && node .",
         "start:dev": "yarn run db:generate && npx ts-node-dev ./src",
         "db:generate": "npx prisma generate",
         "db:migrate": "npx prisma migrate dev",
