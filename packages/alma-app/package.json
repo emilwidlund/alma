@@ -8,6 +8,7 @@
         "android": "expo start --android",
         "ios": "expo start --ios",
         "web": "expo start --web",
+        "build": "yarn run graphql:generate",
         "graphql:generate": "graphql-code-generator --config ./codegen.ts"
     },
     "dependencies": {
