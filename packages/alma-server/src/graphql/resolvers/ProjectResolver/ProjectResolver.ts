@@ -1,23 +1,9 @@
 import { Prisma } from '@prisma/client';
 import { ApolloError } from 'apollo-server-core';
-import { withFilter } from 'graphql-subscriptions';
-import {
-    Arg,
-    Args,
-    Authorized,
-    Ctx,
-    Mutation,
-    Publisher,
-    PubSub,
-    Query,
-    Resolver,
-    Root,
-    Subscription
-} from 'type-graphql';
+import { Arg, Args, Authorized, Ctx, Mutation, Publisher, PubSub, Query, Resolver } from 'type-graphql';
 
 import { IContext } from '../../../../types';
 import { Project } from '../../models/Project/Project';
-import { pubSub } from '../../subscriptions';
 import { UpdateProjectDataArgs } from './ProjectResolver.args';
 import { ProjectSubscriptionTrigger } from './ProjectResolver.types';
 
@@ -79,17 +65,5 @@ export class ProjectResolver {
             where: { id },
             data: { deletedAt: new Date() }
         });
-    }
-
-    @Subscription({
-        subscribe: withFilter(
-            () => pubSub.asyncIterator([ProjectSubscriptionTrigger.PROJECT_UPDATE]),
-            (payload: Prisma.ProjectGetPayload<Prisma.ProjectArgs>, variables: { id: string }) => {
-                return payload.id === variables.id;
-            }
-        )
-    })
-    projectUpdate(@Root() projectPayload: Project, @Arg('id') id: string): Project {
-        return projectPayload;
     }
 }
