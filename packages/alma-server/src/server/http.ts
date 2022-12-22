@@ -1,5 +1,4 @@
-import { RequestListener } from 'http';
-import { createServer } from 'https';
+import { createServer, RequestListener } from 'http';
 
 export const buildHttpServer = (handler: RequestListener) => {
     return createServer(handler);
