@@ -48,5 +48,8 @@
     },
     "workspaces": [
         "packages/*"
-    ]
+    ],
+    "engines": {
+        "node": ">=16.8.0 <17.0.0"
+    }
 }
