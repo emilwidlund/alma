@@ -2,17 +2,15 @@ FROM node:lts
 
 WORKDIR /alma
 
+COPY package.json ./package.json
+
+COPY yarn.lock ./yarn.lock
+
+COPY patches ./patches
+
 COPY packages/alma-server ./packages/alma-server
 
-COPY package.json ./
-
-COPY yarn.lock ./
-
-COPY patches ./
-
 RUN apt-get -qy update && apt-get -qy install openssl
-
-RUN npm install yarn
 
 RUN yarn
 
