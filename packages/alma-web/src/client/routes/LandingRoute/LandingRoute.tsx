@@ -22,8 +22,6 @@ export const LandingRoute = () => {
         navigate('/circuit/123');
     }, []);
 
-    console.log(data);
-
     return (
         <Scene>
             <div className={landingRouteContentOuterStyles()}>
@@ -43,7 +41,7 @@ export const LandingRoute = () => {
             </div>
             <div className={landingRouteContentOuterStyles()}>
                 <div className={landingRouteContentStyles()}>
-                    <a href="http://localhost:3001/oauth/google" target="_blank">
+                    <a href="https://local.alma.sh:3001/oauth/google" target="_blank">
                         Sign in with Google
                     </a>
                 </div>

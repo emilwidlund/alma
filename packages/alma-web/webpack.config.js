@@ -19,7 +19,10 @@ module.exports = env => {
         mode: 'production',
         devServer: {
             port: 3000,
-            historyApiFallback: true
+            historyApiFallback: true,
+            compress: true,
+            allowedHosts: 'all',
+            https: true
         },
         module: {
             rules: [

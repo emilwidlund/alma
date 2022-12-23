@@ -5,7 +5,7 @@ import express from 'express';
 
 import { createApolloServer } from '../graphql/apollo';
 import { initializePassport } from '../passport/auth';
-import { buildHttpServer } from './http';
+import { buildHttpsServer } from './https';
 import { authToken } from './middlewares/authToken/authToken';
 import { requestId } from './middlewares/requestId/requestId';
 import { initializeSession } from './session';
@@ -16,7 +16,7 @@ export const start = async (db: PrismaClient) => {
 
     app.use(
         cors({
-            origin: 'http://localhost:3000',
+            origin: 'https://local.alma.sh:3000',
             credentials: true
         })
     );
@@ -36,13 +36,13 @@ export const start = async (db: PrismaClient) => {
     /** Authenticate incoming request */
     app.use(authToken(db));
 
-    /** Create HTTP Server */
-    const httpServer = buildHttpServer(app);
+    /** Create HTTPS Server */
+    const httpsServer = buildHttpsServer(app);
 
     /** Create Apollo Server */
-    createApolloServer(httpServer, app, db);
+    createApolloServer(httpsServer, app, db);
 
-    httpServer.listen(process.env.PORT || 3001, () => {
+    httpsServer.listen(process.env.PORT || 3001, () => {
         console.log(`Server running on port ${process.env.PORT}`);
     });
 };
