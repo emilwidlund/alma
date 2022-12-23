@@ -3,10 +3,36 @@ import { Arg, Args, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, R
 
 import { IContext } from '../../../../types';
 import { Project } from '../../models/Project/Project';
-import { UpdateProjectDataArgs } from './ProjectResolver.args';
+import { CreateProjectDataArgs, UpdateProjectDataArgs } from './ProjectResolver.args';
 
 @Resolver(Project)
 export class ProjectResolver {
+    @Authorized()
+    @Mutation(() => Project)
+    async createProject(
+        @Args() { name, mediaUrl, circuit, private: priv }: CreateProjectDataArgs,
+        @Ctx() context: IContext
+    ) {
+        if (!context.user?.id) {
+            return new ApolloError('Not Authorized to perform this action');
+        }
+
+        return context.db.project.create({
+            data: {
+                name,
+                mediaUrl,
+                circuit,
+                private: priv,
+                ownerId: context.user.id
+            },
+            include: {
+                owner: true,
+                likes: true,
+                comments: true
+            }
+        });
+    }
+
     @Query(() => Project)
     async getProject(@Arg('id') id: string, @Ctx() context: IContext) {
         return context.db.project.findFirst({
