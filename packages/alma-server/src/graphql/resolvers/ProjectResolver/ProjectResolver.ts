@@ -21,7 +21,8 @@ export class ProjectResolver {
     async getProjects(@Arg('userId') id: string, @Ctx() context: IContext) {
         return context.db.project.findMany({
             where: { ownerId: id, private: false, deletedAt: undefined },
-            include: { owner: true }
+            include: { owner: true },
+            orderBy: { updatedAt: 'desc' }
         });
     }
 

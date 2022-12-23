@@ -12,6 +12,9 @@ import { initializeSession } from './session';
 export const start = async (db: PrismaClient) => {
     const app = express();
 
+    /** Initialize Session */
+    initializeSession(app);
+
     /** Initialize Passport handlers */
     initializePassport(app, db);
 
@@ -20,9 +23,6 @@ export const start = async (db: PrismaClient) => {
 
     /** Authenticate incoming request */
     app.use(authToken(db));
-
-    /** Initialize Session */
-    initializeSession(app);
 
     /** Create HTTP Server */
     const httpServer = buildHttpServer(app);

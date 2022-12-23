@@ -29,7 +29,8 @@ export class UserResolver {
     async projects(@Root() user: User, @Ctx() context: IContext) {
         return context.db.project.findMany({
             where: { ownerId: user.id, deletedAt: undefined },
-            include: { owner: true }
+            include: { owner: true },
+            orderBy: { updatedAt: 'desc' }
         });
     }
 }

@@ -41,8 +41,16 @@ export const initializePassport = (app: express.Application, db: PrismaClient) =
     /** Register Strategies */
     passport.use(googleStrategy(db));
 
+    passport.serializeUser(function (user, done) {
+        done(null, user);
+    });
+
+    passport.deserializeUser(function (user: User, done) {
+        done(null, user);
+    });
+
     /** Google OAuth */
-    app.get(Route.GOOGLE_OAUTH, passport.authenticate('google', { scope: ['profile'] }));
+    app.get(Route.GOOGLE_OAUTH, passport.authenticate('google', { scope: ['profile', 'email'] }));
 
     app.get(
         Route.GOOGLE_OAUTH_REDIRECT,
