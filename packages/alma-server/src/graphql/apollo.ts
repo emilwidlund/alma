@@ -46,5 +46,5 @@ export const createApolloServer = async (server: Server, app: express.Applicatio
 
     await apollo.start();
 
-    apollo.applyMiddleware({ app });
+    apollo.applyMiddleware({ app, cors: false });
 };

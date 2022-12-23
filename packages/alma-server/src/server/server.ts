@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import express from 'express';
 
 import { createApolloServer } from '../graphql/apollo';
@@ -11,6 +13,16 @@ import { initializeSession } from './session';
 /** Starts the Alma Server */
 export const start = async (db: PrismaClient) => {
     const app = express();
+
+    app.use(
+        cors({
+            origin: 'http://localhost:3000',
+            credentials: true
+        })
+    );
+
+    /** Parse Cookies */
+    app.use(cookieParser());
 
     /** Initialize Session */
     initializeSession(app);

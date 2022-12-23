@@ -7,5 +7,6 @@ import { httpLink } from './links/httpLink/httpLink';
 export const apolloClient = new ApolloClient({
     uri: Constants.expoConfig?.extra?.ALMA_GRAPHQL_ENDPOINT,
     cache: new InMemoryCache(),
-    link: from([authLink, httpLink])
+    link: from([authLink, httpLink]),
+    credentials: 'include'
 });

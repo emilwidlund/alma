@@ -1,6 +1,8 @@
+import { useQuery } from '@apollo/client';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import ME_QUERY from '../../apollo/queries/me.gql';
 import { Button } from '../../components/Button/Button';
 import { Heading } from '../../components/Heading/Heading';
 import { NavBar, NavBarItem } from '../../components/NavBar/NavBar';
@@ -13,11 +15,14 @@ import {
 } from './LandingRoute.styles';
 
 export const LandingRoute = () => {
+    const { data } = useQuery(ME_QUERY);
     const navigate = useNavigate();
 
     const handleNavigateToCTA = React.useCallback(() => {
         navigate('/circuit/123');
     }, []);
+
+    console.log(data);
 
     return (
         <Scene>
