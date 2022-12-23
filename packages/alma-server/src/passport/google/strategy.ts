@@ -13,18 +13,18 @@ export const googleStrategy = (db: PrismaClient) => {
             callbackURL: Route.GOOGLE_OAUTH_REDIRECT
         },
         async (accessToken, refreshToken, profile, done) => {
-            const firstVerifiedEmail = profile.emails?.find(email => email.verified);
+            const email = profile.emails?.[0].value;
 
             const currentUser = await db.user.findFirst({
-                where: { email: firstVerifiedEmail?.value, deletedAt: undefined }
+                where: { email, deletedAt: undefined }
             });
 
-            if (!currentUser && firstVerifiedEmail) {
+            if (!currentUser && email) {
                 const newUser = await db.user.create({
                     data: {
                         name: profile.displayName,
-                        email: firstVerifiedEmail.value,
-                        username: profile.username || `${_.lowerCase(profile.name?.givenName)}${randomString(10)}`,
+                        email,
+                        username: `${_.lowerCase(profile.name?.givenName)}${randomString(10)}`,
                         mediaUrl: profile.photos?.[0].value
                     }
                 });

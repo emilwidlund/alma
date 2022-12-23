@@ -38,18 +38,9 @@ export const LandingRoute = () => {
             </div>
             <div className={landingRouteContentOuterStyles()}>
                 <div className={landingRouteContentStyles()}>
-                    <Heading size={Size.SM}>Nodes, Knobs & Sliders</Heading>
-                    <p>
-                        Alma was created to bring parameterized inputs to the world of generative art. Twist, turn, move
-                        & adjust values and see them affect your creation in realtime - all through an intuitive user
-                        interface.
-                    </p>
-                    <Heading size={Size.SM}>WebGL or Canvas</Heading>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec maximus turpis ut lobortis porta.
-                        Fusce sit amet leo euismod est ullamcorper tristique ac a lacus. Sed sed ligula malesuada,
-                        commodo enim vehicula, facilisis purus. Curabitur vulputate ullamcorper tortor imperdiet mattis.
-                    </p>
+                    <a href="http://localhost:3001/oauth/google" target="_blank">
+                        Sign in with Google
+                    </a>
                 </div>
             </div>
         </Scene>
