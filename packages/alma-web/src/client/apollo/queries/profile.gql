@@ -4,11 +4,15 @@ query Profile($userId: String, $username: String) {
         name
         username
         mediaUrl
+        followersCount
+        followingCount
         projects {
             id
             name
             circuit
             mediaUrl
+            likesCount
+            commentsCount
             owner {
                 username
                 name

@@ -52,7 +52,7 @@ export class UserResolver {
     @Authorized()
     @Mutation(() => Boolean)
     async unfollow(@Ctx() context: IContext, @Arg('targetUserId') targetUserId: string) {
-        /** Don't attempt to unfollow if relationship doesn't exists */
+        /** Don't attempt to unfollow if relationship doesn't exist */
         if (!(await context.db.relationship.findFirst({ where: { userId: context.user!.id, targetUserId } }))) {
             return false;
         }
@@ -90,7 +90,7 @@ export class UserResolver {
     }
 
     @FieldResolver(() => Number)
-    async followerCount(@Root() user: User, @Ctx() context: IContext) {
+    async followersCount(@Root() user: User, @Ctx() context: IContext) {
         return context.db.relationship.count({
             where: { targetUserId: user.id }
         });
@@ -120,11 +120,11 @@ export class UserResolver {
             return false;
         }
 
-        return !!context.db.relationship.findFirst({
+        return !!(await context.db.relationship.findFirst({
             where: {
                 userId: context.user?.id,
                 targetUserId: user.id
             }
-        });
+        }));
     }
 }
