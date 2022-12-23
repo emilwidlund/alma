@@ -15,25 +15,27 @@ export const googleStrategy = (db: PrismaClient) => {
         async (accessToken, refreshToken, profile, done) => {
             const email = profile.emails?.[0].value;
 
+            if (!email) {
+                return;
+            }
+
             const currentUser = await db.user.findFirst({
-                where: { email, deletedAt: undefined }
+                where: { email }
             });
 
-            if (!currentUser && email) {
+            if (currentUser) {
+                return done(undefined, currentUser);
+            } else {
                 const newUser = await db.user.create({
                     data: {
                         name: profile.displayName,
                         email,
-                        username: `${_.lowerCase(profile.name?.givenName)}${randomString(10)}`,
+                        username: `${_.lowerCase(profile.name?.givenName)}${randomString(12)}`,
                         mediaUrl: profile.photos?.[0].value
                     }
                 });
 
                 return done(undefined, newUser);
-            }
-
-            if (currentUser) {
-                return done(undefined, currentUser);
             }
         }
     );

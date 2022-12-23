@@ -12,15 +12,29 @@ datasource db {
 }
 
 model User {
-  id          String    @id @default(cuid())
-  email       String    @unique
-  name        String
-  username    String    @unique
-  mediaUrl    String?
-  projects    Project[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt @default(now())
-  deletedAt   DateTime? 
+  id            String          @id @default(cuid())
+  email         String          @unique
+  name          String
+  username      String          @unique
+  mediaUrl      String?
+  projects      Project[]
+  likes         Like[]
+  comments      Comment[]
+  following     Relationship[]  @relation(name: "followers")
+  followers     Relationship[]  @relation(name: "following")
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt @default(now())
+}
+
+model Relationship {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(name: "following", fields: [userId], references: [id], onDelete: Cascade)
+  targetUserId  String
+  targetUser    User        @relation(name: "followers", fields: [targetUserId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt @default(now())
+  @@unique([userId, targetUserId])
 }
 
 model Project {
@@ -31,7 +45,29 @@ model Project {
   private     Boolean   @default(false)
   ownerId     String    
   owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  likes       Like[]
+  comments    Comment[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt @default(now())
-  deletedAt   DateTime? 
+}
+
+model Like {
+  id          String    @id @default(cuid())
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt @default(now())
+  @@unique([projectId, userId])
+}
+
+model Comment {
+  id          String    @id @default(cuid())
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt @default(now())
 }

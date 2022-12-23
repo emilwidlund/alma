@@ -1,7 +1,8 @@
-import { Arg, Authorized, Ctx, FieldResolver, Query, Resolver, Root } from 'type-graphql';
+import { Arg, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
 
 import { IContext } from '../../../../types';
-import { User } from '../../models/User/User';
+import { Project } from '../../models/Project/Project';
+import { Me, User } from '../../models/User/User';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -12,25 +13,118 @@ export class UserResolver {
         @Arg('username', { nullable: true }) username?: string
     ) {
         return context.db.user.findFirst({
-            where: { deletedAt: undefined, OR: [{ id }, { username }] }
+            where: { OR: [{ id }, { username }] }
         });
     }
 
     @Authorized()
-    @Query(() => User)
+    @Query(() => Me)
     async me(@Ctx() context: IContext) {
         return context.db.user.findFirst({
-            where: { id: context.user?.id, deletedAt: undefined },
+            where: { id: context.user?.id },
             include: { projects: true }
         });
     }
 
-    @FieldResolver(() => User)
+    @Authorized()
+    @Mutation(() => Boolean)
+    async follow(@Ctx() context: IContext, @Arg('targetUserId') targetUserId: string) {
+        /** Can't follow yourself */
+        if (targetUserId === context.user?.id) {
+            return false;
+        }
+
+        /** Don't attempt to follow if relationship already exists */
+        if (await context.db.relationship.findFirst({ where: { userId: context.user!.id, targetUserId } })) {
+            return false;
+        }
+
+        await context.db.relationship.create({
+            data: {
+                userId: context.user!.id,
+                targetUserId
+            }
+        });
+
+        return true;
+    }
+
+    @Authorized()
+    @Mutation(() => Boolean)
+    async unfollow(@Ctx() context: IContext, @Arg('targetUserId') targetUserId: string) {
+        /** Don't attempt to unfollow if relationship doesn't exists */
+        if (!(await context.db.relationship.findFirst({ where: { userId: context.user!.id, targetUserId } }))) {
+            return false;
+        }
+
+        await context.db.relationship.delete({
+            where: {
+                userId_targetUserId: {
+                    userId: context.user!.id,
+                    targetUserId
+                }
+            }
+        });
+
+        return true;
+    }
+
+    @FieldResolver(() => [Project])
     async projects(@Root() user: User, @Ctx() context: IContext) {
         return context.db.project.findMany({
-            where: { ownerId: user.id, deletedAt: undefined },
+            where: { ownerId: user.id, private: false },
             include: { owner: true },
             orderBy: { updatedAt: 'desc' }
+        });
+    }
+
+    @FieldResolver(() => [User])
+    async followers(@Root() user: User, @Ctx() context: IContext) {
+        const relationships = await context.db.relationship.findMany({
+            where: { targetUserId: user.id },
+            include: { user: true, targetUser: true },
+            orderBy: { updatedAt: 'desc' }
+        });
+
+        return relationships.map(relationship => relationship.user);
+    }
+
+    @FieldResolver(() => Number)
+    async followerCount(@Root() user: User, @Ctx() context: IContext) {
+        return context.db.relationship.count({
+            where: { targetUserId: user.id }
+        });
+    }
+
+    @FieldResolver(() => [User])
+    async following(@Root() user: User, @Ctx() context: IContext) {
+        const relationships = await context.db.relationship.findMany({
+            where: { userId: user.id },
+            include: { user: true, targetUser: true },
+            orderBy: { updatedAt: 'desc' }
+        });
+
+        return relationships.map(relationship => relationship.targetUser);
+    }
+
+    @FieldResolver(() => Number)
+    async followingCount(@Root() user: User, @Ctx() context: IContext) {
+        return context.db.relationship.count({
+            where: { userId: user.id }
+        });
+    }
+
+    @FieldResolver(() => Boolean)
+    async isFollowedByMe(@Root() user: User, @Ctx() context: IContext) {
+        if (!context.user?.id) {
+            return false;
+        }
+
+        return !!context.db.relationship.findFirst({
+            where: {
+                userId: context.user?.id,
+                targetUserId: user.id
+            }
         });
     }
 }

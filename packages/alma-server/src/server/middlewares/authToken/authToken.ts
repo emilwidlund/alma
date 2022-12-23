@@ -14,13 +14,13 @@ export const authToken =
 
         if (token) {
             jwt.verify(token, process.env.ALMA_JWT_SECRET, { algorithms: ['HS256'] }, async (err, user) => {
-                if (err || !user || typeof user === 'string' || !('id' in user)) return res.sendStatus(403);
+                if (err || !user || typeof user === 'string' || !('userId' in user)) return res.sendStatus(403);
 
                 const userId: string = 'userId' in (user as AuthJWTPayload) ? user.userId : undefined;
 
                 if (!userId) return res.sendStatus(403);
 
-                req.user = await db.user.findFirst({ where: { id: userId, deletedAt: undefined } });
+                req.user = await db.user.findFirst({ where: { id: userId } });
 
                 next();
             });

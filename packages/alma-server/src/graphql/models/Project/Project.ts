@@ -40,8 +40,4 @@ export class Project {
     /** Updated At */
     @Field()
     updatedAt: Date;
-
-    /** Created At */
-    @Field({ nullable: true })
-    deletedAt?: Date;
 }

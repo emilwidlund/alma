@@ -1,7 +1,5 @@
 import { Field, ObjectType } from 'type-graphql';
 
-import { Project } from '../Project/Project';
-
 @ObjectType()
 export class User {
     /** Identifier */
@@ -20,10 +18,6 @@ export class User {
     @Field({ nullable: true })
     mediaUrl?: string;
 
-    /** Projects */
-    @Field(() => [Project])
-    projects: Project[];
-
     /** Created At */
     @Field()
     createdAt: Date;
@@ -31,8 +25,11 @@ export class User {
     /** Updated At */
     @Field()
     updatedAt: Date;
+}
 
-    /** Created At */
-    @Field({ nullable: true })
-    deletedAt?: Date;
+@ObjectType()
+export class Me extends User {
+    /** Email */
+    @Field()
+    email: string;
 }
