@@ -1,13 +1,17 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Query } from '../../../generated/graphql';
+import FOLLOW_MUTATION from '../../apollo/mutations/follow.gql';
+import UNFOLLOW_MUTATION from '../../apollo/mutations/unfollow.gql';
 import PROFILE_QUERY from '../../apollo/queries/profile.gql';
 import { Avatar } from '../../components/Avatar/Avatar';
 import { Button } from '../../components/Button/Button';
+import { ButtonVariant } from '../../components/Button/Button.types';
 import { Heading } from '../../components/Heading/Heading';
 import { Icon } from '../../components/Icon/Icon';
+import { NavBar } from '../../components/NavBar/NavBar';
 import { Scene } from '../../components/Scene/Scene';
 import { SceneContent } from '../../components/Scene/SceneContent';
 import { ProjectsGrid } from '../../containers/ProjectsGrid/ProjectsGrid';
@@ -23,17 +27,26 @@ import {
 
 export const ProfileRoute = () => {
     const { username } = useParams();
-    const { data, loading } = useQuery<Query>(PROFILE_QUERY, {
+    const { data } = useQuery<Query>(PROFILE_QUERY, {
         variables: { username }
     });
+    const [follow, { loading: followLoading }] = useMutation<Query>(FOLLOW_MUTATION, {
+        refetchQueries: [PROFILE_QUERY]
+    });
+    const [unfollow, { loading: unfollowLoading }] = useMutation<Query>(UNFOLLOW_MUTATION, {
+        refetchQueries: [PROFILE_QUERY]
+    });
 
-    if (loading || !data?.getUser) {
+    const loading = followLoading || unfollowLoading;
+
+    if (!data?.getUser) {
         return null;
     }
 
     return (
         <Scene>
             <SceneContent>
+                <NavBar />
                 <div className={profileWrapperStyles}>
                     <div className={profileHeaderWrapperStyles}>
                         <div className={profileHeaderContentStyles}>
@@ -46,13 +59,24 @@ export const ProfileRoute = () => {
                                     <span>@{data.getUser.username}</span>
                                     <div className={profileHeaderFollwersStyles}>
                                         <Icon name="face" size={20} />
-                                        <span>287 followers</span>
+                                        <span>{data.getUser.followersCount} followers</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <Button label="Follow" />
+                            <Button
+                                label={data.getUser.isFollowedByMe ? 'Unfollow' : 'Follow'}
+                                variant={data.getUser.isFollowedByMe ? ButtonVariant.SECONDARY : ButtonVariant.PRIMARY}
+                                loading={loading}
+                                onPress={() => {
+                                    if (data.getUser?.isFollowedByMe) {
+                                        unfollow({ variables: { targetUserId: data.getUser.id } });
+                                    } else {
+                                        follow({ variables: { targetUserId: data.getUser?.id } });
+                                    }
+                                }}
+                            />
                         </div>
                     </div>
                     <ProjectsGrid items={data.getUser.projects} />

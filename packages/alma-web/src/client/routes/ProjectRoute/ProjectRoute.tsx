@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import * as dayJS from 'dayjs';
+import { capitalize } from 'lodash';
 import * as React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
@@ -30,7 +31,7 @@ export const ProjectRoute = () => {
     const { buildContext } = useCircuitContext(canvasRef);
     const { data: getProjectData } = useQuery<Query>(GET_PROJECT_QUERY, { variables: { id: projectId } });
 
-    const updatedAgo = dayJS(getProjectData?.getProject.updatedAt).fromNow(false);
+    const updatedAgo = capitalize(dayJS(getProjectData?.getProject.updatedAt).fromNow(false));
 
     React.useEffect(() => {
         if (canvasRef.current) {

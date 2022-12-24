@@ -8,6 +8,12 @@ export const navBarWrapperStyles = css`
     padding: 24px 0;
 `;
 
+export const navBarAsideStyles = css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`;
+
 export const navBarItemsStyles = css`
     display: flex;
     flex-direction: row;
@@ -25,4 +31,19 @@ export const navBarLinkStyles = css`
     &:first-of-type {
         margin-left: 0;
     }
+`;
+
+export const navBarUserInfoStyles = css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 32px;
+`;
+
+export const navBarUserUsernameStyles = css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--text-light-color);
+    margin-right: 16px;
 `;

@@ -2,6 +2,7 @@ query Me {
     me {
         id
         name
+        username
         mediaUrl
         projects {
             id

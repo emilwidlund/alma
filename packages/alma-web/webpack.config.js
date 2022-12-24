@@ -22,7 +22,14 @@ module.exports = env => {
             historyApiFallback: true,
             compress: true,
             allowedHosts: 'all',
-            https: true
+            server: {
+                type: 'https',
+                options: {
+                    key: path.resolve(__dirname, './ssl/_.alma.sh/key.pem'),
+                    cert: path.resolve(__dirname, './ssl/_.alma.sh/cert.pem'),
+                    ca: path.resolve(__dirname, './ssl/minica.pem')
+                }
+            }
         },
         module: {
             rules: [

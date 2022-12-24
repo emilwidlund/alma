@@ -1,13 +1,42 @@
+import { useQuery } from '@apollo/client';
 import * as React from 'react';
-import { NavLink, NavLinkProps } from 'react-router-dom';
+import { Link, NavLink, NavLinkProps } from 'react-router-dom';
 
-import { navBarItemsStyles, navBarLinkStyles, navBarWrapperStyles } from './NavBar.styles';
+import { Query } from '../../../generated/graphql';
+import ME_QUERY from '../../apollo/queries/me.gql';
+import { Size } from '../../types';
+import { Avatar } from '../Avatar/Avatar';
+import {
+    navBarAsideStyles,
+    navBarItemsStyles,
+    navBarLinkStyles,
+    navBarUserInfoStyles,
+    navBarUserUsernameStyles,
+    navBarWrapperStyles
+} from './NavBar.styles';
 
-export const NavBar = ({ children }: React.PropsWithChildren<{}>) => {
+export const NavBar = () => {
+    const { data } = useQuery<Query>(ME_QUERY);
+
+    const userData = data?.me && (
+        <div className={navBarUserInfoStyles}>
+            <span className={navBarUserUsernameStyles}>{data?.me?.username}</span>
+            <Link to={`/${data?.me?.username}`}>
+                <Avatar size={Size.SM} media={data?.me.mediaUrl} />
+            </Link>
+        </div>
+    );
+
     return (
         <div className={navBarWrapperStyles}>
             <NavBarItem to="/" children="Λlma" />
-            <div className={navBarItemsStyles}>{children}</div>
+            <div className={navBarAsideStyles}>
+                <div className={navBarItemsStyles}>
+                    <NavBarItem to="/explore" children="Explore" />
+                    <NavBarItem to="/emilwidlund" children="Dashboard" />
+                </div>
+                {userData}
+            </div>
         </div>
     );
 };

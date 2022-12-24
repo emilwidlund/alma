@@ -23,7 +23,7 @@ import { IProjectHeaderContainerProps } from './ProjectHeaderContainer.types';
 export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps) => {
     const navigate = useNavigate();
     const circuit = useCircuit();
-    const [updateProject] = useMutation<Mutation>(UPDATE_PROJECT_MUTATION, {
+    const [updateProject, { loading: updateLoading }] = useMutation<Mutation>(UPDATE_PROJECT_MUTATION, {
         variables: { id: project.id },
         refetchQueries: [GET_PROJECT_QUERY]
     });
@@ -83,7 +83,13 @@ export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps
             </div>
             <div className={projectHeaderContainerMetaStyles}>
                 <div className={projectHeaderContainerActionsStyles}>
-                    <Button icon="save" label="Save" onPress={handleUpdateProject} disabled={!circuit.isDirty} />
+                    <Button
+                        icon="save"
+                        label="Save"
+                        loading={updateLoading}
+                        onPress={handleUpdateProject}
+                        disabled={!circuit.isDirty}
+                    />
                 </div>
                 <div>
                     <Avatar media={project.owner.mediaUrl} size={Size.SM} />

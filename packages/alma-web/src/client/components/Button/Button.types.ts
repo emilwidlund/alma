@@ -12,5 +12,6 @@ export interface IButtonProps {
     variant?: ButtonVariant;
     icon?: string;
     disabled?: boolean;
+    loading?: boolean;
     onPress?: MouseEventHandler<HTMLButtonElement>;
 }

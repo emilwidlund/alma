@@ -20,7 +20,7 @@ export const getUserJWT = (user: User): string => {
 export const authSuccessCallback = (req: express.Request, res: express.Response) => {
     if (req.user) {
         const jwt = getUserJWT(req.user);
-        res.cookie('authToken', jwt);
+        res.cookie('authToken', jwt, { sameSite: 'lax', httpOnly: true, secure: true });
 
         res.json({
             data: {
