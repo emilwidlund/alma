@@ -14,15 +14,19 @@ export const authToken =
 
         if (token) {
             jwt.verify(token, process.env.ALMA_JWT_SECRET, { algorithms: ['HS256'] }, async (err, user) => {
-                if (err || !user || typeof user === 'string' || !('userId' in user)) return res.sendStatus(403);
+                if (user && typeof user !== 'string' && 'userId' in user) {
+                    const userId: string = 'userId' in (user as AuthJWTPayload) ? user?.userId : undefined;
 
-                const userId: string = 'userId' in (user as AuthJWTPayload) ? user.userId : undefined;
+                    if (userId) {
+                        req.user = await db.user.findUnique({ where: { id: userId } });
 
-                if (!userId) return res.sendStatus(403);
-
-                req.user = await db.user.findFirst({ where: { id: userId } });
-
-                next();
+                        next();
+                    } else {
+                        next();
+                    }
+                } else {
+                    next();
+                }
             });
         } else {
             next();

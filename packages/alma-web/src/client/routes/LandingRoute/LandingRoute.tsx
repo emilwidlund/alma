@@ -35,7 +35,10 @@ export const LandingRoute = () => {
             </div>
             <div className={landingRouteContentOuterStyles()}>
                 <div className={landingRouteContentStyles()}>
-                    <a href="https://local.alma.sh:3001/oauth/google" target="_blank">
+                    <a
+                        href={`https://local.alma.sh:3001/oauth/google?redirect_uri=${window.location.origin}`}
+                        target="_blank"
+                    >
                         Sign in with Google
                     </a>
                 </div>

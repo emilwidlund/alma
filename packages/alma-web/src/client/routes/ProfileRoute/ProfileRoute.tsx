@@ -27,7 +27,7 @@ import {
 
 export const ProfileRoute = () => {
     const { username } = useParams();
-    const { data } = useQuery<Query>(PROFILE_QUERY, {
+    const { data, loading: profileLoading } = useQuery<Query>(PROFILE_QUERY, {
         variables: { username }
     });
     const [follow, { loading: followLoading }] = useMutation<Query>(FOLLOW_MUTATION, {
@@ -37,7 +37,7 @@ export const ProfileRoute = () => {
         refetchQueries: [PROFILE_QUERY]
     });
 
-    const loading = followLoading || unfollowLoading;
+    const loading = profileLoading || followLoading || unfollowLoading;
 
     if (!data?.getUser) {
         return null;
@@ -58,8 +58,11 @@ export const ProfileRoute = () => {
                                 <div className={profileHeaderMetaStyles}>
                                     <span>@{data.getUser.username}</span>
                                     <div className={profileHeaderFollwersStyles}>
-                                        <Icon name="face" size={20} />
-                                        <span>{data.getUser.followersCount} followers</span>
+                                        <Icon name="groups" size={20} />
+                                        <span>
+                                            {data.getUser.followersCount}
+                                            {data.getUser.followersCount === 1 ? ' follower' : ' followers'}
+                                        </span>
                                     </div>
                                 </div>
                             </div>

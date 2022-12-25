@@ -10,8 +10,9 @@ import { Size } from '../../types';
 import {
     projectCardCanvasStyles,
     projectCardContentStyles,
+    projectCardInfoSeparatorStyles,
+    projectCardInfoStyles,
     projectCardMediaStyles,
-    projectCardUpdatedAtStyles,
     projectCardWrapperStyles
 } from './ProjectCard.styles';
 import { IProjectCardProps } from './ProjectCard.types';
@@ -37,9 +38,9 @@ export const ProjectCard = ({ index, item }: IProjectCardProps) => {
                     <CSSTransition
                         classNames="fade"
                         in={isHovered}
-                        timeout={1000}
+                        timeout={500}
                         children={
-                            <canvas ref={canvasRef} className={projectCardCanvasStyles} width={320} height={360} />
+                            <canvas ref={canvasRef} className={projectCardCanvasStyles} width={320} height={240} />
                         }
                         unmountOnExit
                         mountOnEnter
@@ -51,7 +52,13 @@ export const ProjectCard = ({ index, item }: IProjectCardProps) => {
                 <Heading size={Size.SM} marginTop={0} marginBottom={12}>
                     {item.name}
                 </Heading>
-                <span className={projectCardUpdatedAtStyles}>{capitalize(updatedAgo)}</span>
+                <div className={projectCardInfoStyles}>
+                    <span>
+                        {item.likesCount} {item.likesCount === 1 ? 'Like' : 'Likes'}
+                    </span>
+                    <span className={projectCardInfoSeparatorStyles}>{'·'}</span>
+                    <span>{capitalize(updatedAgo)}</span>
+                </div>
             </div>
         </div>
     );

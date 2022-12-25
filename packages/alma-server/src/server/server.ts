@@ -24,17 +24,17 @@ export const start = async (db: PrismaClient) => {
     /** Parse Cookies */
     app.use(cookieParser());
 
-    /** Initialize Session */
-    initializeSession(app);
-
-    /** Initialize Passport handlers */
-    initializePassport(app, db);
-
     /** Assign unique identifier to each incoming request */
     app.use(requestId);
 
     /** Authenticate incoming request */
     app.use(authToken(db));
+
+    /** Initialize Session */
+    initializeSession(app);
+
+    /** Initialize Passport handlers */
+    initializePassport(app, db);
 
     /** Create HTTPS Server */
     const httpsServer = buildHttpsServer(app);

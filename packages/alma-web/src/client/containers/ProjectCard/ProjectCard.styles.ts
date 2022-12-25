@@ -22,18 +22,20 @@ export const projectCardWrapperStyles = (index: number) => css`
 `;
 
 export const projectCardMediaStyles = (url?: string) => css`
+    position: relative;
     width: 320px;
-    height: 360px;
+    height: 240px;
     background-color: #000;
     background-image: url(${url});
     background-position: center center;
     background-size: cover;
     border-radius: 32px;
+    overflow: hidden;
 `;
 
 export const projectCardCanvasStyles = css`
     width: 320px;
-    height: 360px;
+    height: 240px;
     border-radius: 32px;
 
     &.fade-enter {
@@ -42,7 +44,7 @@ export const projectCardCanvasStyles = css`
 
     &.fade-enter-active {
         opacity: 1;
-        transition: opacity 1s;
+        transition: opacity 500ms;
     }
 
     &.fade-exit {
@@ -51,7 +53,7 @@ export const projectCardCanvasStyles = css`
 
     &.fade-exit-active {
         opacity: 0;
-        transition: opacity 1s;
+        transition: opacity 500ms;
     }
 `;
 
@@ -63,6 +65,10 @@ export const projectCardContentStyles = css`
     color: var(--text-light-color);
 `;
 
-export const projectCardUpdatedAtStyles = css`
+export const projectCardInfoStyles = css`
     color: var(--text-neutral-color);
+`;
+
+export const projectCardInfoSeparatorStyles = css`
+    margin: 0 8px;
 `;

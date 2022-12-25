@@ -22,13 +22,17 @@ export const authSuccessCallback = (req: express.Request, res: express.Response)
         const jwt = getUserJWT(req.user);
         res.cookie('authToken', jwt, { sameSite: 'lax', httpOnly: true, secure: true });
 
-        res.json({
-            data: {
-                authToken: jwt,
-                expiresIn: 900
-            },
-            error: null
-        });
+        if (typeof req.query['state'] === 'string') {
+            res.redirect(req.query['state']);
+        } else {
+            res.json({
+                data: {
+                    authToken: jwt,
+                    expiresIn: 900
+                },
+                error: null
+            });
+        }
     } else {
         res.status(401).json({
             data: null,
@@ -53,7 +57,10 @@ export const initializePassport = (app: express.Application, db: PrismaClient) =
     });
 
     /** Google OAuth */
-    app.get(Route.GOOGLE_OAUTH, passport.authenticate('google', { scope: ['profile', 'email'] }));
+    app.get(Route.GOOGLE_OAUTH, (req, res, next) => {
+        const redirectURI = req.query['redirect_uri'] as string;
+        return passport.authenticate('google', { scope: ['profile', 'email'], state: redirectURI })(req, res, next);
+    });
 
     app.get(
         Route.GOOGLE_OAUTH_REDIRECT,

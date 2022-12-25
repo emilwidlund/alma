@@ -20,8 +20,8 @@ model User {
   projects      Project[]
   likes         Like[]
   comments      Comment[]
-  following     Relationship[]  @relation(name: "followers")
-  followers     Relationship[]  @relation(name: "following")
+  following     Relationship[]  @relation(name: "following")
+  followers     Relationship[]  @relation(name: "followers")
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt @default(now())
 }
