@@ -2,6 +2,7 @@
 
 const CopyPlugin = require('copy-webpack-plugin');
 const dotenv = require('dotenv');
+const WebpackEditorWebpackPlugin = require('monaco-editor-webpack-plugin');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
@@ -41,6 +42,14 @@ module.exports = env => {
                     test: /\.(graphql|gql)$/,
                     exclude: /node_modules/,
                     loader: 'graphql-tag/loader'
+                },
+                {
+                    test: /\.css$/,
+                    use: ['style-loader', 'css-loader']
+                },
+                {
+                    test: /\.ttf$/,
+                    type: 'asset/resource'
                 }
             ]
         },
@@ -53,7 +62,11 @@ module.exports = env => {
                     env: JSON.stringify({ ...dotenv.config().parsed, ...env })
                 }
             }),
-            new NodePolyfillPlugin()
+            new NodePolyfillPlugin(),
+            new WebpackEditorWebpackPlugin({
+                languages: [],
+                customLanguages: ['glsl']
+            })
         ]
     };
 };

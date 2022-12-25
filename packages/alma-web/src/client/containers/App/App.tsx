@@ -13,6 +13,7 @@ import { CircuitRoute } from '../../routes/CircuitRoute/CircuitRoute';
 import { LandingRoute } from '../../routes/LandingRoute/LandingRoute';
 import { ProfileRoute } from '../../routes/ProfileRoute/ProfileRoute';
 import { ProjectRoute } from '../../routes/ProjectRoute/ProjectRoute';
+import { ShaderRoute } from '../../routes/ShaderRoute/ShaderRoute';
 import { transitionGroupWrapperStyles } from './App.styles';
 
 injectAnalytics();
@@ -53,6 +54,7 @@ export const AppRoutes = () => {
                     <Route path="/:username" element={<ProfileRoute />} />
                     <Route path="/:username/:projectId" element={<ProjectRoute />} />
                     <Route path="/:username/:projectId/circuit" element={<CircuitRoute />} />
+                    <Route path="/:username/:projectId/shader" element={<ShaderRoute />} />
                 </Routes>
             </CSSTransition>
         </TransitionGroup>
