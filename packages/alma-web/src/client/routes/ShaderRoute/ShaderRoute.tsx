@@ -35,11 +35,18 @@ export const ShaderRoute = () => {
     }, []);
 
     React.useEffect(() => {
+        console.log(canvasRef);
         if (canvasRef.current) {
             const { width, height } = canvasRef.current.getBoundingClientRect();
 
             canvasRef.current.width = width;
             canvasRef.current.height = height;
+        }
+    }, []);
+
+    React.useEffect(() => {
+        if (canvasRef.current) {
+            const { width, height } = canvasRef.current;
 
             const ctx: WebGLRenderingContext = canvasRef.current.getContext('webgl2')!;
 
@@ -73,16 +80,12 @@ export const ShaderRoute = () => {
         }
     }, [code]);
 
-    if (!getProjectData?.getProject) {
-        return null;
-    }
-
     return (
         <Scene className={shaderRouteWrapperStyles}>
-            <ProjectHeaderContainer project={getProjectData.getProject} />
+            {getProjectData && <ProjectHeaderContainer project={getProjectData.getProject} />}
             <div className={shaderRouteContentWrapperStyles}>
                 <CodeEditor code={code} onChange={handleChange} />
-                <canvas className={shaderRouteCanvasStyles} ref={canvasRef} width={300} height={240} />
+                <canvas ref={canvasRef} className={shaderRouteCanvasStyles} width={300} height={240} />
             </div>
         </Scene>
     );
