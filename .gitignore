@@ -1,6 +1,8 @@
 node_modules
 build
 .env
+ssl
+generated
 
 # macOS
 .DS_Store
