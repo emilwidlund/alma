@@ -1,9 +1,18 @@
-mutation UpdateProject($id: String!, $name: String, $circuit: JSONObject, $private: Boolean, $mediaUrl: String) {
-    updateProject(id: $id, name: $name, circuit: $circuit, private: $private, mediaUrl: $mediaUrl) {
+mutation UpdateProject(
+    $id: String!
+    $name: String
+    $source: String
+    $circuit: JSONObject
+    $private: Boolean
+    $mediaUrl: String
+) {
+    updateProject(id: $id, name: $name, source: $source, circuit: $circuit, private: $private, mediaUrl: $mediaUrl) {
         id
         name
+        type
         private
         mediaUrl
+        source
         circuit
         owner {
             id

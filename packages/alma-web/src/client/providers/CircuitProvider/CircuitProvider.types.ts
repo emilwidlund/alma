@@ -23,6 +23,4 @@ export interface ICircuitContextValue {
     setSelectedNodes(nodes?: Node[]): void;
     selectionBounds?: IBounds;
     setSelectionBounds(selectionBounds?: IBounds): void;
-    isDirty: boolean;
-    setIsDirty(isDirty: boolean): void;
 }

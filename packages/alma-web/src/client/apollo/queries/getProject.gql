@@ -2,8 +2,10 @@ query GetProject($id: String!) {
     getProject(id: $id) {
         id
         name
+        type
         private
         mediaUrl
+        source
         circuit
         owner {
             id

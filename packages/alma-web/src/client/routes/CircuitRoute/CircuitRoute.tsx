@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { IContextSerialized, Node } from 'alma-graph';
 import { ClassConstructor } from 'alma-webgl';
+import { reaction } from 'mobx';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -28,6 +29,7 @@ export const CircuitRoute = () => {
     const [nodesMenuVisible, toggleNodesMenu] = React.useState(false);
     const [examplesMenuVisible, toggleExamplesMenu] = React.useState(false);
     const [isInFullscreen, setIsInFullscreen] = React.useState(false);
+    const [isDirty, setIsDirty] = React.useState(false);
     const { open: openFragmentModal } = useFragmentModal();
     const { open: openCodeModal } = useCodeModal();
     const midPoint = useCartesianMidpoint(circuitRef);
@@ -51,6 +53,23 @@ export const CircuitRoute = () => {
             return buildContext(serializedCircuit);
         }
     }, [serializedCircuit]);
+
+    React.useEffect(() => {
+        if (context) {
+            const valueReactionDisposer = reaction(
+                () => JSON.parse(JSON.stringify(context)),
+                (value, previous, reaction) => {
+                    setIsDirty(true);
+
+                    reaction.dispose();
+                }
+            );
+
+            return () => {
+                valueReactionDisposer?.();
+            };
+        }
+    }, [context, setIsDirty]);
 
     const onContextMenuItemClick = React.useCallback(
         (nodeClass: ClassConstructor<Node>) => {
@@ -141,7 +160,12 @@ export const CircuitRoute = () => {
     return (
         <CircuitProvider context={context}>
             <Scene>
-                <ProjectHeaderContainer project={getProjectData.getProject} />
+                <ProjectHeaderContainer
+                    project={getProjectData.getProject}
+                    circuit={context}
+                    isDirty={isDirty}
+                    setIsDirty={setIsDirty}
+                />
                 <div className={circuitRouteWrapperStyles}>
                     <CircuitContainer ref={circuitRef} onContextMenu={onContextMenu} onFullscreen={onFullscreenClick} />
                     <PropertyPanel ref={canvasRef} artboardSize={canvasSize} />

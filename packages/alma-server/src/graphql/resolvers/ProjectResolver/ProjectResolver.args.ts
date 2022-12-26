@@ -1,3 +1,4 @@
+import { ProjectType } from '@prisma/client';
 import { GraphQLJSONObject } from 'graphql-scalars';
 import { ArgsType, Field } from 'type-graphql';
 
@@ -6,11 +7,17 @@ export class CreateProjectDataArgs {
     @Field()
     name: string;
 
+    @Field()
+    type: ProjectType;
+
+    @Field({ nullable: true })
+    source?: string;
+
+    @Field(() => GraphQLJSONObject, { nullable: true })
+    circuit?: object;
+
     @Field({ nullable: true })
     mediaUrl?: string;
-
-    @Field(() => GraphQLJSONObject)
-    circuit: object;
 
     @Field()
     private: boolean;
@@ -26,6 +33,9 @@ export class UpdateProjectDataArgs {
 
     @Field({ nullable: true })
     mediaUrl?: string;
+
+    @Field({ nullable: true })
+    source?: string;
 
     @Field(() => GraphQLJSONObject, { nullable: true })
     circuit?: object;

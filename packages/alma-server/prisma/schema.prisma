@@ -11,6 +11,11 @@ datasource db {
   url      = env("ALMA_DATABASE_URL")
 }
 
+enum ProjectType {
+  SHADER_SOURCE
+  SHADER_CIRCUIT
+}
+
 model User {
   id            String          @id @default(cuid())
   email         String          @unique
@@ -41,7 +46,9 @@ model Project {
   id          String    @id @default(cuid())
   name        String
   mediaUrl    String?
-  circuit     Json
+  type        ProjectType
+  circuit     Json?
+  source      String?
   private     Boolean   @default(false)
   ownerId     String    
   owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)

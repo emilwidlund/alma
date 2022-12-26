@@ -1,3 +1,4 @@
+import { ProjectType } from '@prisma/client';
 import { GraphQLJSONObject } from 'graphql-scalars';
 import { Field, ObjectType } from 'type-graphql';
 
@@ -13,13 +14,21 @@ export class Project {
     @Field()
     name: string;
 
+    /** Type */
+    @Field()
+    type: ProjectType;
+
+    /** Source */
+    @Field({ nullable: true })
+    source?: string;
+
+    /** Serialized Circuit */
+    @Field(() => GraphQLJSONObject, { nullable: true })
+    circuit?: object;
+
     /** Media URL */
     @Field({ nullable: true })
     mediaUrl?: string;
-
-    /** Serialized Circuit */
-    @Field(() => GraphQLJSONObject)
-    circuit: object;
 
     /** Private Flag */
     @Field()

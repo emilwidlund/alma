@@ -66,7 +66,16 @@ export const ProjectRoute = () => {
                         {updatedAgo}
                     </span>
                     <div className={projectActionButtonsStyles}>
-                        <Button label="View Circuit" onPress={() => navigate(`/${username}/${projectId}/circuit`)} />
+                        <Button
+                            label="View Circuit"
+                            onPress={() =>
+                                navigate(
+                                    `/${username}/${projectId}/${
+                                        getProjectData?.getProject.type === 'SHADER_SOURCE' ? 'source' : 'circuit'
+                                    }`
+                                )
+                            }
+                        />
                         <Button
                             className={projectCloneButtonStyles}
                             label="Fork Project"

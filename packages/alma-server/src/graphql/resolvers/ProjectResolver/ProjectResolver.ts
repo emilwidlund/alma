@@ -1,3 +1,4 @@
+import { ProjectType } from '@prisma/client';
 import { ApolloError } from 'apollo-server-core';
 import { Arg, Args, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
 
@@ -11,18 +12,36 @@ export class ProjectResolver {
     @Authorized()
     @Mutation(() => Project)
     async createProject(
-        @Args() { name, mediaUrl, circuit, private: priv }: CreateProjectDataArgs,
+        @Args() { name, type, source, circuit, mediaUrl, private: priv }: CreateProjectDataArgs,
         @Ctx() context: IContext
     ) {
         if (!context.user?.id) {
             return new ApolloError('Not Authorized to perform this action');
         }
 
+        if (type === ProjectType.SHADER_SOURCE && !source) {
+            return new ApolloError(`Source must be provided when project type is ${type}`);
+        }
+
+        if (type === ProjectType.SHADER_SOURCE && circuit) {
+            return new ApolloError(`Can't provide a circuit when project type is ${type}`);
+        }
+
+        if (type === ProjectType.SHADER_CIRCUIT && !circuit) {
+            return new ApolloError(`Circuit must be provided when project type is ${type}`);
+        }
+
+        if (type === ProjectType.SHADER_CIRCUIT && source) {
+            return new ApolloError(`Can't provide a source when project type is ${type}`);
+        }
+
         return context.db.project.create({
             data: {
                 name,
-                mediaUrl,
+                type,
+                source,
                 circuit,
+                mediaUrl,
                 private: priv,
                 ownerId: context.user.id
             },
@@ -65,7 +84,7 @@ export class ProjectResolver {
     @Authorized()
     @Mutation(() => Project)
     async updateProject(
-        @Args() { id, name, mediaUrl, circuit, private: priv }: UpdateProjectDataArgs,
+        @Args() { id, name, mediaUrl, source, circuit, private: priv }: UpdateProjectDataArgs,
         @Ctx() context: IContext
     ) {
         const project = await context.db.project.findUnique({ where: { id } });
@@ -75,10 +94,18 @@ export class ProjectResolver {
             return new ApolloError('Not Authorized to perform this action');
         }
 
+        if (project?.type === ProjectType.SHADER_SOURCE && circuit) {
+            return new ApolloError(`Can't provide a circuit when project type is ${project.type}`);
+        }
+
+        if (project?.type === ProjectType.SHADER_CIRCUIT && source) {
+            return new ApolloError(`Can't provide a source when project type is ${project.type}`);
+        }
+
         const results = await context.db.project.update({
             where: { id },
-            data: { name, mediaUrl, circuit, private: priv },
-            include: { owner: true }
+            data: { name, mediaUrl, source, circuit, private: priv },
+            include: { owner: true, likes: true, comments: true }
         });
 
         return results;

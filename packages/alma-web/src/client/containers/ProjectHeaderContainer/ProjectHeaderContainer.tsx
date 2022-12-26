@@ -9,7 +9,6 @@ import { Avatar } from '../../components/Avatar/Avatar';
 import { Button } from '../../components/Button/Button';
 import { ButtonVariant } from '../../components/Button/Button.types';
 import { Heading } from '../../components/Heading/Heading';
-import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { Size } from '../../types';
 import {
     projectHeaderContainerActionsStyles,
@@ -20,30 +19,36 @@ import {
 } from './ProjectHeaderContainer.styles';
 import { IProjectHeaderContainerProps } from './ProjectHeaderContainer.types';
 
-export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps) => {
+export const ProjectHeaderContainer = ({
+    project,
+    circuit,
+    source,
+    isDirty,
+    setIsDirty
+}: IProjectHeaderContainerProps) => {
     const navigate = useNavigate();
-    const circuit = useCircuit();
     const [updateProject, { loading: updateLoading }] = useMutation<Mutation>(UPDATE_PROJECT_MUTATION, {
         variables: { id: project.id },
         refetchQueries: [GET_PROJECT_QUERY]
     });
 
     const handleUpdateProject = React.useCallback(async () => {
-        if (circuit.context) {
-            const mediaUrl = (circuit.context.ctx.canvas as HTMLCanvasElement).toDataURL('image/jpeg');
+        const mediaUrl = circuit ? (circuit.ctx.canvas as HTMLCanvasElement).toDataURL('image/jpeg') : undefined;
 
-            const { data } = await updateProject({
-                variables: { id: project.id, circuit: JSON.parse(JSON.stringify(circuit.context)), mediaUrl }
-            });
+        const sourceOrCircuit =
+            project.type === 'SHADER_SOURCE' ? { source } : { circuit: JSON.parse(JSON.stringify(circuit)) };
 
-            if (data?.updateProject) {
-                circuit.setIsDirty(false);
-            }
+        const { data } = await updateProject({
+            variables: { id: project.id, mediaUrl, ...sourceOrCircuit }
+        });
+
+        if (data?.updateProject) {
+            setIsDirty(false);
         }
-    }, [updateProject, project, circuit]);
+    }, [updateProject, project, circuit, source, setIsDirty]);
 
     const handleNavigateBack = React.useCallback(() => {
-        if (circuit.isDirty) {
+        if (isDirty) {
             const forceNavigate = confirm(
                 'Changes have been made, but not saved. Work might be lost. Want to continue?'
             );
@@ -56,10 +61,10 @@ export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps
             navigate(-1);
             window.onbeforeunload = null;
         }
-    }, [circuit, navigate]);
+    }, [navigate, isDirty]);
 
     React.useEffect(() => {
-        if (circuit.isDirty) {
+        if (isDirty) {
             window.onbeforeunload = e => {
                 e.preventDefault();
 
@@ -68,7 +73,7 @@ export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps
         } else {
             window.onbeforeunload = null;
         }
-    }, [circuit]);
+    }, [isDirty]);
 
     return (
         <div className={projectHeaderContainerWrapperStyles}>
@@ -88,7 +93,7 @@ export const ProjectHeaderContainer = ({ project }: IProjectHeaderContainerProps
                         label="Save"
                         loading={updateLoading}
                         onPress={handleUpdateProject}
-                        disabled={!circuit.isDirty}
+                        disabled={!isDirty}
                     />
                 </div>
                 <div>

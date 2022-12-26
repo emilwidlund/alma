@@ -9,11 +9,12 @@ import GET_PROJECT_QUERY from '../../apollo/queries/getProject.gql';
 import { CodeEditor } from '../../components/CodeEditor/CodeEditor';
 import { Scene } from '../../components/Scene/Scene';
 import { ProjectHeaderContainer } from '../../containers/ProjectHeaderContainer/ProjectHeaderContainer';
+import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import {
-    shaderRouteCanvasStyles,
-    shaderRouteContentWrapperStyles,
-    shaderRouteWrapperStyles
-} from './ShaderRoute.styles';
+    sourceRouteCanvasStyles,
+    sourceRouteContentWrapperStyles,
+    sourceRouteWrapperStyles
+} from './SourceRoute.styles';
 
 const defaultCode = `void main() {
     // Time varying pixel color
@@ -23,19 +24,27 @@ const defaultCode = `void main() {
     fragColor = vec4(col, 1.0);
 }`;
 
-export const ShaderRoute = () => {
+export const SourceRoute = () => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
+    const [isDirty, setIsDirty] = React.useState(false);
     const [code, setCode] = React.useState<string>(defaultCode);
+    const circuit = useCircuit();
 
     const { projectId } = useParams();
     const { data: getProjectData } = useQuery<Query>(GET_PROJECT_QUERY, { variables: { id: projectId } });
 
-    const handleChange: ChangeHandler = React.useCallback(code => {
-        setCode(code);
-    }, []);
+    const handleChange: ChangeHandler = React.useCallback(
+        code => {
+            setCode(code);
+
+            if (!isDirty) {
+                setIsDirty(true);
+            }
+        },
+        [circuit]
+    );
 
     React.useEffect(() => {
-        console.log(canvasRef);
         if (canvasRef.current) {
             const { width, height } = canvasRef.current.getBoundingClientRect();
 
@@ -43,6 +52,12 @@ export const ShaderRoute = () => {
             canvasRef.current.height = height;
         }
     }, []);
+
+    React.useEffect(() => {
+        if (getProjectData?.getProject.type === 'SHADER_SOURCE') {
+            setCode(getProjectData?.getProject.source || defaultCode);
+        }
+    }, [getProjectData?.getProject.source]);
 
     React.useEffect(() => {
         if (canvasRef.current) {
@@ -81,11 +96,18 @@ export const ShaderRoute = () => {
     }, [code]);
 
     return (
-        <Scene className={shaderRouteWrapperStyles}>
-            {getProjectData && <ProjectHeaderContainer project={getProjectData.getProject} />}
-            <div className={shaderRouteContentWrapperStyles}>
+        <Scene className={sourceRouteWrapperStyles}>
+            {getProjectData && (
+                <ProjectHeaderContainer
+                    project={getProjectData.getProject}
+                    isDirty={isDirty}
+                    setIsDirty={setIsDirty}
+                    source={code}
+                />
+            )}
+            <div className={sourceRouteContentWrapperStyles}>
                 <CodeEditor code={code} onChange={handleChange} />
-                <canvas ref={canvasRef} className={shaderRouteCanvasStyles} width={300} height={240} />
+                <canvas ref={canvasRef} className={sourceRouteCanvasStyles} width={300} height={240} />
             </div>
         </Scene>
     );

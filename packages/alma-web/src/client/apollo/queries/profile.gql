@@ -10,6 +10,8 @@ query Profile($userId: String, $username: String) {
         projects {
             id
             name
+            type
+            source
             circuit
             mediaUrl
             likesCount
