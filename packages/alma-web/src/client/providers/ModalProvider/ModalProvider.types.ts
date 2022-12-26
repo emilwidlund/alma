@@ -4,5 +4,5 @@ export interface IModal {
     id: string;
     title: string;
     children: JSX.Element;
-    actions: IButtonProps[];
+    actions?: IButtonProps[];
 }

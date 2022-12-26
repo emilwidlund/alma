@@ -1,0 +1,33 @@
+mutation CreateProject(
+    $name: String!
+    $type: String!
+    $source: String
+    $circuit: JSONObject
+    $mediaUrl: String
+    $private: Boolean!
+) {
+    createProject(
+        name: $name
+        type: $type
+        source: $source
+        circuit: $circuit
+        mediaUrl: $mediaUrl
+        private: $private
+    ) {
+        id
+        name
+        type
+        private
+        mediaUrl
+        source
+        circuit
+        owner {
+            id
+            name
+            username
+            mediaUrl
+        }
+        createdAt
+        updatedAt
+    }
+}

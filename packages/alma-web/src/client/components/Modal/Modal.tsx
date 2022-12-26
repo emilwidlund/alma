@@ -26,11 +26,13 @@ export const Modal = ({ modal: { title, children, actions, id }, onClose }: IMod
             <div className={modalWrapperStyles}>
                 <div className={modalContainerStyles}>
                     <div className={modalContentStyles}>{children}</div>
-                    <div className={modalFooterStyles}>
-                        {actions.map(action => (
-                            <Button key={action.label} {...action} />
-                        ))}
-                    </div>
+                    {!!actions && (
+                        <div className={modalFooterStyles}>
+                            {actions.map(action => (
+                                <Button key={action.label} {...action} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </Portal>

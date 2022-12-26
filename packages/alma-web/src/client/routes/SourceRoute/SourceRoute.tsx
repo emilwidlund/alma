@@ -16,18 +16,10 @@ import {
     sourceRouteWrapperStyles
 } from './SourceRoute.styles';
 
-const defaultCode = `void main() {
-    // Time varying pixel color
-    vec3 col = 0.5 + 0.5 * cos(time + v_uv.xyx + vec3(0., 2., 4.));
-
-    // Output to screen
-    fragColor = vec4(col, 1.0);
-}`;
-
 export const SourceRoute = () => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const [isDirty, setIsDirty] = React.useState(false);
-    const [code, setCode] = React.useState<string>(defaultCode);
+    const [code, setCode] = React.useState<string>('');
     const circuit = useCircuit();
 
     const { projectId } = useParams();
@@ -55,7 +47,7 @@ export const SourceRoute = () => {
 
     React.useEffect(() => {
         if (getProjectData?.getProject.type === 'SHADER_SOURCE') {
-            setCode(getProjectData?.getProject.source || defaultCode);
+            setCode(getProjectData?.getProject.source || '');
         }
     }, [getProjectData?.getProject.source]);
 
