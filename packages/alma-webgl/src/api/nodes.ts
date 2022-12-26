@@ -18,39 +18,24 @@ export type NodeSchema<T> = {
 
 export type PINodeSchema = NodeSchema<{
     type: WebGLNodeType.PI;
-    outputs: {
-        pi: IOutputProps<'float'>;
-        halfPi: IOutputProps<'float'>;
-    };
 }>;
 
 export type ResolutionNodeSchema = NodeSchema<{
     type: WebGLNodeType.RESOLUTION;
-    outputs: {
-        resolution: IOutputProps<'vec2'>;
-    };
 }>;
 
 export type TimeNodeSchema = NodeSchema<{
     type: WebGLNodeType.TIME;
-    outputs: {
-        time: IOutputProps<'float'>;
-    };
 }>;
 
 export type UVNodeSchema = NodeSchema<{
     type: WebGLNodeType.UV;
-    outputs: {
-        aspectCorrected: IOutputProps<'vec2'>;
-        uv: IOutputProps<'vec2'>;
-        fragCoord: IOutputProps<'vec4'>;
-    };
 }>;
 
 export type WebGLContextNodeSchema = NodeSchema<{
     type: WebGLNodeType.WEBGL_CONTEXT;
     inputs: {
-        color?: IInputProps<'vec4'>;
+        color: IInputProps<'vec4'>;
     };
 }>;
 
