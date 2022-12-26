@@ -9,9 +9,9 @@ export const circuitRouteWrapperStyles = css`
     flex-direction: row;
     height: 100%;
     line-height: 1.4em;
-    background-image: radial-gradient(var(--circuit-dot-color) 10%, var(--circuit-background-color) 10%);
+    background-image: radial-gradient(var(--circuit-dot-color) 5%, var(--circuit-background-color) 5%);
     background-position: 0 0;
-    background-size: 14px 14px;
+    background-size: 30px 30px;
     user-select: none;
     -webkit-user-select: none;
 `;
