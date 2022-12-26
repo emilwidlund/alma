@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Mutation } from '../../../generated/graphql';
 import CREATE_PROJECT_MUTATION from '../../apollo/mutations/createProject.gql';
 import GET_USER_QUERY from '../../apollo/queries/getUser.gql';
+import PROFILE_QUERY from '../../apollo/queries/profile.gql';
 import { Heading } from '../../components/Heading/Heading';
 import { Icon } from '../../components/Icon/Icon';
 import { CREATE_PROJECT_MODAL_ID } from '../../constants/modals';
@@ -40,7 +41,9 @@ const CreateProjectModalContent = () => {
     const modal = React.useContext(ModalContext);
     const { username } = useParams();
     const navigate = useNavigate();
-    const [createProject] = useMutation<Mutation>(CREATE_PROJECT_MUTATION, { refetchQueries: [GET_USER_QUERY] });
+    const [createProject] = useMutation<Mutation>(CREATE_PROJECT_MUTATION, {
+        refetchQueries: [GET_USER_QUERY, PROFILE_QUERY]
+    });
 
     const handleCreateCircuitProject = React.useCallback(async () => {
         const { data } = await createProject({

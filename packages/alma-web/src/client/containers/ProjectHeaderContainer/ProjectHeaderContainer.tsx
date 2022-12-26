@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { Mutation } from '../../../generated/graphql';
 import UPDATE_PROJECT_MUTATION from '../../apollo/mutations/updateProject.gql';
 import GET_PROJECT_QUERY from '../../apollo/queries/getProject.gql';
+import GET_USER_QUERY from '../../apollo/queries/getUser.gql';
+import PROFILE_QUERY from '../../apollo/queries/profile.gql';
 import { Avatar } from '../../components/Avatar/Avatar';
 import { Button } from '../../components/Button/Button';
 import { ButtonVariant } from '../../components/Button/Button.types';
@@ -29,7 +31,7 @@ export const ProjectHeaderContainer = ({
     const navigate = useNavigate();
     const [updateProject, { loading: updateLoading }] = useMutation<Mutation>(UPDATE_PROJECT_MUTATION, {
         variables: { id: project.id },
-        refetchQueries: [GET_PROJECT_QUERY]
+        refetchQueries: [GET_PROJECT_QUERY, GET_USER_QUERY, PROFILE_QUERY]
     });
 
     const handleUpdateProject = React.useCallback(async () => {
