@@ -66,7 +66,7 @@ export const SourceRoute = () => {
             const ctx: WebGLRenderingContext = canvasRef.current.getContext('webgl2')!;
 
             try {
-                const model = defQuadModel({ uv: false });
+                const model = defQuadModel({ uv: true });
 
                 const shaderSpec: ShaderSpec = {
                     ...FX_SHADER_SPEC_UV,
@@ -82,16 +82,23 @@ export const SourceRoute = () => {
                 compileModel(ctx, model);
 
                 const t0 = Date.now();
-                const handle = setInterval(() => {
+
+                const render = () => {
+                    handle = requestAnimationFrame(render);
+
                     const time = (Date.now() - t0) * 0.001;
                     model.uniforms!.time = time;
                     draw(model);
-                });
+                };
+
+                let handle = requestAnimationFrame(render);
 
                 return () => {
-                    clearInterval(handle);
+                    cancelAnimationFrame(handle);
                 };
-            } catch (err) {}
+            } catch (err) {
+                console.log(err);
+            }
         }
     }, [code]);
 

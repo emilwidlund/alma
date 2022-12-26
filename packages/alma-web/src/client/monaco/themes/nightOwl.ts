@@ -675,6 +675,8 @@ export const nightOwl = {
         'editorCursor.foreground': '#80a4c2',
         'editorWhitespace.foreground': '#2e2040',
         'editorIndentGuide.background': '#5e81ce52',
-        'editor.selectionHighlightBorder': '#122d42'
+        'editor.selectionHighlightBorder': '#122d42',
+        'editorLineNumber.foreground': '#7b7e8c',
+        'editorLineNumber.activeForeground': '#fff'
     }
 };

@@ -25,7 +25,7 @@ export const projectCardMediaStyles = (url?: string) => css`
     position: relative;
     width: 320px;
     height: 240px;
-    background-color: #000;
+    background-color: var(--dark-background);
     background-image: url(${url});
     background-position: center center;
     background-size: cover;
