@@ -83,7 +83,7 @@ injectGlobal`
         --accent-color: #1e62ff;
         --accent-color-subtle: rgba(30, 98, 255, .8);
         --text-light-color: #fff;
-        --text-neutral-color: #999;
+        --text-neutral-color: #7b7e8c;
         --text-dark-color: #000;
 
         --system-red: #ff4444;
