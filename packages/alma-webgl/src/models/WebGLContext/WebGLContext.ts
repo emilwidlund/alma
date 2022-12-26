@@ -15,12 +15,12 @@ import { Context, INodeSerialized, Node } from 'alma-graph';
 import { isFunction } from 'lodash';
 import { action, computed, IReactionDisposer, makeObservable, observable, reaction } from 'mobx';
 
-import { WebGLContextNode } from '../../nodes/accessor/WebGLContextNode/WebGLContextNode';
+import { RendererNode } from '../../nodes/accessor/RendererNode/RendererNode';
 import { CameraManager } from '../CameraManager/CameraManager';
 import { TextureManager } from '../TextureManager/TextureManager';
 import { DrawingSize, ICompiledUniforms, INodesCollection, IWebGLContextProps } from './WebGLContext.types';
 
-export class WebGLContext extends Context<WebGLContextNode> {
+export class WebGLContext extends Context<RendererNode> {
     /** Canvas Element */
     public ctx: WebGL2RenderingContext;
     /** GLSL Target */
@@ -144,11 +144,11 @@ export class WebGLContext extends Context<WebGLContextNode> {
     }
 
     /** Resolve Root Node */
-    public resolveRootNode(nodes: Node[]): WebGLContextNode {
-        const root = nodes.find(node => node instanceof WebGLContextNode) as WebGLContextNode | undefined;
+    public resolveRootNode(nodes: Node[]): RendererNode {
+        const root = nodes.find(node => node instanceof RendererNode) as RendererNode | undefined;
 
         if (!root) {
-            const root = new WebGLContextNode(this);
+            const root = new RendererNode(this);
             this.add(root);
 
             return root;

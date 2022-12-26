@@ -1,13 +1,14 @@
 import { PINode } from './nodes/accessor/PINode/PINode';
+import { RendererNode } from './nodes/accessor/RendererNode/RendererNode';
 import { ResolutionNode } from './nodes/accessor/ResolutionNode/ResolutionNode';
 import { TimeNode } from './nodes/accessor/TimeNode/TimeNode';
 import { UVNode } from './nodes/accessor/UVNode/UVNode';
-import { WebGLContextNode } from './nodes/accessor/WebGLContextNode/WebGLContextNode';
 import { AbsoluteNode } from './nodes/common/AbsoluteNode/AbsoluteNode';
 import { CeilNode } from './nodes/common/CeilNode/CeilNode';
 import { ClampNode } from './nodes/common/ClampNode/ClampNode';
 import { FloorNode } from './nodes/common/FloorNode/FloorNode';
 import { FractionalNode } from './nodes/common/FractionalNode/FractionalNode';
+import { GLSLNode } from './nodes/common/GLSLNode/GLSLNode';
 import { MaximumNode } from './nodes/common/MaximumNode/MaximumNode';
 import { MinimumNode } from './nodes/common/MinimumNode/MinimumNode';
 import { MixNode } from './nodes/common/MixNode/MixNode';
@@ -21,7 +22,6 @@ import { InverseSquareRootNode } from './nodes/exponential/InverseSquareRootNode
 import { LogarithmNode } from './nodes/exponential/LogarithmNode/LogarithmNode';
 import { PowerNode } from './nodes/exponential/PowerNode/PowerNode';
 import { SquareRootNode } from './nodes/exponential/SquareRootNode/SquareRootNode';
-import { GLSLNode } from './nodes/common/GLSLNode/GLSLNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
@@ -48,7 +48,7 @@ import { Vector3Node } from './nodes/vectors/Vector3Node/Vector3Node';
 import { Vector4Node } from './nodes/vectors/Vector4Node/Vector4Node';
 
 export enum WebGLNodeType {
-    WEBGL_CONTEXT = 'WEBGL_CONTEXT',
+    RENDERER = 'RENDERER',
     SIMPLEX_NOISE = 'SIMPLEX_NOISE',
     CAMERA = 'CAMERA',
     SINE = 'SINE',
@@ -106,7 +106,7 @@ export interface ClassConstructor<T> {
 
 export interface IWebGLNodeCollection {
     [key: string]: ClassConstructor<WebGLNode>;
-    [WebGLNodeType.WEBGL_CONTEXT]: ClassConstructor<WebGLContextNode>;
+    [WebGLNodeType.RENDERER]: ClassConstructor<RendererNode>;
     [WebGLNodeType.SIMPLEX_NOISE]: ClassConstructor<SimplexNoiseNode>;
     [WebGLNodeType.CAMERA]: ClassConstructor<CameraNode>;
     [WebGLNodeType.SINE]: ClassConstructor<SineNode>;
@@ -161,7 +161,7 @@ export interface IWebGLNodeCollection {
 export type WebGLEffectNode = CreationEffectNode;
 
 export type WebGLNode =
-    | WebGLContextNode
+    | RendererNode
     | SimplexNoiseNode
     | CameraNode
     | SineNode

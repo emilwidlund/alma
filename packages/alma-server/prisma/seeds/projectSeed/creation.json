@@ -187,8 +187,8 @@
             "6bebde36-81ec-44f8-8ad9-f58442f789e5",
             {
                 "id": "6bebde36-81ec-44f8-8ad9-f58442f789e5",
-                "name": "WebGL Context",
-                "type": "WEBGL_CONTEXT",
+                "name": "Renderer",
+                "type": "RENDERER",
                 "data": { "position": { "x": 377, "y": 93 } },
                 "inputs": {
                     "color": {

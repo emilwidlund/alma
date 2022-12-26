@@ -6,8 +6,8 @@
             "06aa734d-94cc-4665-8f61-dcd80963268a",
             {
                 "id": "06aa734d-94cc-4665-8f61-dcd80963268a",
-                "name": "WebGL Context",
-                "type": "WEBGL_CONTEXT",
+                "name": "Renderer",
+                "type": "RENDERER",
                 "data": { "position": { "x": 2710, "y": 70 } },
                 "inputs": {
                     "color": {

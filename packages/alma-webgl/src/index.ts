@@ -1,13 +1,14 @@
 import { PINode } from './nodes/accessor/PINode/PINode';
+import { RendererNode } from './nodes/accessor/RendererNode/RendererNode';
 import { ResolutionNode } from './nodes/accessor/ResolutionNode/ResolutionNode';
 import { TimeNode } from './nodes/accessor/TimeNode/TimeNode';
 import { UVNode } from './nodes/accessor/UVNode/UVNode';
-import { WebGLContextNode } from './nodes/accessor/WebGLContextNode/WebGLContextNode';
 import { AbsoluteNode } from './nodes/common/AbsoluteNode/AbsoluteNode';
 import { CeilNode } from './nodes/common/CeilNode/CeilNode';
 import { ClampNode } from './nodes/common/ClampNode/ClampNode';
 import { FloorNode } from './nodes/common/FloorNode/FloorNode';
 import { FractionalNode } from './nodes/common/FractionalNode/FractionalNode';
+import { GLSLNode } from './nodes/common/GLSLNode/GLSLNode';
 import { MaximumNode } from './nodes/common/MaximumNode/MaximumNode';
 import { MinimumNode } from './nodes/common/MinimumNode/MinimumNode';
 import { MixNode } from './nodes/common/MixNode/MixNode';
@@ -21,7 +22,6 @@ import { InverseSquareRootNode } from './nodes/exponential/InverseSquareRootNode
 import { LogarithmNode } from './nodes/exponential/LogarithmNode/LogarithmNode';
 import { PowerNode } from './nodes/exponential/PowerNode/PowerNode';
 import { SquareRootNode } from './nodes/exponential/SquareRootNode/SquareRootNode';
-import { GLSLNode } from './nodes/common/GLSLNode/GLSLNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
@@ -49,7 +49,7 @@ import { Vector4Node } from './nodes/vectors/Vector4Node/Vector4Node';
 import { IWebGLNodeCollection, WebGLNodeType } from './types';
 
 export const nodes: IWebGLNodeCollection = {
-    [WebGLNodeType.WEBGL_CONTEXT]: WebGLContextNode,
+    [WebGLNodeType.RENDERER]: RendererNode,
     [WebGLNodeType.SIMPLEX_NOISE]: SimplexNoiseNode,
     [WebGLNodeType.CAMERA]: CameraNode,
     [WebGLNodeType.SINE]: SineNode,
@@ -147,8 +147,8 @@ export * from './nodes/accessor/ResolutionNode/ResolutionNode';
 export * from './nodes/accessor/ResolutionNode/ResolutionNode.types';
 export * from './nodes/accessor/PINode/PINode';
 export * from './nodes/accessor/PINode/PINode.types';
-export * from './nodes/accessor/WebGLContextNode/WebGLContextNode';
-export * from './nodes/accessor/WebGLContextNode/WebGLContextNode.types';
+export * from './nodes/accessor/RendererNode/RendererNode';
+export * from './nodes/accessor/RendererNode/RendererNode.types';
 
 /** Math Nodes */
 export * from './nodes/math/AdditionNode/AdditionNode';

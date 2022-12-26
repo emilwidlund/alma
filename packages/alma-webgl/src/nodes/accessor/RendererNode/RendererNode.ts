@@ -4,19 +4,19 @@ import { defaults } from 'lodash';
 
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IWebGLContextNodeInputs, IWebGLContextNodeProps } from './WebGLContextNode.types';
+import { IRendererNodeInputs, IRendererNodeProps } from './RendererNode.types';
 
-export class WebGLContextNode extends Node {
+export class RendererNode extends Node {
     static icon = 'deblur';
-    static description = 'Root node of the graph. Injects its color to the renderer.';
+    static description = 'Root node of the graph. Renders the input to its associated render target.';
 
-    static nodeName = 'WebGL Context';
-    type = WebGLNodeType.WEBGL_CONTEXT;
+    static nodeName = 'Renderer';
+    type = WebGLNodeType.RENDERER;
 
-    inputs: IWebGLContextNodeInputs;
+    inputs: IRendererNodeInputs;
     outputs: INodeOutputs;
 
-    constructor(context: WebGLContext, props: IWebGLContextNodeProps = {}) {
+    constructor(context: WebGLContext, props: IRendererNodeProps = {}) {
         super(context, props);
 
         this.inputs = {

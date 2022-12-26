@@ -32,8 +32,8 @@ export type UVNodeSchema = NodeSchema<{
     type: WebGLNodeType.UV;
 }>;
 
-export type WebGLContextNodeSchema = NodeSchema<{
-    type: WebGLNodeType.WEBGL_CONTEXT;
+export type RendererNodeSchema = NodeSchema<{
+    type: WebGLNodeType.RENDERER;
     inputs: {
         color: IInputProps<'vec4'>;
     };
@@ -617,7 +617,7 @@ export type WebGLNodeSchema =
     | ResolutionNodeSchema
     | TimeNodeSchema
     | UVNodeSchema
-    | WebGLContextNodeSchema
+    | RendererNodeSchema
     | AbsoluteNodeSchema
     | CeilNodeSchema
     | ClampNodeSchema
