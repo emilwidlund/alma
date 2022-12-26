@@ -73,13 +73,13 @@ injectGlobal`
         --font-size-xxs: .8em;
 
         // Colors
-        --dark-contrast-background: #151618;
-        --dark-background: #252628;
-        --panel-background: #2d2e2f;
+        --dark-contrast-background: #12141c;
+        --dark-background: #1c1e2a;
+        --panel-background: #242736;
         --light-background: #fff;
         --neutral-background: #f4f4f4;
-        --border-color: #424143;
-        --connection-color: #565557;
+        --border-color: #34384e;
+        --connection-color: #424763;
         --accent-color: #1e62ff;
         --accent-color-subtle: rgba(30, 98, 255, .8);
         --text-light-color: #fff;

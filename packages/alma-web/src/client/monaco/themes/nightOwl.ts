@@ -669,9 +669,9 @@ export const nightOwl = {
     ],
     colors: {
         'editor.foreground': '#d6deeb',
-        'editor.background': '#011627',
-        'editor.selectionBackground': '#5f7e9779',
-        'editor.lineHighlightBackground': '#010E17',
+        'editor.background': '#1c1e2a',
+        'editor.selectionBackground': '#34384e',
+        'editor.lineHighlightBackground': '#12141c',
         'editorCursor.foreground': '#80a4c2',
         'editorWhitespace.foreground': '#2e2040',
         'editorIndentGuide.background': '#5e81ce52',
