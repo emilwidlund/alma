@@ -3,8 +3,8 @@ import _ from 'lodash';
 
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { GLSLNode } from '../../glsl/GLSLNode/GLSLNode';
-import { IGLSLNodeProps } from '../../glsl/GLSLNode/GLSLNode.types';
+import { GLSLNode } from '../../common/GLSLNode/GLSLNode';
+import { IGLSLNodeProps } from '../../common/GLSLNode/GLSLNode.types';
 
 const frag = `vec4 creation(in vec2 uv, in float time) {
 	vec3 c;

@@ -21,7 +21,7 @@ import { InverseSquareRootNode } from './nodes/exponential/InverseSquareRootNode
 import { LogarithmNode } from './nodes/exponential/LogarithmNode/LogarithmNode';
 import { PowerNode } from './nodes/exponential/PowerNode/PowerNode';
 import { SquareRootNode } from './nodes/exponential/SquareRootNode/SquareRootNode';
-import { GLSLNode } from './nodes/glsl/GLSLNode/GLSLNode';
+import { GLSLNode } from './nodes/common/GLSLNode/GLSLNode';
 import { AdditionNode } from './nodes/math/AdditionNode/AdditionNode';
 import { DivisionNode } from './nodes/math/DivisionNode/DivisionNode';
 import { MultiplicationNode } from './nodes/math/MultiplicationNode/MultiplicationNode';
@@ -221,6 +221,6 @@ export * from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 export * from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode.types';
 
 /** Effect Nodes */
-export * from './nodes/glsl/GLSLNode/GLSLNode';
-export * from './nodes/glsl/GLSLNode/GLSLNode.types';
+export * from './nodes/common/GLSLNode/GLSLNode';
+export * from './nodes/common/GLSLNode/GLSLNode.types';
 export * from './nodes/effects/CreationEffectNode/CreationEffectNode';

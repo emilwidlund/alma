@@ -8,7 +8,7 @@ import { IPINodeOutputs, IPINodeProps } from './PINode.types';
 
 export class PINode extends Node {
     static icon = 'donut_large';
-    static description = 'Utility which exposes accessors for PI and HALF_PI.';
+    static description = 'Utility which exposes accessors for PI and HALF PI.';
     static nodeName = 'PI';
 
     type = WebGLNodeType.PI;
