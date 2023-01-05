@@ -1,9 +1,32 @@
-import { createRenderSequence } from 'alma-core';
+import { fromRAF } from '@thi.ng/rstream';
+import { createRenderSequence, Layer, BlendingModeSchema, render } from 'alma-core';
 import * as React from 'react';
 
 import { Scene } from '../../components/Scene/Scene';
 
-const layers = [{ id: '123', name: 'Test', context: '', enabled: true, blendingMode: 'NORMAL' }];
+const testShader = `void main() {
+    // Time varying pixel color
+    vec3 col = 0.5 + 0.5 * cos(time * .01 + v_uv.xyx + vec3(0., 2., 4.));
+
+    // Output to screen
+    fragColor = vec4(col, 1.0);
+}`;
+
+const compositionalShader = `void main() {
+    // Output to screen
+    fragColor = vec4(texture(previousTexture, v_uv).xyx, 1.);
+}`;
+
+const layers: Layer[] = [
+    { id: '123', name: 'Test', context: testShader, enabled: true, blendingMode: BlendingModeSchema.enum.NORMAL },
+    {
+        id: '456',
+        name: 'Comp',
+        context: compositionalShader,
+        enabled: true,
+        blendingMode: BlendingModeSchema.enum.NORMAL
+    }
+];
 
 export const EditorRoute = () => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -18,7 +41,16 @@ export const EditorRoute = () => {
 
             const sequence = createRenderSequence(gl, layers);
 
-            gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+            fromRAF().subscribe({
+                next(t) {
+                    gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+
+                    gl.clearColor(0, 0, 0, 1);
+                    gl.clear(gl.COLOR_BUFFER_BIT);
+
+                    render(sequence, t);
+                }
+            });
         }
     }, []);
 

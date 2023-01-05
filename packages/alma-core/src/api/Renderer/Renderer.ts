@@ -8,7 +8,8 @@ import {
     ShaderSpec,
     Texture,
     TextureFilter,
-    defFBO
+    defFBO,
+    compileModel
 } from '@thi.ng/webgl';
 
 import { Context } from '../../models/core/Context/Context.types';
@@ -36,11 +37,11 @@ const createShaderSpec = (gl: WebGL2RenderingContext, context: Context, textures
 };
 
 const createModel = (gl: WebGL2RenderingContext, shaderSpec: ShaderSpec, textures: Texture[]): ModelSpec => {
-    return {
+    return compileModel(gl, {
         ...defQuadModel({ uv: true }),
         shader: defShader(gl, shaderSpec),
         textures
-    };
+    });
 };
 
 export const createRenderSequence = (gl: WebGL2RenderingContext, layers: Layer[]) => {
@@ -82,8 +83,10 @@ export const createRenderSequence = (gl: WebGL2RenderingContext, layers: Layer[]
     return sequence;
 };
 
-export const render = (sequence: RenderSequence) => {
+export const render = (sequence: RenderSequence, t: number) => {
     for (const { model, fbo } of sequence) {
+        model.uniforms!.time = t;
+
         fbo?.bind();
         draw(model);
         fbo?.unbind();

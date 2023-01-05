@@ -4276,6 +4276,17 @@
     "@thi.ng/transducers" "^8.3.29"
     tslib "^2.4.1"
 
+"@thi.ng/atom@^5.1.27":
+  version "5.1.27"
+  resolved "https://registry.yarnpkg.com/@thi.ng/atom/-/atom-5.1.27.tgz#9787d842b8168358900f9adea72713e91b8b4672"
+  integrity sha512-Rz6PXfV1h3ZKc9h/JM7CSPHdIFoUgq9VlIfhhKfRJGr41x9Igqw02tv8YVxjZEHd8kSHyb/QpOZOsQnX+p9NJQ==
+  dependencies:
+    "@thi.ng/api" "^8.6.2"
+    "@thi.ng/equiv" "^2.1.16"
+    "@thi.ng/errors" "^2.2.7"
+    "@thi.ng/paths" "^5.1.27"
+    tslib "^2.4.1"
+
 "@thi.ng/binary@^3.3.14":
   version "3.3.14"
   resolved "https://registry.npmjs.org/@thi.ng/binary/-/binary-3.3.14.tgz"
@@ -4572,6 +4583,15 @@
   dependencies:
     "@thi.ng/api" "^8.6.2"
 
+"@thi.ng/paths@^5.1.27":
+  version "5.1.27"
+  resolved "https://registry.yarnpkg.com/@thi.ng/paths/-/paths-5.1.27.tgz#a32b033c96b980bff8820f1e6f7743c0c2db5553"
+  integrity sha512-Iw5Wpy7LjDzdwI9tQ+oZ/XF9s4LOefxPCMNh0WLyxCKBZytc273SMwblHmN4/xoO/z1HGTpeZ1ac1XmhNKCEkg==
+  dependencies:
+    "@thi.ng/api" "^8.6.2"
+    "@thi.ng/checks" "^3.3.6"
+    "@thi.ng/errors" "^2.2.7"
+
 "@thi.ng/pixel@^4.0.12":
   version "4.0.12"
   resolved "https://registry.npmjs.org/@thi.ng/pixel/-/pixel-4.0.12.tgz"
@@ -4635,6 +4655,20 @@
     "@thi.ng/checks" "^3.3.6"
     "@thi.ng/errors" "^2.2.7"
     "@thi.ng/hex" "^2.3.3"
+
+"@thi.ng/rstream@^7.2.34":
+  version "7.2.34"
+  resolved "https://registry.yarnpkg.com/@thi.ng/rstream/-/rstream-7.2.34.tgz#835b0302e9627b13ba8b900ca248d1ef80c3f92a"
+  integrity sha512-fdDbsJ65M92prjs02BQZd63nzumJaH0xZX/Ggcdvx/rkVAb7vgjUmXz2sd3y1m2XcUY1hGCxckFC7qhebrZ9Jw==
+  dependencies:
+    "@thi.ng/api" "^8.6.2"
+    "@thi.ng/arrays" "^2.5.0"
+    "@thi.ng/associative" "^6.2.22"
+    "@thi.ng/atom" "^5.1.27"
+    "@thi.ng/checks" "^3.3.6"
+    "@thi.ng/errors" "^2.2.7"
+    "@thi.ng/logger" "^1.4.6"
+    "@thi.ng/transducers" "^8.3.29"
 
 "@thi.ng/shader-ast-glsl@^0.4.19", "@thi.ng/shader-ast-glsl@^0.4.29", "@thi.ng/shader-ast-glsl@^0.4.34":
   version "0.4.34"
