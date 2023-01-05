@@ -29,6 +29,7 @@
         "@vercel/analytics": "^0.1.5",
         "alma-graph": "*",
         "alma-webgl": "*",
+        "alma-core": "*",
         "color": "^4.2.3",
         "css-loader": "^6.7.3",
         "dayjs": "^1.11.7",

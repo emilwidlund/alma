@@ -1,0 +1,19 @@
+{
+    "name": "alma-core",
+    "version": "1.0.0",
+    "description": "",
+    "main": "build/index.js",
+    "scripts": {
+        "build": "tsc"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@thi.ng/shader-ast": "^0.12.36",
+        "@thi.ng/shader-ast-glsl": "^0.4.36",
+        "@thi.ng/shader-ast-stdlib": "^0.12.29",
+        "@thi.ng/webgl": "^6.2.20",
+        "zod": "^3.20.2"
+    }
+}

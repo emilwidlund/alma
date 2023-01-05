@@ -50,6 +50,7 @@
         "packages/alma-graph",
         "packages/alma-glsl",
         "packages/alma-webgl",
+        "packages/alma-core",
         "packages/*"
     ],
     "engines": {
