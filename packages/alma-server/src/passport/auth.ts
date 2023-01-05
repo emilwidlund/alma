@@ -62,6 +62,11 @@ export const initializePassport = (app: express.Application, db: PrismaClient) =
         return passport.authenticate('google', { scope: ['profile', 'email'], state: redirectURI })(req, res, next);
     });
 
+    app.post(Route.GOOGLE_OAUTH_ONE_TAP, (req, res, next) => {
+        const redirectURI = req.query['redirect_uri'] as string;
+        return passport.authenticate('google', { scope: ['profile', 'email'], state: redirectURI })(req, res, next);
+    });
+
     app.get(
         Route.GOOGLE_OAUTH_REDIRECT,
         passport.authenticate('google', { failureRedirect: '/login' }),

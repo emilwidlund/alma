@@ -10,6 +10,7 @@ export enum Route {
 
     GITHUB_OAUTH = '/oauth/github',
     GITHUB_OAUTH_REDIRECT = '/oauth/github/redirect',
+    GOOGLE_OAUTH_ONE_TAP = '/oauth/google/one-tap',
 
     ADOBE_OAUTH = '/oauth/adobe',
     ADOBE_OAUTH_REDIRECT = '/oauth/adobe/redirect',

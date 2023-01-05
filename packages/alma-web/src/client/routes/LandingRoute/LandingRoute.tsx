@@ -27,20 +27,10 @@ export const LandingRoute = () => {
                 </div>
                 <div className={landingRouteContentStyles()}>
                     <div className={landingRouteHeroStyles}>
-                        <Heading size={Size.LG}>Λlma</Heading>
+                        <Heading size={Size.LG}>Alma</Heading>
                         <p>Your digital playground for generative graphics</p>
                         <Button label="Get Started" onPress={handleNavigateToCTA} />
                     </div>
-                </div>
-            </div>
-            <div className={landingRouteContentOuterStyles()}>
-                <div className={landingRouteContentStyles()}>
-                    <a
-                        href={`https://local.alma.sh:3001/oauth/google?redirect_uri=${window.location.origin}`}
-                        target="_blank"
-                    >
-                        Sign in with Google
-                    </a>
                 </div>
             </div>
         </Scene>

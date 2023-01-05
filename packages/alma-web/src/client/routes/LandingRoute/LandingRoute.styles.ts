@@ -20,16 +20,6 @@ export const landingRouteContentStyles = (padding = true) => css`
     max-width: 1024px;
     min-width: 512px;
     width: 100%;
-
-    h1,
-    h2,
-    h3 {
-        font-weight: 500;
-    }
-
-    p {
-        font-size: var(--font-size-sm);
-    }
 `;
 
 export const landingRouteHeroStyles = css`

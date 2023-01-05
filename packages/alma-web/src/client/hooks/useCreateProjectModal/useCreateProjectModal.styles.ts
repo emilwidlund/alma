@@ -38,7 +38,22 @@ export const selectionBoxWrapperStyles = css`
     cursor: pointer;
     transition: border-color 0.15s;
 
+    .icon {
+        transition: color 0.15s, text-shadow 0.15s;
+    }
+
     &:hover {
         border-color: var(--accent-color);
+
+        .icon {
+            color: var(--accent-color);
+            text-shadow: 0 0 2px var(--accent-color);
+        }
     }
 `;
+
+export const selectionBoxMetaStyles = css`
+    height: 50px;
+`;
+
+export const selectionBoxHeadingStyles = css``;

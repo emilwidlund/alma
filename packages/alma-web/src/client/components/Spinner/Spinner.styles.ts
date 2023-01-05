@@ -1,9 +1,7 @@
 import { css } from '@emotion/css';
 
-export const spinnerWrapperStyles = css`
-    // Here is where the magic happens
-
-    --offset: 48;
+export const spinnerWrapperStyles = (offset: number) => css`
+    --offset: ${offset};
     --duration: 1.4s;
 
     animation: rotator var(--duration) linear infinite;
