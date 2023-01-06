@@ -45,19 +45,19 @@ export const CircuitRoute = () => {
         [getProjectData]
     );
 
-    const { context, buildContext } = useCircuitContext(canvasRef);
-    const createNode = useCreateNode(context, midPoint.current);
+    const { circuit, buildCircuit } = useCircuitContext(canvasRef);
+    const createNode = useCreateNode(circuit, midPoint.current);
 
     React.useEffect(() => {
         if (serializedCircuit) {
-            return buildContext(serializedCircuit);
+            return buildCircuit(serializedCircuit);
         }
     }, [serializedCircuit]);
 
     React.useEffect(() => {
-        if (context) {
+        if (circuit) {
             const valueReactionDisposer = reaction(
-                () => JSON.parse(JSON.stringify(context)),
+                () => JSON.parse(JSON.stringify(circuit)),
                 (value, previous, reaction) => {
                     setIsDirty(true);
 
@@ -69,7 +69,7 @@ export const CircuitRoute = () => {
                 valueReactionDisposer?.();
             };
         }
-    }, [context, setIsDirty]);
+    }, [circuit, setIsDirty]);
 
     const onContextMenuItemClick = React.useCallback(
         (nodeClass: ClassConstructor<Node>) => {
@@ -82,7 +82,7 @@ export const CircuitRoute = () => {
 
     const onExamplesMenuItemClick = React.useCallback(
         (serialized: IContextSerialized) => {
-            buildContext(serialized);
+            buildCircuit(serialized);
 
             toggleExamplesMenu(false);
         },
@@ -91,12 +91,12 @@ export const CircuitRoute = () => {
 
     const onImportExportClick = React.useCallback(() => {
         openCodeModal({
-            content: JSON.stringify(context, undefined, 4),
+            content: JSON.stringify(circuit, undefined, 4),
             onSave: code => {
-                buildContext(JSON.parse(code));
+                buildCircuit(JSON.parse(code));
             }
         });
-    }, [openCodeModal, context]);
+    }, [openCodeModal, circuit]);
 
     const onContextMenu = React.useCallback(
         (e: React.MouseEvent<HTMLDivElement>) => {
@@ -113,7 +113,7 @@ export const CircuitRoute = () => {
         };
 
         const documentFullscreenHandler = (e: DocumentEventMap['fullscreenchange']) => {
-            context?.reset();
+            // circuit?.reset();
         };
 
         canvasRef.current?.addEventListener('fullscreenchange', canvasFullscreenHandler);
@@ -123,7 +123,7 @@ export const CircuitRoute = () => {
             canvasRef.current?.removeEventListener('fullscreenchange', canvasFullscreenHandler);
             document.removeEventListener('fullscreenchange', documentFullscreenHandler);
         };
-    }, [context]);
+    }, [circuit]);
 
     const onFullscreenClick = React.useCallback(() => {
         if (canvasRef.current) {
@@ -158,11 +158,11 @@ export const CircuitRoute = () => {
     if (!getProjectData?.getProject) return null;
 
     return (
-        <CircuitProvider context={context}>
+        <CircuitProvider circuit={circuit}>
             <Scene>
                 <ProjectHeaderContainer
                     project={getProjectData.getProject}
-                    circuit={context}
+                    circuit={circuit}
                     isDirty={isDirty}
                     setIsDirty={setIsDirty}
                 />
@@ -173,7 +173,7 @@ export const CircuitRoute = () => {
                         <ToolbarItem
                             label="View Code"
                             icon="data_object"
-                            onClick={() => openFragmentModal(context?.fragment || '')}
+                            onClick={() => openFragmentModal(circuit?.fragment || '')}
                             outlined
                         />
                         <ToolbarItem

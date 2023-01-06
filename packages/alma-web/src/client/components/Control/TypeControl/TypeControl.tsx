@@ -14,8 +14,6 @@ export const TypeControl = observer(({ node }: ITypeControlProps) => {
             if (node.data.type) {
                 node.data.type.selected = e.target.value as Type;
             }
-
-            circuit.context?.reset();
         },
         [node, circuit]
     );

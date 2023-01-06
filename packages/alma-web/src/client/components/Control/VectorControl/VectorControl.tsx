@@ -40,7 +40,6 @@ export const VectorControl = observer(({ port }: IVectorControlProps) => {
 
                     if (newVal) {
                         port.setValue(newVal);
-                        circuit.context?.reset();
                     }
                 }
             };

@@ -13,7 +13,6 @@ export const NumberControl = observer(({ port }: INumberControlProps) => {
     const onChange = React.useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             port.setValue(float(e.target.valueAsNumber));
-            circuit.context?.reset();
         },
         [port, circuit]
     );

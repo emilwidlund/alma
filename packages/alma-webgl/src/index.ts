@@ -111,6 +111,10 @@ export * from './models/CameraManager/CameraManager';
 export * from './models/CameraManager/CameraManager.types';
 export * from './models/TextureManager/TextureManager';
 export * from './models/TextureManager/TextureManager.types';
+export * from './models/Layer/Layer';
+export * from './models/Layer/Layer.types';
+export * from './models/Renderer/Renderer';
+export * from './models/Renderer/Renderer.types';
 
 /** Common Nodes */
 export * from './nodes/common/ModuloNode/ModuloNode';

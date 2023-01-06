@@ -1,4 +1,4 @@
-import { WebGLContext } from 'alma-webgl';
+import { Circuit } from 'alma-webgl';
 
 import { Project } from '../../../generated/graphql';
 
@@ -6,6 +6,6 @@ export interface IProjectHeaderContainerProps {
     project: Project;
     isDirty: boolean;
     setIsDirty(isDirty: boolean): void;
-    circuit?: WebGLContext;
+    circuit?: Circuit;
     source?: string;
 }

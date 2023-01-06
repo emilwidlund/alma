@@ -25,7 +25,7 @@ const Nodes = observer(() => {
 
     return (
         <>
-            {Array.from(circuit.context?.nodes.values() || []).map(node => (
+            {Array.from(circuit.circuit?.nodes.values() || []).map(node => (
                 <NodeContainer key={node.id} node={node} />
             ))}
         </>
@@ -47,7 +47,7 @@ const Connections = observer(({ mousePosition }: IConnectionsProps) => {
 
     return (
         <svg ref={ref} id="connections" width="100%" height="100%" onClick={onClick}>
-            {Array.from(circuit.context?.connections.values() || []).map(connection => (
+            {Array.from(circuit.circuit?.connections.values() || []).map(connection => (
                 <Connection key={connection.id} connection={connection} />
             ))}
 
@@ -110,7 +110,7 @@ export const CircuitContainer = observer(
         );
 
         const createNode = useCreateNode(
-            circuit.context,
+            circuit.circuit,
             contextMenuPosition
                 ? toCartesianPoint(CIRCUIT_SIZE, CIRCUIT_SIZE, contextMenuPosition.x, contextMenuPosition.y)
                 : undefined
@@ -172,7 +172,7 @@ export const CircuitContainer = observer(
                                     {
                                         icon: 'code',
                                         label: 'View Fragment',
-                                        onClick: () => openCodeModal(circuit.context?.fragment || '')
+                                        onClick: () => openCodeModal(circuit.circuit?.fragment || '')
                                     },
                                     { icon: 'fullscreen', label: 'View Fullscreen', onClick: onFullscreen }
                                 ]

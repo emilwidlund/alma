@@ -19,12 +19,12 @@ import { IProjectCardProps } from './ProjectCard.types';
 
 export const ProjectCard = ({ index, item }: IProjectCardProps) => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
-    const { buildContext } = useCircuitContext(canvasRef);
+    const { buildCircuit } = useCircuitContext(canvasRef);
     const { onMouseEnter, onMouseLeave, isHovered } = useHover();
 
     React.useEffect(() => {
         if (isHovered) {
-            return buildContext(JSON.parse(JSON.stringify(item.circuit)));
+            return buildCircuit(JSON.parse(JSON.stringify(item.circuit)));
         }
     }, [isHovered]);
 

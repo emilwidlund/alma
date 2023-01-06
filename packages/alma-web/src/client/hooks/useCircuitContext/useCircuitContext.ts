@@ -1,13 +1,13 @@
 import { IContextSerialized } from 'alma-graph';
-import { nodes, WebGLContext } from 'alma-webgl';
+import { nodes, Circuit } from 'alma-webgl';
 import { TextureResolver } from 'alma-webgl/build/models/TextureManager/TextureManager.types';
 import * as React from 'react';
 import { useState } from 'react';
 
 export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>) => {
-    const [context, setContext] = useState<WebGLContext | undefined>();
+    const [circuit, setCircuit] = useState<Circuit | undefined>();
 
-    const buildContext = (serialized?: IContextSerialized | null) => {
+    const buildCircuit = (serialized?: IContextSerialized | null) => {
         if (ref.current && serialized) {
             const gl = ref.current.getContext('webgl2', { preserveDrawingBuffer: true });
 
@@ -51,9 +51,7 @@ export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>) => {
                     image.src = uri || '';
                 });
 
-            context?.dispose();
-
-            const ctx = new WebGLContext(gl, {
+            const newCircuit = new Circuit(gl, {
                 cameraManager: {
                     onInit: onCameraResolverInit,
                     textureResolver: cameraTextureResolver
@@ -65,13 +63,9 @@ export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>) => {
                 ...serialized
             });
 
-            setContext(ctx);
-
-            return () => {
-                ctx.dispose();
-            };
+            setCircuit(newCircuit);
         }
     };
 
-    return { context, buildContext };
+    return { circuit, buildCircuit };
 };

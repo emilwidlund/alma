@@ -28,7 +28,7 @@ export const ProjectRoute = () => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const navigate = useNavigate();
     const { username, projectId } = useParams();
-    const { buildContext } = useCircuitContext(canvasRef);
+    const { buildCircuit } = useCircuitContext(canvasRef);
     const { data: getProjectData } = useQuery<Query>(GET_PROJECT_QUERY, { variables: { id: projectId } });
 
     const updatedAgo = capitalize(dayJS(getProjectData?.getProject.updatedAt).fromNow(false));
@@ -43,7 +43,7 @@ export const ProjectRoute = () => {
 
     React.useEffect(() => {
         if (getProjectData) {
-            return buildContext(JSON.parse(JSON.stringify(getProjectData.getProject.circuit)));
+            return buildCircuit(JSON.parse(JSON.stringify(getProjectData.getProject.circuit)));
         }
     }, [getProjectData]);
 

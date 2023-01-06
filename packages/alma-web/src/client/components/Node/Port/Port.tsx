@@ -55,7 +55,7 @@ export const Port = observer(({ port }: IPortProps) => {
 
             for (const connection of connections) {
                 if (connection) {
-                    circuit.context?.disconnect(connection);
+                    circuit.circuit?.disconnect(connection);
                 }
             }
         }

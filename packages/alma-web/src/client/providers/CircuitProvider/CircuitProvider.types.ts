@@ -1,15 +1,15 @@
 import { Input, Node, Output } from 'alma-graph';
-import { WebGLContext } from 'alma-webgl';
+import { Circuit } from 'alma-webgl';
 import * as React from 'react';
 
 import { IBounds } from '../../utils/bounds/bounds.types';
 
 export type ICircuitProviderProps = React.PropsWithChildren<{
-    context: WebGLContext | undefined;
+    circuit: Circuit | undefined;
 }>;
 
 export interface ICircuitContextValue {
-    context: WebGLContext | undefined;
+    circuit: Circuit | undefined;
     nodeElements: Record<string, HTMLDivElement>;
     setNodeElement(portId: string, portElement: HTMLDivElement): void;
     removeNodeElement(portId: string): void;

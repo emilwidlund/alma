@@ -1,6 +1,5 @@
 import { fromRAF } from '@thi.ng/rstream';
-import { createRenderSequence, Layer, BlendingModeSchema, render } from 'alma-core';
-import { Circuit } from 'alma-webgl';
+import { Layer, Circuit, createRenderSequence, render, nodes } from 'alma-webgl';
 import * as React from 'react';
 
 import { Scene } from '../../components/Scene/Scene';
@@ -25,20 +24,14 @@ export const EditorRoute = () => {
             }
 
             const layers: Layer[] = [
-                {
-                    id: '123',
-                    name: 'Test',
-                    context: testShader,
-                    enabled: true,
-                    blendingMode: BlendingModeSchema.enum.NORMAL
-                },
-                {
-                    id: '456',
-                    name: 'Comp',
-                    context: new Circuit(gl, {}),
-                    enabled: true,
-                    blendingMode: BlendingModeSchema.enum.NORMAL
-                }
+                new Layer({ context: testShader }),
+                new Layer({
+                    context: new Circuit(gl, {
+                        textureManager: { textureResolver: () => new Image() },
+                        cameraManager: { textureResolver: () => new Image() },
+                        nodesCollection: nodes
+                    })
+                })
             ];
 
             const sequence = createRenderSequence(gl, layers);

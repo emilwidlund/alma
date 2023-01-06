@@ -99,7 +99,7 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
 
     const handleClick = React.useCallback(() => {
         if (connection) {
-            circuit.context?.disconnect(connection);
+            circuit.circuit?.disconnect(connection);
         }
     }, [connection]);
 

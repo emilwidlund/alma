@@ -1,11 +1,11 @@
 import { Node } from 'alma-graph';
-import { ClassConstructor, GLSLNode, WebGLContext } from 'alma-webgl';
+import { ClassConstructor, GLSLNode, Circuit } from 'alma-webgl';
 import * as React from 'react';
 
 import { IPoint } from '../useCartesianMidpoint/useCartesianMidpoint.types';
 import { useCodeModal } from '../useCodeModal/useCodeModal';
 
-export const useCreateNode = (context?: WebGLContext, position?: IPoint) => {
+export const useCreateNode = (circuit?: Circuit, position?: IPoint) => {
     const { open: openGLSLModal } = useCodeModal();
 
     const createNode = React.useCallback(
@@ -14,18 +14,18 @@ export const useCreateNode = (context?: WebGLContext, position?: IPoint) => {
                 case GLSLNode:
                     openGLSLModal({
                         onSave: glsl => {
-                            if (context) {
-                                new GLSLNode(context, { data: { glsl, position: position || { x: 0, y: 0 } } });
+                            if (circuit) {
+                                new GLSLNode(circuit, { data: { glsl, position: position || { x: 0, y: 0 } } });
                             }
                         }
                     });
                     break;
                 default:
-                    new node(context, { data: { position } });
+                    new node(circuit, { data: { position } });
                     break;
             }
         },
-        [position, openGLSLModal, context]
+        [position, openGLSLModal, circuit]
     );
 
     return createNode;

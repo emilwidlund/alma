@@ -12,8 +12,6 @@ export const BooleanControl = observer(({ port }: IBooleanControlProps) => {
     const onChange = React.useCallback(
         (e: React.ChangeEvent<HTMLSelectElement>) => {
             port.setValue(bool(e.target.value === 'true'));
-
-            circuit.context?.reset();
         },
         [port, circuit]
     );

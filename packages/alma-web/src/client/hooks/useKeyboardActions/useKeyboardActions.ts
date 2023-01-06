@@ -15,8 +15,8 @@ export const useKeyboardActions = () => {
     }, [circuit]);
 
     const selectAllNodes = React.useCallback(() => {
-        if (circuit.context) {
-            const nodes = Array.from(circuit.context.nodes.values() || []);
+        if (circuit.circuit) {
+            const nodes = Array.from(circuit.circuit.nodes.values() || []);
             circuit.setSelectedNodes(nodes);
         }
     }, [circuit]);
@@ -36,7 +36,7 @@ export const useKeyboardActions = () => {
             for (const node of circuit.selectedNodes || []) {
                 const nodeConstructor = webglNodes[node.type];
 
-                const newNode = new nodeConstructor(circuit.context, {
+                const newNode = new nodeConstructor(circuit.circuit, {
                     data: { position: { x: node.data.position.x + 100, y: node.data.position.y + 100 } }
                 });
 

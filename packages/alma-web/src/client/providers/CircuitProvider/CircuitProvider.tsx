@@ -9,7 +9,7 @@ import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 import type { ICircuitContextValue, ICircuitProviderProps } from './CircuitProvider.types';
 
 const defaultCircuitValue: ICircuitContextValue = {
-    context: undefined,
+    circuit: undefined,
     nodeElements: {},
     setNodeElement: noop,
     removeNodeElement: noop,
@@ -27,7 +27,7 @@ const defaultCircuitValue: ICircuitContextValue = {
 
 export const CircuitContext = React.createContext(defaultCircuitValue);
 
-export const CircuitProvider = ({ context, children }: ICircuitProviderProps) => {
+export const CircuitProvider = ({ circuit, children }: ICircuitProviderProps) => {
     const [nodeElements, setNodeElements] = React.useState<Record<string, HTMLDivElement>>({});
     const [portElements, setPortElements] = React.useState<Record<string, HTMLDivElement>>({});
     const [connectionDraft, setConnectionDraft] = React.useState<Output<any> | undefined>();
@@ -97,7 +97,7 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
                 setConnectionDraft(undefined);
             }
         },
-        [context, connectionDraft]
+        [circuit, connectionDraft]
     );
 
     const handleSetSelectedNodes = React.useCallback(
@@ -115,12 +115,12 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
     );
 
     React.useEffect(() => {
-        if (context && selectionBounds) {
+        if (circuit && selectionBounds) {
             const bounds = normalizeBounds(selectionBounds);
 
             const selectionCandidates = [];
 
-            for (const node of context.nodes.values()) {
+            for (const node of circuit.nodes.values()) {
                 const nodeElement = nodeElements[node.id];
 
                 if (nodeElement) {
@@ -145,11 +145,11 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
 
             handleSetSelectedNodes(selectionCandidates);
         }
-    }, [context, selectionBounds, nodeElements]);
+    }, [circuit, selectionBounds, nodeElements]);
 
     const value = React.useMemo<ICircuitContextValue>(
         () => ({
-            context,
+            circuit,
             nodeElements,
             setNodeElement: handleSetNodeElement,
             removeNodeElement: handleRemoveNodeElement,
@@ -165,7 +165,7 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
             setSelectionBounds: handleSetSelectionBounds
         }),
         [
-            context,
+            circuit,
             nodeElements,
             handleSetNodeElement,
             handleRemoveNodeElement,
