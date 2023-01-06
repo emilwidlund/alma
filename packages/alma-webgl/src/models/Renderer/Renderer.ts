@@ -73,7 +73,6 @@ export const createRenderSequence = (gl: WebGL2RenderingContext, layers: Layer[]
             );
 
             const model = createModel(gl, shaderSpec, previousLayerTexture ? [previousLayerTexture] : []);
-
             const fbo = renderTarget instanceof Texture ? defFBO(gl, { tex: [renderTarget] }) : undefined;
 
             return {

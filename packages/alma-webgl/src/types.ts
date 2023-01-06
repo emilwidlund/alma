@@ -1,3 +1,4 @@
+import { CompositionNode } from './nodes/accessor/CompositionNode/CompositionNode';
 import { PINode } from './nodes/accessor/PINode/PINode';
 import { RendererNode } from './nodes/accessor/RendererNode/RendererNode';
 import { ResolutionNode } from './nodes/accessor/ResolutionNode/ResolutionNode';
@@ -95,6 +96,7 @@ export enum WebGLNodeType {
     VECTOR_4 = 'VECTOR_4',
     PI = 'PI',
     RESOLUTION = 'RESOLUTION',
+    COMPOSITION = 'COMPOSITION',
 
     // Effects
     CREATION_EFFECT = 'CREATION_EFFECT'
@@ -153,6 +155,7 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.VECTOR_4]: ClassConstructor<Vector4Node>;
     [WebGLNodeType.PI]: ClassConstructor<PINode>;
     [WebGLNodeType.RESOLUTION]: ClassConstructor<ResolutionNode>;
+    [WebGLNodeType.COMPOSITION]: ClassConstructor<CompositionNode>;
 
     // Effects
     [WebGLNodeType.CREATION_EFFECT]: ClassConstructor<CreationEffectNode>;
@@ -208,4 +211,5 @@ export type WebGLNode =
     | Vector4Node
     | PINode
     | ResolutionNode
+    | CompositionNode
     | WebGLEffectNode;

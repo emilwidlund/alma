@@ -1,3 +1,4 @@
+import { CompositionNode } from './nodes/accessor/CompositionNode/CompositionNode';
 import { PINode } from './nodes/accessor/PINode/PINode';
 import { RendererNode } from './nodes/accessor/RendererNode/RendererNode';
 import { ResolutionNode } from './nodes/accessor/ResolutionNode/ResolutionNode';
@@ -96,6 +97,7 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.VECTOR_4]: Vector4Node,
     [WebGLNodeType.PI]: PINode,
     [WebGLNodeType.RESOLUTION]: ResolutionNode,
+    [WebGLNodeType.COMPOSITION]: CompositionNode,
 
     // Effects
     [WebGLNodeType.CREATION_EFFECT]: CreationEffectNode
@@ -153,6 +155,8 @@ export * from './nodes/accessor/PINode/PINode';
 export * from './nodes/accessor/PINode/PINode.types';
 export * from './nodes/accessor/RendererNode/RendererNode';
 export * from './nodes/accessor/RendererNode/RendererNode.types';
+export * from './nodes/accessor/CompositionNode/CompositionNode';
+export * from './nodes/accessor/CompositionNode/CompositionNode.types';
 
 /** Math Nodes */
 export * from './nodes/math/AdditionNode/AdditionNode';

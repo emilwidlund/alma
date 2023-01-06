@@ -1,4 +1,4 @@
-import { assign, defMain, Sym, Type, vec4 } from '@thi.ng/shader-ast';
+import { assign, defMain, Sym, Type, uniform, vec4 } from '@thi.ng/shader-ast';
 import { GLSLTarget, GLSLVersion, targetGLSL } from '@thi.ng/shader-ast-glsl';
 import { ShaderFn, UniformValues } from '@thi.ng/webgl';
 import { Context, INodeSerialized, InputValue, Node, Output, OutputValue } from 'alma-graph';
@@ -23,7 +23,7 @@ export class Circuit extends Context<RendererNode> {
     /** Compiled Fragment Shader */
     public fragment: string;
     /** Associated Uniforms */
-    public uniforms!: ICompiledUniforms;
+    public uniforms: ICompiledUniforms;
 
     constructor(ctx: WebGL2RenderingContext, props: ICircuitProps) {
         super(props);
@@ -33,6 +33,13 @@ export class Circuit extends Context<RendererNode> {
         this.textureManager = new TextureManager(this, props.textureManager);
         this.cameraManager = new CameraManager(this, props.cameraManager);
         this.nodesCollection = props.nodesCollection;
+        this.uniforms = {
+            resolution: uniform('vec2', 'resolution'),
+            time: uniform('float', 'time'),
+            mouse: uniform('vec2', 'mouse'),
+            previousTexture: uniform('sampler2D', 'previousTexture'),
+            cameraTexture: uniform('sampler2D', 'cameraTexture')
+        };
         this.root = this.initialize();
         this.fragment = '';
 

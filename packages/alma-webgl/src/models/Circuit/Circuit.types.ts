@@ -11,6 +11,7 @@ export interface IUniforms {
     time: UniformDecl;
     resolution: UniformDecl;
     cameraTexture: UniformDecl;
+    previousTexture?: UniformDecl;
 }
 
 export interface ICompiledUniforms {
@@ -19,6 +20,7 @@ export interface ICompiledUniforms {
     time: Sym<'float'>;
     resolution: Sym<'vec2'>;
     cameraTexture: Sym<'sampler2D'>;
+    previousTexture?: Sym<'sampler2D'>;
 }
 
 export interface INodesCollection {
