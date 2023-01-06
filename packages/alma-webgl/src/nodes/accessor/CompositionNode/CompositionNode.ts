@@ -8,7 +8,7 @@ import { ICompositionNodeInputs, ICompositionNodeOutputs, ICompositionNodeProps 
 
 export class CompositionNode extends Node {
     static icon = 'layers';
-    static description = 'Exposes the layer below as a texture, from the layer hierarchy.';
+    static description = 'Exposes the layer below in the layer hierarchy.';
     static nodeName = 'Composition';
 
     type = WebGLNodeType.COMPOSITION;

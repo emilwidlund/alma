@@ -1,8 +1,15 @@
 import { fromRAF } from '@thi.ng/rstream';
-import { Layer, Circuit, createRenderSequence, render, nodes } from 'alma-webgl';
+import { Layer, Circuit, createRenderSequence, render, nodes, CompositionNode, LayerType } from 'alma-webgl';
 import * as React from 'react';
 
+import { Icon } from '../../components/Icon/Icon';
 import { Scene } from '../../components/Scene/Scene';
+import { LayerPanel } from '../../containers/LayerPanel/LayerPanel';
+import {
+    editorArtboardWrapperStyles,
+    editorRouteWrapperStyles,
+    editorToolbarWrapperStyles
+} from './EditorRoute.styles';
 
 const testShader = `void main() {
     // Time varying pixel color
@@ -14,6 +21,7 @@ const testShader = `void main() {
 
 export const EditorRoute = () => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
+    const [layers, setLayers] = React.useState<Layer[]>([]);
 
     React.useEffect(() => {
         if (canvasRef.current) {
@@ -23,18 +31,25 @@ export const EditorRoute = () => {
                 throw new Error('WebGL Context could not be created');
             }
 
+            const circuit = new Circuit(gl, {
+                textureManager: { textureResolver: () => new Image() },
+                cameraManager: { textureResolver: () => new Image() },
+                nodesCollection: nodes
+            });
+
             const layers: Layer[] = [
-                new Layer({ context: testShader }),
+                new Layer({ type: LayerType.SOURCE, context: testShader }),
                 new Layer({
-                    context: new Circuit(gl, {
-                        textureManager: { textureResolver: () => new Image() },
-                        cameraManager: { textureResolver: () => new Image() },
-                        nodesCollection: nodes
-                    })
+                    context: circuit
                 })
             ];
 
+            const comp = new CompositionNode(circuit);
+            comp.outputs.texture.connect(circuit.root.inputs.color);
+
             const sequence = createRenderSequence(gl, layers);
+
+            setLayers(layers);
 
             fromRAF().subscribe({
                 next(t) {
@@ -47,15 +62,25 @@ export const EditorRoute = () => {
                 }
             });
         }
-    }, []);
+    }, [setLayers]);
 
     return (
-        <Scene>
-            <div></div>
-            <div>
+        <Scene className={editorRouteWrapperStyles}>
+            <div className={editorToolbarWrapperStyles}>
+                <Icon name="face" size={24} />
+            </div>
+            <div className={editorArtboardWrapperStyles}>
                 <canvas ref={canvasRef} width={720} height={480} />
             </div>
-            <div></div>
+            <LayerPanel
+                items={layers
+                    .map(layer => ({
+                        id: layer.id,
+                        name: layer.name,
+                        icon: layer.type === LayerType.CIRCUIT ? 'route' : 'code'
+                    }))
+                    .reverse()}
+            />
         </Scene>
     );
 };
