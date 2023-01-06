@@ -1,7 +1,7 @@
 import { Node, INodeInputs, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { ITimeNodeOutputs, ITimeNodeProps } from './TimeNode.types';
 
@@ -15,8 +15,8 @@ export class TimeNode extends Node {
     inputs: INodeInputs;
     outputs: ITimeNodeOutputs;
 
-    constructor(context: WebGLContext, props: ITimeNodeProps = {}) {
-        super(context, props);
+    constructor(circuit: Circuit, props: ITimeNodeProps = {}) {
+        super(circuit, props);
 
         this.inputs = {};
 
@@ -27,7 +27,7 @@ export class TimeNode extends Node {
                     name: 'Time',
                     type: 'float',
                     value: () => {
-                        return context.uniforms.time;
+                        return circuit.uniforms.time;
                     }
                 })
             )

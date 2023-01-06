@@ -3,7 +3,7 @@ import { Input, IInputProps, Output, IOutputProps, SerializableInputValue, Node 
 import { defaults, defaultsDeep } from 'lodash';
 import { IReactionDisposer, reaction } from 'mobx';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { ISwizzleNodeInputs, ISwizzleNodeOutputs, ISwizzleNodeProps } from './SwizzleNode.types';
 
@@ -18,7 +18,7 @@ export class SwizzleNode extends Node {
     outputs: ISwizzleNodeOutputs;
     reactionDisposer: IReactionDisposer;
 
-    constructor(context: WebGLContext, props: ISwizzleNodeProps = {}) {
+    constructor(circuit: Circuit, props: ISwizzleNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -28,7 +28,7 @@ export class SwizzleNode extends Node {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         this.inputs = {
             vector: new Input(

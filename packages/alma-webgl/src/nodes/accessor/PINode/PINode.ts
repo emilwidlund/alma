@@ -2,7 +2,7 @@ import { HALF_PI, PI } from '@thi.ng/shader-ast';
 import { Node, INodeInputs, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { IPINodeOutputs, IPINodeProps } from './PINode.types';
 
@@ -16,8 +16,8 @@ export class PINode extends Node {
     inputs: INodeInputs;
     outputs: IPINodeOutputs;
 
-    constructor(context: WebGLContext, props: IPINodeProps = {}) {
-        super(context, props);
+    constructor(circuit: Circuit, props: IPINodeProps = {}) {
+        super(circuit, props);
 
         this.inputs = {};
 

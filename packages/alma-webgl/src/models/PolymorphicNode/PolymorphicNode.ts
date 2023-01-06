@@ -1,17 +1,19 @@
 import { bool, float, int, Lit, mat2, mat3, mat4, Type, vec2, vec3, vec4 } from '@thi.ng/shader-ast';
-import { Context, INodeProps, Node } from 'alma-graph';
+import { INodeProps, Node } from 'alma-graph';
 import { IReactionDisposer, reaction } from 'mobx';
+
+import { Circuit } from '../Circuit/Circuit';
 
 export abstract class PolymorphicNode extends Node {
     reactionDisposer: IReactionDisposer;
 
     constructor(
-        context: Context,
+        circuit: Circuit,
         props: INodeProps = {},
         convertInputs: boolean | string[] = true,
         convertOutputs: boolean | string[] = true
     ) {
-        super(context, props);
+        super(circuit, props);
 
         this.reactionDisposer = reaction(
             () => this.data.type?.selected,

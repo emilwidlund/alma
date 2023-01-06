@@ -3,7 +3,7 @@ import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { IDivisionNodeInputs, IDivisionNodeOutputs, IDivisionNodeProps } from './DivisionNode.types';
 
@@ -17,7 +17,7 @@ export class DivisionNode extends PolymorphicNode {
     inputs: IDivisionNodeInputs;
     outputs: IDivisionNodeOutputs;
 
-    constructor(context: WebGLContext, props: IDivisionNodeProps = {}) {
+    constructor(circuit: Circuit, props: IDivisionNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class DivisionNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         this.inputs = {
             a: new Input(

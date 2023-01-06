@@ -2,7 +2,7 @@ import { $xy, float, Sym, texture, vec4 } from '@thi.ng/shader-ast';
 import { Node, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { aspectCorrectedTextureUV } from '../../../utils/shaders/shaders';
 import { ICameraNodeInputs, ICameraNodeOutputs, ICameraNodeProps } from './CameraNode.types';
@@ -17,11 +17,11 @@ export class CameraNode extends Node {
     inputs: ICameraNodeInputs;
     outputs: ICameraNodeOutputs;
 
-    constructor(context: WebGLContext, props: ICameraNodeProps = {}) {
-        super(context, props);
+    constructor(circuit: Circuit, props: ICameraNodeProps = {}) {
+        super(circuit, props);
 
-        if (!context.cameraManager.initialized) {
-            context.cameraManager.start();
+        if (!circuit.cameraManager.initialized) {
+            circuit.cameraManager.start();
         }
 
         this.inputs = {};
@@ -33,14 +33,14 @@ export class CameraNode extends Node {
                     name: 'Texture',
                     type: 'vec4',
                     value: () => {
-                        const sampler = context.uniforms[context.cameraManager.textureId] as Sym<'sampler2D'>;
+                        const sampler = circuit.uniforms[circuit.cameraManager.textureId] as Sym<'sampler2D'>;
                         return sampler
                             ? texture(
                                   sampler,
                                   aspectCorrectedTextureUV(
-                                      context.uniforms[`${context.cameraManager.textureId}AspectRatio`] || float(1),
-                                      $xy(context.target.gl_FragCoord),
-                                      context.uniforms.resolution
+                                      circuit.uniforms[`${circuit.cameraManager.textureId}AspectRatio`] || float(1),
+                                      $xy(circuit.target.gl_FragCoord),
+                                      circuit.uniforms.resolution
                                   )
                               )
                             : vec4(0, 0, 0, 1);

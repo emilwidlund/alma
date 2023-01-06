@@ -3,7 +3,7 @@ import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import {
     IInverseSquareRootNodeInputs,
@@ -21,7 +21,7 @@ export class InverseSquareRootNode extends PolymorphicNode {
     inputs: IInverseSquareRootNodeInputs;
     outputs: IInverseSquareRootNodeOutputs;
 
-    constructor(context: WebGLContext, props: IInverseSquareRootNodeProps = {}) {
+    constructor(circuit: Circuit, props: IInverseSquareRootNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -31,7 +31,7 @@ export class InverseSquareRootNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         this.inputs = {
             input: new Input(

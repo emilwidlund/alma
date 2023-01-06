@@ -105,8 +105,8 @@ export const nodes: IWebGLNodeCollection = {
 export * from './types';
 
 /** Models */
-export * from './models/WebGLContext/WebGLContext';
-export * from './models/WebGLContext/WebGLContext.types';
+export * from './models/Circuit/Circuit';
+export * from './models/Circuit/Circuit.types';
 export * from './models/CameraManager/CameraManager';
 export * from './models/CameraManager/CameraManager.types';
 export * from './models/TextureManager/TextureManager';

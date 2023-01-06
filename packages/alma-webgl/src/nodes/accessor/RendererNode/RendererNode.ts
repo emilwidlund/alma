@@ -2,7 +2,7 @@ import { vec4 } from '@thi.ng/shader-ast';
 import { Node, IInputProps, Input, INodeOutputs } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { IRendererNodeInputs, IRendererNodeProps } from './RendererNode.types';
 
@@ -16,8 +16,8 @@ export class RendererNode extends Node {
     inputs: IRendererNodeInputs;
     outputs: INodeOutputs;
 
-    constructor(context: WebGLContext, props: IRendererNodeProps = {}) {
-        super(context, props);
+    constructor(circuit: Circuit, props: IRendererNodeProps = {}) {
+        super(circuit, props);
 
         this.inputs = {
             color: new Input(

@@ -2,8 +2,8 @@ import { abs, float, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { IAbsoluteNodeInputs, IAbsoluteNodeOutputs, IAbsoluteNodeProps } from './AbsoluteNode.types';
 
@@ -17,7 +17,7 @@ export class AbsoluteNode extends PolymorphicNode {
     inputs: IAbsoluteNodeInputs;
     outputs: IAbsoluteNodeOutputs;
 
-    constructor(context: WebGLContext, props: IAbsoluteNodeProps = {}) {
+    constructor(circuit: Circuit, props: IAbsoluteNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class AbsoluteNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         this.inputs = {
             input: new Input(

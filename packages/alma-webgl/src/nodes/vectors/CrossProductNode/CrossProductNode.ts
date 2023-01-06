@@ -2,7 +2,7 @@ import { cross, vec3 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps, Node } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { ICrossProductNodeInputs, ICrossProductNodeOutputs, ICrossProductNodeProps } from './CrossProductNode.types';
 
@@ -16,8 +16,8 @@ export class CrossProductNode extends Node {
     inputs: ICrossProductNodeInputs;
     outputs: ICrossProductNodeOutputs;
 
-    constructor(context: WebGLContext, props: ICrossProductNodeProps = {}) {
-        super(context, props);
+    constructor(circuit: Circuit, props: ICrossProductNodeProps = {}) {
+        super(circuit, props);
 
         this.inputs = {
             a: new Input(

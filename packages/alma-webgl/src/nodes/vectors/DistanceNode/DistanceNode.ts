@@ -2,8 +2,8 @@ import { distance, Vec, vec2 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { IDistanceNodeInputs, IDistanceNodeOutputs, IDistanceNodeProps } from './DistanceNode.types';
 
@@ -17,7 +17,7 @@ export class DistanceNode extends PolymorphicNode {
     inputs: IDistanceNodeInputs;
     outputs: IDistanceNodeOutputs;
 
-    constructor(context: WebGLContext, props: IDistanceNodeProps = {}) {
+    constructor(circuit: Circuit, props: IDistanceNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class DistanceNode extends PolymorphicNode {
             }
         });
 
-        super(context, props, true, false);
+        super(circuit, props, true, false);
 
         this.inputs = {
             a: new Input(

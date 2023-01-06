@@ -2,8 +2,8 @@ import { dot, Vec, vec2 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { IDotProductNodeInputs, IDotProductNodeOutputs, IDotProductNodeProps } from './DotProductNode.types';
 
@@ -17,7 +17,7 @@ export class DotProductNode extends PolymorphicNode {
     inputs: IDotProductNodeInputs;
     outputs: IDotProductNodeOutputs;
 
-    constructor(context: WebGLContext, props: IDotProductNodeProps = {}) {
+    constructor(circuit: Circuit, props: IDotProductNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class DotProductNode extends PolymorphicNode {
             }
         });
 
-        super(context, props, true, false);
+        super(circuit, props, true, false);
 
         this.inputs = {
             a: new Input(

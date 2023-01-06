@@ -2,7 +2,7 @@ import { float, vec2 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { IVector2NodeInputs, IVector2NodeOutputs, IVector2NodeProps } from './Vector2Node.types';
 
@@ -16,8 +16,8 @@ export class Vector2Node extends Node {
     inputs: IVector2NodeInputs;
     outputs: IVector2NodeOutputs;
 
-    constructor(context: WebGLContext, props: IVector2NodeProps = {}) {
-        super(context, props);
+    constructor(circuit: Circuit, props: IVector2NodeProps = {}) {
+        super(circuit, props);
 
         this.inputs = {
             x: new Input(

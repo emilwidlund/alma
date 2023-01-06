@@ -1,7 +1,7 @@
 import { INodeProps } from 'alma-graph';
 import _ from 'lodash';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { GLSLNode } from '../../common/GLSLNode/GLSLNode';
 import { IGLSLNodeProps } from '../../common/GLSLNode/GLSLNode.types';
@@ -31,13 +31,13 @@ export class CreationEffectNode extends GLSLNode {
 
     type = WebGLNodeType.CREATION_EFFECT;
 
-    constructor(context: WebGLContext, props: INodeProps) {
+    constructor(circuit: Circuit, props: INodeProps) {
         _.defaultsDeep(props, {
             data: {
                 glsl: CreationEffectNode.glsl
             }
         });
 
-        super(context, props as IGLSLNodeProps);
+        super(circuit, props as IGLSLNodeProps);
     }
 }

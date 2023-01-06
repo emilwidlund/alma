@@ -1,7 +1,7 @@
 import { Node, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { IResolutionNodeInputs, IResolutionNodeOutputs, IResolutionNodeProps } from './ResolutionNode.types';
 
@@ -15,8 +15,8 @@ export class ResolutionNode extends Node {
     inputs: IResolutionNodeInputs;
     outputs: IResolutionNodeOutputs;
 
-    constructor(context: WebGLContext, props: IResolutionNodeProps = {}) {
-        super(context, props);
+    constructor(circuit: Circuit, props: IResolutionNodeProps = {}) {
+        super(circuit, props);
 
         this.inputs = {};
 
@@ -27,7 +27,7 @@ export class ResolutionNode extends Node {
                     name: 'Resolution',
                     type: 'vec2',
                     value: () => {
-                        return context.uniforms.resolution;
+                        return circuit.uniforms.resolution;
                     }
                 })
             )

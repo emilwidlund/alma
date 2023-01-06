@@ -2,8 +2,8 @@ import { float, min, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { IMinimumNodeInputs, IMinimumNodeOutputs, IMinimumNodeProps } from './MinimumNode.types';
 
@@ -17,7 +17,7 @@ export class MinimumNode extends PolymorphicNode {
     inputs: IMinimumNodeInputs;
     outputs: IMinimumNodeOutputs;
 
-    constructor(context: WebGLContext, props: IMinimumNodeProps = {}) {
+    constructor(circuit: Circuit, props: IMinimumNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class MinimumNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         this.inputs = {
             a: new Input(

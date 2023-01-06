@@ -2,8 +2,8 @@ import { float, mix, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { IMixNodeData, IMixNodeInputs, IMixNodeOutputs, IMixNodeProps } from './MixNode.types';
 
@@ -18,7 +18,7 @@ export class MixNode extends PolymorphicNode {
     outputs: IMixNodeOutputs;
     data!: IMixNodeData;
 
-    constructor(context: WebGLContext, props: IMixNodeProps = {}) {
+    constructor(circuit: Circuit, props: IMixNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -28,7 +28,7 @@ export class MixNode extends PolymorphicNode {
             }
         });
 
-        super(context, props, ['a', 'b']);
+        super(circuit, props, ['a', 'b']);
 
         const inputA = new Input(
             this,

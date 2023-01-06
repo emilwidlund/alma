@@ -2,8 +2,8 @@ import { length, Vec, vec2 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { ILengthNodeInputs, ILengthNodeOutputs, ILengthNodeProps } from './LengthNode.types';
 
@@ -17,7 +17,7 @@ export class LengthNode extends PolymorphicNode {
     inputs: ILengthNodeInputs;
     outputs: ILengthNodeOutputs;
 
-    constructor(context: WebGLContext, props: ILengthNodeProps = {}) {
+    constructor(circuit: Circuit, props: ILengthNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class LengthNode extends PolymorphicNode {
             }
         });
 
-        super(context, props, true, false);
+        super(circuit, props, true, false);
 
         const input = new Input(
             this,

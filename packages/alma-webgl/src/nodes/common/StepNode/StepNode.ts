@@ -2,8 +2,8 @@ import { float, Prim, step } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { IStepNodeInputs, IStepNodeOutputs, IStepNodeProps } from './StepNode.types';
 
@@ -17,7 +17,7 @@ export class StepNode extends PolymorphicNode {
     inputs: IStepNodeInputs;
     outputs: IStepNodeOutputs;
 
-    constructor(context: WebGLContext, props: IStepNodeProps = {}) {
+    constructor(circuit: Circuit, props: IStepNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class StepNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         this.inputs = {
             edge: new Input(

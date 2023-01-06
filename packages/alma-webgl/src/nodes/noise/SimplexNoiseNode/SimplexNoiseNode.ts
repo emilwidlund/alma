@@ -3,7 +3,7 @@ import { additive, fit1101, snoise2 } from '@thi.ng/shader-ast-stdlib';
 import { Input, IInputProps, Node, Output, IOutputProps } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { ISimplexNoiseNodeInputs, ISimplexNoiseNodeOutputs, ISimplexNoiseNodeProps } from './SimplexNoiseNode.types';
 
@@ -18,8 +18,8 @@ export class SimplexNoiseNode extends Node {
     inputs: ISimplexNoiseNodeInputs;
     outputs: ISimplexNoiseNodeOutputs;
 
-    constructor(context: WebGLContext, props: ISimplexNoiseNodeProps = {}) {
-        super(context, props);
+    constructor(circuit: Circuit, props: ISimplexNoiseNodeProps = {}) {
+        super(circuit, props);
 
         this.inputs = {
             octaves: new Input(

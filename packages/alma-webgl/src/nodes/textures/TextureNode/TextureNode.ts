@@ -3,7 +3,7 @@ import { Texture } from '@thi.ng/webgl';
 import { Node, IOutputProps, Output } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { isPromise } from '../../../utils/predicates/predicates';
 import { aspectCorrectedTextureUV } from '../../../utils/shaders/shaders';
@@ -21,8 +21,8 @@ export class TextureNode extends Node {
     textureId!: string;
     texture!: Texture;
 
-    constructor(context: WebGLContext, props: ITextureNodeProps) {
-        super(context, props);
+    constructor(circuit: Circuit, props: ITextureNodeProps) {
+        super(circuit, props);
 
         this.data = defaultsDeep(props.data, {
             uri: 'https://source.unsplash.com/random',
@@ -32,7 +32,7 @@ export class TextureNode extends Node {
             }
         });
 
-        const [textureId, tex] = context.textureManager.create();
+        const [textureId, tex] = circuit.textureManager.create();
 
         this.textureId = textureId;
         this.texture = tex;
@@ -46,14 +46,14 @@ export class TextureNode extends Node {
                     name: 'Texture',
                     type: 'vec4',
                     value: () => {
-                        const sampler = context.uniforms[this.textureId] as Sym<'sampler2D'>;
+                        const sampler = circuit.uniforms[this.textureId] as Sym<'sampler2D'>;
                         return sampler
                             ? texture(
                                   sampler,
                                   aspectCorrectedTextureUV(
-                                      context.uniforms[`${this.textureId}AspectRatio`] || float(1),
-                                      $xy(context.target.gl_FragCoord),
-                                      context.uniforms.resolution
+                                      circuit.uniforms[`${this.textureId}AspectRatio`] || float(1),
+                                      $xy(circuit.target.gl_FragCoord),
+                                      circuit.uniforms.resolution
                                   )
                               )
                             : vec4(0, 0, 0, 1);
@@ -62,14 +62,14 @@ export class TextureNode extends Node {
             )
         };
 
-        const image = context.textureManager.textureResolver(props.data.uri);
+        const image = circuit.textureManager.textureResolver(props.data.uri);
 
         if (isPromise(image)) {
             image.then(data => {
-                context.textureManager.update(textureId, data);
+                circuit.textureManager.update(textureId, data);
             });
         } else {
-            context.textureManager.update(textureId, image);
+            circuit.textureManager.update(textureId, image);
         }
     }
 }

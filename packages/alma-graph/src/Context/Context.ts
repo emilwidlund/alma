@@ -1,4 +1,4 @@
-import { Sym, Type } from '@thi.ng/shader-ast';
+import { Type } from '@thi.ng/shader-ast';
 import _ from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
@@ -116,6 +116,12 @@ export abstract class Context<TRoot extends Node = Node> {
         connection.dispose();
     }
 
+    /** Resolve Node */
+    abstract resolveNode<TNode extends Node>(props: INodeSerialized): TNode;
+
+    /** Resolve Root Node */
+    abstract resolveRootNode(nodes: Node[]): TRoot;
+
     /** Serializes Context */
     public toJSON() {
         return {
@@ -125,13 +131,4 @@ export abstract class Context<TRoot extends Node = Node> {
             connections: this.connections
         };
     }
-
-    /** Resolve Node */
-    abstract resolveNode<TNode extends Node>(props: INodeSerialized): TNode;
-
-    /** Resolve Root Node */
-    abstract resolveRootNode(nodes: Node[]): TRoot;
-
-    /** Render Context */
-    abstract render(outs: Record<string, Sym<any>>): void;
 }

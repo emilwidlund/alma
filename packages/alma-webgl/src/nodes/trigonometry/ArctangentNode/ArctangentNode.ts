@@ -2,8 +2,8 @@ import { atan, float, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { IArctangentNodeInputs, IArctangentNodeOutputs, IArctangentNodeProps } from './ArctangentNode.types';
 
@@ -17,7 +17,7 @@ export class ArctangentNode extends PolymorphicNode {
     inputs: IArctangentNodeInputs;
     outputs: IArctangentNodeOutputs;
 
-    constructor(context: WebGLContext, props: IArctangentNodeProps = {}) {
+    constructor(circuit: Circuit, props: IArctangentNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class ArctangentNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         this.inputs = {
             y: new Input(

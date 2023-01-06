@@ -3,7 +3,7 @@ import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { ISubtractionNodeInputs, ISubtractionNodeOutputs, ISubtractionNodeProps } from './SubtractionNode.types';
 
@@ -17,7 +17,7 @@ export class SubtractionNode extends PolymorphicNode {
     inputs: ISubtractionNodeInputs;
     outputs: ISubtractionNodeOutputs;
 
-    constructor(context: WebGLContext, props: ISubtractionNodeProps = {}) {
+    constructor(circuit: Circuit, props: ISubtractionNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class SubtractionNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         this.inputs = {
             a: new Input(

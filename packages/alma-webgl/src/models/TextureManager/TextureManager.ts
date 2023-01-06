@@ -2,19 +2,19 @@ import { Texture, TextureFilter, TextureRepeat } from '@thi.ng/webgl';
 import { action, makeObservable, observable } from 'mobx';
 
 import { randomHash } from '../../utils/random/random';
-import { WebGLContext } from '../WebGLContext/WebGLContext';
+import { Circuit } from '../Circuit/Circuit';
 import { ITextureManagerProps, TextureResolver } from './TextureManager.types';
 
 export class TextureManager {
-    /** WebGL Context */
-    public context: WebGLContext;
+    /** Associated Circuit */
+    public circuit: Circuit;
     /** Textures */
     public textures: Map<string, Texture>;
     /** Texture Resolver */
     public textureResolver: TextureResolver;
 
-    constructor(context: WebGLContext, props: ITextureManagerProps) {
-        this.context = context;
+    constructor(circuit: Circuit, props: ITextureManagerProps) {
+        this.circuit = circuit;
         this.textures = new Map();
         this.textureResolver = props.textureResolver;
 
@@ -29,7 +29,7 @@ export class TextureManager {
     public create(): [string, Texture] {
         const id = randomHash(8);
 
-        const texture = new Texture(this.context.ctx, undefined, {
+        const texture = new Texture(this.circuit.ctx, undefined, {
             image: window.Image ? new Image() : new Float64Array(),
             flip: true,
             filter: TextureFilter.NEAREST,
@@ -37,7 +37,6 @@ export class TextureManager {
         });
 
         this.textures.set(id, texture);
-        this.context.reset();
 
         return [id, texture];
     }
@@ -54,7 +53,7 @@ export class TextureManager {
                 wrap: TextureRepeat.REPEAT
             });
 
-            this.context.setUniform(`${id}AspectRatio`, [textureSource.width / textureSource.height]);
+            this.circuit.setUniform(`${id}AspectRatio`, [textureSource.width / textureSource.height]);
         }
     }
 }

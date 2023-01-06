@@ -1,13 +1,13 @@
 import { Texture } from '@thi.ng/webgl';
 import { makeObservable, observable, action, computed } from 'mobx';
 
+import { Circuit } from '../Circuit/Circuit';
 import { TextureResolver } from '../TextureManager/TextureManager.types';
-import { WebGLContext } from '../WebGLContext/WebGLContext';
 import { ICameraManagerProps } from './CameraManager.types';
 
 export class CameraManager {
-    /** WebGL Context */
-    public context: WebGLContext;
+    /** Associated Circuit */
+    public circuit: Circuit;
     /** WebGL Texture Id */
     public textureId: string;
     /** WebGL Texture */
@@ -21,12 +21,12 @@ export class CameraManager {
     /** Animation Frame Identifier */
     private frameId?: number;
 
-    constructor(context: WebGLContext, props: ICameraManagerProps) {
-        this.context = context;
+    constructor(circuit: Circuit, props: ICameraManagerProps) {
+        this.circuit = circuit;
         this.textureResolver = props.textureResolver;
         this.onInit = props.onInit;
 
-        const [textureId, texture] = this.context.textureManager.create();
+        const [textureId, texture] = this.circuit.textureManager.create();
         this.textureId = textureId;
         this.texture = texture;
 
@@ -55,7 +55,7 @@ export class CameraManager {
     public async resolve(): Promise<Texture> {
         const image = await this.textureResolver();
 
-        this.context.textureManager.update(this.textureId, image);
+        this.circuit.textureManager.update(this.textureId, image);
 
         return this.texture;
     }

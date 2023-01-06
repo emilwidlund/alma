@@ -2,8 +2,8 @@ import { float, Prim, tan } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { ITangentNodeInputs, ITangentNodeOutputs, ITangentNodeProps } from './TangentNode.types';
 
@@ -17,7 +17,7 @@ export class TangentNode extends PolymorphicNode {
     inputs: ITangentNodeInputs;
     outputs: ITangentNodeOutputs;
 
-    constructor(context: WebGLContext, props: ITangentNodeProps = {}) {
+    constructor(circuit: Circuit, props: ITangentNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class TangentNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         this.inputs = {
             input: new Input(

@@ -2,8 +2,8 @@ import { normalize, Vec, vec2 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { INormalizeNodeInputs, INormalizeNodeOutputs, INormalizeNodeProps } from './NormalizeNode.types';
 
@@ -17,7 +17,7 @@ export class NormalizeNode extends PolymorphicNode {
     inputs: INormalizeNodeInputs;
     outputs: INormalizeNodeOutputs;
 
-    constructor(context: WebGLContext, props: INormalizeNodeProps = {}) {
+    constructor(circuit: Circuit, props: INormalizeNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class NormalizeNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         const input = new Input(
             this,

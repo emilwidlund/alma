@@ -3,7 +3,7 @@ import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import {
     IMultiplicationNodeInputs,
@@ -21,7 +21,7 @@ export class MultiplicationNode extends PolymorphicNode {
     inputs: IMultiplicationNodeInputs;
     outputs: IMultiplicationNodeOutputs;
 
-    constructor(context: WebGLContext, props: IMultiplicationNodeProps = {}) {
+    constructor(circuit: Circuit, props: IMultiplicationNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -31,7 +31,7 @@ export class MultiplicationNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         this.inputs = {
             a: new Input(

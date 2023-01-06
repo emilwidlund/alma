@@ -2,8 +2,8 @@ import { float, floor, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from 'alma-graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { IFloorNodeInputs, IFloorNodeOutputs, IFloorNodeProps } from './FloorNode.types';
 
@@ -17,7 +17,7 @@ export class FloorNode extends PolymorphicNode {
     inputs: IFloorNodeInputs;
     outputs: IFloorNodeOutputs;
 
-    constructor(context: WebGLContext, props: IFloorNodeProps = {}) {
+    constructor(circuit: Circuit, props: IFloorNodeProps = {}) {
         defaultsDeep(props, {
             data: {
                 type: {
@@ -27,7 +27,7 @@ export class FloorNode extends PolymorphicNode {
             }
         });
 
-        super(context, props);
+        super(circuit, props);
 
         this.inputs = {
             input: new Input(

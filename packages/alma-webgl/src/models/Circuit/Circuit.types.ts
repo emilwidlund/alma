@@ -21,18 +21,12 @@ export interface ICompiledUniforms {
     cameraTexture: Sym<'sampler2D'>;
 }
 
-export interface DrawingSize {
-    width: number;
-    height: number;
-}
-
 export interface INodesCollection {
     [key: string]: ClassConstructor<WebGLNode>;
 }
 
-export interface IWebGLContextProps extends IContextProps {
+export interface ICircuitProps extends IContextProps {
     textureManager: ITextureManagerProps;
     cameraManager: ICameraManagerProps;
     nodesCollection: INodesCollection;
-    onFrameEnd?: () => void;
 }

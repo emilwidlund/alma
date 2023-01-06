@@ -3,7 +3,7 @@ import { aspectCorrectedUV } from '@thi.ng/shader-ast-stdlib';
 import { Node, IOutputProps, Output } from 'alma-graph';
 import { defaults } from 'lodash';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { fragUV } from '../../../utils/shaders/shaders';
 import { IUVNodeInputs, IUVNodeOutputs, IUVNodeProps } from './UVNode.types';
@@ -19,8 +19,8 @@ export class UVNode extends Node {
     inputs: IUVNodeInputs;
     outputs: IUVNodeOutputs;
 
-    constructor(context: WebGLContext, props: IUVNodeProps = {}) {
-        super(context, props);
+    constructor(circuit: Circuit, props: IUVNodeProps = {}) {
+        super(circuit, props);
 
         this.inputs = {};
 
@@ -33,7 +33,7 @@ export class UVNode extends Node {
                         name: 'Aspect Corrected',
                         type: 'vec2',
                         value: () => {
-                            return aspectCorrectedUV($xy(context.target.gl_FragCoord), context.uniforms.resolution);
+                            return aspectCorrectedUV($xy(circuit.target.gl_FragCoord), circuit.uniforms.resolution);
                         }
                     }
                 )
@@ -44,7 +44,7 @@ export class UVNode extends Node {
                     name: 'UV',
                     type: 'vec2',
                     value: () => {
-                        return fragUV(context.target.gl_FragCoord, context.uniforms.resolution);
+                        return fragUV(circuit.target.gl_FragCoord, circuit.uniforms.resolution);
                     }
                 })
             ),
@@ -54,7 +54,7 @@ export class UVNode extends Node {
                     name: 'Frag Coord',
                     type: 'vec4',
                     value: () => {
-                        return context.target.gl_FragCoord;
+                        return circuit.target.gl_FragCoord;
                     }
                 })
             )

@@ -4,7 +4,7 @@ import { IInputProps, Input, Node, Output } from 'alma-graph';
 import _, { startCase } from 'lodash';
 import { action, makeObservable } from 'mobx';
 
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { Circuit } from '../../../models/Circuit/Circuit';
 import { WebGLNodeType } from '../../../types';
 import { IGLSLNodeData, IGLSLNodeInputs, IGLSLNodeOutputs, IGLSLNodeProps } from './GLSLNode.types';
 
@@ -22,8 +22,8 @@ export class GLSLNode extends Node {
     data: IGLSLNodeData;
     private properties: IGLSLNodeProps;
 
-    constructor(context: WebGLContext, props: IGLSLNodeProps) {
-        super(context, props);
+    constructor(circuit: Circuit, props: IGLSLNodeProps) {
+        super(circuit, props);
         this.properties = { ...props };
 
         this.data = _.defaultsDeep(props.data, {
