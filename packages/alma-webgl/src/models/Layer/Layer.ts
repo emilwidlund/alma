@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 
+import { Circuit } from '../Circuit/Circuit';
 import { ILayerProps, LayerContext, LayerType } from './Layer.types';
 
 export class Layer<T extends LayerType = LayerType.CIRCUIT> {
@@ -16,7 +17,7 @@ export class Layer<T extends LayerType = LayerType.CIRCUIT> {
     constructor(props: ILayerProps) {
         const properties = _.defaults(props, {
             id: uuid(),
-            name: 'Untitled',
+            name: props.context instanceof Circuit ? props.context.name : 'Untitled',
             type: LayerType.CIRCUIT
         });
 

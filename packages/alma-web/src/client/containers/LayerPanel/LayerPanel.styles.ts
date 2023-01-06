@@ -10,21 +10,33 @@ export const layerPanelWrapperStyles = css`
     padding: 12px 8px;
 `;
 
-export const layerPanelItemWrapperStyles = css`
+export const layerPanelItemWrapperStyles = (active: boolean) => css`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 16px 24px;
-    border-radius: 12px;
-    transition: background-color 0.15s, color 0.15s;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-top: 6px;
+    transition: background-color 0.1s, color 0.1s;
+
+    ${active
+        ? `
+     background-color: rgba(255, 255, 255, 0.05);
+     color: #fff;
+    `
+        : undefined}
 
     &:hover {
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: rgba(255, 255, 255, ${active ? '0.05' : '0.03'});
         color: #fff;
+    }
+
+    &:first-child {
+        margin-top: 0;
     }
 `;
 
 export const layerPanelItemNameStyles = css`
-    margin-left: 16px;
-    font-size: var(--font-size-sm);
+    margin-left: 14px;
+    font-size: var(--font-size-xs);
 `;

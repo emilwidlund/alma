@@ -32,6 +32,14 @@ export const EditorRoute = () => {
             }
 
             const circuit = new Circuit(gl, {
+                name: 'First Circuit',
+                textureManager: { textureResolver: () => new Image() },
+                cameraManager: { textureResolver: () => new Image() },
+                nodesCollection: nodes
+            });
+
+            const circuit2 = new Circuit(gl, {
+                name: 'Sampler Circuit',
                 textureManager: { textureResolver: () => new Image() },
                 cameraManager: { textureResolver: () => new Image() },
                 nodesCollection: nodes
@@ -41,11 +49,17 @@ export const EditorRoute = () => {
                 new Layer({ type: LayerType.SOURCE, context: testShader }),
                 new Layer({
                     context: circuit
+                }),
+                new Layer({
+                    context: circuit2
                 })
             ];
 
             const comp = new CompositionNode(circuit);
             comp.outputs.texture.connect(circuit.root.inputs.color);
+
+            const comp2 = new CompositionNode(circuit2);
+            comp2.outputs.texture.connect(circuit2.root.inputs.color);
 
             const sequence = createRenderSequence(gl, layers);
 
@@ -72,15 +86,7 @@ export const EditorRoute = () => {
             <div className={editorArtboardWrapperStyles}>
                 <canvas ref={canvasRef} width={720} height={480} />
             </div>
-            <LayerPanel
-                items={layers
-                    .map(layer => ({
-                        id: layer.id,
-                        name: layer.name,
-                        icon: layer.type === LayerType.CIRCUIT ? 'route' : 'code'
-                    }))
-                    .reverse()}
-            />
+            <LayerPanel layers={layers.reverse()} />
         </Scene>
     );
 };
