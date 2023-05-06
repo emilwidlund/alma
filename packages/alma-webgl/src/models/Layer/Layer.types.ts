@@ -3,8 +3,8 @@ import { IContextSerialized } from 'alma-graph';
 import { Circuit } from '../Circuit/Circuit';
 
 export enum LayerType {
-    CIRCUIT,
-    SOURCE
+    CIRCUIT = 'CIRCUIT',
+    SOURCE = 'SOURCE'
 }
 
 export type LayerContext = Circuit | string;

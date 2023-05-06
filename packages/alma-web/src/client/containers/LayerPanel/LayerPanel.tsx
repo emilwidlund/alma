@@ -1,21 +1,13 @@
 import { LayerType } from 'alma-webgl';
 import * as React from 'react';
 
-import { Icon } from '../../components/Icon/Icon';
-import { layerPanelItemNameStyles, layerPanelItemWrapperStyles, layerPanelWrapperStyles } from './LayerPanel.styles';
-import { ILayerItemProps, ILayerPanelProps } from './LayerPanel.types';
-
-export const LayerItem = ({ icon, name, active, onClick }: ILayerItemProps) => {
-    return (
-        <div className={layerPanelItemWrapperStyles(active)} onClick={onClick}>
-            <Icon name={icon} size={18} outlined />
-            <span className={layerPanelItemNameStyles}>{name}</span>
-        </div>
-    );
-};
+import { LayerItem } from './LayerItem/LayerItem';
+import { layerPanelWrapperStyles, layerPanelItemListStyles } from './LayerPanel.styles';
+import { ILayerPanelProps } from './LayerPanel.types';
+import { LayerPreview } from './LayerPreview/LayerPreview';
 
 export const LayerPanel = ({ layers }: ILayerPanelProps) => {
-    const [selectedLayerIndex, setSelectedLayerIndex] = React.useState(-1);
+    const [selectedLayerIndex, setSelectedLayerIndex] = React.useState(0);
 
     const selectedLayer = React.useMemo(
         () => (selectedLayerIndex > -1 ? layers[selectedLayerIndex] : undefined),
@@ -24,12 +16,8 @@ export const LayerPanel = ({ layers }: ILayerPanelProps) => {
 
     return (
         <div className={layerPanelWrapperStyles}>
-            {selectedLayer && (
-                <div>
-                    <h4>{selectedLayer.name}</h4>
-                </div>
-            )}
-            <div>
+            <LayerPreview layer={selectedLayer} />
+            <div className={layerPanelItemListStyles}>
                 {layers.map((layer, index) => (
                     <LayerItem
                         key={layer.id}
