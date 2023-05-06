@@ -28,6 +28,6 @@ The web application which hosts the client.
 
 ## Installation
 
-1. yarn install
+1. yarn
 2. yarn start
 3. Server now up on http://localhost:3000
