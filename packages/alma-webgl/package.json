@@ -10,7 +10,7 @@
     },
     "keywords": [],
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "dependencies": {
         "@thi.ng/shader-ast": "^0.12.29",
         "@thi.ng/shader-ast-glsl": "^0.4.29",

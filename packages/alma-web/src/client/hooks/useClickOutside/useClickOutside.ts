@@ -9,7 +9,7 @@ export const useClickOutside = <
     handler?: A
 ) => {
     const listener = React.useCallback(
-        event => {
+        (event: any) => {
             if (!ref.current || ref.current.contains(event.target)) {
                 return;
             }
