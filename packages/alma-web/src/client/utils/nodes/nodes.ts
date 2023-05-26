@@ -55,6 +55,7 @@ import { IContextMenuContainerSection } from '../../components/ContextMenu/Conte
 import { IContextMenuItemProps } from '../../components/ContextMenu/ContextMenuItem/ContextMenuItem.types';
 import * as creationExample from '../../examples/creation.json';
 import * as gradientExample from '../../examples/gradient.json';
+import * as noiseExample from '../../examples/noise.json';
 
 const extractItem = (
     createNodeCallback: (nodeClass: ClassConstructor<WebGLNode>) => void
@@ -203,6 +204,11 @@ export const examplesHierarchy: (
                 label: 'Creation',
                 icon: 'stream',
                 onClick: () => createContextCallback(creationExample as IContextSerialized)
+            },
+            {
+                label: 'Noise',
+                icon: 'grain',
+                onClick: () => createContextCallback(noiseExample as IContextSerialized)
             }
         ]
     }

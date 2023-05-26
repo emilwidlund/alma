@@ -1,9 +1,9 @@
 import { cx } from '@emotion/css';
 import * as React from 'react';
 
-import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 import { circuitWrapperStyles, circuitContentStyles } from './Circuit.styles';
 import { ICircuitProps } from './Circuit.types';
+import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 
 export const Circuit = React.forwardRef<HTMLDivElement, ICircuitProps>(
     (
