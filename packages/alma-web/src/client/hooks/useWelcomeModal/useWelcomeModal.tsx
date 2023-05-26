@@ -1,10 +1,5 @@
 import * as React from 'react';
 
-import { Heading } from '../../components/Heading/Heading';
-import { Icon } from '../../components/Icon/Icon';
-import { WELCOME_MODAL_ID } from '../../constants/modals';
-import { ModalContext } from '../../providers/ModalProvider/ModalProvider';
-import { Size } from '../../types';
 import {
     onboardingModalContentHeadingStyles,
     onboardingModalContentStyles,
@@ -14,6 +9,11 @@ import {
     welcomeModalContentTitleStyles
 } from './useWelcomeModal.styles';
 import { IWelcomeModalOpenProps } from './useWelcomeModal.types';
+import { Heading } from '../../components/Heading/Heading';
+import { Icon } from '../../components/Icon/Icon';
+import { WELCOME_MODAL_ID } from '../../constants/modals';
+import { ModalContext } from '../../providers/ModalProvider/ModalProvider';
+import { Size } from '../../types';
 
 const WelcomeModalContent = () => {
     return (

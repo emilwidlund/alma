@@ -1,6 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
+import {
+    propertyPanelInfoHeadingStyles,
+    propertyPanelInfoStyles,
+    propertyPanelPortsContainerStyles,
+    propertyPanelWrapperStyles,
+    propertyPanelInfoParagraphStyles
+} from './PropertyPanel.styles';
+import { IPropertyPanelProps } from './PropertyPanel.types';
 import { Artboard } from '../../components/Artboard/Artboard';
 import { BooleanControl } from '../../components/Control/BooleanControl/BooleanControl';
 import { NumberControl } from '../../components/Control/NumberControl/NumberControl';
@@ -11,14 +19,6 @@ import { Icon } from '../../components/Icon/Icon';
 import { Panel } from '../../components/Panel/Panel';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { Size } from '../../types';
-import {
-    propertyPanelInfoHeadingStyles,
-    propertyPanelInfoStyles,
-    propertyPanelPortsContainerStyles,
-    propertyPanelWrapperStyles,
-    propertyPanelInfoParagraphStyles
-} from './PropertyPanel.styles';
-import { IPropertyPanelProps } from './PropertyPanel.types';
 
 export const PropertyPanel = observer(
     React.forwardRef<HTMLCanvasElement, IPropertyPanelProps>(({ artboardSize }, ref) => {

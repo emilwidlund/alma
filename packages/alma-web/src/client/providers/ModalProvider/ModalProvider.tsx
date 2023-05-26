@@ -1,8 +1,8 @@
 import { noop } from 'lodash';
 import * as React from 'react';
 
-import { Modal } from '../../components/Modal/Modal';
 import { IModal } from './ModalProvider.types';
+import { Modal } from '../../components/Modal/Modal';
 
 const defaultModalContextValue: {
     stack: IModal[];
