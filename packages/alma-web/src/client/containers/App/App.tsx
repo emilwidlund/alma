@@ -1,12 +1,12 @@
 import { inject } from '@vercel/analytics';
 import * as React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation, useSearchParams } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { useWelcomeModal } from '../../hooks/useWelcomeModal/useWelcomeModal';
+import { transitionGroupWrapperStyles } from './App.styles';
 import { ModalProvider } from '../../providers/ModalProvider/ModalProvider';
 import { CircuitRoute } from '../../routes/CircuitRoute/CircuitRoute';
-import { transitionGroupWrapperStyles } from './App.styles';
+import { LandingRoute } from '../../routes/LandingRoute/LandingRoute';
 
 inject();
 
@@ -21,20 +21,6 @@ export const App = () => {
 };
 
 export const AppRoutes = () => {
-    const { open: openWelcomeModal } = useWelcomeModal();
-    const location = useLocation();
-    const [params] = useSearchParams();
-
-    React.useEffect(() => {
-        if (!localStorage.getItem('onboardingCompleted') || params.get('onboarding') === 'true') {
-            openWelcomeModal({
-                onClose: () => {
-                    localStorage.setItem('onboardingCompleted', 'true');
-                }
-            });
-        }
-    }, []);
-
     return (
         <TransitionGroup className={transitionGroupWrapperStyles}>
             {/*
@@ -45,9 +31,8 @@ export const AppRoutes = () => {
           */}
             <CSSTransition key={location.pathname} classNames="fade" timeout={300}>
                 <Routes location={location}>
-                    {/* <Route path="/" element={<LandingRoute />} />
-                    <Route path="/about" element={<Scene />} /> */}
-                    <Route path="/" element={<CircuitRoute />} index />
+                    <Route path="/" element={<LandingRoute />} index />
+                    <Route path="/playground" element={<CircuitRoute />} />
                 </Routes>
             </CSSTransition>
         </TransitionGroup>

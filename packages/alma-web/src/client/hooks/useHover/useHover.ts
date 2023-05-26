@@ -15,7 +15,10 @@ export const useHover = <TElement>(onHover?: HoverEventHandler<TElement>) => {
 
     const onMouseLeave = React.useCallback((e: React.MouseEvent<TElement>) => {
         setHover(false);
-        cleanup.current?.(e);
+
+        if (typeof cleanup.current === 'function') {
+            cleanup.current?.(e);
+        }
     }, []);
 
     return {

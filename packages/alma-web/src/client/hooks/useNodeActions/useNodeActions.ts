@@ -11,7 +11,7 @@ export const useNodeActions = (node: Node): INodeActionProps[] => {
     const { open: openGLSLEditor } = useCodeModal();
 
     const onEditSave = useCallback(
-        glsl => {
+        (glsl: string) => {
             if (node instanceof GLSLNode) {
                 node.setGLSL(glsl);
             }

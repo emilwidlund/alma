@@ -7,10 +7,7 @@ export const buttonStyles = (variant?: ButtonVariant) => css`
     display: flex;
     background-color: transparent;
     font-family: inherit;
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
+    font-size: 13px;
     font-feature-settings: 'ss01' 1, 'cv01' 1;
     padding: 14px 24px;
     line-height: inherit;
