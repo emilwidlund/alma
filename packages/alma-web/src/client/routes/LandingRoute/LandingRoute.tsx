@@ -28,7 +28,7 @@ export const LandingRoute = () => {
     }, [navigate]);
 
     const navigateToGithub = React.useCallback(() => {
-        navigate('https://github.com/emilwidlund/alma');
+        window.open('https://github.com/emilwidlund/alma', '_blank');
     }, [navigate]);
 
     return (
