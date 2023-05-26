@@ -56,6 +56,7 @@ import { IContextMenuItemProps } from '../../components/ContextMenu/ContextMenuI
 import * as creationExample from '../../examples/creation.json';
 import * as gradientExample from '../../examples/gradient.json';
 import * as noiseExample from '../../examples/noise.json';
+import * as uvExample from '../../examples/uv.json';
 
 const extractItem = (
     createNodeCallback: (nodeClass: ClassConstructor<WebGLNode>) => void
@@ -197,13 +198,18 @@ export const examplesHierarchy: (
         items: [
             {
                 label: 'Gradient',
-                icon: 'stream',
+                icon: 'palette',
                 onClick: () => createContextCallback(gradientExample as IContextSerialized)
             },
             {
                 label: 'Creation',
                 icon: 'stream',
                 onClick: () => createContextCallback(creationExample as IContextSerialized)
+            },
+            {
+                label: 'UV',
+                icon: 'grid_on',
+                onClick: () => createContextCallback(uvExample as IContextSerialized)
             },
             {
                 label: 'Noise',
