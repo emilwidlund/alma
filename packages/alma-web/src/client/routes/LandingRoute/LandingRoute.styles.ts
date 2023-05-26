@@ -1,37 +1,77 @@
 import { css } from '@emotion/css';
 
-export const landingRouteContentOuterStyles = (accentBackground = false) => css`
-    display: flex;
-    flex-direction: column;
-    padding: 0 64px;
-    ${accentBackground
-        ? `
-    background-color: var(--accent-color); 
-    color: var(--text-light-color);
-    `
-        : ''}
-`;
-
-export const landingRouteContentStyles = (padding = true) => css`
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    ${padding ? `padding: 120px 0;` : ''}
-    max-width: 1024px;
-    min-width: 512px;
+export const gradientStyles = css`
+    position: fixed;
+    height: 100vh;
     width: 100%;
+    --gradient-color-1: #c3e4ff;
+    --gradient-color-2: #6ec3f4;
+    --gradient-color-3: #eae2ff;
+    --gradient-color-4: #b9beff;
+    opacity: 0.9;
+`;
 
-    h1,
-    h2,
-    h3 {
-        font-weight: 500;
+export const landingRouteStyles = css`
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+`;
+
+export const landingRouteHeroContentStyles = css`
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    padding: 0 48px;
+`;
+
+export const landingRouteHeroHeadlineStyles = css`
+    font-weight: 400;
+    font-size: 56px;
+    margin-bottom: 0;
+`;
+
+export const landingRouteHeroParagraphStyles = css`
+    font-size: 24px;
+    margin-bottom: 48px;
+    text-align: center;
+`;
+
+export const landingRouteButtonGroupStyles = css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & > * {
+        margin-right: 24px;
     }
 
-    p {
-        font-size: var(--font-size-sm);
+    & > :last-child {
+        margin-right: 0;
     }
 `;
 
-export const landingRouteHeroStyles = css`
-    margin-bottom: 48px;
+export const landingRouteFooterStyles = css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    padding: 32px 0;
+    font-size: 14px;
+    z-index: 9;
+
+    a {
+        color: #fff;
+        border-bottom: 1px solid #fff;
+        padding-bottom: 6px;
+    }
 `;

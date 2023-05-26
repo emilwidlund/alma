@@ -3,7 +3,7 @@
         "lib": ["es2021", "DOM"],
         "target": "ES6",
         "outDir": "build",
-        "strict": true,
+        "strict": false,
         "moduleResolution": "node",
         "jsx": "react",
         "experimentalDecorators": true,
