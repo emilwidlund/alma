@@ -1,7 +1,9 @@
 import { IContextSerialized, Node } from 'alma-graph';
 import { ClassConstructor } from 'alma-webgl';
 import * as React from 'react';
+import { useSearchParams } from 'react-router-dom';
 
+import { circuitRouteWrapperStyles, contextMenuWrapperStyles, examplesMenuWrapperStyles } from './CircuitRoute.styles';
 import { ContextMenuContainer } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { Scene } from '../../components/Scene/Scene';
 import { Toolbar } from '../../components/Toolbar/Toolbar';
@@ -14,9 +16,9 @@ import { useCircuitContext } from '../../hooks/useCircuitContext/useCircuitConte
 import { useCodeModal } from '../../hooks/useCodeModal/useCodeModal';
 import { useCreateNode } from '../../hooks/useCreateNode/useCreateNode';
 import { useFragmentModal } from '../../hooks/useFragmentModal/useFragmentModal';
+import { useWelcomeModal } from '../../hooks/useWelcomeModal/useWelcomeModal';
 import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider';
 import { examplesHierarchy, nodesHierarchy } from '../../utils/nodes/nodes';
-import { circuitRouteWrapperStyles, contextMenuWrapperStyles, examplesMenuWrapperStyles } from './CircuitRoute.styles';
 
 export const CircuitRoute = () => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -27,6 +29,19 @@ export const CircuitRoute = () => {
     const { open: openFragmentModal } = useFragmentModal();
     const { open: openCodeModal } = useCodeModal();
     const midPoint = useCartesianMidpoint(circuitRef);
+
+    const { open: openWelcomeModal } = useWelcomeModal();
+    const [params] = useSearchParams();
+
+    React.useEffect(() => {
+        if (!localStorage.getItem('onboardingCompleted') || params.get('onboarding') === 'true') {
+            openWelcomeModal({
+                onClose: () => {
+                    localStorage.setItem('onboardingCompleted', 'true');
+                }
+            });
+        }
+    }, []);
 
     const serializedCtx = localStorage.getItem('context')
         ? JSON.parse(localStorage.getItem('context') || '{}')

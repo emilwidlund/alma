@@ -1,10 +1,9 @@
 import { inject } from '@vercel/analytics';
 import * as React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation, useSearchParams } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { transitionGroupWrapperStyles } from './App.styles';
-import { useWelcomeModal } from '../../hooks/useWelcomeModal/useWelcomeModal';
 import { ModalProvider } from '../../providers/ModalProvider/ModalProvider';
 import { CircuitRoute } from '../../routes/CircuitRoute/CircuitRoute';
 import { LandingRoute } from '../../routes/LandingRoute/LandingRoute';
@@ -22,20 +21,6 @@ export const App = () => {
 };
 
 export const AppRoutes = () => {
-    const { open: openWelcomeModal } = useWelcomeModal();
-    const location = useLocation();
-    const [params] = useSearchParams();
-
-    React.useEffect(() => {
-        if (!localStorage.getItem('onboardingCompleted') || params.get('onboarding') === 'true') {
-            openWelcomeModal({
-                onClose: () => {
-                    localStorage.setItem('onboardingCompleted', 'true');
-                }
-            });
-        }
-    }, []);
-
     return (
         <TransitionGroup className={transitionGroupWrapperStyles}>
             {/*
