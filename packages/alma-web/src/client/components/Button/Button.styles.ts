@@ -13,10 +13,11 @@ export const buttonStyles = (variant?: ButtonVariant) => css`
     line-height: inherit;
     background-color: ${variant === ButtonVariant.SECONDARY ? 'transparent' : 'var(--accent-color)'};
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     color: var(--text-light-color);
     transition: opacity 0.15s;
     box-shadow: ${variant === ButtonVariant.SECONDARY ? 'none' : '0 5px 10px rgba(0, 0, 0, .1)'};
+    cursor: pointer;
 
     &:hover:not(:disabled) {
         opacity: 0.6;

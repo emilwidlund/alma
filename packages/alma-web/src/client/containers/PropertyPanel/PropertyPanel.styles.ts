@@ -30,7 +30,7 @@ export const propertyPanelInfoHeadingStyles = css`
 export const propertyPanelInfoParagraphStyles = css`
     margin-bottom: 0;
     color: var(--text-neutral-color);
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.6em;
     padding: 0 12px;
 `;

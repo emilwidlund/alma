@@ -6,5 +6,6 @@ export const HIERARCHY = {
     toolbar: 109,
     contextMenu: 119,
     tooltip: 129,
+    header: 159,
     modal: 9999
 };

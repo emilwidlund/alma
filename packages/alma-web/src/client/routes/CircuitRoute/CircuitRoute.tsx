@@ -3,7 +3,12 @@ import { ClassConstructor } from 'alma-webgl';
 import * as React from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { circuitRouteWrapperStyles, contextMenuWrapperStyles, examplesMenuWrapperStyles } from './CircuitRoute.styles';
+import {
+    circuitRouteHeaderStyles,
+    circuitRouteWrapperStyles,
+    contextMenuWrapperStyles,
+    examplesMenuWrapperStyles
+} from './CircuitRoute.styles';
 import { ContextMenuContainer } from '../../components/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { Scene } from '../../components/Scene/Scene';
 import { Toolbar } from '../../components/Toolbar/Toolbar';
@@ -131,6 +136,10 @@ export const CircuitRoute = () => {
     return (
         <CircuitProvider context={context}>
             <Scene>
+                <header className={circuitRouteHeaderStyles}>
+                    <img src="/assets/images/logo.png" width={30} />
+                    <span>Alma</span>
+                </header>
                 <div className={circuitRouteWrapperStyles}>
                     <CircuitContainer ref={circuitRef} onContextMenu={onContextMenu} onFullscreen={onFullscreenClick} />
                     <PropertyPanel ref={canvasRef} artboardSize={canvasSize} />

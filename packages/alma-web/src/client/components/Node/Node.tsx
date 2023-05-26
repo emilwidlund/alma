@@ -3,10 +3,6 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Draggable from 'react-draggable';
 
-import { CIRCUIT_SIZE, NODE_POSITION_OFFSET_X } from '../../constants/circuit';
-import { useHover } from '../../hooks/useHover/useHover';
-import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
-import { Icon } from '../Icon/Icon';
 import {
     nodeHeaderWrapperStyles,
     nodeContentWrapperStyles,
@@ -18,6 +14,10 @@ import {
 } from './Node.styles';
 import { INodeActionProps, INodePortsProps, INodeProps } from './Node.types';
 import { Port } from './Port/Port';
+import { CIRCUIT_SIZE, NODE_POSITION_OFFSET_X } from '../../constants/circuit';
+import { useHover } from '../../hooks/useHover/useHover';
+import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
+import { Icon } from '../Icon/Icon';
 
 export const Node = observer(
     React.forwardRef<HTMLDivElement, INodeProps>(

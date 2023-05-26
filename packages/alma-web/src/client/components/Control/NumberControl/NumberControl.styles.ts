@@ -2,7 +2,7 @@ import { css } from '@emotion/css';
 
 export const numberControlNameStyles = css`
     flex-grow: 1;
-    font-size: 12px;
+    font-size: 14px;
     width: 120px;
     margin-right: 24px;
 `;

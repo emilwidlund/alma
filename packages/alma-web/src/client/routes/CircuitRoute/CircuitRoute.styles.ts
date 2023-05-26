@@ -1,5 +1,7 @@
 import { css } from '@emotion/css';
 
+import { HIERARCHY } from '../../constants/hierarchy';
+
 export const circuitRouteWrapperStyles = css`
     --circuit-background-color: var(--dark-background);
     --circuit-dot-color: #434437;
@@ -14,6 +16,23 @@ export const circuitRouteWrapperStyles = css`
     background-size: 30px 30px;
     user-select: none;
     -webkit-user-select: none;
+`;
+
+export const circuitRouteHeaderStyles = css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 48px 0 0 48px;
+    z-index: ${HIERARCHY.header};
+
+    span {
+        font-size: 18px;
+        margin-left: 24px;
+        color: rgba(255, 255, 255, 0.8);
+    }
 `;
 
 export const contextMenuWrapperStyles = css`
