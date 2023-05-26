@@ -1,9 +1,9 @@
 import { cx } from '@emotion/css';
 import * as React from 'react';
 
-import { Size } from '../../types';
 import { headingSignifierWrapperStyles, headingWrapperStyles } from './Heading.styles';
 import { IHeadingProps } from './Heading.types';
+import { Size } from '../../types';
 
 export const Heading = ({ className, children, size, signifier, marginTop, marginBottom }: IHeadingProps) => {
     const Element = React.useMemo(() => {
