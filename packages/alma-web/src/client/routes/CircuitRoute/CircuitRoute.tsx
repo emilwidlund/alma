@@ -23,6 +23,7 @@ import { useCreateNode } from '../../hooks/useCreateNode/useCreateNode';
 import { useFragmentModal } from '../../hooks/useFragmentModal/useFragmentModal';
 import { useWelcomeModal } from '../../hooks/useWelcomeModal/useWelcomeModal';
 import { CircuitProvider } from '../../providers/CircuitProvider/CircuitProvider';
+import { isMobile } from '../../utils/isMobile/isMobile';
 import { examplesHierarchy, nodesHierarchy } from '../../utils/nodes/nodes';
 
 export const CircuitRoute = () => {
@@ -40,6 +41,12 @@ export const CircuitRoute = () => {
 
     React.useEffect(() => {
         if (!localStorage.getItem('onboardingCompleted') || params.get('onboarding') === 'true') {
+            if (isMobile()) {
+                alert(
+                    'Alma was designed for desktop environments. Please open Alma on desktop for the best user experience.'
+                );
+            }
+
             openWelcomeModal({
                 onClose: () => {
                     localStorage.setItem('onboardingCompleted', 'true');
