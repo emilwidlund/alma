@@ -20,10 +20,6 @@ export const landingRouteStyles = css`
 `;
 
 export const landingRouteHeroContentStyles = css`
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -31,6 +27,7 @@ export const landingRouteHeroContentStyles = css`
     justify-content: center;
     color: #fff;
     padding: 0 48px;
+    z-index: 9;
 `;
 
 export const landingRouteHeroHeadlineStyles = css`
