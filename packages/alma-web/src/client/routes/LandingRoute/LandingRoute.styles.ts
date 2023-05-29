@@ -42,6 +42,7 @@ export const landingRouteHeroHeadlineStyles = css`
 export const landingRouteHeroParagraphStyles = css`
     font-size: 24px;
     margin-bottom: 48px;
+    line-height: 1.4em;
     text-align: center;
 `;
 
