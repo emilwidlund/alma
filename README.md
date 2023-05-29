@@ -4,7 +4,9 @@
 
 Alma is an experimental, interactive playground for generative graphics. It lets you compose nodes to craft WebGL experiences - all through an intuitive no-code interface.
 
-[Play with the demo](https://alma.sh)
+Nominated for "Fun Side Project of the Year" at React Open Source Awards 2023.
+
+[Open Playground](https://alma.sh)
 
 ![](static/alma.png)
 
