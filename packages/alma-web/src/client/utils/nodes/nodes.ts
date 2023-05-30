@@ -57,6 +57,7 @@ import * as creationExample from '../../examples/creation.json';
 import * as gradientExample from '../../examples/gradient.json';
 import * as noiseExample from '../../examples/noise.json';
 import * as uvExample from '../../examples/uv.json';
+import * as repetitionExample from '../../examples/repetition.json';
 
 const extractItem = (
     createNodeCallback: (nodeClass: ClassConstructor<WebGLNode>) => void
@@ -215,6 +216,11 @@ export const examplesHierarchy: (
                 label: 'Noise',
                 icon: 'grain',
                 onClick: () => createContextCallback(noiseExample as IContextSerialized)
+            },
+            {
+                label: 'Repetition',
+                icon: 'sunny',
+                onClick: () => createContextCallback(repetitionExample as IContextSerialized)
             }
         ]
     }
