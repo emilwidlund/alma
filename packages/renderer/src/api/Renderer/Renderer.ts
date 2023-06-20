@@ -44,7 +44,8 @@ const createModel = (gl: WebGL2RenderingContext, shaderSpec: ShaderSpec, texture
 
 export const render = (
     gl: WebGL2RenderingContext,
-    layers: Layer[]
+    layers: Layer[],
+    onError?: (err: unknown) => void
 ): { sequence: RenderSequence; dispose: RenderDisposer } => {
     const { sequence } = layers.reduce<{ sequence: RenderSequence; previousLayerTexture: Texture | undefined }>(
         (
@@ -52,41 +53,50 @@ export const render = (
             currentLayer: Layer,
             index: number
         ): { sequence: RenderSequence; previousLayerTexture: Texture | undefined } => {
-            const shouldRenderToCanvas = index === layers.length - 1;
+            try {
+                const shouldRenderToCanvas = index === layers.length - 1;
 
-            const renderTarget = shouldRenderToCanvas
-                ? gl.canvas
-                : defTexture(gl, {
-                      width: gl.drawingBufferWidth,
-                      height: gl.drawingBufferHeight,
-                      filter: TextureFilter.LINEAR,
-                      image: null
-                  });
+                const renderTarget = shouldRenderToCanvas
+                    ? gl.canvas
+                    : defTexture(gl, {
+                          width: gl.drawingBufferWidth,
+                          height: gl.drawingBufferHeight,
+                          filter: TextureFilter.LINEAR,
+                          image: null
+                      });
 
-            const shaderSpec = createShaderSpec(
-                currentLayer.context,
-                previousLayerTexture ? [['uPreviousTexture', previousLayerTexture]] : undefined
-            );
+                const shaderSpec = createShaderSpec(
+                    currentLayer.context,
+                    previousLayerTexture ? [['uPreviousTexture', previousLayerTexture]] : undefined
+                );
 
-            const model = createModel(gl, shaderSpec, previousLayerTexture ? [previousLayerTexture] : []);
+                const model = createModel(gl, shaderSpec, previousLayerTexture ? [previousLayerTexture] : []);
 
-            const fbo = renderTarget instanceof Texture ? defFBO(gl, { tex: [renderTarget] }) : undefined;
+                const fbo = renderTarget instanceof Texture ? defFBO(gl, { tex: [renderTarget] }) : undefined;
 
-            return {
-                sequence: [...sequence, { model, fbo }],
-                previousLayerTexture: renderTarget instanceof Texture ? renderTarget : undefined
-            };
+                return {
+                    sequence: [...sequence, { model, fbo }],
+                    previousLayerTexture: renderTarget instanceof Texture ? renderTarget : undefined
+                };
+            } catch (err) {
+                onError?.(err);
+                return { sequence, previousLayerTexture };
+            }
         },
         { sequence: [], previousLayerTexture: undefined }
     );
 
     let animationFrame: number;
+    const startTime = Date.now();
 
     const update = () => {
         animationFrame = requestAnimationFrame(update);
 
         for (const { model, fbo } of sequence) {
             fbo?.bind();
+
+            model.uniforms!.uTime = (Date.now() - startTime) / 1000;
+
             draw(model);
             fbo?.unbind();
         }
