@@ -1,6 +1,7 @@
 import clsx from 'clsx';
-import { InputProps } from './Input.types';
 import { cloneElement } from 'react';
+
+import { InputProps } from './Input.types';
 
 export const Input = ({ icon, className, ...props }: InputProps) => {
     const classNames = clsx('flex items-center px-3 py-2 bg-neutral-200 rounded-lg text-sm text-accent', className);
