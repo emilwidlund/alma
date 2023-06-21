@@ -48,7 +48,7 @@ function EditorHeader() {
 }
 
 function EditorContainer() {
-    const [fragmentSource, setFragmentSource] = useState<string | undefined>(DEFAULT_FRAGMENT);
+    const [fragmentSource, setFragmentSource] = useState<string>(DEFAULT_FRAGMENT);
     const [compilationError, setCompilationError] = useState<string | undefined>();
 
     const mainContainerClassNames = clsx(
@@ -83,7 +83,7 @@ function EditorContainer() {
                                         setCompilationError(undefined);
                                     }
 
-                                    setFragmentSource(value);
+                                    setFragmentSource(value || '');
                                 }}
                             />
                         </div>

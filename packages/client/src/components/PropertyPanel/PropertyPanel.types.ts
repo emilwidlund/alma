@@ -1,4 +1,4 @@
 export type PropertyPanelProps = {
-    fragmentSource: string | undefined;
+    fragmentSource: string;
     onFragmentCompilationError?: () => void;
 };
