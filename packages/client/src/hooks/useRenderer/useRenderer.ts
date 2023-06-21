@@ -13,7 +13,12 @@ export const useRenderer = (
             throw new Error('WebGL2 Context could not be retrieved');
         }
 
-        const renderer = render(context, layers, onFragmentCompilationError);
+        const renderer = render(
+            context,
+            layers,
+            { uResolution: ['vec2', [context.drawingBufferWidth, context.drawingBufferHeight]] },
+            onFragmentCompilationError
+        );
 
         return () => {
             renderer.dispose();

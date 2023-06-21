@@ -1,36 +1,43 @@
+import { assign, defMain, FLOAT0, FLOAT1, vec4 } from '@thi.ng/shader-ast';
 import {
     defQuadModel,
     defShader,
     defTexture,
     draw,
     ModelSpec,
-    PASSTHROUGH_VS_UV,
     ShaderSpec,
     Texture,
     TextureFilter,
     defFBO,
-    compileModel
+    compileModel,
+    ShaderUniformSpecs
 } from '@thi.ng/webgl';
 import { Context, Layer } from '@usealma/types';
 
 import { RenderDisposer, RenderSequence } from './Renderer.types';
 
-const createShaderSpec = (context: Context, textures?: [string, Texture][]): ShaderSpec => {
+const createShaderSpec = (
+    context: Context,
+    uniforms?: ShaderUniformSpecs,
+    textures?: [string, Texture][]
+): ShaderSpec => {
     const textureUniforms = textures?.reduce((acc, [key], index) => {
         return { ...acc, [key]: ['sampler2D', index] };
     }, {});
 
     return {
-        vs: PASSTHROUGH_VS_UV,
+        vs: (gl, _, ins, outs) => [
+            defMain(() => [assign(outs.vUv, ins.uv), assign(gl.gl_Position, vec4(ins.position, FLOAT0, FLOAT1))])
+        ],
         fs: context,
         uniforms: {
-            uResolution: ['vec2', [0, 0]],
             uTime: ['float', 0],
-            uMouse: ['vec4', [0, 0, 0, 0]],
+            ...uniforms,
             ...textureUniforms
         },
         attribs: { position: 'vec2', uv: 'vec2' },
-        varying: { v_uv: 'vec2' }
+        varying: { vUv: 'vec2' }
+        // generateDecls: true
     };
 };
 
@@ -45,6 +52,7 @@ const createModel = (gl: WebGL2RenderingContext, shaderSpec: ShaderSpec, texture
 export const render = (
     gl: WebGL2RenderingContext,
     layers: Layer[],
+    uniforms?: ShaderUniformSpecs,
     onError?: (err: unknown) => void
 ): { sequence: RenderSequence; dispose: RenderDisposer } => {
     const { sequence } = layers.reduce<{ sequence: RenderSequence; previousLayerTexture: Texture | undefined }>(
@@ -67,6 +75,7 @@ export const render = (
 
                 const shaderSpec = createShaderSpec(
                     currentLayer.context,
+                    uniforms,
                     previousLayerTexture ? [['uPreviousTexture', previousLayerTexture]] : undefined
                 );
 
