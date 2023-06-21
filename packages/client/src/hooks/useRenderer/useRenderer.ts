@@ -1,4 +1,5 @@
-import { render, Layer } from '@usealma/renderer';
+import { render } from '@usealma/renderer';
+import { Layer } from '@usealma/types';
 import { useEffect, RefObject } from 'react';
 
 export const useRenderer = (
