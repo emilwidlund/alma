@@ -8,7 +8,7 @@ import './monaco';
 
 export const CodeEditor = ({ value, onChange }: CodeEditorProps) => {
     return (
-        <div className="flex flex-col h-full items-stretch p-8">
+        <div className="flex flex-col h-full items-stretch px-4 py-8">
             <MonacoEditor
                 language="glsl"
                 theme="alma"

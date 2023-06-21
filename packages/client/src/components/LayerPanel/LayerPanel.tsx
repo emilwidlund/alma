@@ -1,9 +1,5 @@
 'use client';
 
-import { useCallback, useState } from 'react';
-import { Well } from '../Well/Well';
-import { LayerItemProps, LayerPanelProps } from './LayerPanel.types';
-import clsx from 'clsx';
 import {
     RouteOutlined,
     NotesOutlined,
@@ -12,10 +8,15 @@ import {
     OpacityOutlined,
     TonalityOutlined
 } from '@mui/icons-material';
-import { Switch } from '../Switch/Switch';
-import { IconButton } from '../IconButton/IconButton';
+import clsx from 'clsx';
+import { useCallback, useState } from 'react';
+
+import { LayerItemProps, LayerPanelProps } from './LayerPanel.types';
 import { ButtonVariant } from '../Button/Button.types';
+import { IconButton } from '../IconButton/IconButton';
 import { Input } from '../Input/Input';
+import { Switch } from '../Switch/Switch';
+import { Well } from '../Well/Well';
 
 const LayerItem = ({ name, icon, type, active, visible, onClick }: LayerItemProps) => {
     const classNames = clsx(
@@ -62,7 +63,7 @@ export const LayerPanel = ({ items }: LayerPanelProps) => {
     }, []);
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col shrink-0">
             <div className="flex items-center mb-4">
                 <IconButton icon={<AddOutlined />} />
                 <Input

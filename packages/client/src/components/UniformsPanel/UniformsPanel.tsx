@@ -1,8 +1,9 @@
 'use client';
 
-import { Well } from '../Well/Well';
-import { UniformItemProps, UniformsPanelProps } from './UniformsPanel.types';
 import { cloneElement } from 'react';
+
+import { UniformItemProps, UniformsPanelProps } from './UniformsPanel.types';
+import { Well } from '../Well/Well';
 
 const UniformItem = ({ name, type, icon }: UniformItemProps) => {
     return (
@@ -22,7 +23,7 @@ const UniformItem = ({ name, type, icon }: UniformItemProps) => {
 
 export const UniformsPanel = ({ items }: UniformsPanelProps) => {
     return (
-        <Well>
+        <Well className="max-h-52 overflow-y-auto">
             {items.map(props => (
                 <UniformItem {...props} key={props.name} />
             ))}
