@@ -21,6 +21,7 @@ module.exports = {
                 'off-white': '#EAEDFF',
                 'pastel-blue': '#CACFEA',
                 accent: '#0A5DFF',
+                'accent-faded': '#377bff',
                 'text-dark': '#5E647D',
                 'button-bg-secondary': 'rgba(255, 255, 255, .2)',
                 'button-border-secondary': 'rgba(255, 255, 255, .2)',

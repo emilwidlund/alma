@@ -29,8 +29,8 @@ export const ProjectCard = ({ name, projectId, author, layers, preview }: Projec
 
     return (
         <Link className="flex flex-col items-center text-center" href={`/${author.username}/${projectId}`}>
-            <BaseCard ref={ref} className="p-4 hover:shadow-lg transition-shadow">
-                <div className="relative w-80 h-52">
+            <BaseCard ref={ref} className="hover:shadow-lg transition-shadow">
+                <div className="relative w-64 h-40">
                     <AnimatePresence>
                         {isHovered ? (
                             <ProjectCardCanvas key="canvas" layers={layers} />

@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+
 import { ButtonProps, ButtonVariant } from './Button.types';
 
 export const Button = ({
@@ -20,7 +21,7 @@ export const Button = ({
             'py-2 px-3': compact,
             'rounded-xl': !compact,
             'rounded-lg': compact,
-            'shadow-md shadow-accent': variant === ButtonVariant.PRIMARY,
+            'shadow-md shadow-accent-faded': variant === ButtonVariant.PRIMARY,
             'text-text-dark': variant !== ButtonVariant.PRIMARY,
             'text-white': variant === ButtonVariant.PRIMARY,
             'border border-black border-opacity-5': variant === ButtonVariant.SECONDARY

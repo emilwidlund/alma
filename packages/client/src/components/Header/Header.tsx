@@ -27,7 +27,6 @@ export default function Header() {
             <div className="absolute z-0 flex items-center justify-center w-full">
                 <HeaderNavigationLink href="/">Index</HeaderNavigationLink>
                 <HeaderNavigationLink href="/community">Community</HeaderNavigationLink>
-                <HeaderNavigationLink href="/pricing">Pricing</HeaderNavigationLink>
                 <HeaderNavigationLink href="/docs">Docs</HeaderNavigationLink>
             </div>
             <div className="z-10">
@@ -45,7 +44,7 @@ export default function Header() {
 export const HeaderNavigationLink = (props: HeaderNavigationLinkProps) => {
     const pathname = usePathname();
 
-    const classNames = clsx('mx-6 font-medium transition-opacity', {
+    const classNames = clsx('mx-8 font-medium transition-opacity', {
         'opacity-50': pathname !== props.href,
         'hover:opacity-100': pathname !== props.href
     });
