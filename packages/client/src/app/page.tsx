@@ -3,6 +3,7 @@
 import { FullscreenOutlined, MemoryOutlined, StreamOutlined } from '@mui/icons-material';
 import clsx from 'clsx';
 import Image from 'next/image';
+import Link from 'next/link';
 import { SessionProvider, signIn, useSession } from 'next-auth/react';
 import { useCallback, useState } from 'react';
 
@@ -34,14 +35,24 @@ function EditorHeader() {
 
     return (
         <header className="relative flex flex-row items-center justify-between p-12 pb-0">
-            <Image className="z-10" src="/alma_outline.png" alt="logo" width={40} height={40} quality={100} />
+            <Link className="z-10" href="/">
+                <Image src="/alma_outline.png" alt="logo" width={40} height={40} quality={100} />
+            </Link>
             <div className="absolute w-full flex flex-col items-center mx-auto">
                 <h2 className="text-lg font-medium">My Gradient Project</h2>
                 <span className="text-sm mt-1 opacity-50">Private</span>
             </div>
             <div className="z-10">
-                {status === 'authenticated' && data.user && <Avatar source={data?.user.image || ''} />}
-                {status === 'unauthenticated' && <a onClick={handleSignIn}>Create Account / Sign In</a>}
+                {status === 'authenticated' && data.user && (
+                    <Link href="/profile">
+                        <Avatar source={data?.user.image || ''} />
+                    </Link>
+                )}
+                {status === 'unauthenticated' && (
+                    <a className="cursor-pointer" onClick={handleSignIn}>
+                        Sign In
+                    </a>
+                )}
             </div>
         </header>
     );
@@ -59,7 +70,7 @@ function EditorContainer() {
     );
 
     return (
-        <main className="flex flex-row h-screen text-text-dark bg-neutral-200">
+        <main className="flex flex-row h-screen">
             <div className="flex flex-col flex-grow">
                 <EditorHeader />
                 <div className="flex flex-row flex-grow items-center">
