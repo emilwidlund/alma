@@ -18,7 +18,7 @@ function ProfileContainer() {
             {status === 'authenticated' && data.user && (
                 <section className="flex flex-row items-start justify-between mt-8">
                     <div className="relative">
-                        <div className="sticky flex flex-col items-center text-center bg-neutral-100 drop-shadow-xl px-8 pt-12 pb-8 rounded-4xl w-80">
+                        <div className="sticky flex flex-col items-center text-center bg-neutral-100 shadow-xl px-8 pt-12 pb-8 rounded-4xl w-80">
                             <Avatar size={Size.MD} source={data?.user.image || ''} />
                             <h3 className="text-xl mt-8 font-medium">{data?.user?.name}</h3>
                             <span className="mt-2 text-sm opacity-50">Stockholm, Sweden</span>
@@ -30,37 +30,20 @@ function ProfileContainer() {
                         </div>
                     </div>
                     <div className="grid grid-cols-3 gap-6">
-                        <ProjectCard
-                            name="Test"
-                            projectId="123"
-                            author={{ username: 'emilwidlund', image: '' }}
-                            preview="https://pbs.twimg.com/profile_images/1663109022411522049/drU-8nEM_400x400.jpg"
-                            layers={[]}
-                        />
-                        <ProjectCard
-                            name="Test"
-                            projectId="123"
-                            author={{ username: 'emilwidlund', image: '' }}
-                            preview="https://pbs.twimg.com/profile_images/1663109022411522049/drU-8nEM_400x400.jpg"
-                            layers={[]}
-                        />
-                        <ProjectCard
-                            name="Test"
-                            projectId="123"
-                            author={{ username: 'emilwidlund', image: '' }}
-                            preview="https://pbs.twimg.com/profile_images/1663109022411522049/drU-8nEM_400x400.jpg"
-                            layers={[]}
-                        />
-                        <ProjectCard
-                            name="Test"
-                            projectId="123"
-                            author={{ username: 'emilwidlund', image: '' }}
-                            preview="https://pbs.twimg.com/profile_images/1663109022411522049/drU-8nEM_400x400.jpg"
-                            layers={[
-                                {
-                                    id: '123',
-                                    name: 'Test',
-                                    context: `void main() {
+                        {Array(4)
+                            .fill(0)
+                            .map((_, index) => (
+                                <ProjectCard
+                                    key={index}
+                                    name="Test"
+                                    projectId="123"
+                                    author={{ username: 'emilwidlund', image: '' }}
+                                    preview="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80"
+                                    layers={[
+                                        {
+                                            id: '123',
+                                            name: 'Test',
+                                            context: `void main() {
     // Normalized pixel coordinates (from 0 to 1)
     vec2 uv = vUv;
 
@@ -70,11 +53,12 @@ function ProfileContainer() {
     // Output to screen
     fragColor = vec4(col, 1.0);
 }`,
-                                    enabled: true,
-                                    blendingMode: 'NORMAL'
-                                }
-                            ]}
-                        />
+                                            enabled: true,
+                                            blendingMode: 'NORMAL'
+                                        }
+                                    ]}
+                                />
+                            ))}
                     </div>
                 </section>
             )}
