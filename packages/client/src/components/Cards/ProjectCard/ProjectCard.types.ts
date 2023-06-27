@@ -8,5 +8,5 @@ export type ProjectCardProps = {
         image: string;
     };
     layers: Layer[];
-    preview: string;
+    image: string;
 };

@@ -14,20 +14,18 @@ import { IconButton } from '../IconButton/IconButton';
 import { LayerPanel } from '../LayerPanel/LayerPanel';
 import { UniformsPanel } from '../UniformsPanel/UniformsPanel';
 
-export const PropertyPanel = ({ fragmentSource, onFragmentCompilationError }: PropertyPanelProps) => {
+export const PropertyPanel = ({
+    project,
+    fragmentSource,
+    activeLayerIndex,
+    setActiveLayerIndex,
+    onFragmentCompilationError
+}: PropertyPanelProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useRenderer(
         canvasRef,
-        [
-            {
-                id: '123',
-                name: 'Test',
-                context: fragmentSource,
-                enabled: true,
-                blendingMode: 'NORMAL'
-            }
-        ],
+        [...project.layers.slice(undefined, activeLayerIndex), { ...project.layers[0], context: fragmentSource }],
         onFragmentCompilationError
     );
 
@@ -51,14 +49,16 @@ export const PropertyPanel = ({ fragmentSource, onFragmentCompilationError }: Pr
                     ]}
                 />
             </div>
-            <div className="flex flex-col p-6">
+            <div className="flex flex-col p-6 grow-1">
                 <h3 className="text-md font-medium mb-6">Hierarchy</h3>
                 <LayerPanel
-                    items={[
-                        { name: 'Noise', type: 'GLSL', visible: true, icon: 'grain' },
-                        { name: 'UV Transform', type: 'Visual', visible: true, icon: 'grain' },
-                        { name: 'Vertex', type: 'GLSL', visible: false, icon: 'grain' }
-                    ]}
+                    activeLayerIndex={activeLayerIndex}
+                    setActiveLayerIndex={setActiveLayerIndex}
+                    items={project.layers.map(layer => ({
+                        name: layer.name,
+                        type: layer.type,
+                        visible: layer.enabled
+                    }))}
                 />
             </div>
         </aside>

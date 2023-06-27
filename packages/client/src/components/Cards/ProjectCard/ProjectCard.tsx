@@ -24,7 +24,7 @@ const ProjectCardCanvas = ({ layers }: Pick<ProjectCardProps, 'layers'>) => {
     );
 };
 
-export const ProjectCard = ({ name, projectId, author, layers, preview }: ProjectCardProps) => {
+export const ProjectCard = ({ name, projectId, author, layers, image }: ProjectCardProps) => {
     const [ref, isHovered] = useHover<HTMLDivElement>();
 
     return (
@@ -38,7 +38,7 @@ export const ProjectCard = ({ name, projectId, author, layers, preview }: Projec
                             <motion.div
                                 key="preview"
                                 className="absolute bg-neutral-200 bg-center bg-cover w-full h-full rounded-2xl"
-                                style={{ backgroundImage: `url('${preview}')` }}
+                                style={{ backgroundImage: `url('${image}')` }}
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
@@ -47,7 +47,7 @@ export const ProjectCard = ({ name, projectId, author, layers, preview }: Projec
                     </AnimatePresence>
                 </div>
             </BaseCard>
-            <h3 className="mt-4 text-sm">{name}</h3>
+            <h3 className="mt-4 text-sm font-medium">{name}</h3>
         </Link>
     );
 };

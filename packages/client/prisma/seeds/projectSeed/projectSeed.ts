@@ -92,9 +92,10 @@ module.exports = [
                 }
             ]
         },
+        image: '',
         owner: {
             connect: {
-                email: 'inzanic@gmail.com'
+                username: 'emilwidlund'
             }
         }
     },
@@ -109,9 +110,10 @@ module.exports = [
                 }
             ]
         },
+        image: '',
         owner: {
             connect: {
-                email: 'inzanic@gmail.com'
+                username: 'emilwidlund'
             }
         }
     },
@@ -126,9 +128,10 @@ module.exports = [
                 }
             ]
         },
+        image: '',
         owner: {
             connect: {
-                email: 'ewidlund@alma.sh'
+                username: 'emilwidlund'
             }
         }
     },
@@ -143,9 +146,10 @@ module.exports = [
                 }
             ]
         },
+        image: '',
         owner: {
             connect: {
-                email: 'ewidlund@alma.sh'
+                username: 'emilwidlund'
             }
         }
     }

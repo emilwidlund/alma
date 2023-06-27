@@ -18,7 +18,7 @@ import { Input } from '../Input/Input';
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
 
-const LayerItem = ({ name, icon, type, active, visible, onClick }: LayerItemProps) => {
+const LayerItem = ({ name, type, active, visible, onClick }: LayerItemProps) => {
     const classNames = clsx(
         'flex items-center justify-between p-3 rounded-2xl mb-2 last:mb-0 transition-colors transitions-shadow duration-100 cursor-pointer',
         {
@@ -37,11 +37,11 @@ const LayerItem = ({ name, icon, type, active, visible, onClick }: LayerItemProp
         <div className={classNames} onClick={onClick}>
             <div className="flex items-center">
                 <div className={iconClassNames}>
-                    {type === 'GLSL' ? <NotesOutlined fontSize="small" /> : <RouteOutlined fontSize="small" />}
+                    {type === 'FRAGMENT' ? <NotesOutlined fontSize="small" /> : <RouteOutlined fontSize="small" />}
                 </div>
                 <div className="flex flex-col ml-4">
                     <h3 className="font-medium text-xs">{name}</h3>
-                    <span className="text-xs opacity-50 mt-1">{type} Layer</span>
+                    <span className="text-xs opacity-50 mt-1 capitalize">{type.toLowerCase()}</span>
                 </div>
             </div>
             {active && (
@@ -53,14 +53,15 @@ const LayerItem = ({ name, icon, type, active, visible, onClick }: LayerItemProp
     );
 };
 
-export const LayerPanel = ({ items }: LayerPanelProps) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    const createClickHandler = useCallback((index: number) => {
-        return () => {
-            setActiveIndex(index);
-        };
-    }, []);
+export const LayerPanel = ({ items, activeLayerIndex, setActiveLayerIndex }: LayerPanelProps) => {
+    const createClickHandler = useCallback(
+        (index: number) => {
+            return () => {
+                setActiveLayerIndex(index);
+            };
+        },
+        [setActiveLayerIndex]
+    );
 
     return (
         <div className="flex flex-col shrink-0">
@@ -84,7 +85,7 @@ export const LayerPanel = ({ items }: LayerPanelProps) => {
                         {...props}
                         key={props.name}
                         onClick={createClickHandler(index)}
-                        active={index === activeIndex}
+                        active={index === activeLayerIndex}
                     />
                 ))}
             </Well>

@@ -7,11 +7,11 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "prisma:push": "dotenv -e .env.development.local -- prisma db push",
-        "prisma:migrate": "dotenv -e .env.development.local -- prisma migrate dev",
-        "prisma:generate": "prisma generate",
-        "prisma:studio": "dotenv -e .env.development.local -- prisma studio",
-        "prisma:seed": "dotenv -e .env.development.local -- ts-node prisma/seed.ts"
+        "prisma:push": "dotenv -e .env.local -- prisma db push",
+        "prisma:migrate": "dotenv -e .env.local -- prisma migrate dev",
+        "prisma:generate": "prisma generate && supabase gen types typescript --local > lib/database.types.ts",
+        "prisma:studio": "dotenv -e .env.local -- prisma studio",
+        "prisma:seed": "dotenv -e .env.local -- ts-node prisma/seed.ts"
     },
     "dependencies": {
         "@emotion/react": "^11.11.1",
@@ -20,6 +20,9 @@
         "@mui/icons-material": "^5.11.16",
         "@mui/material": "^5.13.5",
         "@prisma/client": "^4.16.1",
+        "@supabase/auth-helpers-nextjs": "^0.7.2",
+        "@supabase/auth-helpers-react": "^0.4.0",
+        "@supabase/supabase-js": "^2.26.0",
         "@types/node": "20.2.5",
         "@types/react": "18.2.8",
         "@types/react-dom": "18.2.4",

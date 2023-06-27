@@ -1,13 +1,15 @@
 import { LayerSchema } from '@usealma/types';
 import { z } from 'zod';
 
-import { AuthorSchema } from '../User/User';
+import { OwnerSchema } from '../Profile/Profile';
 
 export const ProjectSchema = z.object({
     id: z.string(),
     name: z.string(),
+    image: z.string(),
     layers: z.array(LayerSchema),
-    author: AuthorSchema,
-    createdAt: z.date(),
-    updatedAt: z.date()
+    owner: OwnerSchema,
+    private: z.boolean(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime()
 });

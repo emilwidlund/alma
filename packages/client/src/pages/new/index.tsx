@@ -4,8 +4,7 @@ import { FullscreenOutlined, MemoryOutlined, StreamOutlined } from '@mui/icons-m
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SessionProvider, signIn, useSession } from 'next-auth/react';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
@@ -96,14 +95,6 @@ void main()
 }`;
 
 function EditorHeader() {
-    const { data, status } = useSession();
-
-    const handleSignIn = useCallback(() => {
-        if (status === 'unauthenticated') {
-            signIn('google');
-        }
-    }, [status]);
-
     return (
         <header className="relative flex flex-row items-center justify-between p-12 pb-0">
             <Link className="z-10" href="/">
@@ -113,18 +104,7 @@ function EditorHeader() {
                 <h2 className="text-lg font-medium">My Gradient Project</h2>
                 <span className="text-sm mt-1 opacity-50">Private</span>
             </div>
-            <div className="z-10">
-                {status === 'authenticated' && data.user && (
-                    <Link href="/profile">
-                        <Avatar source={data?.user.image || ''} />
-                    </Link>
-                )}
-                {status === 'unauthenticated' && (
-                    <a className="cursor-pointer" onClick={handleSignIn}>
-                        Sign In
-                    </a>
-                )}
-            </div>
+            <div className="z-10"></div>
         </header>
     );
 }

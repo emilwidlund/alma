@@ -1,19 +1,19 @@
 const { PrismaClient } = require('@prisma/client');
 
 const projectSeed = require('./seeds/projectSeed/projectSeed');
-const userSeed = require('./seeds/userSeed/userSeed');
+const profileSeed = require('./seeds/profileSeed/profileSeed');
 
 const prisma = new PrismaClient();
 
 async function main() {
     console.log(`Seeding database...`);
 
-    for (const data of userSeed) {
-        const user = await prisma.user.create({
+    for (const data of profileSeed) {
+        const profile = await prisma.profile.create({
             data
         });
 
-        console.log(`Created user with id: ${user.id}`);
+        console.log(`Created profile with id: ${profile.id}`);
     }
 
     for (const data of projectSeed) {
