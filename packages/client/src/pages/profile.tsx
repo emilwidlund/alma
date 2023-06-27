@@ -16,6 +16,8 @@ function ProfileContainer() {
         fetch('/user/clj7sdejk00000g08d25n5hcj').then(async res => console.log(await res.json()));
     }, []);
 
+    console.log(data);
+
     return (
         <main className="flex flex-col h-screen min-w-md max-w-7xl mx-auto">
             <Header />
