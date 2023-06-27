@@ -19,9 +19,8 @@ export const Button = ({
             'drop-shadow-xl': variant === ButtonVariant.PRIMARY,
             'py-4 px-8': !compact,
             'py-2 px-3': compact,
-            'rounded-xl': !compact,
+            'rounded-2xl': !compact,
             'rounded-lg': compact,
-            'shadow-md shadow-accent-faded': variant === ButtonVariant.PRIMARY,
             'text-text-dark': variant !== ButtonVariant.PRIMARY,
             'text-white': variant === ButtonVariant.PRIMARY,
             'border border-black border-opacity-5': variant === ButtonVariant.SECONDARY

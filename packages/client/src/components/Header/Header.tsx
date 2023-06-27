@@ -21,7 +21,7 @@ export default function Header() {
 
     return (
         <header className="relative flex justify-between items-center w-full py-12">
-            <Link className="text-2xl z-10" href="/profile">
+            <Link className="text-2xl z-10" href="/">
                 <Image src="/alma_outline.png" alt="logo" width={40} height={40} quality={100} />
             </Link>
             <div className="absolute z-0 flex items-center justify-center w-full">

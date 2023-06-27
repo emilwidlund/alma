@@ -1,0 +1,29 @@
+diff --git a/node_modules/@thi.ng/webgl/shader.js b/node_modules/@thi.ng/webgl/shader.js
+index 312c4f9..8e72507 100644
+--- a/node_modules/@thi.ng/webgl/shader.js
++++ b/node_modules/@thi.ng/webgl/shader.js
+@@ -19,6 +19,7 @@ import { error } from "./error.js";
+ import { LOGGER } from "./logger.js";
+ import { GLSL_HEADER, NO_PREFIXES, SYNTAX } from "./syntax.js";
+ import { UNIFORM_SETTERS } from "./uniforms.js";
++import {resolveLygia} from 'resolve-lygia';
+ const ERROR_REGEXP = /ERROR: \d+:(\d+): (.*)/;
+ export class Shader {
+     constructor(gl, program, attribs, uniforms, state) {
+@@ -153,6 +154,8 @@ export const defShader = (gl, spec, opts) => {
+     const srcFS = isFunction(spec.fs)
+         ? shaderSourceFromAST(spec, "fs", version, opts)
+         : prepareShaderSource(spec, "fs", version);
++
++    
+     LOGGER.debug(srcVS);
+     LOGGER.debug(srcFS);
+     initShaderExtensions(gl, spec.ext);
+@@ -306,6 +309,7 @@ export const prepareShaderSource = (spec, type, version) => {
+     }
+     src += spec[type];
+     spec.post && (src += "\n" + spec.post);
++    // src = resolveLygia(src);
+     return src;
+ };
+ export const compileShader = (gl, type, src) => {

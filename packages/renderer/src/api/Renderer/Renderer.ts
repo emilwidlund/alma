@@ -89,6 +89,7 @@ export const render = (
                 };
             } catch (err) {
                 onError?.(err);
+                console.error(err);
                 return { sequence, previousLayerTexture };
             }
         },

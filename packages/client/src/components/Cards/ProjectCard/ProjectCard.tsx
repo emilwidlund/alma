@@ -47,7 +47,7 @@ export const ProjectCard = ({ name, projectId, author, layers, preview }: Projec
                     </AnimatePresence>
                 </div>
             </BaseCard>
-            <h3 className="mt-4 text-m font-medium">{name}</h3>
+            <h3 className="mt-4 text-sm">{name}</h3>
         </Link>
     );
 };

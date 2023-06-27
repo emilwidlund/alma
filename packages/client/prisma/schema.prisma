@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
+}
+
+model User {
+  id            String          @id @default(cuid())
+  email         String          @unique
+  username      String          @unique
+  mediaUrl      String?
+  projects      Project[]
+  likes         Like[]
+  comments      Comment[]
+  following     Relationship[]  @relation(name: "following")
+  followers     Relationship[]  @relation(name: "followers")
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt @default(now())
+}
+
+model Relationship {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(name: "following", fields: [userId], references: [id], onDelete: Cascade)
+  targetUserId  String
+  targetUser    User        @relation(name: "followers", fields: [targetUserId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt @default(now())
+  @@unique([userId, targetUserId])
+}
+
+enum LayerType {
+  FRAGMENT
+  CIRCUIT
+}
+
+enum BlendingMode {
+  NONE
+  NORMAL
+  ADDITIVE
+  SUBTRACTIVE
+  MULTIPLY
+}
+
+model Layer {
+  id            String        @id @default(cuid())
+  name          String
+  enabled       Boolean       @default(true)
+  blendingMode  BlendingMode  @default(NORMAL)
+  type          LayerType
+  circuit       Json?
+  fragment      String?
+  projectId     String
+  project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt @default(now())
+}
+
+model Project {
+  id          String    @id @default(cuid())
+  name        String
+  mediaUrl    String?
+  layers      Layer[]
+  private     Boolean   @default(false)
+  ownerId     String    
+  owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  likes       Like[]
+  comments    Comment[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt @default(now())
+}
+
+model Like {
+  id          String    @id @default(cuid())
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt @default(now())
+  @@unique([projectId, userId])
+}
+
+model Comment {
+  id          String    @id @default(cuid())
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt @default(now())
+}

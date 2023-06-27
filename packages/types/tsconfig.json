@@ -11,5 +11,5 @@
         "skipLibCheck": true,
         "declaration": true
     },
-    "include": ["./src"]
+    "include": ["./src", "../client/src/models/Project"]
 }
