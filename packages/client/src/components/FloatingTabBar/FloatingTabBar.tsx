@@ -1,13 +1,13 @@
 'use client';
 
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cloneElement } from 'react';
 
 import { FloatingTabBarProps, TabItemProps } from './FloatingTabBar.types';
 
-const TabItem = ({ name, path, icon, active }: TabItemProps) => {
+const TabItem = ({ path, icon, active }: TabItemProps) => {
     const classNames = clsx(
         'flex items-center justify-center p-2 rounded-xl first:mt-0 mt-4 w-10 h-10 transition-colors',
         {

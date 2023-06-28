@@ -1,25 +1,22 @@
-import clsx from 'clsx';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useSession } from '@supabase/auth-helpers-react';
+import { clsx } from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect } from 'react';
+import Script from 'next/script';
 
 import { HeaderNavigationLinkProps } from './Header.types';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/lib/database.types';
-import Script from 'next/script';
-import { useSession } from '@supabase/auth-helpers-react';
 import { Avatar } from '../Avatar/Avatar';
+import { Database } from '@/lib/database.types';
 import { Size } from '~/types';
 
 const supabase = createClientComponentClient<Database>();
 async function handleSignInWithGoogle({ credential }: { credential: string }) {
-    const { data, error } = await supabase.auth.signInWithIdToken({
+    await supabase.auth.signInWithIdToken({
         provider: 'google',
         token: credential
     });
-
-    console.log(data);
 }
 
 global.handleSignInWithGoogle = handleSignInWithGoogle;

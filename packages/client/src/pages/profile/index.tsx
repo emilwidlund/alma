@@ -1,18 +1,22 @@
+import { LayerSchema } from '@/../types/build';
+import { PrismaClient } from '@prisma/client';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { PrismaClient } from '@prisma/client';
+import { Session } from '@supabase/supabase-js';
 
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Button } from '~/components/Button/Button';
 import { ProjectCard } from '~/components/Cards/ProjectCard/ProjectCard';
 import Header from '~/components/Header/Header';
-import { Size } from '~/types';
-import { ProfileProps } from './index.types';
-import { prettifyURL } from '~/utils';
 import { OwnerSchema, ProfileSchema } from '~/models/Profile/Profile';
-import { LayerSchema } from '@/../types/build';
 import { ProjectSchema } from '~/models/Project/Project';
+import { Size } from '~/types';
+import { prettifyURL } from '~/utils';
+import { Profile } from '~/models/Profile/Profile.types';
+import { Project } from '~/models/Project/Project.types';
+
+export type ProfileProps = { initialSession: Session; profile: Profile; projects: Project[] };
 
 export const getServerSideProps: GetServerSideProps<ProfileProps> = async (ctx: GetServerSidePropsContext) => {
     // Create authenticated Supabase Client

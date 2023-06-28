@@ -1,6 +1,7 @@
+import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
+
 import { SwitchProps } from './Switch.types';
-import clsx from 'clsx';
 
 export const Switch = ({ active, onChange }: SwitchProps) => {
     const bulletClassNames = clsx('rounded-full w-2 h-2', {

@@ -1,4 +1,5 @@
-import clsx from 'clsx';
+import { clsx } from 'clsx';
+
 import { WellProps } from './Well.types';
 
 export const Well = ({ children, className }: WellProps) => {

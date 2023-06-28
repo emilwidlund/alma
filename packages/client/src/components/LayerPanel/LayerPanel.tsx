@@ -8,8 +8,8 @@ import {
     OpacityOutlined,
     TonalityOutlined
 } from '@mui/icons-material';
-import clsx from 'clsx';
-import { useCallback, useState } from 'react';
+import { clsx } from 'clsx';
+import { useCallback } from 'react';
 
 import { LayerItemProps, LayerPanelProps } from './LayerPanel.types';
 import { ButtonVariant } from '../Button/Button.types';

@@ -1,14 +1,13 @@
 'use client';
 
 import { LayerSchema } from '@/../types/build';
+import { PrismaClient } from '@prisma/client';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { PrismaClient } from '@prisma/client';
 
+import Profile, { ProfileProps } from '../profile';
 import { OwnerSchema, ProfileSchema } from '~/models/Profile/Profile';
 import { ProjectSchema } from '~/models/Project/Project';
-import Profile from '../profile';
-import { ProfileProps } from '../profile/index.types';
 
 export const getServerSideProps: GetServerSideProps<ProfileProps> = async (ctx: GetServerSidePropsContext) => {
     // Create authenticated Supabase Client

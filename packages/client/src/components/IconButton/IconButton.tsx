@@ -1,6 +1,7 @@
 import { cloneElement } from 'react';
-import { Button } from '../Button/Button';
+
 import { IconButtonProps } from './IconButton.types';
+import { Button } from '../Button/Button';
 
 export const IconButton = ({ icon, ...buttonProps }: IconButtonProps) => {
     return (

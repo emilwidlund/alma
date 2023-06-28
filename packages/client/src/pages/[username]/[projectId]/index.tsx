@@ -1,22 +1,23 @@
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { PrismaClient } from '@prisma/client';
-import { ProjectSchema } from '~/models/Project/Project';
-import { OwnerSchema } from '~/models/Profile/Profile';
 import { LayerSchema } from '@/../types/build';
-import { EditorHeaderProps, EditorProps } from './index.types';
-
 import { FullscreenOutlined, MemoryOutlined, StreamOutlined } from '@mui/icons-material';
-import clsx from 'clsx';
+import { PrismaClient } from '@prisma/client';
+import { createPagesServerClient, Session } from '@supabase/auth-helpers-nextjs';
+import { clsx } from 'clsx';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
 import { CodeEditor } from '~/components/CodeEditor/CodeEditor';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
 import { PropertyPanel } from '~/components/PropertyPanel/PropertyPanel';
+import { OwnerSchema } from '~/models/Profile/Profile';
+import { ProjectSchema } from '~/models/Project/Project';
+import { Project } from '~/models/Project/Project.types';
+
+export type EditorProps = { initialSession: Session; project: Project };
+export type EditorHeaderProps = { project: Project };
 
 export const getServerSideProps: GetServerSideProps<EditorProps> = async (ctx: GetServerSidePropsContext) => {
     // Create authenticated Supabase Client

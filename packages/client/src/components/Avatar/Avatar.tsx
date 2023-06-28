@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 
 import { AvatarProps } from './Avatar.types';
 import { Size } from '../../types';
