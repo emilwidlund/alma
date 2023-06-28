@@ -1,11 +1,11 @@
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 
 import type { Database } from '@/lib/database.types';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export async function GET(req: NextRequest, res: NextResponse) {
-    const requestUrl = new URL(req.url);
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
+    const requestUrl = new URL(req.url || '');
     const code = requestUrl.searchParams.get('code');
 
     if (code) {
