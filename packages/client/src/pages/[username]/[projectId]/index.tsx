@@ -5,7 +5,6 @@ import { Session } from '@supabase/auth-helpers-nextjs';
 import { clsx } from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
