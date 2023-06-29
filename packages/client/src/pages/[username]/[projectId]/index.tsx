@@ -5,6 +5,7 @@ import { Session } from '@supabase/auth-helpers-nextjs';
 import { clsx } from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -12,6 +13,7 @@ import { Banner } from '~/components/Banner/Banner';
 import { CodeEditor } from '~/components/CodeEditor/CodeEditor';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
 import { PropertyPanel } from '~/components/PropertyPanel/PropertyPanel';
+import { ProjectSchema } from '~/models/Project/Project';
 import { Project } from '~/models/Project/Project.types';
 
 export type EditorProps = { initialSession: Session; project: Project };
@@ -38,7 +40,9 @@ export default function Editor() {
     const [fragmentSource, setFragmentSource] = useState<string>();
     const [compilationError, setCompilationError] = useState<string | undefined>();
 
-    const router = useRouter();
+    const {
+        query: { projectId }
+    } = useRouter();
 
     useEffect(() => {
         if (project) {
@@ -47,12 +51,12 @@ export default function Editor() {
     }, [project]);
 
     useEffect(() => {
-        if (router.query.projectId) {
-            fetch(`/api/project/${router.query.projectId}`)
+        if (projectId) {
+            fetch(`/api/project/${projectId}`)
                 .then(v => v.json())
-                .then(project => setProject(project));
+                .then(project => (ProjectSchema.parse(project) ? setProject(project) : undefined));
         }
-    }, [router.query.projectId]);
+    }, [projectId]);
 
     const mainContainerClassNames = clsx(
         'absolute top-32 right-32 bottom-32 left-32 rounded-3xl bg-neutral-100 drop-shadow-2xl overflow-hidden border-2',
