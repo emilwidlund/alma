@@ -34,17 +34,24 @@ function EditorHeader({ project }: EditorHeaderProps) {
 }
 
 export default function Editor() {
+    const [project, setProject] = useState<Project>();
     const [activeLayerIndex, setActiveLayerIndex] = useState(0);
-    const [fragmentSource, setFragmentSource] = useState<string>('');
+    const [fragmentSource, setFragmentSource] = useState<string>();
     const [compilationError, setCompilationError] = useState<string | undefined>();
 
     const router = useRouter();
 
     useEffect(() => {
+        if (project) {
+            setFragmentSource(project.layers[0].context);
+        }
+    }, [project]);
+
+    useEffect(() => {
         if (router.query.projectId) {
             fetch(`/api/project/${router.query.projectId}`)
                 .then(v => v.json())
-                .then(console.log);
+                .then(project => setProject(project));
         }
     }, [router.query.projectId]);
 
@@ -55,7 +62,9 @@ export default function Editor() {
         }
     );
 
-    return null;
+    if (!project || !fragmentSource) {
+        return null;
+    }
 
     return (
         <main className="flex flex-row h-screen">
