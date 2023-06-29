@@ -45,7 +45,6 @@ export default function Editor() {
 
     useEffect(() => {
         if (project) {
-            console.log('Set fragment');
             setFragmentSource(project.layers[0].context);
         }
     }, [project]);
@@ -65,9 +64,7 @@ export default function Editor() {
         }
     );
 
-    console.log(project, fragmentSource);
-
-    if (!project || !fragmentSource) {
+    if (!project || fragmentSource === undefined) {
         return null;
     }
 
