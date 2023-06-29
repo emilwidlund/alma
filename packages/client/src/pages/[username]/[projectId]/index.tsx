@@ -45,6 +45,7 @@ export default function Editor() {
 
     useEffect(() => {
         if (project) {
+            console.log('Set fragment');
             setFragmentSource(project.layers[0].context);
         }
     }, [project]);
@@ -63,6 +64,8 @@ export default function Editor() {
             'border-red-400': !!compilationError
         }
     );
+
+    console.log(project, fragmentSource);
 
     if (!project || !fragmentSource) {
         return null;
