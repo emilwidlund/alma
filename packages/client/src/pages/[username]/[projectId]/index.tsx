@@ -1,81 +1,22 @@
-import { LayerSchema } from '@/../types/build';
+'use client';
+
 import { FullscreenOutlined, MemoryOutlined, StreamOutlined } from '@mui/icons-material';
-import { PrismaClient } from '@prisma/client';
-import { createPagesServerClient, Session } from '@supabase/auth-helpers-nextjs';
+import { Session } from '@supabase/auth-helpers-nextjs';
 import { clsx } from 'clsx';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import { Banner } from '~/components/Banner/Banner';
 import { CodeEditor } from '~/components/CodeEditor/CodeEditor';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
 import { PropertyPanel } from '~/components/PropertyPanel/PropertyPanel';
-import { OwnerSchema } from '~/models/Profile/Profile';
-import { ProjectSchema } from '~/models/Project/Project';
 import { Project } from '~/models/Project/Project.types';
 
 export type EditorProps = { initialSession: Session; project: Project };
 export type EditorHeaderProps = { project: Project };
-
-export const getServerSideProps: GetServerSideProps<EditorProps> = async (ctx: GetServerSidePropsContext) => {
-    // Create authenticated Supabase Client
-    const supabase = createPagesServerClient(ctx);
-    // Check if we have a session
-    const {
-        data: { session }
-    } = await supabase.auth.getSession();
-
-    const projectId =
-        typeof ctx.params === 'object' && typeof ctx.params['projectId'] === 'string'
-            ? ctx.params['projectId']
-            : undefined;
-
-    const prisma = new PrismaClient();
-    const project = await prisma.project.findUnique({
-        where: { id: projectId },
-        include: { owner: true, layers: true }
-    });
-
-    if (!session || !project) {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false
-            }
-        };
-    }
-
-    return {
-        props: {
-            initialSession: session,
-            project: ProjectSchema.parse({
-                id: project.id,
-                private: project.private,
-                name: project.name,
-                image: project.image,
-                owner: OwnerSchema.parse({
-                    ...project.owner,
-                    createdAt: project.owner.createdAt.toJSON(),
-                    updatedAt: project.owner.updatedAt.toJSON()
-                }),
-                layers: project.layers.map(layer =>
-                    LayerSchema.parse({
-                        id: layer.id,
-                        name: layer.name,
-                        type: layer.type,
-                        context: layer.type === 'CIRCUIT' ? JSON.stringify(layer.circuit) : layer.fragment,
-                        enabled: layer.enabled,
-                        blendingMode: layer.blendingMode
-                    })
-                ),
-                createdAt: project.createdAt.toJSON(),
-                updatedAt: project.updatedAt.toJSON()
-            })
-        }
-    };
-};
 
 function EditorHeader({ project }: EditorHeaderProps) {
     return (
@@ -92,10 +33,20 @@ function EditorHeader({ project }: EditorHeaderProps) {
     );
 }
 
-export default function Editor({ project }: EditorProps) {
+export default function Editor() {
     const [activeLayerIndex, setActiveLayerIndex] = useState(0);
-    const [fragmentSource, setFragmentSource] = useState<string>(project.layers[0].context);
+    const [fragmentSource, setFragmentSource] = useState<string>('');
     const [compilationError, setCompilationError] = useState<string | undefined>();
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (router.query.projectId) {
+            fetch(`/api/project/${router.query.projectId}`)
+                .then(v => v.json())
+                .then(console.log);
+        }
+    }, [router.query.projectId]);
 
     const mainContainerClassNames = clsx(
         'absolute top-32 right-32 bottom-32 left-32 rounded-3xl bg-neutral-100 drop-shadow-2xl overflow-hidden border-2',
@@ -103,6 +54,8 @@ export default function Editor({ project }: EditorProps) {
             'border-red-400': !!compilationError
         }
     );
+
+    return null;
 
     return (
         <main className="flex flex-row h-screen">
