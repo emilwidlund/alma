@@ -11,5 +11,5 @@ export type LayerItemProps = {
 export type LayerPanelProps = {
     items: Omit<LayerItemProps, 'active'>[];
     activeLayerIndex: number;
-    setActiveLayerIndex: Dispatch<SetStateAction<number>>;
+    setActiveLayerIndex(index: number): void;
 };

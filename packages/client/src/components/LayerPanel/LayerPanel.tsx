@@ -17,6 +17,7 @@ import { IconButton } from '../IconButton/IconButton';
 import { Input } from '../Input/Input';
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
+import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
 const LayerItem = ({ name, type, active, visible, onClick }: LayerItemProps) => {
     const classNames = clsx(
@@ -54,7 +55,22 @@ const LayerItem = ({ name, type, active, visible, onClick }: LayerItemProps) => 
 };
 
 export const LayerPanel = ({ items, activeLayerIndex, setActiveLayerIndex }: LayerPanelProps) => {
-    const createClickHandler = useCallback(
+    const { createLayer } = useProjectContext();
+
+    const handleCreateLayer = useCallback(() => {
+        createLayer({
+            id: Math.random().toString(),
+            name: 'Untitled',
+            type: 'FRAGMENT',
+            enabled: true,
+            blendingMode: 'NORMAL',
+            context: ''
+        });
+
+        setActiveLayerIndex(-1);
+    }, [setActiveLayerIndex]);
+
+    const createSelectLayerHandler = useCallback(
         (index: number) => {
             return () => {
                 setActiveLayerIndex(index);
@@ -64,9 +80,9 @@ export const LayerPanel = ({ items, activeLayerIndex, setActiveLayerIndex }: Lay
     );
 
     return (
-        <div className="flex flex-col shrink-0">
+        <div className="flex flex-col shrink-0 grow">
             <div className="flex items-center mb-4">
-                <IconButton icon={<AddOutlined />} />
+                <IconButton icon={<AddOutlined />} onPress={handleCreateLayer} />
                 <Input
                     className="ml-2 border border-black border-opacity-5"
                     icon={<TonalityOutlined />}
@@ -79,12 +95,12 @@ export const LayerPanel = ({ items, activeLayerIndex, setActiveLayerIndex }: Lay
                 />
                 <IconButton className="ml-2" variant={ButtonVariant.SECONDARY} icon={<LockOutlined />} />
             </div>
-            <Well>
+            <Well className="grow">
                 {items.map((props, index) => (
                     <LayerItem
                         {...props}
                         key={props.name}
-                        onClick={createClickHandler(index)}
+                        onClick={createSelectLayerHandler(index)}
                         active={index === activeLayerIndex}
                     />
                 ))}

@@ -2,13 +2,18 @@ import { LayerSchema } from '@/../types/build';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { OwnerSchema } from '~/models/Profile/Profile';
 import { ProjectSchema } from '~/models/Project/Project';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '~/db';
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const prisma = new PrismaClient();
+    const supabaseServerClient = createPagesServerClient({ req, res });
+    const {
+        data: { user }
+    } = await supabaseServerClient.auth.getUser();
     const { projectId } = req.query;
 
     if (typeof projectId !== 'string') {
+        res.status(400).send({});
         return;
     }
 
@@ -18,6 +23,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (!project) {
+        res.status(404).send({});
+        return;
+    }
+
+    if (project.owner.userId !== user?.id && project.private) {
+        res.status(404).send({});
         return;
     }
 

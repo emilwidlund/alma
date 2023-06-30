@@ -13,19 +13,15 @@ import { useRenderer } from '../../hooks/useRenderer/useRenderer';
 import { IconButton } from '../IconButton/IconButton';
 import { LayerPanel } from '../LayerPanel/LayerPanel';
 import { UniformsPanel } from '../UniformsPanel/UniformsPanel';
+import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
-export const PropertyPanel = ({
-    project,
-    fragmentSource,
-    activeLayerIndex,
-    setActiveLayerIndex,
-    onFragmentCompilationError
-}: PropertyPanelProps) => {
+export const PropertyPanel = ({ onFragmentCompilationError }: PropertyPanelProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const { project, activeLayerIndex, setActiveLayerIndex } = useProjectContext();
 
     useRenderer(
         canvasRef,
-        [...project.layers.slice(undefined, activeLayerIndex), { ...project.layers[0], context: fragmentSource }],
+        project ? [...project.layers.slice(undefined, activeLayerIndex + 1)] : [],
         onFragmentCompilationError
     );
 
@@ -36,7 +32,7 @@ export const PropertyPanel = ({
             </div>
             <div className="flex flex-col p-6">
                 <div className="flex flex-row items-center justify-between mb-6">
-                    <h3 className="text-md font-medium">Uniforms</h3>
+                    <h3 className="text-md font-medium">Inputs</h3>
                     <IconButton icon={<AddOutlined />} />
                 </div>
                 <UniformsPanel
@@ -49,17 +45,19 @@ export const PropertyPanel = ({
                     ]}
                 />
             </div>
-            <div className="flex flex-col p-6 grow-1">
-                <h3 className="text-md font-medium mb-6">Hierarchy</h3>
-                <LayerPanel
-                    activeLayerIndex={activeLayerIndex}
-                    setActiveLayerIndex={setActiveLayerIndex}
-                    items={project.layers.map(layer => ({
-                        name: layer.name,
-                        type: layer.type,
-                        visible: layer.enabled
-                    }))}
-                />
+            <div className="flex flex-col p-6 grow-1 h-full">
+                <h3 className="text-md font-medium mb-6">Layers</h3>
+                {project && (
+                    <LayerPanel
+                        activeLayerIndex={activeLayerIndex}
+                        setActiveLayerIndex={setActiveLayerIndex}
+                        items={project.layers.map(layer => ({
+                            name: layer.name,
+                            type: layer.type,
+                            visible: layer.enabled
+                        }))}
+                    />
+                )}
             </div>
         </aside>
     );

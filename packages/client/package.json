@@ -34,6 +34,8 @@
         "eslint": "8.42.0",
         "eslint-config-next": "13.4.4",
         "framer-motion": "^10.12.16",
+        "immer": "^10.0.2",
+        "lodash": "^4.17.21",
         "monaco-editor": "^0.39.0",
         "next": "13.4.4",
         "postcss": "8.4.24",
