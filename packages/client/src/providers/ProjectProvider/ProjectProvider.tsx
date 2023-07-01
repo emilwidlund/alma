@@ -1,16 +1,20 @@
 import { Layer } from '@/../types/build';
 import { produce } from 'immer';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+
+import { ProjectProviderProps, ProjectContextValue } from './ProjectProvider.types';
 import { ProjectSchema } from '~/models/Project/Project';
 import { Project } from '~/models/Project/Project.types';
-import { ProjectProviderProps, ProjectProviderValue } from './ProjectProvider.types';
 
-export const defaultProjectContextValue: ProjectProviderValue = {
+export const defaultProjectContextValue: ProjectContextValue = {
     project: undefined,
-    activeLayerIndex: -1,
-    setActiveLayerIndex: () => {},
+    activeLayerId: undefined,
+    setActiveLayerId: (layerId: string | undefined) => {},
     createLayer: (layer: Layer) => {},
-    updateLayer: (layer: Layer) => {},
+    toggleLayer: (layerId: string, toggle: boolean) => {},
+    renameLayer: (layerId: string, name: string) => {},
+    updateLayerContext: (layerId: string, context: string) => {},
+    reorderLayers: (layers: Layer[]) => {},
     activeLayer: undefined
 };
 
@@ -18,7 +22,7 @@ export const ProjectContext = createContext(defaultProjectContextValue);
 
 export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) => {
     const [project, setProject] = useState<Project>();
-    const [activeLayerIndex, setActiveLayerIndex] = useState(-1);
+    const [activeLayerId, setActiveLayerId] = useState<string>();
     const [compilationError, setCompilationError] = useState<string>();
 
     useEffect(() => {
@@ -33,41 +37,87 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
         }
     }, [projectId]);
 
-    const updateLayer = useCallback(
+    const createLayer = useCallback(
         (layer: Layer) => {
             setProject(
                 produce(draft => {
                     if (draft) {
-                        const index = draft.layers.findIndex(l => l.id === layer.id);
-                        draft.layers[index] = layer;
+                        draft.layers.push(layer);
                     }
                 })
             );
+
+            setActiveLayerId(layer.id);
         },
-        [activeLayerIndex]
+        [project]
     );
 
-    const createLayer = useCallback((layer: Layer) => {
+    const toggleLayer = useCallback((layerId: string, toggle: boolean) => {
         setProject(
             produce(draft => {
                 if (draft) {
-                    draft.layers.push(layer);
+                    const index = draft.layers.findIndex(l => l.id === layerId);
+                    draft.layers[index].enabled = toggle;
                 }
             })
         );
     }, []);
 
-    const value = useMemo(
+    const updateLayerContext = useCallback((layerId: string, context: string) => {
+        setProject(
+            produce(draft => {
+                if (draft) {
+                    const index = draft.layers.findIndex(l => l.id === layerId);
+                    draft.layers[index].context = context;
+                }
+            })
+        );
+    }, []);
+
+    const renameLayer = useCallback((layerId: string, name: string) => {
+        setProject(
+            produce(draft => {
+                if (draft) {
+                    const index = draft.layers.findIndex(l => l.id === layerId);
+                    draft.layers[index].name = name;
+                }
+            })
+        );
+    }, []);
+
+    const reorderLayers = useCallback((layers: Layer[]) => {
+        setProject(
+            produce(draft => {
+                if (draft) {
+                    draft.layers = layers;
+                }
+            })
+        );
+    }, []);
+
+    const value: ProjectContextValue = useMemo(
         () => ({
             project,
             setProject,
-            activeLayerIndex,
-            setActiveLayerIndex,
+            activeLayerId,
+            setActiveLayerId,
             createLayer,
-            updateLayer,
-            activeLayer: project?.layers[activeLayerIndex]
+            toggleLayer,
+            renameLayer,
+            updateLayerContext,
+            reorderLayers,
+            activeLayer: project?.layers.find(layer => layer.id === activeLayerId)
         }),
-        [project, activeLayerIndex, updateLayer]
+        [
+            project,
+            activeLayerId,
+            setActiveLayerId,
+            createLayer,
+            toggleLayer,
+            renameLayer,
+            updateLayerContext,
+            reorderLayers
+        ]
     );
 
     return <ProjectContext.Provider value={value}>{children}</ProjectContext.Provider>;

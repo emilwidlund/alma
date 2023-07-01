@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ProfileSchema } from '~/models/Profile/Profile';
+
 import { prisma } from '~/db';
+import { ProfileSchema } from '~/models/Profile/Profile';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { profileId } = req.query;

@@ -10,7 +10,8 @@ import {
     TextureFilter,
     defFBO,
     compileModel,
-    ShaderUniformSpecs
+    ShaderUniformSpecs,
+    BLEND_NORMAL
 } from '@thi.ng/webgl';
 import { Context, Layer } from '@usealma/types';
 
@@ -36,7 +37,11 @@ const createShaderSpec = (
             ...textureUniforms
         },
         attribs: { position: 'vec2', uv: 'vec2' },
-        varying: { vUv: 'vec2' }
+        varying: { vUv: 'vec2' },
+        state: {
+            blend: true,
+            blendFn: BLEND_NORMAL
+        }
         // generateDecls: true
     };
 };
@@ -55,46 +60,52 @@ export const render = (
     uniforms?: ShaderUniformSpecs,
     onError?: (err: unknown) => void
 ): { sequence: RenderSequence; dispose: RenderDisposer } => {
-    const { sequence } = layers.reduce<{ sequence: RenderSequence; previousLayerTexture: Texture | undefined }>(
-        (
-            { sequence, previousLayerTexture }: { sequence: RenderSequence; previousLayerTexture: Texture | undefined },
-            currentLayer: Layer,
-            index: number
-        ): { sequence: RenderSequence; previousLayerTexture: Texture | undefined } => {
-            try {
-                const shouldRenderToCanvas = index === layers.length - 1;
+    const { sequence } = layers
+        .filter(layer => layer.enabled)
+        .reduce<{ sequence: RenderSequence; previousLayerTexture: Texture | undefined }>(
+            (
+                {
+                    sequence,
+                    previousLayerTexture
+                }: { sequence: RenderSequence; previousLayerTexture: Texture | undefined },
+                currentLayer: Layer,
+                index: number,
+                entities
+            ): { sequence: RenderSequence; previousLayerTexture: Texture | undefined } => {
+                try {
+                    const shouldRenderToCanvas = index === entities.length - 1;
 
-                const renderTarget = shouldRenderToCanvas
-                    ? gl.canvas
-                    : defTexture(gl, {
-                          width: gl.drawingBufferWidth,
-                          height: gl.drawingBufferHeight,
-                          filter: TextureFilter.LINEAR,
-                          image: null
-                      });
+                    const renderTarget = shouldRenderToCanvas
+                        ? gl.canvas
+                        : defTexture(gl, {
+                              width: gl.drawingBufferWidth,
+                              height: gl.drawingBufferHeight,
+                              filter: TextureFilter.LINEAR,
+                              image: null
+                          });
 
-                const shaderSpec = createShaderSpec(
-                    currentLayer.context,
-                    uniforms,
-                    previousLayerTexture ? [['uPreviousTexture', previousLayerTexture]] : undefined
-                );
+                    const shaderSpec = createShaderSpec(
+                        currentLayer.context,
+                        uniforms,
+                        previousLayerTexture ? [['uPreviousLayer', previousLayerTexture]] : undefined
+                    );
 
-                const model = createModel(gl, shaderSpec, previousLayerTexture ? [previousLayerTexture] : []);
+                    const model = createModel(gl, shaderSpec, previousLayerTexture ? [previousLayerTexture] : []);
 
-                const fbo = renderTarget instanceof Texture ? defFBO(gl, { tex: [renderTarget] }) : undefined;
+                    const fbo = renderTarget instanceof Texture ? defFBO(gl, { tex: [renderTarget] }) : undefined;
 
-                return {
-                    sequence: [...sequence, { model, fbo }],
-                    previousLayerTexture: renderTarget instanceof Texture ? renderTarget : undefined
-                };
-            } catch (err) {
-                onError?.(err);
-                console.error(err);
-                return { sequence, previousLayerTexture };
-            }
-        },
-        { sequence: [], previousLayerTexture: undefined }
-    );
+                    return {
+                        sequence: [...sequence, { model, fbo }],
+                        previousLayerTexture: renderTarget instanceof Texture ? renderTarget : undefined
+                    };
+                } catch (err) {
+                    onError?.(err);
+                    console.error(err);
+                    return { sequence, previousLayerTexture };
+                }
+            },
+            { sequence: [], previousLayerTexture: undefined }
+        );
 
     let animationFrame: number;
     const startTime = Date.now();

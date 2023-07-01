@@ -1,17 +1,18 @@
-import { useSession } from '@supabase/auth-helpers-react';
+
+import { useEffect, useState } from 'react';
 
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Button } from '~/components/Button/Button';
 import { ProjectCard } from '~/components/Cards/ProjectCard/ProjectCard';
 import Header from '~/components/Header/Header';
+import { Spinner } from '~/components/Spinner/Spinner';
+import { ProfileSchema } from '~/models/Profile/Profile';
+import { Profile } from '~/models/Profile/Profile.types';
+import { ProjectSchema } from '~/models/Project/Project';
+import { Project } from '~/models/Project/Project.types';
 import { Size } from '~/types';
 import { prettifyURL } from '~/utils';
-import { Profile } from '~/models/Profile/Profile.types';
-import { useEffect, useState } from 'react';
-import { ProfileSchema } from '~/models/Profile/Profile';
-import { Spinner } from '~/components/Spinner/Spinner';
-import { Project } from '~/models/Project/Project.types';
-import { ProjectSchema } from '~/models/Project/Project';
+
 
 export default function Profile() {
     const [profile, setProfile] = useState<Profile>();

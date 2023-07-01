@@ -1,15 +1,8 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Layer } from '@/../types/build';
 
 export type LayerItemProps = {
-    name: string;
-    type: 'FRAGMENT' | 'CIRCUIT';
-    visible: boolean;
+    layer: Layer;
+    index: number;
     active: boolean;
     onClick?: React.MouseEventHandler;
-};
-
-export type LayerPanelProps = {
-    items: Omit<LayerItemProps, 'active'>[];
-    activeLayerIndex: number;
-    setActiveLayerIndex(index: number): void;
 };

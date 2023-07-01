@@ -1,61 +1,116 @@
 'use client';
 
+import { Layer } from '@/../types/build';
 import {
     RouteOutlined,
     NotesOutlined,
     AddOutlined,
-    LockOutlined,
     OpacityOutlined,
-    TonalityOutlined
+    TonalityOutlined,
+    MoreVertOutlined
 } from '@mui/icons-material';
 import { clsx } from 'clsx';
-import { useCallback } from 'react';
+import { FormEventHandler, useCallback, useMemo } from 'react';
+import { DragDropContext, Draggable, OnDragEndResponder, OnDragStartResponder } from 'react-beautiful-dnd';
 
-import { LayerItemProps, LayerPanelProps } from './LayerPanel.types';
+import { LayerItemProps } from './LayerPanel.types';
 import { ButtonVariant } from '../Button/Button.types';
 import { IconButton } from '../IconButton/IconButton';
 import { Input } from '../Input/Input';
+import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable';
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
+import { DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT } from '~/templates/layer';
 
-const LayerItem = ({ name, type, active, visible, onClick }: LayerItemProps) => {
-    const classNames = clsx(
-        'flex items-center justify-between p-3 rounded-2xl mb-2 last:mb-0 transition-colors transitions-shadow duration-100 cursor-pointer',
-        {
-            'bg-neutral-100': active,
-            'hover:bg-neutral-100': !active,
-            'shadow-lg': active
-        }
-    );
+const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
+    const { toggleLayer, renameLayer } = useProjectContext();
+
+    const { type, name, enabled } = layer;
 
     const iconClassNames = clsx('flex items-center justify-center rounded-xl w-10 h-10', {
         'bg-neutral-100': !active,
         'shadow-sm': !active
     });
 
+    const toggleEnabled = useCallback(() => {
+        toggleLayer(layer.id, !layer.enabled);
+    }, [layer, toggleLayer]);
+
+    const handleInput: FormEventHandler<HTMLHeadingElement> = useCallback(
+        e => {
+            e.currentTarget.textContent?.replace(/(\r\n|\n|\r)/gm, '');
+        },
+        [layer, renameLayer]
+    );
+
+    const handleBlur = useCallback((e: React.FocusEvent<HTMLHeadingElement>) => {
+        const name = e.currentTarget.textContent;
+
+        if (!name?.length) {
+            e.currentTarget.textContent = 'Untitled';
+        }
+
+        renameLayer(layer.id, name?.length ? name : 'Untitled');
+    }, []);
+
     return (
-        <div className={classNames} onClick={onClick}>
-            <div className="flex items-center">
-                <div className={iconClassNames}>
-                    {type === 'FRAGMENT' ? <NotesOutlined fontSize="small" /> : <RouteOutlined fontSize="small" />}
-                </div>
-                <div className="flex flex-col ml-4">
-                    <h3 className="font-medium text-xs">{name}</h3>
-                    <span className="text-xs opacity-50 mt-1 capitalize">{type.toLowerCase()}</span>
-                </div>
-            </div>
-            {active && (
-                <div className="mr-2">
-                    <Switch active={visible} />
-                </div>
-            )}
-        </div>
+        <Draggable draggableId={layer.id} index={index}>
+            {(provided, snap) => {
+                const classNames = clsx(
+                    'flex items-center justify-between p-3 rounded-2xl last:mb-0 transition-colors transitions-shadow duration-100 cursor-pointer',
+                    {
+                        'bg-neutral-100': active || snap.isDragging,
+                        'hover:bg-neutral-100': !active,
+                        'shadow-lg': active || snap.isDragging
+                    }
+                );
+
+                return (
+                    <div
+                        ref={provided.innerRef}
+                        className={classNames}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={{ ...provided.draggableProps.style, marginBottom: 8 }}
+                        onClick={onClick}
+                    >
+                        <div className="flex items-center">
+                            <div className={iconClassNames}>
+                                {type === 'FRAGMENT' ? (
+                                    <NotesOutlined fontSize="small" />
+                                ) : (
+                                    <RouteOutlined fontSize="small" />
+                                )}
+                            </div>
+                            <div className="flex flex-col ml-4">
+                                <h3
+                                    className="font-medium text-xs line-clamp-1"
+                                    spellCheck={false}
+                                    contentEditable
+                                    onInput={handleInput}
+                                    onBlur={handleBlur}
+                                >
+                                    {name}
+                                </h3>
+                                <span className="text-xs opacity-50 mt-1 capitalize">{type.toLowerCase()}</span>
+                            </div>
+                        </div>
+                        {active && (
+                            <div className="mr-2">
+                                <Switch active={enabled} onChange={toggleEnabled} />
+                            </div>
+                        )}
+                    </div>
+                );
+            }}
+        </Draggable>
     );
 };
 
-export const LayerPanel = ({ items, activeLayerIndex, setActiveLayerIndex }: LayerPanelProps) => {
-    const { createLayer } = useProjectContext();
+export const LayerPanel = () => {
+    const { project, activeLayer, setActiveLayerId, createLayer, reorderLayers } = useProjectContext();
+    const items = useMemo(() => project?.layers.slice().reverse() ?? [], [project]);
 
     const handleCreateLayer = useCallback(() => {
         createLayer({
@@ -64,19 +119,42 @@ export const LayerPanel = ({ items, activeLayerIndex, setActiveLayerIndex }: Lay
             type: 'FRAGMENT',
             enabled: true,
             blendingMode: 'NORMAL',
-            context: ''
+            context: DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT
         });
-
-        setActiveLayerIndex(-1);
-    }, [setActiveLayerIndex]);
+    }, [createLayer]);
 
     const createSelectLayerHandler = useCallback(
-        (index: number) => {
+        (layer: Layer) => {
             return () => {
-                setActiveLayerIndex(index);
+                setActiveLayerId(layer.id);
             };
         },
-        [setActiveLayerIndex]
+        [setActiveLayerId]
+    );
+
+    const handleDragStart: OnDragStartResponder = useCallback(
+        result => {
+            setActiveLayerId(result.draggableId);
+        },
+        [project]
+    );
+
+    const handleDragEnd: OnDragEndResponder = useCallback(
+        result => {
+            // dropped outside the list
+            if (!result.destination) {
+                return;
+            }
+
+            // reorder using index of source and destination.
+            const itemsCopy = items.slice().reverse();
+            const [removed] = itemsCopy.splice(result.source.index, 1);
+            // put the removed one into destination.
+            itemsCopy.splice(result.destination.index, 0, removed);
+
+            reorderLayers(itemsCopy);
+        },
+        [items, reorderLayers]
     );
 
     return (
@@ -93,17 +171,26 @@ export const LayerPanel = ({ items, activeLayerIndex, setActiveLayerIndex }: Lay
                     icon={<OpacityOutlined />}
                     defaultValue="100%"
                 />
-                <IconButton className="ml-2" variant={ButtonVariant.SECONDARY} icon={<LockOutlined />} />
+                <IconButton className="ml-2" variant={ButtonVariant.SECONDARY} icon={<MoreVertOutlined />} />
             </div>
             <Well className="grow">
-                {items.map((props, index) => (
-                    <LayerItem
-                        {...props}
-                        key={props.name}
-                        onClick={createSelectLayerHandler(index)}
-                        active={index === activeLayerIndex}
-                    />
-                ))}
+                <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+                    <StrictModeDroppable droppableId="layers">
+                        {(provided, snap) => (
+                            <div ref={provided.innerRef} className="flex flex-col grow" {...provided.droppableProps}>
+                                {items.map((layer, index) => (
+                                    <LayerItem
+                                        key={layer.id}
+                                        index={index}
+                                        onClick={createSelectLayerHandler(layer)}
+                                        layer={layer}
+                                        active={activeLayer?.id === layer.id}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </StrictModeDroppable>
+                </DragDropContext>
             </Well>
         </div>
     );

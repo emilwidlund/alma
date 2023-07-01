@@ -17,11 +17,13 @@ import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
 export const PropertyPanel = ({ onFragmentCompilationError }: PropertyPanelProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const { project, activeLayerIndex, setActiveLayerIndex } = useProjectContext();
+    const { project, activeLayer } = useProjectContext();
 
     useRenderer(
         canvasRef,
-        project ? [...project.layers.slice(undefined, activeLayerIndex + 1)] : [],
+        project
+            ? [...project.layers.slice(undefined, project.layers.findIndex(layer => layer.id === activeLayer?.id) + 1)]
+            : [],
         onFragmentCompilationError
     );
 
@@ -47,17 +49,7 @@ export const PropertyPanel = ({ onFragmentCompilationError }: PropertyPanelProps
             </div>
             <div className="flex flex-col p-6 grow-1 h-full">
                 <h3 className="text-md font-medium mb-6">Layers</h3>
-                {project && (
-                    <LayerPanel
-                        activeLayerIndex={activeLayerIndex}
-                        setActiveLayerIndex={setActiveLayerIndex}
-                        items={project.layers.map(layer => ({
-                            name: layer.name,
-                            type: layer.type,
-                            visible: layer.enabled
-                        }))}
-                    />
-                )}
+                {project && <LayerPanel />}
             </div>
         </aside>
     );

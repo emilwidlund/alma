@@ -2,6 +2,8 @@ import { PrismaClient } from '@prisma/client';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 import { GetServerSidePropsContext } from 'next';
 
+import { DEFAULT_FRAGMENT_LAYER_CONTEXT } from '~/templates/layer';
+
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     // Create authenticated Supabase Client
     const supabase = createPagesServerClient(ctx);
@@ -32,7 +34,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
                     {
                         name: 'Untitled',
                         type: 'FRAGMENT',
-                        fragment: ''
+                        fragment: DEFAULT_FRAGMENT_LAYER_CONTEXT
                     }
                 ]
             }

@@ -1,9 +1,10 @@
 import { LayerSchema } from '@/../types/build';
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 import { NextApiRequest, NextApiResponse } from 'next';
+
+import { prisma } from '~/db';
 import { OwnerSchema } from '~/models/Profile/Profile';
 import { ProjectSchema } from '~/models/Project/Project';
-import { prisma } from '~/db';
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const supabaseServerClient = createPagesServerClient({ req, res });

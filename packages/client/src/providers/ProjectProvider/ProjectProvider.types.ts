@@ -1,16 +1,20 @@
 import { Layer } from '@/../types/build';
 import { PropsWithChildren } from 'react';
+
 import { Project } from '~/models/Project/Project.types';
 
 export type ProjectProviderProps = PropsWithChildren<{
     projectId: string | undefined;
 }>;
 
-export type ProjectProviderValue = {
+export type ProjectContextValue = {
     project: Project | undefined;
-    activeLayerIndex: number;
-    setActiveLayerIndex(layerIndex: number): void;
-    createLayer(layer: Layer): void;
-    updateLayer(layer: Layer): void;
     activeLayer: Layer | undefined;
+    activeLayerId: string | undefined;
+    setActiveLayerId(layerId: string | undefined): void;
+    createLayer(layer: Layer): void;
+    toggleLayer(layerId: string, toggle: boolean): void;
+    renameLayer(layerId: string, name: string): void;
+    updateLayerContext(layerId: string, context: string): void;
+    reorderLayers(layers: Layer[]): void;
 };

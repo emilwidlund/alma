@@ -4,14 +4,18 @@ import { motion } from 'framer-motion';
 import { SwitchProps } from './Switch.types';
 
 export const Switch = ({ active, onChange }: SwitchProps) => {
-    const bulletClassNames = clsx('rounded-full w-2 h-2', {
-        'bg-accent': active,
-        'bg-neutral-100': !active
+    const containerClassNames = clsx('relative w-6 rounded-full p-1 transition-colors', {
+        'bg-neutral-400': !active,
+        'bg-accent': active
     });
 
     return (
-        <div className="relative w-8 bg-neutral-400 rounded-full p-1" onClick={onChange}>
-            <motion.div className={bulletClassNames} initial={false} animate={{ x: active ? 16 : 0 }} />
+        <div className={containerClassNames} onClick={onChange}>
+            <motion.div
+                className="rounded-full w-1 h-1 bg-neutral-100"
+                initial={false}
+                animate={{ x: active ? 12 : 0 }}
+            />
         </div>
     );
 };

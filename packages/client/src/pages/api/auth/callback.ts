@@ -1,8 +1,8 @@
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { NextResponse } from 'next/server';
 
 import type { Database } from '@/lib/database.types';
-import { NextApiRequest, NextApiResponse } from 'next';
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
     const requestUrl = new URL(req.url || '');
