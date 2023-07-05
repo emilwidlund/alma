@@ -5,7 +5,8 @@ import { useEffect, RefObject } from 'react';
 export const useRenderer = (
     ref: RefObject<HTMLCanvasElement>,
     layers: Layer[],
-    onFragmentCompilationError?: () => void
+    onFragmentCompilationError?: (error: unknown) => void,
+    onFragmentCompilationSuccess?: () => void
 ) => {
     useEffect(() => {
         const context = ref.current?.getContext('webgl2');
@@ -18,7 +19,8 @@ export const useRenderer = (
             context,
             layers,
             { uResolution: ['vec2', [context.drawingBufferWidth, context.drawingBufferHeight]] },
-            onFragmentCompilationError
+            onFragmentCompilationError,
+            onFragmentCompilationSuccess
         );
 
         return () => {

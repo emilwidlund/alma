@@ -12,6 +12,9 @@
     "license": "ISC",
     "workspaces": [
         "packages/types",
+        "packages/graph",
+        "packages/glsl",
+        "packages/circuit",
         "packages/renderer",
         "packages/*"
     ],

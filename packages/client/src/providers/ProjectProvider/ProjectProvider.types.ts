@@ -17,4 +17,7 @@ export type ProjectContextValue = {
     renameLayer(layerId: string, name: string): void;
     updateLayerContext(layerId: string, context: string): void;
     reorderLayers(layers: Layer[]): void;
+    compilationError: string | undefined;
+    handleCompilationError(error: unknown): void;
+    handleCompilationSuccess(): void;
 };

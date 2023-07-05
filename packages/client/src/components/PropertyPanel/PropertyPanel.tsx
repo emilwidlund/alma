@@ -8,23 +8,23 @@ import {
 } from '@mui/icons-material';
 import { useRef } from 'react';
 
-import { PropertyPanelProps } from './PropertyPanel.types';
 import { useRenderer } from '../../hooks/useRenderer/useRenderer';
 import { IconButton } from '../IconButton/IconButton';
 import { LayerPanel } from '../LayerPanel/LayerPanel';
 import { UniformsPanel } from '../UniformsPanel/UniformsPanel';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
-export const PropertyPanel = ({ onFragmentCompilationError }: PropertyPanelProps) => {
+export const PropertyPanel = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const { project, activeLayer } = useProjectContext();
+    const { project, activeLayer, handleCompilationError, handleCompilationSuccess } = useProjectContext();
 
     useRenderer(
         canvasRef,
         project
             ? [...project.layers.slice(undefined, project.layers.findIndex(layer => layer.id === activeLayer?.id) + 1)]
             : [],
-        onFragmentCompilationError
+        handleCompilationError,
+        handleCompilationSuccess
     );
 
     return (

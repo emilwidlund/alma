@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "lib": ["es2021", "DOM"],
+        "target": "ESNext",
+        "module": "ESNext",
+        "outDir": "build",
+        "strict": true,
+        "moduleResolution": "node",
+        "downlevelIteration": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "declaration": true
+    },
+    "include": ["./src"]
+}

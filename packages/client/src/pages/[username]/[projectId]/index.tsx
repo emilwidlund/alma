@@ -7,7 +7,6 @@ import { clsx } from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
@@ -46,12 +45,8 @@ function EditorHeader() {
     );
 }
 
-export default function Editor() {
-    const [compilationError, setCompilationError] = useState<string>();
-
-    const {
-        query: { projectId }
-    } = useRouter();
+function FragmentEditorContainer() {
+    const { compilationError } = useProjectContext();
 
     const mainContainerClassNames = clsx(
         'absolute top-32 right-32 bottom-32 left-32 rounded-3xl bg-neutral-100 drop-shadow-2xl overflow-hidden border-2',
@@ -59,6 +54,24 @@ export default function Editor() {
             'border-red-400': !!compilationError
         }
     );
+    return (
+        <main className="relative flex flex-col items-center justify-center grow w-full h-full">
+            <div className={mainContainerClassNames}>
+                <FragmentEditor />
+            </div>
+            {compilationError && (
+                <div className="fixed bottom-8 mx-auto">
+                    <Banner text={compilationError} />
+                </div>
+            )}
+        </main>
+    );
+}
+
+export default function Editor() {
+    const {
+        query: { projectId }
+    } = useRouter();
 
     return (
         <ProjectProvider projectId={projectId as string}>
@@ -77,23 +90,10 @@ export default function Editor() {
                                 />
                             </div>
                         </aside>
-                        <main className="relative flex flex-col items-center justify-center grow w-full h-full">
-                            <div className={mainContainerClassNames}>
-                                <FragmentEditor />
-                            </div>
-                            {compilationError && (
-                                <div className="fixed bottom-8 mx-auto">
-                                    <Banner text={compilationError} />
-                                </div>
-                            )}
-                        </main>
+                        <FragmentEditorContainer />
                     </div>
                 </div>
-                <PropertyPanel
-                    onFragmentCompilationError={() => {
-                        setCompilationError('Fragment compilation failed.');
-                    }}
-                />
+                <PropertyPanel />
             </main>
         </ProjectProvider>
     );

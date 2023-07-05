@@ -58,8 +58,11 @@ export const render = (
     gl: WebGL2RenderingContext,
     layers: Layer[],
     uniforms?: ShaderUniformSpecs,
-    onError?: (err: unknown) => void
+    onError?: (err: unknown) => void,
+    onSuccess?: () => void
 ): { sequence: RenderSequence; dispose: RenderDisposer } => {
+    let error: unknown;
+
     const { sequence } = layers
         .filter(layer => layer.enabled)
         .reduce<{ sequence: RenderSequence; previousLayerTexture: Texture | undefined }>(
@@ -94,6 +97,10 @@ export const render = (
 
                     const fbo = renderTarget instanceof Texture ? defFBO(gl, { tex: [renderTarget] }) : undefined;
 
+                    if (!error) {
+                        onSuccess?.();
+                    }
+
                     return {
                         sequence: [...sequence, { model, fbo }],
                         previousLayerTexture: renderTarget instanceof Texture ? renderTarget : undefined
@@ -101,6 +108,7 @@ export const render = (
                 } catch (err) {
                     onError?.(err);
                     console.error(err);
+                    error = err;
                     return { sequence, previousLayerTexture };
                 }
             },
@@ -123,7 +131,9 @@ export const render = (
         }
     };
 
-    animationFrame = requestAnimationFrame(update);
+    if (!error) {
+        animationFrame = requestAnimationFrame(update);
+    }
 
     return {
         sequence,

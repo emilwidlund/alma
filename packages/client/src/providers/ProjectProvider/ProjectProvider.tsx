@@ -1,8 +1,10 @@
-import { Layer } from '@/../types/build';
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { produce } from 'immer';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { ProjectProviderProps, ProjectContextValue } from './ProjectProvider.types';
+
+import { Layer } from '@/../types/build';
 import { ProjectSchema } from '~/models/Project/Project';
 import { Project } from '~/models/Project/Project.types';
 
@@ -15,7 +17,10 @@ export const defaultProjectContextValue: ProjectContextValue = {
     renameLayer: (layerId: string, name: string) => {},
     updateLayerContext: (layerId: string, context: string) => {},
     reorderLayers: (layers: Layer[]) => {},
-    activeLayer: undefined
+    activeLayer: undefined,
+    compilationError: undefined,
+    handleCompilationError: (error: unknown) => {},
+    handleCompilationSuccess: () => {}
 };
 
 export const ProjectContext = createContext(defaultProjectContextValue);
@@ -32,6 +37,10 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
                 .then((project: Project) => {
                     if (ProjectSchema.parse(project)) {
                         setProject(project);
+
+                        if (project.layers.length > 0) {
+                            setActiveLayerId(project.layers[project.layers.length - 1].id);
+                        }
                     }
                 });
         }
@@ -95,6 +104,17 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
         );
     }, []);
 
+    const handleCompilationError = useCallback(
+        (error: unknown) => {
+            setCompilationError((error as Error).message);
+        },
+        [setCompilationError]
+    );
+
+    const handleCompilationSuccess = useCallback(() => {
+        setCompilationError(undefined);
+    }, [setCompilationError]);
+
     const value: ProjectContextValue = useMemo(
         () => ({
             project,
@@ -106,7 +126,10 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
             renameLayer,
             updateLayerContext,
             reorderLayers,
-            activeLayer: project?.layers.find(layer => layer.id === activeLayerId)
+            activeLayer: project?.layers.find(layer => layer.id === activeLayerId),
+            compilationError,
+            handleCompilationError,
+            handleCompilationSuccess
         }),
         [
             project,
@@ -116,7 +139,10 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
             toggleLayer,
             renameLayer,
             updateLayerContext,
-            reorderLayers
+            reorderLayers,
+            compilationError,
+            handleCompilationError,
+            handleCompilationSuccess
         ]
     );
 

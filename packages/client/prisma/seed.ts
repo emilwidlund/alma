@@ -1,15 +1,15 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 
-const projectSeed = require('./seeds/projectSeed/projectSeed');
 const profileSeed = require('./seeds/profileSeed/profileSeed');
+const projectSeed = require('./seeds/projectSeed/projectSeed');
 
-const prisma = new PrismaClient();
+const prismaClient = new PrismaClient();
 
 async function main() {
     console.log(`Seeding database...`);
 
     for (const data of profileSeed) {
-        const profile = await prisma.profile.create({
+        const profile = await prismaClient.profile.create({
             data
         });
 
@@ -17,7 +17,7 @@ async function main() {
     }
 
     for (const data of projectSeed) {
-        const project = await prisma.project.create({
+        const project = await prismaClient.project.create({
             data
         });
 
@@ -29,10 +29,10 @@ async function main() {
 
 main()
     .then(async () => {
-        await prisma.$disconnect();
+        await prismaClient.$disconnect();
     })
     .catch(async e => {
         console.error(e);
-        await prisma.$disconnect();
+        await prismaClient.$disconnect();
         process.exit(1);
     });

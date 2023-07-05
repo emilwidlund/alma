@@ -85,7 +85,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                             </div>
                             <div className="flex flex-col ml-4">
                                 <h3
-                                    className="font-medium text-xs line-clamp-1"
+                                    className="font-medium text-xs line-clamp-1 cursor-text"
                                     spellCheck={false}
                                     contentEditable
                                     onInput={handleInput}
@@ -97,7 +97,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                             </div>
                         </div>
                         {active && (
-                            <div className="mr-2">
+                            <div className="mr-2 cursor-pointer">
                                 <Switch active={enabled} onChange={toggleEnabled} />
                             </div>
                         )}
@@ -147,12 +147,12 @@ export const LayerPanel = () => {
             }
 
             // reorder using index of source and destination.
-            const itemsCopy = items.slice().reverse();
+            const itemsCopy = items.slice();
             const [removed] = itemsCopy.splice(result.source.index, 1);
             // put the removed one into destination.
             itemsCopy.splice(result.destination.index, 0, removed);
 
-            reorderLayers(itemsCopy);
+            reorderLayers(itemsCopy.slice().reverse());
         },
         [items, reorderLayers]
     );
