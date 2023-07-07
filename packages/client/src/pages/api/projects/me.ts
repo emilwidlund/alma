@@ -1,10 +1,8 @@
-import { LayerSchema } from '@/../types/build';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { LayerSchema, ProjectSchema, OwnerSchema, UniformSchema } from '@usealma/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { prisma } from '~/db';
-import { OwnerSchema } from '~/models/Profile/Profile';
-import { ProjectSchema } from '~/models/Project/Project';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const supabaseServerClient = createPagesServerClient({ req, res });
@@ -19,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const projects = await prisma.project.findMany({
         where: { owner: { userId: user.id } },
-        include: { owner: true, layers: true }
+        include: { owner: true, layers: true, uniforms: true }
     });
 
     if (!projects) {
@@ -47,6 +45,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         context: layer.type === 'CIRCUIT' ? JSON.stringify(layer.circuit) : layer.fragment,
                         enabled: layer.enabled,
                         blendingMode: layer.blendingMode
+                    })
+                ),
+                uniforms: project.uniforms.map(uniform =>
+                    UniformSchema.parse({
+                        id: uniform.id,
+                        name: uniform.name,
+                        type: uniform.type,
+                        value: uniform.value
                     })
                 ),
                 createdAt: project.createdAt.toJSON(),

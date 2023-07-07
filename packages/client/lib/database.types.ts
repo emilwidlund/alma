@@ -38,38 +38,38 @@ export interface Database {
         Row: {
           createdAt: string
           id: string
+          profileId: string
           projectId: string
           text: string
           updatedAt: string
-          userId: string
         }
         Insert: {
           createdAt?: string
           id: string
+          profileId: string
           projectId: string
           text: string
           updatedAt?: string
-          userId: string
         }
         Update: {
           createdAt?: string
           id?: string
+          profileId?: string
           projectId?: string
           text?: string
           updatedAt?: string
-          userId?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "Comment_profileId_fkey"
+            columns: ["profileId"]
+            referencedRelation: "Profile"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "Comment_projectId_fkey"
             columns: ["projectId"]
             referencedRelation: "Project"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "Comment_userId_fkey"
-            columns: ["userId"]
-            referencedRelation: "Profile"
             referencedColumns: ["id"]
           }
         ]
@@ -124,63 +124,72 @@ export interface Database {
         Row: {
           createdAt: string
           id: string
+          profileId: string
           projectId: string
           updatedAt: string
-          userId: string
         }
         Insert: {
           createdAt?: string
           id: string
+          profileId: string
           projectId: string
           updatedAt?: string
-          userId: string
         }
         Update: {
           createdAt?: string
           id?: string
+          profileId?: string
           projectId?: string
           updatedAt?: string
-          userId?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "Like_profileId_fkey"
+            columns: ["profileId"]
+            referencedRelation: "Profile"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "Like_projectId_fkey"
             columns: ["projectId"]
             referencedRelation: "Project"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "Like_userId_fkey"
-            columns: ["userId"]
-            referencedRelation: "Profile"
             referencedColumns: ["id"]
           }
         ]
       }
       Profile: {
         Row: {
+          bio: string | null
           createdAt: string
           id: string
           image: string | null
+          location: string | null
           updatedAt: string
           userId: string
           username: string
+          website: string | null
         }
         Insert: {
+          bio?: string | null
           createdAt?: string
           id: string
           image?: string | null
+          location?: string | null
           updatedAt?: string
           userId: string
           username: string
+          website?: string | null
         }
         Update: {
+          bio?: string | null
           createdAt?: string
           id?: string
           image?: string | null
+          location?: string | null
           updatedAt?: string
           userId?: string
           username?: string
+          website?: string | null
         }
         Relationships: []
       }
@@ -225,34 +234,34 @@ export interface Database {
         Row: {
           createdAt: string
           id: string
+          profileId: string
           targetUserId: string
           updatedAt: string
-          userId: string
         }
         Insert: {
           createdAt?: string
           id: string
+          profileId: string
           targetUserId: string
           updatedAt?: string
-          userId: string
         }
         Update: {
           createdAt?: string
           id?: string
+          profileId?: string
           targetUserId?: string
           updatedAt?: string
-          userId?: string
         }
         Relationships: [
           {
-            foreignKeyName: "Relationship_targetUserId_fkey"
-            columns: ["targetUserId"]
+            foreignKeyName: "Relationship_profileId_fkey"
+            columns: ["profileId"]
             referencedRelation: "Profile"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "Relationship_userId_fkey"
-            columns: ["userId"]
+            foreignKeyName: "Relationship_targetUserId_fkey"
+            columns: ["targetUserId"]
             referencedRelation: "Profile"
             referencedColumns: ["id"]
           }

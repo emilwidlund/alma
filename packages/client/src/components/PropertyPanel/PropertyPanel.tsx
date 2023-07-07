@@ -1,17 +1,11 @@
-import {
-    AddOutlined,
-    AspectRatioOutlined,
-    CameraOutlined,
-    MouseOutlined,
-    TextureOutlined,
-    TimerOutlined
-} from '@mui/icons-material';
+import { AddOutlined, TextureOutlined } from '@mui/icons-material';
 import { useRef } from 'react';
 
 import { useRenderer } from '../../hooks/useRenderer/useRenderer';
 import { IconButton } from '../IconButton/IconButton';
 import { LayerPanel } from '../LayerPanel/LayerPanel';
 import { UniformsPanel } from '../UniformsPanel/UniformsPanel';
+
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
 export const PropertyPanel = () => {
@@ -38,13 +32,13 @@ export const PropertyPanel = () => {
                     <IconButton icon={<AddOutlined />} />
                 </div>
                 <UniformsPanel
-                    items={[
-                        { name: 'Time', type: 'Float', icon: <TimerOutlined /> },
-                        { name: 'Mouse', type: 'Vector 4', icon: <MouseOutlined /> },
-                        { name: 'Resolution', type: 'Vector 2', icon: <AspectRatioOutlined /> },
-                        { name: 'Webcam', type: 'Sampler 2D', icon: <CameraOutlined /> },
-                        { name: 'Previous Layer', type: 'Sampler 2D', icon: <TextureOutlined /> }
-                    ]}
+                    items={
+                        project?.uniforms.map(uniform => ({
+                            name: uniform.name,
+                            type: uniform.type,
+                            icon: <TextureOutlined />
+                        })) || []
+                    }
                 />
             </div>
             <div className="flex flex-col p-6 grow-1 h-full">

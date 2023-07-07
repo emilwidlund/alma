@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { Layer, Project, ProjectSchema } from '@usealma/types';
 import { produce } from 'immer';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { ProjectProviderProps, ProjectContextValue } from './ProjectProvider.types';
-
-import { Layer } from '@/../types/build';
-import { ProjectSchema } from '~/models/Project/Project';
-import { Project } from '~/models/Project/Project.types';
 
 export const defaultProjectContextValue: ProjectContextValue = {
     project: undefined,
@@ -46,20 +43,17 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
         }
     }, [projectId]);
 
-    const createLayer = useCallback(
-        (layer: Layer) => {
-            setProject(
-                produce(draft => {
-                    if (draft) {
-                        draft.layers.push(layer);
-                    }
-                })
-            );
+    const createLayer = useCallback((layer: Layer) => {
+        setProject(
+            produce(draft => {
+                if (draft) {
+                    draft.layers.push(layer);
+                }
+            })
+        );
 
-            setActiveLayerId(layer.id);
-        },
-        [project]
-    );
+        setActiveLayerId(layer.id);
+    }, []);
 
     const toggleLayer = useCallback((layerId: string, toggle: boolean) => {
         setProject(

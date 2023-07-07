@@ -1,7 +1,5 @@
-import { Layer } from '@/../types/build';
+import { Layer, Project } from '@usealma/types';
 import { PropsWithChildren } from 'react';
-
-import { Project } from '~/models/Project/Project.types';
 
 export type ProjectProviderProps = PropsWithChildren<{
     projectId: string | undefined;

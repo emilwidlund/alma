@@ -2,13 +2,10 @@
 
 import { PrismaClient } from '@prisma/client';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { LayerSchema, OwnerSchema, ProfileSchema, ProjectSchema, UniformSchema } from '@usealma/types';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 import Profile from '../profile';
-
-import { LayerSchema } from '@/../types/build';
-import { OwnerSchema, ProfileSchema } from '~/models/Profile/Profile';
-import { ProjectSchema } from '~/models/Project/Project';
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
     // Create authenticated Supabase Client
@@ -26,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
     const prisma = new PrismaClient();
     const profile = await prisma.profile.findUnique({
         where: { username },
-        include: { projects: { where: { private: false }, include: { owner: true, layers: true } } }
+        include: { projects: { where: { private: false }, include: { owner: true, layers: true, uniforms: true } } }
     });
 
     if (!session || !profile) {
@@ -65,6 +62,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
                             context: layer.type === 'CIRCUIT' ? JSON.stringify(layer.circuit) : layer.fragment,
                             enabled: layer.enabled,
                             blendingMode: layer.blendingMode
+                        })
+                    ),
+                    uniforms: project.uniforms.map(uniform =>
+                        UniformSchema.parse({
+                            id: uniform.id,
+                            name: uniform.name,
+                            type: uniform.type,
+                            value: uniform.value
                         })
                     ),
                     createdAt: project.createdAt.toJSON(),

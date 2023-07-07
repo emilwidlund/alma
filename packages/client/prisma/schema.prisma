@@ -65,18 +65,34 @@ model Layer {
   updatedAt     DateTime      @updatedAt @default(now())
 }
 
+enum UniformType {
+  TEXTURE
+}
+
+model Uniform {
+  id            String        @id @default(cuid())
+  name          String
+  type          UniformType
+  value         String
+  projectId     String
+  project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt @default(now())
+}
+
 model Project {
-  id          String    @id @default(cuid())
+  id          String      @id @default(cuid())
   name        String
   image       String
   layers      Layer[]
-  private     Boolean   @default(false)
+  private     Boolean     @default(false)
   ownerId     String    
-  owner       Profile   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner       Profile     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  uniforms    Uniform[]
   likes       Like[]
   comments    Comment[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt @default(now())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt @default(now())
 }
 
 model Like {

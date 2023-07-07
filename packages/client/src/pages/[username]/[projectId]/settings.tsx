@@ -1,25 +1,17 @@
 'use client';
 
-import { MemoryOutlined, StreamOutlined, SettingsOutlined } from '@mui/icons-material';
-import { Session } from '@supabase/auth-helpers-nextjs';
+import { MemoryOutlined, SettingsOutlined, StreamOutlined } from '@mui/icons-material';
 import { useSession } from '@supabase/auth-helpers-react';
-import { clsx } from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
 
 import { Avatar } from '~/components/Avatar/Avatar';
-import { Banner } from '~/components/Banner/Banner';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
-import { useRenderer } from '~/hooks/useRenderer/useRenderer';
-import { Project } from '~/models/Project/Project.types';
 import { ProjectProvider, useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 import { Size } from '~/types';
 
-export type EditorProps = { initialSession: Session; project: Project };
-
-function EditorHeader() {
+function ProjectHeader() {
     const session = useSession();
     const { project } = useProjectContext();
 
@@ -45,49 +37,7 @@ function EditorHeader() {
     );
 }
 
-function PreviewContainer() {
-    const previewRef = useRef<HTMLDivElement>(null);
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const { project, activeLayer, handleCompilationError, compilationError, handleCompilationSuccess } =
-        useProjectContext();
-
-    useRenderer(
-        canvasRef,
-        project
-            ? [...project.layers.slice(undefined, project.layers.findIndex(layer => layer.id === activeLayer?.id) + 1)]
-            : [],
-        handleCompilationError,
-        handleCompilationSuccess
-    );
-
-    useEffect(() => {
-        if (previewRef.current && canvasRef.current) {
-            const { width, height } = previewRef.current.getBoundingClientRect();
-            canvasRef.current.width = width;
-            canvasRef.current.height = height;
-        }
-    }, []);
-
-    const mainContainerClassNames = clsx('rounded-3xl bg-neutral-100 drop-shadow-2xl overflow-hidden border-2 mx-40', {
-        'border-none': !compilationError,
-        'border-red-400': !!compilationError
-    });
-
-    return (
-        <main className="relative flex flex-col items-center justify-center grow w-full h-full">
-            <div ref={previewRef} className={mainContainerClassNames}>
-                <canvas ref={canvasRef} className="rounded-2xl bg-neutral-300" width={1280} height={720} />
-            </div>
-            {compilationError && (
-                <div className="fixed bottom-8 mx-auto">
-                    <Banner text={compilationError} />
-                </div>
-            )}
-        </main>
-    );
-}
-
-export default function Preview() {
+export default function Settings() {
     const {
         query: { username, projectId }
     } = useRouter();
@@ -96,7 +46,7 @@ export default function Preview() {
         <ProjectProvider projectId={projectId as string}>
             <main className="flex flex-row h-screen">
                 <div className="flex flex-col flex-grow">
-                    <EditorHeader />
+                    <ProjectHeader />
                     <div className="flex flex-row flex-grow items-center">
                         <aside className="flex flex-col h-full items-center justify-start pl-12">
                             <div className="my-auto">
@@ -121,7 +71,9 @@ export default function Preview() {
                                 />
                             </div>
                         </aside>
-                        <PreviewContainer />
+                        <main className="flex flex-col self-start m-32 p-16 rounded-3xl bg-neutral-100 drop-shadow-2xl absolute top-32 bottom-32 left-32 w-128">
+                            <h2 className="text-xl font-semibold">Settings</h2>
+                        </main>
                     </div>
                 </div>
             </main>
