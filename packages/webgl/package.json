@@ -14,7 +14,7 @@
     "dependencies": {
         "@shaderfrog/glsl-parser": "^2.0.0",
         "@thi.ng/shader-ast": "^0.12.29",
-        "@thi.ng/shader-ast-glsl": "^0.4.29",
+        "@thi.ng/shader-ast-glsl": "^0.4.36",
         "@thi.ng/webgl": "^6.2.13",
         "@usealma/graph": "*",
         "lodash": "^4.17.21",

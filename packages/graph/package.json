@@ -14,7 +14,7 @@
     "license": "MIT",
     "dependencies": {
         "@thi.ng/shader-ast": "^0.12.29",
-        "@thi.ng/shader-ast-glsl": "^0.4.19",
+        "@thi.ng/shader-ast-glsl": "^0.4.36",
         "@thi.ng/webgl": "^6.2.13",
         "lodash": "^4.17.21",
         "mobx": "^6.6.2",

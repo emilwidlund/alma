@@ -21,7 +21,7 @@ export class GLSLNode extends Node {
 
     declare inputs: IGLSLNodeInputs;
     declare outputs: IGLSLNodeOutputs;
-    data: IGLSLNodeData;
+    declare data: IGLSLNodeData;
     private properties: IGLSLNodeProps;
 
     constructor(context: WebGLContext, props: IGLSLNodeProps) {
