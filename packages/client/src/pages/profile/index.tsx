@@ -7,7 +7,7 @@ import { ProjectCard } from '~/components/Cards/ProjectCard/ProjectCard';
 import Header from '~/components/Header/Header';
 import { Spinner } from '~/components/Spinner/Spinner';
 import { Size } from '~/types';
-import { prettifyURL } from '~/utils/urls';
+import { prettifyURL } from '~/utils/urls/urls';
 
 export default function Profile() {
     const [profile, setProfile] = useState<Profile>();

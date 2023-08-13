@@ -4,6 +4,7 @@ import { useRef } from 'react';
 
 import { ProjectCardProps } from './ProjectCard.types';
 import { BaseCard } from '../BaseCard/BaseCard';
+
 import { useHover } from '~/hooks/useHover/useHover';
 import { useRenderer } from '~/hooks/useRenderer/useRenderer';
 
@@ -24,11 +25,15 @@ const ProjectCardCanvas = ({ layers }: Pick<ProjectCardProps, 'layers'>) => {
 };
 
 export const ProjectCard = ({ name, projectId, author, layers, image }: ProjectCardProps) => {
-    const [ref, isHovered] = useHover<HTMLDivElement>();
+    const { isHovered, onMouseEnter, onMouseLeave } = useHover<HTMLDivElement>();
 
     return (
         <Link className="flex flex-col items-center text-center" href={`/${author.username}/${projectId}`}>
-            <BaseCard ref={ref} className="hover:shadow-lg transition-shadow">
+            <BaseCard
+                className="hover:shadow-lg transition-shadow"
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+            >
                 <div className="relative w-64 h-40">
                     <AnimatePresence>
                         {isHovered ? (
