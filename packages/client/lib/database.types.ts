@@ -267,6 +267,43 @@ export interface Database {
           }
         ]
       }
+      Uniform: {
+        Row: {
+          createdAt: string
+          id: string
+          name: string
+          projectId: string
+          type: Database["public"]["Enums"]["UniformType"]
+          updatedAt: string
+          value: string
+        }
+        Insert: {
+          createdAt?: string
+          id: string
+          name: string
+          projectId: string
+          type: Database["public"]["Enums"]["UniformType"]
+          updatedAt?: string
+          value: string
+        }
+        Update: {
+          createdAt?: string
+          id?: string
+          name?: string
+          projectId?: string
+          type?: Database["public"]["Enums"]["UniformType"]
+          updatedAt?: string
+          value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Uniform_projectId_fkey"
+            columns: ["projectId"]
+            referencedRelation: "Project"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -277,6 +314,7 @@ export interface Database {
     Enums: {
       BlendingMode: "NONE" | "NORMAL" | "ADDITIVE" | "SUBTRACTIVE" | "MULTIPLY"
       LayerType: "FRAGMENT" | "CIRCUIT"
+      UniformType: "TEXTURE"
     }
     CompositeTypes: {
       [_ in never]: never

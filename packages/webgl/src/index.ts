@@ -109,6 +109,8 @@ export * from './models/WebGLContext/WebGLContext';
 export * from './models/WebGLContext/WebGLContext.types';
 export * from './models/CameraManager/CameraManager';
 export * from './models/CameraManager/CameraManager.types';
+export * from './models/TextureManager/TextureManager';
+export * from './models/TextureManager/TextureManager.types';
 
 /** Common Nodes */
 export * from './nodes/common/ModuloNode/ModuloNode';

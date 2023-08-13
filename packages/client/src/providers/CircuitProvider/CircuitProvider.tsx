@@ -2,11 +2,11 @@ import { Input, Node, Output } from '@usealma/graph';
 import { noop } from 'lodash';
 import * as React from 'react';
 
+import type { ICircuitContextValue, ICircuitProviderProps } from './CircuitProvider.types';
 import { CIRCUIT_SIZE, NODE_CENTER } from '../../constants/circuit';
 import { normalizeBounds, withinBounds } from '../../utils/bounds/bounds';
 import { IBounds } from '../../utils/bounds/bounds.types';
 import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
-import type { ICircuitContextValue, ICircuitProviderProps } from './CircuitProvider.types';
 
 const defaultCircuitValue: ICircuitContextValue = {
     context: undefined,

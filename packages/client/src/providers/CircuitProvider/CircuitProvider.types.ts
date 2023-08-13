@@ -5,7 +5,7 @@ import * as React from 'react';
 import { IBounds } from '../../utils/bounds/bounds.types';
 
 export type ICircuitProviderProps = React.PropsWithChildren<{
-    context: WebGLContext | undefined;
+    context?: WebGLContext | undefined;
 }>;
 
 export interface ICircuitContextValue {

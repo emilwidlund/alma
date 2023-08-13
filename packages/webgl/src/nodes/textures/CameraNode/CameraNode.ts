@@ -2,10 +2,10 @@ import { $xy, float, Sym, texture, vec4 } from '@thi.ng/shader-ast';
 import { Node, IOutputProps, Output } from '@usealma/graph';
 import { defaults } from 'lodash';
 
+import { ICameraNodeInputs, ICameraNodeOutputs, ICameraNodeProps } from './CameraNode.types';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 import { aspectCorrectedTextureUV } from '../../../utils/shaders/shaders';
-import { ICameraNodeInputs, ICameraNodeOutputs, ICameraNodeProps } from './CameraNode.types';
 
 export class CameraNode extends Node {
     static icon = 'camera';
@@ -40,7 +40,7 @@ export class CameraNode extends Node {
                                   aspectCorrectedTextureUV(
                                       context.uniforms[`${context.cameraManager.textureId}AspectRatio`] || float(1),
                                       $xy(context.target.gl_FragCoord),
-                                      context.uniforms.resolution
+                                      context.uniforms.uResolution
                                   )
                               )
                             : vec4(0, 0, 0, 1);

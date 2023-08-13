@@ -1,30 +1,20 @@
 import { defMain, Sym, assign, vec4 } from '@thi.ng/shader-ast';
-import { GLSLTarget, GLSLVersion, targetGLSL } from '@thi.ng/shader-ast-glsl';
-import {
-    compileModel,
-    defQuadModel,
-    defShader,
-    draw,
-    ModelSpec,
-    PASSTHROUGH_VS_UV,
-    shaderSourceFromAST,
-    ShaderSpec,
-    UniformValues
-} from '@thi.ng/webgl';
+import { GLSLTarget, targetGLSL } from '@thi.ng/shader-ast-glsl';
+import { ModelSpec, UniformValues } from '@thi.ng/webgl';
 import { Context, INodeSerialized, Node } from '@usealma/graph';
 import { isFunction } from 'lodash';
-import { action, computed, IReactionDisposer, makeObservable, observable, reaction } from 'mobx';
+import { action, computed, IReactionDisposer, makeObservable, observable } from 'mobx';
 
+import { DrawingSize, ICompiledUniforms, INodesCollection, IWebGLContextProps } from './WebGLContext.types';
 import { WebGLContextNode } from '../../nodes/accessor/WebGLContextNode/WebGLContextNode';
 import { CameraManager } from '../CameraManager/CameraManager';
 import { TextureManager } from '../TextureManager/TextureManager';
-import { DrawingSize, ICompiledUniforms, INodesCollection, IWebGLContextProps } from './WebGLContext.types';
 
 export class WebGLContext extends Context<WebGLContextNode> {
     /** Canvas Element */
     public ctx: WebGL2RenderingContext;
     /** GLSL Target */
-    public target!: GLSLTarget;
+    public target: GLSLTarget;
     /** Attributes */
     public varying!: Record<string, Sym<any>>;
     /** Uniforms */
@@ -52,26 +42,21 @@ export class WebGLContext extends Context<WebGLContextNode> {
         super(props);
 
         this.ctx = ctx;
+        this.target = targetGLSL();
         this.textureManager = new TextureManager(this, props.textureManager);
         this.cameraManager = new CameraManager(this, props.cameraManager);
         this.nodesCollection = props.nodesCollection;
         this.onFrameEnd = props.onFrameEnd;
-        this.model = this.createModel();
-        this.root = this.initialize();
+        // @ts-ignore
+        this.root = null;
         this.fragment = '';
 
         makeObservable(this, {
             root: observable,
             fragment: observable,
             size: computed,
-            setUniform: action,
-            setFragment: action
+            setUniform: action
         });
-
-        this.setUniform('resolution', [this.size.width, this.size.height]);
-        this.ctx.viewport(0, 0, this.size.width, this.size.height);
-
-        this.render();
     }
 
     /** Drawing Buffer Size */
@@ -87,54 +72,13 @@ export class WebGLContext extends Context<WebGLContextNode> {
         this.model.uniforms![key] = value;
     }
 
-    /** Sets the fragment */
-    public setFragment(fragment: string) {
-        this.fragment = fragment;
-    }
-
-    /** Creates a WebGL Model */
-    public createModel(): ModelSpec {
-        const textureEntries = Array.from(this.textureManager.textures.entries());
-        const textureUniforms = textureEntries.reduce((acc, [key, value], index) => {
-            const resolutionKey = `${key}AspectRatio`;
-            return { ...acc, [key]: ['sampler2D', index], [resolutionKey]: ['float', value.size[0] / value.size[1]] };
-        }, {});
-        const textures = Array.from(this.textureManager.textures.values());
-
-        const shaderSpec: ShaderSpec = {
-            vs: PASSTHROUGH_VS_UV,
-            fs: this.compileGraph.bind(this),
-            uniforms: {
-                resolution: ['vec2', [this.size.width, this.size.height]],
-                time: ['float', 0],
-                mouse: ['vec2', [0, 0]],
-                ...textureUniforms
-            },
-            attribs: { position: 'vec2', uv: 'vec2' },
-            varying: { v_uv: 'vec2' }
-        };
-
-        const model: ModelSpec = {
-            ...defQuadModel(),
-            shader: defShader(this.ctx, shaderSpec),
-            textures
-        };
-
-        this.setFragment(shaderSourceFromAST(shaderSpec, 'fs', GLSLVersion.GLES_300));
-
-        compileModel(this.ctx, model);
-
-        return model;
-    }
-
     /** Compiles WebGL Graph */
-    private compileGraph(
+    public compileGraph(
         gl: GLSLTarget,
         uniforms: Record<string, Sym<any>>,
         ins: Record<string, Sym<any>>,
         outs: Record<string, Sym<any>>
     ) {
-        this.target = targetGLSL();
         this.varying = ins;
         this.uniforms = uniforms as unknown as ICompiledUniforms;
 
@@ -168,38 +112,6 @@ export class WebGLContext extends Context<WebGLContextNode> {
         return new constructor(this, nodeProps) as TWebGLNode;
     }
 
-    /** Render Context */
-    public async render(): Promise<void> {
-        if (!this.frameId) {
-            /** Reset entire context if connections are updated */
-            this.connectionReactionDisposer = reaction(
-                () => this.values,
-                () => {
-                    this.reset();
-                },
-                { delay: 100 }
-            );
-
-            this.model = this.createModel();
-
-            this.setUniform('resolution', [this.size.width, this.size.height]);
-            this.ctx.viewport(0, 0, this.size.width, this.size.height);
-        }
-
-        this.frameId = requestAnimationFrame(this.render.bind(this));
-
-        if (!this.startTime) {
-            this.startTime = Date.now();
-        }
-
-        const time = (Date.now() - this.startTime) * 0.001;
-        this.setUniform('time', time);
-
-        draw(this.model);
-
-        this.onFrameEnd?.();
-    }
-
     /** Disposes Context */
     public dispose(): this {
         if (this.frameId) {
@@ -218,6 +130,6 @@ export class WebGLContext extends Context<WebGLContextNode> {
 
     /** Resets Context */
     public reset(): void {
-        this.dispose().render();
+        this.dispose();
     }
 }

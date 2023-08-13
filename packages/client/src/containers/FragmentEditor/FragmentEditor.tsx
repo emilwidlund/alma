@@ -4,7 +4,7 @@ import { CodeEditor } from '~/components/CodeEditor/CodeEditor';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
 export const FragmentEditor = () => {
-    const { project, activeLayer, updateLayerContext, compilationError, handleCompilationError } = useProjectContext();
+    const { activeLayer, updateLayerContext } = useProjectContext();
 
     const handleFragmentChange = useCallback(
         (fragmentSource: string | undefined) => {
@@ -12,7 +12,7 @@ export const FragmentEditor = () => {
                 updateLayerContext(activeLayer.id, fragmentSource || '');
             }
         },
-        [project, updateLayerContext, activeLayer]
+        [updateLayerContext, activeLayer]
     );
 
     return <CodeEditor value={activeLayer?.context} onChange={handleFragmentChange} />;

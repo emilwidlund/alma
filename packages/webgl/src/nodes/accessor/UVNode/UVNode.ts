@@ -33,7 +33,7 @@ export class UVNode extends Node {
                         name: 'Aspect Corrected',
                         type: 'vec2',
                         value: () => {
-                            return aspectCorrectedUV($xy(context.target.gl_FragCoord), context.uniforms.resolution);
+                            return aspectCorrectedUV($xy(context.target.gl_FragCoord), context.uniforms.uResolution);
                         }
                     }
                 )
@@ -44,7 +44,7 @@ export class UVNode extends Node {
                     name: 'UV',
                     type: 'vec2',
                     value: () => {
-                        return fragUV(context.target.gl_FragCoord, context.uniforms.resolution);
+                        return fragUV(context.target.gl_FragCoord, context.uniforms.uResolution);
                     }
                 })
             ),

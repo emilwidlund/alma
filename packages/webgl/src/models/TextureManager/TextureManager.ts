@@ -37,7 +37,6 @@ export class TextureManager {
         });
 
         this.textures.set(id, texture);
-        this.context.reset();
 
         return [id, texture];
     }

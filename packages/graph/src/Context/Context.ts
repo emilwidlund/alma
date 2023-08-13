@@ -1,8 +1,9 @@
-import { Sym, Type } from '@thi.ng/shader-ast';
+import { Type } from '@thi.ng/shader-ast';
 import _ from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
+import { IContextProps, IContextSerialized } from './Context.types';
 import { Connection } from '../Connection/Connection';
 import { Input } from '../Input/Input';
 import { InputValue } from '../Input/Input.types';
@@ -11,7 +12,6 @@ import { INodeSerialized } from '../Node/Node.types';
 import { Output } from '../Output/Output';
 import { OutputValue } from '../Output/Output.types';
 import { Port } from '../Port/Port';
-import { IContextProps, IContextSerialized } from './Context.types';
 
 export abstract class Context<TRoot extends Node = Node> {
     /** Unique Identifier */
@@ -131,7 +131,4 @@ export abstract class Context<TRoot extends Node = Node> {
 
     /** Resolve Root Node */
     abstract resolveRootNode(nodes: Node[]): TRoot;
-
-    /** Render Context */
-    abstract render(outs: Record<string, Sym<any>>): void;
 }

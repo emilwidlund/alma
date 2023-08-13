@@ -27,7 +27,7 @@ export class ResolutionNode extends Node {
                     name: 'Resolution',
                     type: 'vec2',
                     value: () => {
-                        return context.uniforms.resolution;
+                        return context.uniforms.uResolution;
                     }
                 })
             )

@@ -53,7 +53,7 @@ export class TextureNode extends Node {
                                   aspectCorrectedTextureUV(
                                       context.uniforms[`${this.textureId}AspectRatio`] || float(1),
                                       $xy(context.target.gl_FragCoord),
-                                      context.uniforms.resolution
+                                      context.uniforms.uResolution
                                   )
                               )
                             : vec4(0, 0, 0, 1);
