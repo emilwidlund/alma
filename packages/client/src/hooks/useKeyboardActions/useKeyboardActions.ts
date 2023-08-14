@@ -3,7 +3,6 @@ import * as React from 'react';
 
 import { KeyboardAction } from './useKeyboardAction.types';
 import { useCircuit } from '../useCircuit/useCircuit';
-
 import { KeyboardKey } from '~/types';
 
 export const useKeyboardActions = () => {
@@ -112,5 +111,5 @@ export const useKeyboardActions = () => {
         return () => {
             window.removeEventListener('keydown', downHandler);
         };
-    }, [circuit]);
+    }, [circuit, downHandler]);
 };

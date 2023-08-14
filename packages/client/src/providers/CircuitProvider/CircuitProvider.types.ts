@@ -1,3 +1,5 @@
+/** eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Input, Node, Output } from '@usealma/graph';
 import { WebGLContext } from '@usealma/webgl';
 import * as React from 'react';

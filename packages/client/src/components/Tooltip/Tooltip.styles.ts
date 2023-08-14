@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 
-import { HIERARCHY } from '../../constants/hierarchy';
 import { TooltipPosition } from './Tooltip.types';
+import { HIERARCHY } from '../../constants/hierarchy';
 
 const getPositionalStyles = (
     position: TooltipPosition,

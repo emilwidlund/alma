@@ -1,8 +1,8 @@
 import * as React from 'react';
 
+import { IPoint } from './useCartesianMidpoint.types';
 import { CIRCUIT_SIZE } from '../../constants/circuit';
 import { fromCartesianPoint, toCartesianPoint } from '../../utils/coordinates/coordinates';
-import { IPoint } from './useCartesianMidpoint.types';
 
 export const useCartesianMidpoint = (ref: React.MutableRefObject<HTMLElement | null>) => {
     const midpoint = React.useRef<IPoint>({ x: 0, y: 0 });

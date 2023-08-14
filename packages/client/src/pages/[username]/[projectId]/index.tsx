@@ -3,12 +3,12 @@
 import { MemoryOutlined, StreamOutlined, SettingsOutlined } from '@mui/icons-material';
 import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
+import { Project } from '@usealma/types';
 import { clsx } from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
-import { Project } from '@usealma/types';
 
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';

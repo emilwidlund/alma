@@ -46,7 +46,7 @@ export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>, seria
                 };
 
                 const textureResolver: TextureResolver = (uri?: string) =>
-                    new Promise((resolve, reject) => {
+                    new Promise((resolve) => {
                         const image = new Image();
                         image.crossOrigin = 'anonymous';
                         image.onload = () => resolve(image);
@@ -92,7 +92,7 @@ export const useCircuitContext = (ref: React.RefObject<HTMLCanvasElement>, seria
 
     React.useEffect(() => {
         buildContext(serialized);
-    }, []);
+    }, [buildContext, serialized]);
 
     return { context, buildContext };
 };

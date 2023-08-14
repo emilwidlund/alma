@@ -5,13 +5,10 @@ import { useSession } from '@supabase/auth-helpers-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useMemo, useRef } from 'react';
 
 import { Avatar } from '~/components/Avatar/Avatar';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
 import { PropertyPanel } from '~/components/PropertyPanel/PropertyPanel';
-import { CircuitContainer } from '~/containers/CircuitContainer/CircuitContainer';
-import { useCircuitContext } from '~/hooks/useCircuitContext/useCircuitContext';
 import { ProjectProvider, useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 import { Size } from '~/types';
 
@@ -42,21 +39,9 @@ function ProjectHeader() {
 }
 
 export default function Settings() {
-    const circuitRef = useRef<HTMLDivElement>(null);
-    const canvasRef = useRef<HTMLCanvasElement>(null);
     const {
         query: { username, projectId }
     } = useRouter();
-
-    const serializedCtx = useMemo(() => {
-        if (typeof window !== 'undefined') {
-            return window.localStorage.getItem('context')
-                ? JSON.parse(window.localStorage.getItem('context') || '{}')
-                : undefined;
-        }
-    }, []);
-
-    const { context, buildContext } = useCircuitContext(canvasRef, serializedCtx);
 
     return (
         <ProjectProvider projectId={projectId as string}>
@@ -85,7 +70,6 @@ export default function Settings() {
                         />
                     </div>
                 </aside>
-                <CircuitContainer ref={circuitRef} />
                 <PropertyPanel />
             </div>
         </ProjectProvider>

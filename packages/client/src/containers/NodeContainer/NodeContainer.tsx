@@ -20,10 +20,10 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
                 circuit.removeNodeElement(node.id);
             };
         }
-    }, []);
+    }, [circuit, node.id]);
 
     const onClick = React.useCallback(
-        (e: React.MouseEvent<HTMLDivElement>) => {
+        () => {
             if (!circuit.selectedNodes?.includes(node)) {
                 circuit.setSelectedNodes([node]);
             }
@@ -49,7 +49,7 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
                 });
             }
         },
-        [node, circuit]
+        [circuit]
     );
 
     const isSelected = React.useMemo(() => circuit.selectedNodes?.indexOf(node) !== -1, [circuit, node]);

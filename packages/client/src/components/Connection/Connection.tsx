@@ -73,7 +73,7 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
                 }
             });
         }
-    }, [outputElement, inputElement, circuit]);
+    }, [outputElement, inputElement, circuit, connection]);
 
     React.useEffect(() => {
         if (output && outputElement && point) {
@@ -104,7 +104,7 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
         if (connection) {
             circuit.context?.disconnect(connection);
         }
-    }, [connection]);
+    }, [connection, circuit.context]);
 
     const selectedConnection =
         connection && circuit.selectedNodes?.flatMap(node => node.connections).includes(connection);

@@ -58,7 +58,7 @@ const Selection = observer(() => {
 
 export const CircuitContainer = observer(
     // eslint-disable-next-line react/display-name
-    React.forwardRef<HTMLDivElement, ICircuitContainerProps>(({ onFullscreen }, ref) => {
+    React.forwardRef<HTMLDivElement, ICircuitContainerProps>((_, ref) => {
         const circuit = useCircuit();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
         useKeyboardActions();
@@ -93,7 +93,7 @@ export const CircuitContainer = observer(
         );
 
         const onMouseUp = React.useCallback(
-            (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            () => {
                 circuit.setConnectionDraft();
                 circuit.setSelectionBounds();
             },

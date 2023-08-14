@@ -18,7 +18,6 @@ import { Port } from './Port/Port';
 import { CIRCUIT_SIZE, NODE_POSITION_OFFSET_X } from '../../constants/circuit';
 import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 import { Icon } from '../Icon/Icon';
-
 import { useHover } from '~/hooks/useHover/useHover';
 
 export const Node = observer(

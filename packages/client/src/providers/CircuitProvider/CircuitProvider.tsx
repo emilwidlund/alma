@@ -1,3 +1,5 @@
+/** eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Input, Node, Output } from '@usealma/graph';
 import { noop } from 'lodash';
 import * as React from 'react';
@@ -97,7 +99,7 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
                 setConnectionDraft(undefined);
             }
         },
-        [context, connectionDraft]
+        [connectionDraft]
     );
 
     const handleSetSelectedNodes = React.useCallback(
@@ -145,7 +147,7 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
 
             handleSetSelectedNodes(selectionCandidates);
         }
-    }, [context, selectionBounds, nodeElements]);
+    }, [context, selectionBounds, nodeElements, handleSetSelectedNodes]);
 
     const value = React.useMemo<ICircuitContextValue>(
         () => ({
@@ -176,9 +178,9 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
             handleSetPortElement,
             handleRemovePortElement,
             handleSetSelectedNodes,
+            handleSetSelectionBounds,
             selectedNodes,
-            selectionBounds,
-            setSelectionBounds
+            selectionBounds
         ]
     );
 

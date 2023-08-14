@@ -5,17 +5,17 @@ import { KeyboardKey } from '../../types';
 export const useKeyPress = (targetKey: KeyboardKey) => {
     const [keyPressed, setKeyPressed] = React.useState(false);
 
-    const downHandler = ({ key }: KeyboardEvent) => {
+    const downHandler = React.useCallback(({ key }: KeyboardEvent) => {
         if (key === targetKey) {
             setKeyPressed(true);
         }
-    };
+    }, [setKeyPressed, targetKey])
 
-    const upHandler = ({ key }: KeyboardEvent) => {
+    const upHandler = React.useCallback(({ key }: KeyboardEvent) => {
         if (key === targetKey) {
             setKeyPressed(false);
         }
-    };
+    }, [setKeyPressed, targetKey]);
 
     React.useEffect(() => {
         window.addEventListener('keydown', downHandler);
@@ -25,7 +25,7 @@ export const useKeyPress = (targetKey: KeyboardKey) => {
             window.removeEventListener('keydown', downHandler);
             window.removeEventListener('keyup', upHandler);
         };
-    }, []);
+    }, [downHandler, upHandler]);
 
     return keyPressed;
 };

@@ -11,7 +11,7 @@ export const useMousePosition = <T extends HTMLElement | SVGElement>() => {
 
             setMousePosition({ x, y });
         },
-        [mousePosition]
+        []
     );
 
     return {

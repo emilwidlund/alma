@@ -1,3 +1,5 @@
+/** eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Input, Output } from '@usealma/graph';
 import { DraggableEventHandler } from 'react-draggable';
 

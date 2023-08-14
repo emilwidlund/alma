@@ -1,14 +1,16 @@
+/** eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Input, Output } from '@usealma/graph';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
+import { portTypeStyles, portWrapperStyles } from './Port.styles';
+import { IPortProps } from './Port.types';
 import { useCircuit } from '../../../hooks/useCircuit/useCircuit';
 import { useHover } from '../../../hooks/useHover/useHover';
 import { Icon } from '../../Icon/Icon';
 import { Tooltip } from '../../Tooltip/Tooltip';
 import { TooltipPosition } from '../../Tooltip/Tooltip.types';
-import { portTypeStyles, portWrapperStyles } from './Port.styles';
-import { IPortProps } from './Port.types';
 
 export const Port = observer(({ port }: IPortProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -22,10 +24,10 @@ export const Port = observer(({ port }: IPortProps) => {
         const isOccupied = !isOutput && port.connected;
         const hasDifferentValueType = circuit.connectionDraft?.type !== port.type;
         const hasSharedNode = circuit.connectionDraft?.node === port.node;
-        const isUnrelatedToConnectionDraft = circuit.connectionDraft !== port;
+        // const isUnrelatedToConnectionDraft = circuit.connectionDraft !== port;
 
         return circuit.connectionDraft ? isOccupied || hasDifferentValueType || isOutput || hasSharedNode : false;
-    }, [circuit, isOutput]);
+    }, [circuit, isOutput, port]);
 
     React.useEffect(() => {
         if (ref.current) {
@@ -35,19 +37,19 @@ export const Port = observer(({ port }: IPortProps) => {
                 circuit.removePortElement(port.id);
             };
         }
-    }, []);
+    }, [circuit, port.id]);
 
     const onMouseDown = React.useCallback(() => {
         if (isOutput) {
             circuit.setConnectionDraft(port as Output<any>);
         }
-    }, [isOutput, circuit]);
+    }, [isOutput, circuit, port]);
 
     const onMouseUp = React.useCallback(() => {
         if (!isOutput && circuit.connectionDraft) {
             circuit.commitConnectionDraft(port as Input<any>);
         }
-    }, [isOutput, circuit]);
+    }, [isOutput, circuit, port]);
 
     const onClick = React.useCallback(() => {
         if (port.connected) {

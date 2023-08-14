@@ -1,3 +1,5 @@
+/** eslint-disable @typescript-eslint/no-explicit-any */
+
 import * as React from 'react';
 
 export const useClickOutside = <
@@ -16,7 +18,7 @@ export const useClickOutside = <
 
             handler?.(event);
         },
-        [ref]
+        [ref, handler]
     );
 
     React.useEffect(() => {
@@ -27,5 +29,5 @@ export const useClickOutside = <
             document.removeEventListener('mousedown', listener);
             document.removeEventListener('touchstart', listener);
         };
-    }, [ref, handler]);
+    }, [ref, handler, listener]);
 };
