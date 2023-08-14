@@ -1,3 +1,5 @@
+/* eslint-disable no-irregular-whitespace */
+
 export enum Size {
     XXS,
     XS,
