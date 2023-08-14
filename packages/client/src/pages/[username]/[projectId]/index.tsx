@@ -8,12 +8,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
+import { Project } from '@usealma/types';
 
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
 import { useRenderer } from '~/hooks/useRenderer/useRenderer';
-import { Project } from '~/models/Project/Project.types';
 import { ProjectProvider, useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 import { Size } from '~/types';
 
