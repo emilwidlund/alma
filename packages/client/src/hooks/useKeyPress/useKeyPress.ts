@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { KeyboardKey } from '../../global';
+import { KeyboardKey } from '../../types';
 
 export const useKeyPress = (targetKey: KeyboardKey) => {
     const [keyPressed, setKeyPressed] = React.useState(false);
