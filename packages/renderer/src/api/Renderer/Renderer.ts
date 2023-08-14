@@ -11,14 +11,18 @@ import {
     defFBO,
     compileModel,
     ShaderUniformSpecs,
-    BLEND_NORMAL
+    BLEND_NORMAL,
+    ShaderFn,
+    Shader
 } from '@thi.ng/webgl';
-import { Context, Layer } from '@usealma/types';
+import { Layer } from '@usealma/types';
+import { nodes, TextureResolver, WebGLContext } from '@usealma/webgl';
 
 import { RenderDisposer, RenderSequence } from './Renderer.types';
 
 const createShaderSpec = (
-    context: Context,
+    gl: WebGL2RenderingContext,
+    fragmentSource: string | ShaderFn,
     uniforms?: ShaderUniformSpecs,
     textures?: [string, Texture][]
 ): ShaderSpec => {
@@ -30,8 +34,9 @@ const createShaderSpec = (
         vs: (gl, _, ins, outs) => [
             defMain(() => [assign(outs.vUv, ins.uv), assign(gl.gl_Position, vec4(ins.position, FLOAT0, FLOAT1))])
         ],
-        fs: context,
+        fs: fragmentSource,
         uniforms: {
+            uResolution: ['vec2', [gl.drawingBufferWidth, gl.drawingBufferHeight]],
             uTime: ['float', 0],
             ...uniforms,
             ...textureUniforms
@@ -46,10 +51,10 @@ const createShaderSpec = (
     };
 };
 
-const createModel = (gl: WebGL2RenderingContext, shaderSpec: ShaderSpec, textures: Texture[]): ModelSpec => {
+const createModel = (gl: WebGL2RenderingContext, shader: Shader, textures: Texture[]): ModelSpec => {
     return compileModel(gl, {
         ...defQuadModel({ uv: true }),
-        shader: defShader(gl, shaderSpec),
+        shader,
         textures
     });
 };
@@ -87,13 +92,89 @@ export const render = (
                               image: null
                           });
 
+                    const isCircuitContext = currentLayer.type === 'CIRCUIT';
+                    let fragmentSource: string | ShaderFn;
+                    let context: WebGLContext | undefined;
+
+                    if (isCircuitContext) {
+                        const video = document.createElement('video');
+                        const webcamCanvas = document.createElement('canvas');
+                        const webcamImage = new Image();
+
+                        const onCameraResolverInit = () => {
+                            return new Promise<void>(resolve => {
+                                video.width = gl.drawingBufferWidth;
+                                video.height = gl.drawingBufferHeight;
+                                webcamCanvas.width = gl.drawingBufferWidth;
+                                webcamCanvas.height = gl.drawingBufferHeight;
+                                video.autoplay = true;
+                                navigator.mediaDevices
+                                    .getUserMedia({
+                                        video: { width: gl.drawingBufferWidth, height: gl.drawingBufferHeight }
+                                    })
+                                    .then(stream => {
+                                        video.srcObject = stream;
+                                        resolve();
+                                    });
+                            });
+                        };
+
+                        const cameraTextureResolver = () => {
+                            webcamCanvas
+                                .getContext('2d')
+                                ?.drawImage(video, 0, 0, webcamCanvas.width, webcamCanvas.height);
+
+                            webcamImage.src = webcamCanvas.toDataURL('image/jpeg');
+
+                            return webcamImage;
+                        };
+
+                        const textureResolver: TextureResolver = (uri?: string) =>
+                            new Promise((resolve, reject) => {
+                                const image = new Image();
+                                image.crossOrigin = 'anonymous';
+                                image.onload = () => resolve(image);
+                                image.src = uri || '';
+                            });
+
+                        context = new WebGLContext(gl, {
+                            cameraManager: {
+                                onInit: onCameraResolverInit,
+                                textureResolver: cameraTextureResolver
+                            },
+                            textureManager: {
+                                textureResolver: textureResolver
+                            },
+                            nodesCollection: nodes,
+                            ...JSON.parse(currentLayer.context)
+                        });
+                        fragmentSource = context.compileGraph.bind(context);
+                    } else {
+                        fragmentSource = currentLayer.context;
+                    }
+
                     const shaderSpec = createShaderSpec(
-                        currentLayer.context,
+                        gl,
+                        fragmentSource,
                         uniforms,
                         previousLayerTexture ? [['uPreviousLayer', previousLayerTexture]] : undefined
                     );
 
-                    const model = createModel(gl, shaderSpec, previousLayerTexture ? [previousLayerTexture] : []);
+                    let shader = defShader(gl, shaderSpec);
+
+                    if (context) {
+                        context.root = context.initialize();
+                        shader = defShader(gl, shaderSpec);
+                    }
+
+                    const model = createModel(gl, shader, previousLayerTexture ? [previousLayerTexture] : []);
+
+                    if (context) {
+                        context.model = model;
+                        context.model.uniforms!['uResolution'] = [gl.drawingBufferWidth, gl.drawingBufferHeight];
+
+                        console.log(context);
+                    }
 
                     const fbo = renderTarget instanceof Texture ? defFBO(gl, { tex: [renderTarget] }) : undefined;
 

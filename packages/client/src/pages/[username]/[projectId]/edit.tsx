@@ -3,17 +3,20 @@
 import { SettingsOutlined, MemoryOutlined, StreamOutlined } from '@mui/icons-material';
 import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
+import { Project } from '@usealma/types';
 import { clsx } from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useMemo, useRef } from 'react';
 
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
 import { PropertyPanel } from '~/components/PropertyPanel/PropertyPanel';
+import { CircuitContainer } from '~/containers/CircuitContainer/CircuitContainer';
 import { FragmentEditor } from '~/containers/FragmentEditor/FragmentEditor';
-import { Project } from '~/models/Project/Project.types';
+import { CircuitProvider } from '~/providers/CircuitProvider/CircuitProvider';
 import { ProjectProvider, useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 import { Size } from '~/types';
 
@@ -46,7 +49,12 @@ function EditorHeader() {
 }
 
 function FragmentEditorContainer() {
-    const { compilationError } = useProjectContext();
+    const circuitRef = useRef<HTMLDivElement>(null);
+    const { activeLayer, compilationError } = useProjectContext();
+
+    // const { context, buildContext } = useCircuitContext(canvasRef, serializedCtx);
+
+    const shouldRenderGraph = useMemo(() => activeLayer?.type === 'CIRCUIT', [activeLayer]);
 
     const mainContainerClassNames = clsx(
         'absolute top-32 right-32 bottom-32 left-32 rounded-3xl bg-neutral-100 drop-shadow-2xl overflow-hidden border-2',
@@ -58,7 +66,7 @@ function FragmentEditorContainer() {
     return (
         <main className="relative flex flex-col items-center justify-center grow w-full h-full">
             <div className={mainContainerClassNames}>
-                <FragmentEditor />
+                {shouldRenderGraph ? <CircuitContainer ref={circuitRef} /> : <FragmentEditor />}
             </div>
             {compilationError && (
                 <div className="fixed bottom-8 mx-auto">
@@ -76,38 +84,40 @@ export default function Editor() {
 
     return (
         <ProjectProvider projectId={projectId as string}>
-            <main className="flex flex-row h-screen">
-                <div className="flex flex-col flex-grow">
-                    <EditorHeader />
-                    <div className="flex flex-row flex-grow items-center">
-                        <aside className="flex flex-col h-full items-center justify-start pl-12">
-                            <div className="my-auto">
-                                <FloatingTabBar
-                                    items={[
-                                        {
-                                            name: 'Preview',
-                                            path: `/${username}/${projectId}`,
-                                            icon: <StreamOutlined />
-                                        },
-                                        {
-                                            name: 'Edit',
-                                            path: `/${username}/${projectId}/edit`,
-                                            icon: <MemoryOutlined />
-                                        },
-                                        {
-                                            name: 'Settings',
-                                            path: `/${username}/${projectId}/settings`,
-                                            icon: <SettingsOutlined />
-                                        }
-                                    ]}
-                                />
-                            </div>
-                        </aside>
-                        <FragmentEditorContainer />
+            <CircuitProvider>
+                <main className="flex flex-row h-screen">
+                    <div className="flex flex-col flex-grow">
+                        <EditorHeader />
+                        <div className="flex flex-row flex-grow items-center">
+                            <aside className="flex flex-col h-full items-center justify-start pl-12">
+                                <div className="my-auto">
+                                    <FloatingTabBar
+                                        items={[
+                                            {
+                                                name: 'Preview',
+                                                path: `/${username}/${projectId}`,
+                                                icon: <StreamOutlined />
+                                            },
+                                            {
+                                                name: 'Edit',
+                                                path: `/${username}/${projectId}/edit`,
+                                                icon: <MemoryOutlined />
+                                            },
+                                            {
+                                                name: 'Settings',
+                                                path: `/${username}/${projectId}/settings`,
+                                                icon: <SettingsOutlined />
+                                            }
+                                        ]}
+                                    />
+                                </div>
+                            </aside>
+                            <FragmentEditorContainer />
+                        </div>
                     </div>
-                </div>
-                <PropertyPanel />
-            </main>
+                    <PropertyPanel />
+                </main>
+            </CircuitProvider>
         </ProjectProvider>
     );
 }

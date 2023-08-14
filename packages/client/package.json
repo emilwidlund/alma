@@ -14,6 +14,7 @@
         "prisma:seed": "dotenv -e .env.local -- ts-node prisma/seed.ts"
     },
     "dependencies": {
+        "@emotion/css": "^11.11.2",
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
         "@monaco-editor/react": "^4.5.1",
@@ -31,6 +32,7 @@
         "@types/react-dom": "18.2.4",
         "@usealma/renderer": "*",
         "@usealma/types": "*",
+        "@usealma/webgl": "*",
         "autoprefixer": "10.4.14",
         "clsx": "^1.2.1",
         "dotenv-cli": "^7.2.1",
@@ -45,6 +47,7 @@
         "react": "18.2.0",
         "react-beautiful-dnd": "^13.1.1",
         "react-dom": "18.2.0",
+        "react-draggable": "^4.4.5",
         "react-query": "^3.39.3",
         "rxjs": "^7.8.1",
         "supabase": "^1.74.2",

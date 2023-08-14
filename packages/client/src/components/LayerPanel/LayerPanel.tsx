@@ -41,7 +41,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
         e => {
             e.currentTarget.textContent?.replace(/(\r\n|\n|\r)/gm, '');
         },
-        [layer, renameLayer]
+        []
     );
 
     const handleBlur = useCallback((e: React.FocusEvent<HTMLHeadingElement>) => {
@@ -52,7 +52,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
         }
 
         renameLayer(layer.id, name?.length ? name : 'Untitled');
-    }, []);
+    }, [layer.id, renameLayer]);
 
     return (
         <Draggable draggableId={layer.id} index={index}>
@@ -136,7 +136,7 @@ export const LayerPanel = () => {
         result => {
             setActiveLayerId(result.draggableId);
         },
-        [project]
+        [setActiveLayerId]
     );
 
     const handleDragEnd: OnDragEndResponder = useCallback(
@@ -176,7 +176,7 @@ export const LayerPanel = () => {
             <Well className="grow">
                 <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
                     <StrictModeDroppable droppableId="layers">
-                        {(provided, snap) => (
+                        {(provided) => (
                             <div ref={provided.innerRef} className="flex flex-col grow" {...provided.droppableProps}>
                                 {items.map((layer, index) => (
                                     <LayerItem

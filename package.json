@@ -14,7 +14,7 @@
         "packages/types",
         "packages/graph",
         "packages/glsl",
-        "packages/circuit",
+        "packages/webgl",
         "packages/renderer",
         "packages/*"
     ],

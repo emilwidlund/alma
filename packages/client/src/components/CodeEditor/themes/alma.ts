@@ -1,4 +1,6 @@
-export const alma = {
+import { editor } from 'monaco-editor';
+
+export const alma: editor.IStandaloneThemeData = {
     base: 'vs',
     inherit: true,
     rules: [

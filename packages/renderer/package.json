@@ -14,7 +14,7 @@
         "@thi.ng/shader-ast": "^0.12.36",
         "@thi.ng/shader-ast-glsl": "^0.4.36",
         "@thi.ng/shader-ast-stdlib": "^0.12.29",
-        "@thi.ng/webgl": "6.2.8",
+        "@thi.ng/webgl": "^6.2.13",
         "@usealma/types": "*",
         "resolve-lygia": "^1.0.4",
         "typescript": "^4.8.3",

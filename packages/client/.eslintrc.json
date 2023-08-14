@@ -1,3 +1,7 @@
 {
-    "extends": ["next/core-web-vitals", "../../.eslintrc.js"]
+    "extends": ["next/core-web-vitals", "../../.eslintrc.js"],
+    "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/ban-ts-comment": "off"
+    }
 }

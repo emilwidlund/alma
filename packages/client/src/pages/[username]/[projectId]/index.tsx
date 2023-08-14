@@ -3,6 +3,7 @@
 import { MemoryOutlined, StreamOutlined, SettingsOutlined } from '@mui/icons-material';
 import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
+import { Project } from '@usealma/types';
 import { clsx } from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +14,6 @@ import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
 import { useRenderer } from '~/hooks/useRenderer/useRenderer';
-import { Project } from '~/models/Project/Project.types';
 import { ProjectProvider, useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 import { Size } from '~/types';
 

@@ -26,5 +26,5 @@ export const useRenderer = (
         return () => {
             renderer.dispose();
         };
-    }, [ref, layers, onFragmentCompilationError]);
+    }, [ref, layers, onFragmentCompilationError, onFragmentCompilationSuccess]);
 };

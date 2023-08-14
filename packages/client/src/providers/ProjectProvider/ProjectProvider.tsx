@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars */
+
 import { Layer, Project, ProjectSchema } from '@usealma/types';
 import { produce } from 'immer';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
@@ -33,6 +34,17 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
                 .then(v => v.json())
                 .then((project: Project) => {
                     if (ProjectSchema.parse(project)) {
+                        if (typeof window !== 'undefined') {
+                            project.layers.push({
+                                id: '1234567890',
+                                name: 'Test Circuit',
+                                type: 'CIRCUIT',
+                                context: window.localStorage.getItem('context') || '{}',
+                                blendingMode: 'NORMAL',
+                                enabled: true
+                            });
+                        }
+
                         setProject(project);
 
                         if (project.layers.length > 0) {

@@ -1,29 +1,29 @@
-import { useCallback, useRef, useState } from 'react';
+import * as React from 'react';
 
-export const useHover = <T extends HTMLElement>(): [(node: T | null) => void, boolean] => {
-    const [isHovering, setIsHovering] = useState(false);
+type HoverEventHandler<TElement> = (
+    event: React.MouseEvent<TElement>
+) => ((event: React.MouseEvent<TElement>) => void) | void;
 
-    const handleMouseOver = useCallback(() => setIsHovering(true), []);
-    const handleMouseOut = useCallback(() => setIsHovering(false), []);
+export const useHover = <TElement>(onHover?: HoverEventHandler<TElement>) => {
+    const [isHovered, setHover] = React.useState(false);
+    const cleanup = React.useRef<((event: React.MouseEvent<TElement>) => void) | void>();
 
-    const nodeRef = useRef<T | null>(null);
+    const onMouseEnter = React.useCallback((e: React.MouseEvent<TElement>) => {
+        setHover(true);
+        cleanup.current = onHover?.(e);
+    }, [onHover]);
 
-    const callbackRef = useCallback(
-        (node: T | null) => {
-            if (nodeRef.current) {
-                nodeRef.current.removeEventListener('mouseover', handleMouseOver);
-                nodeRef.current.removeEventListener('mouseout', handleMouseOut);
-            }
+    const onMouseLeave = React.useCallback((e: React.MouseEvent<TElement>) => {
+        setHover(false);
 
-            nodeRef.current = node;
+        if (typeof cleanup.current === 'function') {
+            cleanup.current?.(e);
+        }
+    }, []);
 
-            if (nodeRef.current) {
-                nodeRef.current.addEventListener('mouseover', handleMouseOver);
-                nodeRef.current.addEventListener('mouseout', handleMouseOut);
-            }
-        },
-        [handleMouseOver, handleMouseOut]
-    );
-
-    return [callbackRef, isHovering];
+    return {
+        onMouseEnter,
+        onMouseLeave,
+        isHovered
+    };
 };
