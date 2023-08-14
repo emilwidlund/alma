@@ -1,9 +1,9 @@
 import { css } from '@emotion/css';
 
 import { HIERARCHY } from '../../constants/hierarchy';
-import { IBounds } from '../../utils/bounds/bounds.types';
+import { Bounds } from '../../utils/bounds/bounds.types';
 
-export const circuitSelectionStyles = ({ x, y, width, height }: IBounds) => css`
+export const circuitSelectionStyles = ({ x, y, width, height }: Bounds) => css`
     position: absolute;
     top: 0;
     left: 0;
