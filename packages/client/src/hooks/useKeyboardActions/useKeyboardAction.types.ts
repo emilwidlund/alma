@@ -1,4 +1,4 @@
-import { KeyboardKey } from '../../global';
+import { KeyboardKey } from '../../types';
 
 export type KeyboardAction = {
     key: KeyboardKey | string;
