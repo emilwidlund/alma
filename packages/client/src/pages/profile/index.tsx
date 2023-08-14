@@ -16,7 +16,10 @@ export default function Profile() {
     useEffect(() => {
         fetch(`/api/profile/me`)
             .then(v => v.json())
-            .then(profile => (ProfileSchema.parse(profile) ? setProfile(profile) : undefined));
+            .then(profile => {
+                console.log(profile);
+                ProfileSchema.parse(profile) ? setProfile(profile) : undefined;
+            });
 
         fetch(`/api/projects/me`)
             .then(v => v.json())

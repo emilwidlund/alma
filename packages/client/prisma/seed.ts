@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+const PrismaClient = require('@prisma/client').PrismaClient;
 
 const profileSeed = require('./seeds/profileSeed/profileSeed');
 const projectSeed = require('./seeds/projectSeed/projectSeed');

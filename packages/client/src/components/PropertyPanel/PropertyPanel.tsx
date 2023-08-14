@@ -21,7 +21,7 @@ export const PropertyPanel = () => {
     );
 
     return (
-        <aside className="flex flex-col w-96 h-full bg-neutral-100">
+        <aside className="flex flex-col w-96 h-full bg-neutral-100 z-10">
             <div className="relative flex flex-col p-6 pt-12">
                 <canvas ref={canvasRef} className="rounded-2xl bg-neutral-300" width="285" height="180" />
             </div>
