@@ -5,7 +5,7 @@ import * as React from 'react';
 import type { ICircuitContextValue, ICircuitProviderProps } from './CircuitProvider.types';
 import { CIRCUIT_SIZE, NODE_CENTER } from '../../constants/circuit';
 import { normalizeBounds, withinBounds } from '../../utils/bounds/bounds';
-import { IBounds } from '../../utils/bounds/bounds.types';
+import { Bounds } from '../../utils/bounds/bounds.types';
 import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 
 const defaultCircuitValue: ICircuitContextValue = {
@@ -32,7 +32,7 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
     const [portElements, setPortElements] = React.useState<Record<string, HTMLDivElement>>({});
     const [connectionDraft, setConnectionDraft] = React.useState<Output<any> | undefined>();
     const [selectedNodes, setSelectedNodes] = React.useState<Node[] | undefined>([]);
-    const [selectionBounds, setSelectionBounds] = React.useState<IBounds | undefined>(undefined);
+    const [selectionBounds, setSelectionBounds] = React.useState<Bounds | undefined>(undefined);
 
     const handleSetNodeElement = React.useCallback(
         (nodeId: string, nodeElement: HTMLDivElement) => {
@@ -108,7 +108,7 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
     );
 
     const handleSetSelectionBounds = React.useCallback(
-        (selectionBounds?: IBounds) => {
+        (selectionBounds?: Bounds) => {
             setSelectionBounds(selectionBounds);
         },
         [setSelectionBounds]

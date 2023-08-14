@@ -2,7 +2,7 @@ import { Input, Node, Output } from '@usealma/graph';
 import { WebGLContext } from '@usealma/webgl';
 import * as React from 'react';
 
-import { IBounds } from '../../utils/bounds/bounds.types';
+import { Bounds } from '../../utils/bounds/bounds.types';
 
 export type ICircuitProviderProps = React.PropsWithChildren<{
     context?: WebGLContext | undefined;
@@ -21,6 +21,6 @@ export interface ICircuitContextValue {
     commitConnectionDraft(input: Input<any>): void;
     selectedNodes: Node[] | undefined;
     setSelectedNodes(nodes?: Node[]): void;
-    selectionBounds?: IBounds;
-    setSelectionBounds(selectionBounds?: IBounds): void;
+    selectionBounds?: Bounds;
+    setSelectionBounds(selectionBounds?: Bounds): void;
 }
