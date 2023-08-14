@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+
 export const isMobile = () => {
     let check = false;
     (function (a) {

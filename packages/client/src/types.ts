@@ -114,7 +114,7 @@ export const enum KeyboardKey {
     /** The ExSel (Extend Selection) key. */
     ExSel = 'ExSel',
 
-    /** The Insert key, Ins. Toggles  between inserting and overwriting text. */
+    /** The Insert key, Ins. Toggles between inserting and overwriting text. */
     Insert = 'Insert',
 
     /** Paste from the clipboard. */
@@ -228,7 +228,7 @@ export const enum KeyboardKey {
     /** The Convert key, which instructs the IME to convert the current input method sequence into the resulting character. */
     Convert = 'Convert',
 
-    /** A dead "combining" key; that is, a key which is used in tandem with other keys to generate accented and other modified characters. If pressed by itself, it doesn't generate a character. If you wish to identify which specific dead key was pressed (in cases where more than one exists), you can do so by examining the KeyboardEvent's associated compositionupdate event's  data property. */
+    /** A dead "combining" key; that is, a key which is used in tandem with other keys to generate accented and other modified characters. If pressed by itself, it doesn't generate a character. If you wish to identify which specific dead key was pressed (in cases where more than one exists), you can do so by examining the KeyboardEvent's associated compositionupdate event's data property. */
     Dead = 'Dead',
 
     /** The Final (Final Mode) key is used on some Asian keyboards to enter final mode when using IMEs. */
