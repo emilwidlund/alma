@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMemo, useRef } from 'react';
+import { Project } from '@usealma/types';
 
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
@@ -15,7 +16,6 @@ import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
 import { PropertyPanel } from '~/components/PropertyPanel/PropertyPanel';
 import { CircuitContainer } from '~/containers/CircuitContainer/CircuitContainer';
 import { FragmentEditor } from '~/containers/FragmentEditor/FragmentEditor';
-import { Project } from '~/models/Project/Project.types';
 import { CircuitProvider } from '~/providers/CircuitProvider/CircuitProvider';
 import { ProjectProvider, useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 import { Size } from '~/types';
