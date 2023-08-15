@@ -1,4 +1,3 @@
-import { cx } from '@emotion/css';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
@@ -70,7 +69,7 @@ export const Node = observer(
                         onMouseLeave={onMouseLeave}
                         tabIndex={0}
                     >
-                        <div className={cx(nodeHeaderWrapperClassNames, 'handle')}>
+                        <div className={clsx(nodeHeaderWrapperClassNames, 'handle')}>
                             <span>{name}</span>
                             {!!actions?.length && (
                                 <div className={nodeActionsClassNames}>

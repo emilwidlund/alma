@@ -1,7 +1,7 @@
+import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import { circuitContainerStyles, circuitSelectionStyles } from './CircuitContainer.styles';
 import { ICircuitContainerProps, IConnectionsProps } from './CircuitContainer.types';
 import { Circuit } from '../../components/Circuit/Circuit';
 import { Connection } from '../../components/Connection/Connection';
@@ -51,8 +51,21 @@ const Connections = observer(({ mousePosition }: IConnectionsProps) => {
 const Selection = observer(() => {
     const circuit = useCircuit();
 
+    if (!circuit.selectionBounds) {
+        return null;
+    }
+
+    const bounds = normalizeBounds(circuit.selectionBounds);
+
+    const style = {
+        width: `${bounds.width}px`,
+        height: `${bounds.height}px`,
+        transform: `translate(${bounds.x}px, ${bounds.y}px)`,
+        backgroundColor: 'rgba(0, 0, 0, 0.2)'
+    }
+
     return circuit.selectionBounds ? (
-        <div className={circuitSelectionStyles(normalizeBounds(circuit.selectionBounds))} />
+        <div className="absolute top-0 left-0 border border-accent z-20" style={style} />
     ) : null;
 });
 
@@ -100,7 +113,7 @@ export const CircuitContainer = observer(
         return (
             <Circuit
                 ref={ref}
-                className={circuitContainerStyles}
+                className={clsx('realtive bg-neutral-300')}
                 size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
                 onMouseDown={onMouseDown}
                 onMouseMove={onMouseMove}
