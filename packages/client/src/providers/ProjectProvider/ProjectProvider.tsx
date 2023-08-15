@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars */
 
+import { WebGLContext } from '@usealma/webgl';
 import { Layer, Project, ProjectSchema } from '@usealma/types';
 import { produce } from 'immer';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
@@ -15,6 +16,8 @@ export const defaultProjectContextValue: ProjectContextValue = {
     renameLayer: (layerId: string, name: string) => {},
     updateLayerContext: (layerId: string, context: string) => {},
     reorderLayers: (layers: Layer[]) => {},
+    circuits: undefined,
+    updateCircuits: (id: string, context: WebGLContext) => {},
     activeLayer: undefined,
     compilationError: undefined,
     handleCompilationError: (error: unknown) => {},
@@ -25,6 +28,7 @@ export const ProjectContext = createContext(defaultProjectContextValue);
 
 export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) => {
     const [project, setProject] = useState<Project>();
+    const [circuits, setCircuits] = useState<Map<string, WebGLContext>>(new Map<string, WebGLContext>());
     const [activeLayerId, setActiveLayerId] = useState<string>();
     const [compilationError, setCompilationError] = useState<string>();
 
@@ -110,6 +114,13 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
         );
     }, []);
 
+    const updateCircuits = useCallback(
+        (id: string, circuit: WebGLContext) => {
+            setCircuits(circuits => circuits.set(id, circuit));
+        },
+        [setCircuits]
+    );
+
     const handleCompilationError = useCallback(
         (error: unknown) => {
             setCompilationError((error as Error).message);
@@ -132,6 +143,8 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
             renameLayer,
             updateLayerContext,
             reorderLayers,
+            circuits,
+            updateCircuits,
             activeLayer: project?.layers.find(layer => layer.id === activeLayerId),
             compilationError,
             handleCompilationError,
@@ -146,6 +159,8 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
             renameLayer,
             updateLayerContext,
             reorderLayers,
+            circuits,
+            updateCircuits,
             compilationError,
             handleCompilationError,
             handleCompilationSuccess

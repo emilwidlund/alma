@@ -22,7 +22,6 @@ export class Processor {
                 // @ts-ignore
                 const returnType = header.returnType.specifier.specifier.token;
 
-                console.log(name, args, header, parameters);
                 functions.push({
                     name,
                     parameters: args,

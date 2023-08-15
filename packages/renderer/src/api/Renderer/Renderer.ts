@@ -62,6 +62,7 @@ const createModel = (gl: WebGL2RenderingContext, shader: Shader, textures: Textu
 export const render = (
     gl: WebGL2RenderingContext,
     layers: Layer[],
+    updateCircuits: (id: string, circuit: WebGLContext) => void,
     uniforms?: ShaderUniformSpecs,
     onError?: (err: unknown) => void,
     onSuccess?: () => void
@@ -173,7 +174,7 @@ export const render = (
                         context.model = model;
                         context.model.uniforms!['uResolution'] = [gl.drawingBufferWidth, gl.drawingBufferHeight];
 
-                        console.log(context);
+                        updateCircuits(currentLayer.id, context);
                     }
 
                     const fbo = renderTarget instanceof Texture ? defFBO(gl, { tex: [renderTarget] }) : undefined;

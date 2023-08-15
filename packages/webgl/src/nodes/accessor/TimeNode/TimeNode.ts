@@ -27,7 +27,6 @@ export class TimeNode extends Node {
                     name: 'Time',
                     type: 'float',
                     value: () => {
-                        console.log(context);
                         return context.uniforms.uTime;
                     }
                 })

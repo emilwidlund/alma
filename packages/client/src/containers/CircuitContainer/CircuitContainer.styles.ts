@@ -17,4 +17,5 @@ export const circuitSelectionStyles = ({ x, y, width, height }: Bounds) => css`
 
 export const circuitContainerStyles = css`
     position: relative;
+    background-color: #d7dcf1;
 `;

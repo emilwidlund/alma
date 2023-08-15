@@ -4,13 +4,13 @@ import { Input, Output } from '@usealma/graph';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import { portTypeStyles, portWrapperStyles } from './Port.styles';
 import { IPortProps } from './Port.types';
 import { useCircuit } from '../../../hooks/useCircuit/useCircuit';
 import { useHover } from '../../../hooks/useHover/useHover';
 import { Icon } from '../../Icon/Icon';
 import { Tooltip } from '../../Tooltip/Tooltip';
 import { TooltipPosition } from '../../Tooltip/Tooltip.types';
+import clsx from 'clsx';
 
 export const Port = observer(({ port }: IPortProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
@@ -28,6 +28,34 @@ export const Port = observer(({ port }: IPortProps) => {
 
         return circuit.connectionDraft ? isOccupied || hasDifferentValueType || isOutput || hasSharedNode : false;
     }, [circuit, isOutput, port]);
+
+    const highlighted =
+        port.connected || (!circuit.connectionDraft && isHovered) || (!!circuit.connectionDraft && !visuallyDisabled);
+
+    const portWrapperClassNames = clsx(
+        'relative flex flex-row grow-1 items-center py-1 text-xxs font-medium uppercase tracking-wider cursor-pointer select-none transition-opacity',
+        {
+            'pl-6': isOutput,
+            'pr-6': !isOutput,
+            'flex-row-reverse': isOutput,
+            'flex-row': !isOutput,
+            'opacity-30': visuallyDisabled,
+            'text-accent': highlighted,
+            'text-text-dark': !highlighted
+        }
+    );
+
+    const portTypeClassNames = clsx(
+        'flex flex-col items-center justify-center text-xxs font-medium tracking-normal rounded w-4 h-4 transition-all',
+        {
+            'bg-red-400': port.connected && isPortTypeHovered,
+            'bg-neutral-400': !port.connected && !isHovered,
+            'bg-accent': (port.connected && !isPortTypeHovered) || (!port.connected && isHovered),
+            'text-white': highlighted,
+            'ml-3': isOutput,
+            'mr-3': !isOutput
+        }
+    );
 
     React.useEffect(() => {
         if (ref.current) {
@@ -67,25 +95,14 @@ export const Port = observer(({ port }: IPortProps) => {
         <Tooltip text={port.type.toUpperCase()} position={tooltipPosition}>
             <div
                 ref={ref}
-                className={portWrapperStyles(
-                    port.connected ||
-                        (!circuit.connectionDraft && isHovered) ||
-                        (!!circuit.connectionDraft && !visuallyDisabled),
-                    isOutput,
-                    visuallyDisabled
-                )}
+                className={portWrapperClassNames}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onMouseUp={onMouseUp}
                 onMouseDown={onMouseDown}
             >
                 <div
-                    className={portTypeStyles(
-                        port.connected,
-                        isOutput,
-                        isHovered && !visuallyDisabled,
-                        isPortTypeHovered && !visuallyDisabled
-                    )}
+                    className={portTypeClassNames}
                     onMouseEnter={onPortTypeEnter}
                     onMouseLeave={onPortTypeLeave}
                     onClick={onClick}

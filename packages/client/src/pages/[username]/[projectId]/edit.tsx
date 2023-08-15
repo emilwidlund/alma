@@ -1,11 +1,12 @@
 'use client';
 
+import { nodes, TextureResolver, WebGLContext } from '@usealma/webgl';
 import { SettingsOutlined, MemoryOutlined, StreamOutlined } from '@mui/icons-material';
 import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
 import { Project } from '@usealma/types';
 import { clsx } from 'clsx';
-import Image from 'next/image';
+import NextImage from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMemo, useRef } from 'react';
@@ -29,7 +30,7 @@ function EditorHeader() {
     return (
         <header className="absolute top-0 right-0 left-0 flex flex-row items-center justify-between p-12 pb-0 z-10">
             <Link className="z-10" href="/">
-                <Image src="/alma_outline.png" alt="logo" width={40} height={40} quality={100} />
+                <NextImage src="/alma_outline.png" alt="logo" width={40} height={40} quality={100} />
             </Link>
             {project && (
                 <div className="absolute w-full flex flex-col items-center mx-auto">
@@ -50,12 +51,17 @@ function EditorHeader() {
 
 function EditorContainer() {
     const circuitRef = useRef<HTMLDivElement>(null);
-    const { activeLayer, compilationError } = useProjectContext();
+    const { circuits, activeLayer, compilationError } = useProjectContext();
 
     const shouldRenderGraph = useMemo(() => activeLayer?.type === 'CIRCUIT', [activeLayer]);
 
-    const circuitContainerClassNames = clsx('absolute top-0 right-0 bottom-0 left-0 overflow-auto');
+    const circuit = useMemo(() => {
+        if (!activeLayer) return;
 
+        return circuits?.get(activeLayer.id);
+    }, [nodes, activeLayer, circuits]);
+
+    const circuitContainerClassNames = clsx('absolute top-0 right-0 bottom-0 left-0 overflow-auto');
     const fragmentEditorContainerClassNames = clsx(
         'absolute top-48 right-32 bottom-32 left-56 rounded-3xl bg-neutral-100 drop-shadow-2xl overflow-hidden border-2',
         {
@@ -67,7 +73,9 @@ function EditorContainer() {
         <main className="relative flex flex-col items-center justify-center grow w-full h-full overflow-auto">
             {shouldRenderGraph ? (
                 <div className={circuitContainerClassNames}>
-                    <CircuitContainer ref={circuitRef} />
+                    <CircuitProvider context={circuit}>
+                        <CircuitContainer ref={circuitRef} />
+                    </CircuitProvider>
                 </div>
             ) : (
                 <div className={fragmentEditorContainerClassNames}>
@@ -90,40 +98,38 @@ export default function Editor() {
 
     return (
         <ProjectProvider projectId={projectId as string}>
-            <CircuitProvider>
-                <main className="flex flex-row h-screen">
-                    <div className="relative flex flex-col flex-grow">
-                        <EditorHeader />
-                        <div className="relative flex flex-row flex-grow items-center">
-                            <aside className="fixed flex flex-col h-full items-center justify-start pl-12 z-10">
-                                <div className="my-auto">
-                                    <FloatingTabBar
-                                        items={[
-                                            {
-                                                name: 'Preview',
-                                                path: `/${username}/${projectId}`,
-                                                icon: <StreamOutlined />
-                                            },
-                                            {
-                                                name: 'Edit',
-                                                path: `/${username}/${projectId}/edit`,
-                                                icon: <MemoryOutlined />
-                                            },
-                                            {
-                                                name: 'Settings',
-                                                path: `/${username}/${projectId}/settings`,
-                                                icon: <SettingsOutlined />
-                                            }
-                                        ]}
-                                    />
-                                </div>
-                            </aside>
-                            <EditorContainer />
-                        </div>
+            <main className="flex flex-row h-screen">
+                <div className="relative flex flex-col flex-grow">
+                    <EditorHeader />
+                    <div className="relative flex flex-row flex-grow items-center">
+                        <aside className="fixed flex flex-col h-full items-center justify-start pl-12 z-10">
+                            <div className="my-auto">
+                                <FloatingTabBar
+                                    items={[
+                                        {
+                                            name: 'Preview',
+                                            path: `/${username}/${projectId}`,
+                                            icon: <StreamOutlined />
+                                        },
+                                        {
+                                            name: 'Edit',
+                                            path: `/${username}/${projectId}/edit`,
+                                            icon: <MemoryOutlined />
+                                        },
+                                        {
+                                            name: 'Settings',
+                                            path: `/${username}/${projectId}/settings`,
+                                            icon: <SettingsOutlined />
+                                        }
+                                    ]}
+                                />
+                            </div>
+                        </aside>
+                        <EditorContainer />
                     </div>
-                    <PropertyPanel />
-                </main>
-            </CircuitProvider>
+                </div>
+                <PropertyPanel />
+            </main>
         </ProjectProvider>
     );
 }

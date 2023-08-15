@@ -17,7 +17,6 @@ export default function Profile() {
         fetch(`/api/profile/me`)
             .then(v => v.json())
             .then(profile => {
-                console.log(profile);
                 ProfileSchema.parse(profile) ? setProfile(profile) : undefined;
             });
 

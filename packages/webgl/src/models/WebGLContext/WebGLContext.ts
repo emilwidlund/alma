@@ -3,7 +3,7 @@ import { GLSLTarget, targetGLSL } from '@thi.ng/shader-ast-glsl';
 import { ModelSpec, UniformValues } from '@thi.ng/webgl';
 import { Context, INodeSerialized, Node } from '@usealma/graph';
 import { isFunction } from 'lodash';
-import { action, computed, IReactionDisposer, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 
 import { DrawingSize, ICompiledUniforms, INodesCollection, IWebGLContextProps } from './WebGLContext.types';
 import { WebGLContextNode } from '../../nodes/accessor/WebGLContextNode/WebGLContextNode';
@@ -14,7 +14,7 @@ export class WebGLContext extends Context<WebGLContextNode> {
     /** Canvas Element */
     public ctx: WebGL2RenderingContext;
     /** GLSL Target */
-    public target: GLSLTarget;
+    public target: GLSLTarget = targetGLSL();
     /** Attributes */
     public varying!: Record<string, Sym<any>>;
     /** Uniforms */
@@ -27,14 +27,6 @@ export class WebGLContext extends Context<WebGLContextNode> {
     public cameraManager: CameraManager;
     /** Nodes Collection to resolve from */
     public nodesCollection: INodesCollection;
-    /** Compiled Fragment Shader */
-    public fragment: string;
-    /** Frame Id */
-    public frameId?: number;
-    /** Start Time */
-    public startTime?: number;
-    /** Internal Connection Reaction */
-    public connectionReactionDisposer?: IReactionDisposer;
     /** On Frame End Callback */
     public onFrameEnd?: () => void;
 
@@ -42,18 +34,15 @@ export class WebGLContext extends Context<WebGLContextNode> {
         super(props);
 
         this.ctx = ctx;
-        this.target = targetGLSL();
         this.textureManager = new TextureManager(this, props.textureManager);
         this.cameraManager = new CameraManager(this, props.cameraManager);
         this.nodesCollection = props.nodesCollection;
         this.onFrameEnd = props.onFrameEnd;
         // @ts-ignore
         this.root = null;
-        this.fragment = '';
 
         makeObservable(this, {
             root: observable,
-            fragment: observable,
             size: computed,
             setUniform: action
         });
@@ -114,22 +103,8 @@ export class WebGLContext extends Context<WebGLContextNode> {
 
     /** Disposes Context */
     public dispose(): this {
-        if (this.frameId) {
-            cancelAnimationFrame(this.frameId);
-            this.frameId = undefined;
-        }
-
-        if (this.connectionReactionDisposer) {
-            this.connectionReactionDisposer();
-        }
-
         this.cameraManager?.dispose();
 
         return this;
-    }
-
-    /** Resets Context */
-    public reset(): void {
-        this.dispose();
     }
 }

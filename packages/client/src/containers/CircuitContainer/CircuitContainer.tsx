@@ -92,13 +92,10 @@ export const CircuitContainer = observer(
             [circuit, mousePosition]
         );
 
-        const onMouseUp = React.useCallback(
-            () => {
-                circuit.setConnectionDraft();
-                circuit.setSelectionBounds();
-            },
-            [circuit]
-        );
+        const onMouseUp = React.useCallback(() => {
+            circuit.setConnectionDraft();
+            circuit.setSelectionBounds();
+        }, [circuit]);
 
         return (
             <Circuit

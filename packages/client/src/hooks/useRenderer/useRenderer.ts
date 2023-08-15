@@ -1,6 +1,7 @@
 import { render } from '@usealma/renderer';
 import { Layer } from '@usealma/types';
 import { useEffect, RefObject } from 'react';
+import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
 export const useRenderer = (
     ref: RefObject<HTMLCanvasElement>,
@@ -8,6 +9,8 @@ export const useRenderer = (
     onFragmentCompilationError?: (error: unknown) => void,
     onFragmentCompilationSuccess?: () => void
 ) => {
+    const { updateCircuits } = useProjectContext();
+
     useEffect(() => {
         const context = ref.current?.getContext('webgl2');
 
@@ -18,6 +21,7 @@ export const useRenderer = (
         const renderer = render(
             context,
             layers,
+            updateCircuits,
             { uResolution: ['vec2', [context.drawingBufferWidth, context.drawingBufferHeight]] },
             onFragmentCompilationError,
             onFragmentCompilationSuccess
