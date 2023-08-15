@@ -2,10 +2,11 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
+    "eslint.validate": ["javascript"],
     "editor.formatOnSave": true,
     "eslint.format.enable": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
     "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
 }
