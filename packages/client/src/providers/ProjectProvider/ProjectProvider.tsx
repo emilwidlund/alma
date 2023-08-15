@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars */
 
-import { WebGLContext } from '@usealma/webgl';
 import { Layer, Project, ProjectSchema } from '@usealma/types';
+import { WebGLContext } from '@usealma/webgl';
 import { produce } from 'immer';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 

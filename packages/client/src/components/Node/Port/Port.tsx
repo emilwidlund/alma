@@ -1,6 +1,7 @@
 /** eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Input, Output } from '@usealma/graph';
+import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
@@ -10,7 +11,6 @@ import { useHover } from '../../../hooks/useHover/useHover';
 import { Icon } from '../../Icon/Icon';
 import { Tooltip } from '../../Tooltip/Tooltip';
 import { TooltipPosition } from '../../Tooltip/Tooltip.types';
-import clsx from 'clsx';
 
 export const Port = observer(({ port }: IPortProps) => {
     const ref = React.useRef<HTMLDivElement>(null);

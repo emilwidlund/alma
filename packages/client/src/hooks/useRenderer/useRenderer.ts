@@ -1,6 +1,7 @@
 import { render } from '@usealma/renderer';
 import { Layer } from '@usealma/types';
 import { useEffect, RefObject } from 'react';
+
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
 export const useRenderer = (
@@ -30,5 +31,5 @@ export const useRenderer = (
         return () => {
             renderer.dispose();
         };
-    }, [ref, layers, onFragmentCompilationError, onFragmentCompilationSuccess]);
+    }, [ref, layers, onFragmentCompilationError, onFragmentCompilationSuccess, updateCircuits]);
 };

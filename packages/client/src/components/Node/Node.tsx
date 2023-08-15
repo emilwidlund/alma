@@ -1,24 +1,24 @@
 import { cx } from '@emotion/css';
+import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Draggable1, { DraggableProps } from 'react-draggable';
 export const Draggable = Draggable1 as React.ComponentClass<Partial<DraggableProps>>;
 
-export const NODE_CONTENT_PADDING = 12;
-
-import { INodeActionProps, INodePortsProps, INodeProps } from './Node.types';
-import { Port } from './Port/Port';
-import { CIRCUIT_SIZE, NODE_POSITION_OFFSET_X, NODE_WIDTH } from '../../constants/circuit';
-import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
-import { Icon } from '../Icon/Icon';
+import { INodeActionProps, INodePortsProps, INodeProps } from '~/components/Node/Node.types';
+import { Port } from '~/components/Node/Port/Port';
+import { CIRCUIT_SIZE, NODE_POSITION_OFFSET_X, NODE_WIDTH } from '~/constants/circuit';
 import { useHover } from '~/hooks/useHover/useHover';
-import clsx from 'clsx';
-import { HIERARCHY } from '~/constants/hierarchy';
+import { fromCartesianPoint } from '~/utils/coordinates/coordinates';
+
+
+
+export const NODE_CONTENT_PADDING = 12;
 
 export const Node = observer(
     // eslint-disable-next-line react/display-name
     React.forwardRef<HTMLDivElement, INodeProps>(
-        ({ name, active, inputs, outputs, position, actions, icon, onDrag, onClick, onFocus }, ref) => {
+        ({ name, active, inputs, outputs, position, actions, onDrag, onClick, onFocus }, ref) => {
             const { onMouseEnter, onMouseLeave, isHovered } = useHover();
 
             const nodeWrapperClassNames = clsx(

@@ -1,9 +1,9 @@
-import * as React from 'react';
 import clsx from 'clsx';
+import * as React from 'react';
+import { CSSProperties } from 'react';
 
 import { ITooltipNodeProps, ITooltipProps, TooltipPosition } from './Tooltip.types';
 import { useHover } from '../../hooks/useHover/useHover';
-import { CSSProperties } from 'react';
 
 const getPositionalStyles = (
     position: TooltipPosition,

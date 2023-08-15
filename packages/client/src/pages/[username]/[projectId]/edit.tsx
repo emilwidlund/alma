@@ -1,6 +1,5 @@
 'use client';
 
-import { nodes, TextureResolver, WebGLContext } from '@usealma/webgl';
 import { SettingsOutlined, MemoryOutlined, StreamOutlined } from '@mui/icons-material';
 import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
@@ -59,7 +58,7 @@ function EditorContainer() {
         if (!activeLayer) return;
 
         return circuits?.get(activeLayer.id);
-    }, [nodes, activeLayer, circuits]);
+    }, [activeLayer, circuits]);
 
     const circuitContainerClassNames = clsx('absolute top-0 right-0 bottom-0 left-0 overflow-auto');
     const fragmentEditorContainerClassNames = clsx(

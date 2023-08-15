@@ -1,5 +1,5 @@
-import { WebGLContext } from '@usealma/webgl';
 import { Layer, Project } from '@usealma/types';
+import { WebGLContext } from '@usealma/webgl';
 import { PropsWithChildren } from 'react';
 
 export type ProjectProviderProps = PropsWithChildren<{
