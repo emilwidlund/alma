@@ -5,10 +5,11 @@ import { noop } from 'lodash';
 import * as React from 'react';
 
 import type { ICircuitContextValue, ICircuitProviderProps } from './CircuitProvider.types';
-import { CIRCUIT_SIZE, NODE_CENTER } from '../../constants/circuit';
-import { normalizeBounds, withinBounds } from '../../utils/bounds/bounds';
 import { Bounds } from '../../utils/bounds/bounds.types';
-import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
+
+import { CIRCUIT_SIZE, NODE_CENTER } from '~/constants/circuit';
+import { normalizeBounds, withinBounds } from '~/utils/bounds/bounds';
+import { fromCartesianPoint } from '~/utils/coordinates/coordinates';
 
 const defaultCircuitValue: ICircuitContextValue = {
     context: undefined,
@@ -35,6 +36,7 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
     const [connectionDraft, setConnectionDraft] = React.useState<Output<any> | undefined>();
     const [selectedNodes, setSelectedNodes] = React.useState<Node[] | undefined>([]);
     const [selectionBounds, setSelectionBounds] = React.useState<Bounds | undefined>(undefined);
+
 
     const handleSetNodeElement = React.useCallback(
         (nodeId: string, nodeElement: HTMLDivElement) => {
@@ -149,40 +151,22 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
         }
     }, [context, selectionBounds, nodeElements, handleSetSelectedNodes]);
 
-    const value = React.useMemo<ICircuitContextValue>(
-        () => ({
-            context,
-            nodeElements,
-            setNodeElement: handleSetNodeElement,
-            removeNodeElement: handleRemoveNodeElement,
-            portElements,
-            setPortElement: handleSetPortElement,
-            removePortElement: handleRemovePortElement,
-            connectionDraft,
-            setConnectionDraft: handleSetConnectionDraft,
-            commitConnectionDraft: handleCommitConnectionDraft,
-            selectedNodes,
-            setSelectedNodes: handleSetSelectedNodes,
-            selectionBounds,
-            setSelectionBounds: handleSetSelectionBounds
-        }),
-        [
-            context,
-            nodeElements,
-            handleSetNodeElement,
-            handleRemoveNodeElement,
-            portElements,
-            connectionDraft,
-            handleSetConnectionDraft,
-            handleCommitConnectionDraft,
-            handleSetPortElement,
-            handleRemovePortElement,
-            handleSetSelectedNodes,
-            handleSetSelectionBounds,
-            selectedNodes,
-            selectionBounds
-        ]
-    );
+    const value = {
+        context,
+        nodeElements,
+        setNodeElement: handleSetNodeElement,
+        removeNodeElement: handleRemoveNodeElement,
+        portElements,
+        setPortElement: handleSetPortElement,
+        removePortElement: handleRemovePortElement,
+        connectionDraft,
+        setConnectionDraft: handleSetConnectionDraft,
+        commitConnectionDraft: handleCommitConnectionDraft,
+        selectedNodes,
+        setSelectedNodes: handleSetSelectedNodes,
+        selectionBounds,
+        setSelectionBounds: handleSetSelectionBounds
+    }
 
     return <CircuitContext.Provider value={value}>{children}</CircuitContext.Provider>;
 };

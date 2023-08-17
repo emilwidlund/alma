@@ -10,9 +10,8 @@ import { CIRCUIT_SIZE, NODE_POSITION_OFFSET_X, NODE_WIDTH } from '~/constants/ci
 import { useHover } from '~/hooks/useHover/useHover';
 import { fromCartesianPoint } from '~/utils/coordinates/coordinates';
 
-
-
 export const NODE_CONTENT_PADDING = 12;
+
 
 export const Node = observer(
     // eslint-disable-next-line react/display-name
@@ -21,7 +20,7 @@ export const Node = observer(
             const { onMouseEnter, onMouseLeave, isHovered } = useHover();
 
             const nodeWrapperClassNames = clsx(
-                `absolute flex flex-col select-none rounded-xl transition-shadow bg-neutral-100 active:shadow-xl`,
+                `absolute flex flex-col select-none rounded-xl transition-shadow bg-neutral-300 active:shadow-xl`,
                 {
                     'z-10': active,
                     'z-20': !active,
@@ -30,8 +29,9 @@ export const Node = observer(
             );
 
             const nodeHeaderWrapperClassNames = clsx(
-                'flex flex-row justify-between items-center py-2 px-4 text-xxs font-medium bg-neutral-100 uppercase tracking-wider rounded-t-xl border-b-2 border-b-neutral-400',
+                'flex flex-row justify-between items-center py-2 px-4 text-xxs font-medium bg-neutral-300 uppercase tracking-wider rounded-t-xl border-b-2',
                 {
+                    'border-b-neutral-400': !active,
                     'border-b-accent': active
                 }
             );
@@ -42,7 +42,7 @@ export const Node = observer(
             });
 
             const nodeContentWrapperClassNames = clsx(
-                `flex flex-row justify-between items-start rounded-b-xl border-b-neutral-400`
+                `flex flex-row justify-between items-start rounded-b-xl border-b-neutral-300`
             );
 
             return (
@@ -95,11 +95,13 @@ export const Node = observer(
     )
 );
 
-const NodeAction = ({ onClick }: INodeActionProps) => {
+// eslint-disable-next-line react/display-name
+const NodeAction = React.memo(({ onClick }: INodeActionProps) => {
     return <div className="w-2 h-2 rounded bg-red-400 hover:opacity-50 transition-opacity" onClick={onClick} />;
-};
+});
 
-const NodePorts = ({ ports, isOutputWrapper }: INodePortsProps) => {
+// eslint-disable-next-line react/display-name
+const NodePorts = React.memo(({ ports, isOutputWrapper }: INodePortsProps) => {
     const portsWrapperClassNames = clsx('flex flex-col grow-1', {
         'items-end': isOutputWrapper,
         'items-start': isOutputWrapper
@@ -112,4 +114,4 @@ const NodePorts = ({ ports, isOutputWrapper }: INodePortsProps) => {
             ))}
         </div>
     );
-};
+});

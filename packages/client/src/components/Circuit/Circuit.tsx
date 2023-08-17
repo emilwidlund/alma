@@ -21,7 +21,7 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
 
                 scrollRef.current.scrollTo({ left: x - offsetX, top: y - offsetY });
             }
-        }, [size]);
+        }, []);
 
         return (
             <div ref={scrollRef} className={clsx('relative w-full h-full overflow-auto', className)}>

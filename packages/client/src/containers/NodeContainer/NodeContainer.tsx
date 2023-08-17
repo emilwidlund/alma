@@ -15,12 +15,12 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
     React.useEffect(() => {
         if (ref.current) {
             circuit.setNodeElement(node.id, ref.current);
-
-            return () => {
-                circuit.removeNodeElement(node.id);
-            };
         }
-    }, [circuit, node.id]);
+
+        return () => {
+            circuit.removeNodeElement(node.id);
+        };
+    }, []);
 
     const onClick = React.useCallback(
         () => {

@@ -60,12 +60,12 @@ export const Port = observer(({ port }: IPortProps) => {
     React.useEffect(() => {
         if (ref.current) {
             circuit.setPortElement(port.id, ref.current);
-
-            return () => {
-                circuit.removePortElement(port.id);
-            };
         }
-    }, [circuit, port.id]);
+
+        return () => {
+            circuit.removePortElement(port.id);
+        };
+    }, []);
 
     const onMouseDown = React.useCallback(() => {
         if (isOutput) {

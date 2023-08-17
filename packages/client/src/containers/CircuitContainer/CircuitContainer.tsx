@@ -113,7 +113,7 @@ export const CircuitContainer = observer(
         return (
             <Circuit
                 ref={ref}
-                className={clsx('realtive bg-neutral-300')}
+                className={clsx('realtive bg-neutral-100')}
                 size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
                 onMouseDown={onMouseDown}
                 onMouseMove={onMouseMove}
