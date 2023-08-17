@@ -203,8 +203,10 @@ export const render = (
     const update = () => {
         animationFrame = requestAnimationFrame(update);
 
+        const time = (Date.now() - startTime) / 1000;
+
         for (const { model, fbo } of sequence) {
-            model.uniforms!.uTime = (Date.now() - startTime) / 1000;
+            model.uniforms!.uTime = time;
 
             // Draw to separate rendering texture if such exist
             if (fbo) {
