@@ -204,12 +204,17 @@ export const render = (
         animationFrame = requestAnimationFrame(update);
 
         for (const { model, fbo } of sequence) {
-            fbo?.bind();
-
             model.uniforms!.uTime = (Date.now() - startTime) / 1000;
 
+            // Draw to separate rendering texture if such exist
+            if (fbo) {
+                fbo.bind();
+                draw(model);
+                fbo.unbind();
+            }
+            
+            // Draw to GL context
             draw(model);
-            fbo?.unbind();
         }
     };
 
