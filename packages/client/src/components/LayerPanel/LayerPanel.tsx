@@ -1,6 +1,5 @@
 'use client';
 
-import { Layer } from '@/../types/build';
 import {
     RouteOutlined,
     NotesOutlined,
@@ -20,6 +19,8 @@ import { Input } from '../Input/Input';
 import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable';
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
+
+import { Layer } from '@/../types/build';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 import { DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT } from '~/templates/layer';
 
@@ -88,6 +89,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                                     className="font-medium text-xs line-clamp-1 cursor-text"
                                     spellCheck={false}
                                     contentEditable
+                                    suppressContentEditableWarning={true}
                                     onInput={handleInput}
                                     onBlur={handleBlur}
                                 >

@@ -1,6 +1,6 @@
 // CORE
-export * from './core/RendererNode/RendererNode';
-export * from './core/RendererNode/RendererNode.types';
+export * from './core/WebGLContextNode/WebGLContextNode';
+export * from './core/WebGLContextNode/WebGLContextNode.ts.types';
 
 // MATH
 export * from './math/AdditionNode/AdditionNode';

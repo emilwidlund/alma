@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
@@ -11,6 +12,8 @@ import { useKeyboardActions } from '../../hooks/useKeyboardActions/useKeyboardAc
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { normalizeBounds } from '../../utils/bounds/bounds';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
+
+import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
 const Nodes = observer(() => {
     const circuit = useCircuit();
@@ -72,9 +75,23 @@ const Selection = observer(() => {
 export const CircuitContainer = observer(
     // eslint-disable-next-line react/display-name
     React.forwardRef<HTMLDivElement, ICircuitContainerProps>((_, ref) => {
+        const project = useProjectContext();
         const circuit = useCircuit();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
         useKeyboardActions();
+
+        React.useEffect(() => {
+            return reaction(
+                () => circuit.context?.values,
+                () => {
+                    const serialized = JSON.stringify(circuit.context);
+
+                    if (project.activeLayerId) {
+                        project.updateLayerContext(project.activeLayerId, serialized);
+                    }
+                }
+            );
+        }, [project, circuit]);
 
         const onMouseMove = React.useCallback(
             (e: React.MouseEvent<HTMLDivElement>) => {

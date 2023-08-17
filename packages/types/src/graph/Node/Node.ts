@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const WebGLNodeTypeSchema = z.enum([
-    'RENDERER',
+    'WEBGL_CONTEXT',
     'SIMPLEX_NOISE',
     'CAMERA',
     'SINE',

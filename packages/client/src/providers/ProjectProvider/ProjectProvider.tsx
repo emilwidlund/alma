@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars */
 
-import { Layer, Project, ProjectSchema } from '@usealma/types';
+import { CircuitSchema, Layer, Project, ProjectSchema } from '@usealma/types';
 import { WebGLContext } from '@usealma/webgl';
-import { produce } from 'immer';
+import { enableMapSet, produce } from 'immer';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+
+enableMapSet();
 
 import { ProjectProviderProps, ProjectContextValue } from './ProjectProvider.types';
 
@@ -25,6 +27,11 @@ export const defaultProjectContextValue: ProjectContextValue = {
 };
 
 export const ProjectContext = createContext(defaultProjectContextValue);
+
+if (typeof window !== 'undefined') {
+
+    console.log(CircuitSchema.parse(JSON.parse(window.localStorage.getItem('context') || '{}')))
+}
 
 export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) => {
     const [project, setProject] = useState<Project>();
@@ -116,7 +123,9 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
 
     const updateCircuits = useCallback(
         (id: string, circuit: WebGLContext) => {
-            setCircuits(circuits => circuits.set(id, circuit));
+            setCircuits(produce(draft => {
+                draft.set(id, circuit as any)
+            }));
         },
         [setCircuits]
     );

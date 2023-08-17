@@ -3,13 +3,13 @@ import _ from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
+import { INodeData, INodeInputs, INodeOutputs, INodePosition, INodeProps, INodeSerialized } from './Node.types';
 import { Connection } from '../Connection/Connection';
 import { Context } from '../Context/Context';
 import { Input } from '../Input/Input';
 import { ComputedInputValue, IInputSerialized, InputValue, SerializableInputValue } from '../Input/Input.types';
 import { Output } from '../Output/Output';
 import { IOutputSerialized } from '../Output/Output.types';
-import { INodeData, INodeInputs, INodeOutputs, INodePosition, INodeProps, INodeSerialized } from './Node.types';
 
 export abstract class Node {
     /** Associated Context */
