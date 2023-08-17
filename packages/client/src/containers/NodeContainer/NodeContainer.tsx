@@ -20,6 +20,7 @@ export const NodeContainer = observer(({ node }: INodeContainerProps) => {
         return () => {
             circuit.removeNodeElement(node.id);
         };
+// eslint-disabled-next-line react-hooks/exhaustive-deps
     }, []);
 
     const onClick = React.useCallback(

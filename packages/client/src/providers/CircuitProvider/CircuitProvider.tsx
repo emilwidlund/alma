@@ -6,7 +6,6 @@ import * as React from 'react';
 
 import type { ICircuitContextValue, ICircuitProviderProps } from './CircuitProvider.types';
 import { Bounds } from '../../utils/bounds/bounds.types';
-
 import { CIRCUIT_SIZE, NODE_CENTER } from '~/constants/circuit';
 import { normalizeBounds, withinBounds } from '~/utils/bounds/bounds';
 import { fromCartesianPoint } from '~/utils/coordinates/coordinates';

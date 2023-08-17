@@ -65,6 +65,7 @@ export const Port = observer(({ port }: IPortProps) => {
         return () => {
             circuit.removePortElement(port.id);
         };
+// eslint-disabled-next-line react-hooks/exhaustive-deps
     }, []);
 
     const onMouseDown = React.useCallback(() => {

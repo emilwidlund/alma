@@ -21,6 +21,7 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
 
                 scrollRef.current.scrollTo({ left: x - offsetX, top: y - offsetY });
             }
+// eslint-disabled-next-line react-hooks/exhaustive-deps
         }, []);
 
         return (
