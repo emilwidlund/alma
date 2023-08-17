@@ -49,7 +49,7 @@ export const Port = observer(({ port }: IPortProps) => {
         'flex flex-col items-center justify-center text-xxs font-medium tracking-normal rounded w-4 h-4 transition-all',
         {
             'bg-red-400': port.connected && isPortTypeHovered,
-            'bg-neutral-400': !port.connected && !isHovered,
+            'bg-neutral-500': !port.connected && !isHovered,
             'bg-accent': (port.connected && !isPortTypeHovered) || (!port.connected && isHovered),
             'text-white': highlighted,
             'ml-3': isOutput,

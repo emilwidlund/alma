@@ -22,7 +22,8 @@ module.exports = {
                 'neutral-100': '#E5E8FA',
                 'neutral-200': '#DEE2F5',
                 'neutral-300': '#DDE1F6',
-                'neutral-400': '#CACFEA'
+                'neutral-400': '#d3d7ed',
+                'neutral-500': '#c8cce2'
             },
             fontFamily: {
                 sans: ['var(--font-inter)']

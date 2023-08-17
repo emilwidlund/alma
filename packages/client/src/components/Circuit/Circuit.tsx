@@ -32,7 +32,7 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
                     style={{
                         width: size.width,
                         height: size.height,
-                        backgroundImage: 'radial-gradient(#bfbfbf 5%, transparent 5%)',
+                        backgroundImage: 'radial-gradient(rgba(0,0,0,.15) 5%, transparent 5%)',
                         backgroundPosition: '0 0',
                         backgroundSize: '30px 30px'
                     }}

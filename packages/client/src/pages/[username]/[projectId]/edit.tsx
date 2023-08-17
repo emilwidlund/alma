@@ -101,7 +101,7 @@ export default function Editor() {
                 <div className="relative flex flex-col flex-grow">
                     <EditorHeader />
                     <div className="relative flex flex-row flex-grow items-center">
-                        <aside className="fixed flex flex-col h-full items-center justify-start pl-12 z-10">
+                        <aside className="fixed flex flex-col h-full items-center justify-start pl-12 z-30">
                             <div className="my-auto">
                                 <FloatingTabBar
                                     items={[
