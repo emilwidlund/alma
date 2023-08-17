@@ -1,5 +1,6 @@
 /** eslint-disable @typescript-eslint/no-explicit-any */
 
+import { CloseOutlined } from '@mui/icons-material';
 import { Input, Output } from '@usealma/graph';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
@@ -8,7 +9,6 @@ import * as React from 'react';
 import { IPortProps } from './Port.types';
 import { useCircuit } from '../../../hooks/useCircuit/useCircuit';
 import { useHover } from '../../../hooks/useHover/useHover';
-import { Icon } from '../../Icon/Icon';
 import { Tooltip } from '../../Tooltip/Tooltip';
 import { TooltipPosition } from '../../Tooltip/Tooltip.types';
 
@@ -109,7 +109,7 @@ export const Port = observer(({ port }: IPortProps) => {
                     onClick={onClick}
                 >
                     {port.connected && isPortTypeHovered && !visuallyDisabled ? (
-                        <Icon name="close" size={12} />
+                        <CloseOutlined fontSize="inherit" />
                     ) : (
                         <span>{port.type.charAt(0).toUpperCase()}</span>
                     )}
