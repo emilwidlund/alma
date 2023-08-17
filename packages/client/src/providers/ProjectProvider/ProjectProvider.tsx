@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars */
 
-import { CircuitSchema, Layer, Project, ProjectSchema } from '@usealma/types';
+import { Layer, Project, ProjectSchema } from '@usealma/types';
 import { WebGLContext } from '@usealma/webgl';
 import { enableMapSet, produce } from 'immer';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
@@ -27,11 +27,6 @@ export const defaultProjectContextValue: ProjectContextValue = {
 };
 
 export const ProjectContext = createContext(defaultProjectContextValue);
-
-if (typeof window !== 'undefined') {
-
-    console.log(CircuitSchema.parse(JSON.parse(window.localStorage.getItem('context') || '{}')))
-}
 
 export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) => {
     const [project, setProject] = useState<Project>();
