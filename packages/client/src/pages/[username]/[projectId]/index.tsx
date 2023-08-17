@@ -48,14 +48,12 @@ function EditorHeader() {
 function PreviewContainer() {
     const previewRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const { project, activeLayer, handleCompilationError, compilationError, handleCompilationSuccess } =
+    const { project, handleCompilationError, compilationError, handleCompilationSuccess } =
         useProjectContext();
 
     useRenderer(
         canvasRef,
-        project
-            ? [...project.layers.slice(undefined, project.layers.findIndex(layer => layer.id === activeLayer?.id) + 1)]
-            : [],
+        project?.layers || [],
         handleCompilationError,
         handleCompilationSuccess
     );
