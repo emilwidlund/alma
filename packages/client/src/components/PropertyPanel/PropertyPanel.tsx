@@ -16,7 +16,7 @@ export const PropertyPanel = () => {
             undefined, 
             project.layers.findIndex(layer => layer.id === activeLayer?.id) + 1
         )
-    ] : [project, activeLayer]);
+    ] : [], [project, activeLayer]);
 
     useRenderer(
         canvasRef,
