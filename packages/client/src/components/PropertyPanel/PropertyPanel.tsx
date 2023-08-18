@@ -4,6 +4,7 @@ import { useRef, useMemo } from 'react';
 import { useRenderer } from '../../hooks/useRenderer/useRenderer';
 // import { IconButton } from '../IconButton/IconButton';
 import { LayerPanel } from '../LayerPanel/LayerPanel';
+
 // import { UniformsPanel } from '../UniformsPanel/UniformsPanel';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 

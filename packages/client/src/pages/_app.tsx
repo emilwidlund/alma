@@ -10,10 +10,17 @@ export default function App({ Component, pageProps: { initialSession, ...pagePro
     const [supabaseClient] = useState(() => createPagesBrowserClient());
 
     return (
-        <SessionContextProvider supabaseClient={supabaseClient} initialSession={initialSession}>
-            <main className={`${inter.className} font-sans`}>
-                <Component {...pageProps} />
-            </main>
-        </SessionContextProvider>
+        <>
+            <style jsx global>
+                {`html {
+                    font-family: ${inter.style.fontFamily}
+                }`}
+            </style>
+            <SessionContextProvider supabaseClient={supabaseClient} initialSession={initialSession}>
+                    <main>
+                        <Component {...pageProps} />
+                    </main>
+            </SessionContextProvider>
+        </>
     );
 }

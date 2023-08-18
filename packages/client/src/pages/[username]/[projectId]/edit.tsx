@@ -17,6 +17,7 @@ import { PropertyPanel } from '~/components/PropertyPanel/PropertyPanel';
 import { CircuitContainer } from '~/containers/CircuitContainer/CircuitContainer';
 import { FragmentEditor } from '~/containers/FragmentEditor/FragmentEditor';
 import { CircuitProvider } from '~/providers/CircuitProvider/CircuitProvider';
+import { ModalProvider } from '~/providers/ModalProvider/ModalProvider';
 import { ProjectProvider, useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 import { Size } from '~/types';
 
@@ -97,38 +98,40 @@ export default function Editor() {
 
     return (
         <ProjectProvider projectId={projectId as string}>
-            <main className="flex flex-row h-screen">
-                <div className="relative flex flex-col flex-grow">
-                    <EditorHeader />
-                    <div className="relative flex flex-row flex-grow items-center">
-                        <aside className="fixed flex flex-col h-full items-center justify-start pl-12 z-30">
-                            <div className="my-auto">
-                                <FloatingTabBar
-                                    items={[
-                                        {
-                                            name: 'Preview',
-                                            path: `/${username}/${projectId}`,
-                                            icon: <StreamOutlined />
-                                        },
-                                        {
-                                            name: 'Edit',
-                                            path: `/${username}/${projectId}/edit`,
-                                            icon: <MemoryOutlined />
-                                        },
-                                        {
-                                            name: 'Settings',
-                                            path: `/${username}/${projectId}/settings`,
-                                            icon: <SettingsOutlined />
-                                        }
-                                    ]}
-                                />
-                            </div>
-                        </aside>
-                        <EditorContainer />
+            <ModalProvider>
+                <main className="flex flex-row h-screen">
+                    <div className="relative flex flex-col flex-grow">
+                        <EditorHeader />
+                        <div className="relative flex flex-row flex-grow items-center">
+                            <aside className="fixed flex flex-col h-full items-center justify-start pl-12 z-30">
+                                <div className="my-auto">
+                                    <FloatingTabBar
+                                        items={[
+                                            {
+                                                name: 'Preview',
+                                                path: `/${username}/${projectId}`,
+                                                icon: <StreamOutlined />
+                                            },
+                                            {
+                                                name: 'Edit',
+                                                path: `/${username}/${projectId}/edit`,
+                                                icon: <MemoryOutlined />
+                                            },
+                                            {
+                                                name: 'Settings',
+                                                path: `/${username}/${projectId}/settings`,
+                                                icon: <SettingsOutlined />
+                                            }
+                                        ]}
+                                    />
+                                </div>
+                            </aside>
+                            <EditorContainer />
+                        </div>
                     </div>
-                </div>
-                <PropertyPanel />
-            </main>
+                    <PropertyPanel />
+                </main>
+            </ModalProvider>
         </ProjectProvider>
     );
 }

@@ -21,8 +21,8 @@ import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
 
 import { Layer } from '@/../types/build';
+import { useNewLayerModal } from '~/hooks/useNewLayerModal/useNewLayerModal';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
-import { DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT } from '~/templates/layer';
 
 const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
     const { toggleLayer, renameLayer } = useProjectContext();
@@ -111,19 +111,13 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
 };
 
 export const LayerPanel = () => {
-    const { project, activeLayer, setActiveLayerId, createLayer, reorderLayers } = useProjectContext();
+    const { project, activeLayer, setActiveLayerId, reorderLayers } = useProjectContext();
     const items = useMemo(() => project?.layers.slice().reverse() ?? [], [project]);
+    const { open } = useNewLayerModal();
 
     const handleCreateLayer = useCallback(() => {
-        createLayer({
-            id: Math.random().toString(),
-            name: 'Untitled',
-            type: 'FRAGMENT',
-            enabled: true,
-            blendingMode: 'NORMAL',
-            context: DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT
-        });
-    }, [createLayer]);
+        open();
+    }, [open]);
 
     const createSelectLayerHandler = useCallback(
         (layer: Layer) => {
