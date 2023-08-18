@@ -1,7 +1,7 @@
 import { Node } from '@usealma/graph';
 import { useCallback, useMemo } from 'react';
 
-import { NodeActionProps } from '../../components/Node/Node.types';
+import { NodeActionProps } from '../../components/Circuit/Node/Node.types';
 import { useCircuit } from '../useCircuit/useCircuit';
 
 export const useNodeActions = (node: Node): NodeActionProps[] => {
