@@ -1,10 +1,10 @@
 import { Node } from '@usealma/graph';
 import { useCallback, useMemo } from 'react';
 
-import { INodeActionProps } from '../../components/Node/Node.types';
+import { NodeActionProps } from '../../components/Node/Node.types';
 import { useCircuit } from '../useCircuit/useCircuit';
 
-export const useNodeActions = (node: Node): INodeActionProps[] => {
+export const useNodeActions = (node: Node): NodeActionProps[] => {
     const circuit = useCircuit();
 
     const onClose = useCallback(() => {
