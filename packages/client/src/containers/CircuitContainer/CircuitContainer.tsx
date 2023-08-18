@@ -1,19 +1,27 @@
+import { Node } from '@usealma/graph'
+import { ClassConstructor } from '@usealma/webgl';
 import clsx from 'clsx';
 import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
+
 import { ICircuitContainerProps, IConnectionsProps } from './CircuitContainer.types';
 import { Circuit } from '../../components/Circuit/Circuit';
-import { Connection } from '../../components/Connection/Connection';
 import { CIRCUIT_SIZE } from '../../constants/circuit';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { useKeyboardActions } from '../../hooks/useKeyboardActions/useKeyboardActions';
 import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition';
 import { normalizeBounds } from '../../utils/bounds/bounds';
+import { nodesHierarchy } from '../../utils/nodes/nodes';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
 
+import { Connection } from '~/components/Circuit/Connection/Connection';
+import { ContextMenuContainer } from '~/components/Circuit/ContextMenu/ContextMenuContainer/ContextMenuContainer';
+import { useCreateNode } from '~/hooks/useCreateNode/useCreateNode';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
+import { Point } from '~/types';
+import { toCartesianPoint } from '~/utils/coordinates/coordinates';
 
 const Nodes = observer(() => {
     const circuit = useCircuit();
@@ -75,6 +83,7 @@ const Selection = observer(() => {
 export const CircuitContainer = observer(
     // eslint-disable-next-line react/display-name
     React.forwardRef<HTMLDivElement, ICircuitContainerProps>((_, ref) => {
+        const [contextMenuPosition, toggleContextMenu] = React.useState<Point | undefined>(undefined);
         const project = useProjectContext();
         const circuit = useCircuit();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
@@ -127,6 +136,39 @@ export const CircuitContainer = observer(
             circuit.setSelectionBounds();
         }, [circuit]);
 
+
+
+        const createNode = useCreateNode(
+            circuit.context,
+            contextMenuPosition
+                ? toCartesianPoint(CIRCUIT_SIZE, CIRCUIT_SIZE, contextMenuPosition.x, contextMenuPosition.y)
+                : undefined
+        );
+
+        const onContextMenuItemClick = React.useCallback(
+            (nodeClass: ClassConstructor<Node>) => {
+                toggleContextMenu(undefined);
+
+                createNode(nodeClass);
+            },
+            [createNode, toggleContextMenu]
+        );
+
+        const onContextMenu = React.useCallback(
+            (e: React.MouseEvent<HTMLDivElement>) => {
+                e.preventDefault();
+
+                toggleContextMenu(position => {
+                    if (position) {
+                        return undefined;
+                    } else {
+                        return mousePosition;
+                    }
+                });
+            },
+            [toggleContextMenu, mousePosition]
+        );
+
         return (
             <Circuit
                 ref={ref}
@@ -135,10 +177,28 @@ export const CircuitContainer = observer(
                 onMouseDown={onMouseDown}
                 onMouseMove={onMouseMove}
                 onMouseUp={onMouseUp}
+                onContextMenu={onContextMenu}
             >
                 <Nodes />
                 <Connections mousePosition={mousePosition} />
                 <Selection />
+                {!!contextMenuPosition && (
+                    <ContextMenuContainer
+                        position={contextMenuPosition}
+                        sections={[
+                            {
+                                items: [
+                                    {
+                                        icon: 'add',
+                                        label: 'New Node',
+                                        items: nodesHierarchy(onContextMenuItemClick)
+                                    }
+                                ]
+                            }
+                        ]}
+                        onClose={() => toggleContextMenu(undefined)}
+                    />
+                )}
             </Circuit>
         );
     })

@@ -4,9 +4,11 @@ import * as React from 'react';
 
 import { IConnectionProps } from './Connection.types';
 import { quadraticCurve } from './Connection.utils';
-import { CIRCUIT_SIZE, NODE_POSITION_OFFSET_X } from '../../constants/circuit';
-import { useCircuit } from '../../hooks/useCircuit/useCircuit';
-import { fromCircuitCartesianPoint } from '../../utils/coordinates/coordinates';
+
+import { CIRCUIT_SIZE, NODE_POSITION_OFFSET_X } from '~/constants/circuit';
+import { useCircuit } from '~/hooks/useCircuit/useCircuit';
+import { fromCircuitCartesianPoint } from '~/utils/coordinates/coordinates';
+
 
 const INPUT_PORT_OFFSET_X = 12;
 const INPUT_PORT_OFFSET_Y = 12;

@@ -7,10 +7,11 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { IPortProps } from './Port.types';
-import { useCircuit } from '../../../hooks/useCircuit/useCircuit';
-import { useHover } from '../../../hooks/useHover/useHover';
-import { Tooltip } from '../../Tooltip/Tooltip';
-import { TooltipPosition } from '../../Tooltip/Tooltip.types';
+
+import { Tooltip } from '~/components/Tooltip/Tooltip';
+import { TooltipPosition } from '~/components/Tooltip/Tooltip.types';
+import { useCircuit } from '~/hooks/useCircuit/useCircuit';
+import { useHover } from '~/hooks/useHover/useHover';
 
 export const Port = observer(({ port }: IPortProps) => {
     const ref = React.useRef<HTMLDivElement>(null);

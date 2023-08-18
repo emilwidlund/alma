@@ -1,5 +1,5 @@
 import { Node } from '@usealma/graph';
 
-export interface INodeContainerProps {
+export interface NodeContainerProps {
     node: Node;
 }

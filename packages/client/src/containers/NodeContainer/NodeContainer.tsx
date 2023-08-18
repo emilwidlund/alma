@@ -2,12 +2,13 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { DraggableEventHandler } from 'react-draggable';
 
-import { INodeContainerProps } from './NodeContainer.types';
-import { Node } from '../../components/Node/Node';
+import { NodeContainerProps } from './NodeContainer.types';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { useNodeActions } from '../../hooks/useNodeActions/useNodeActions';
 
-export const NodeContainer = observer(({ node }: INodeContainerProps) => {
+import { Node } from '~/components/Circuit/Node/Node';
+
+export const NodeContainer = observer(({ node }: NodeContainerProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
     const circuit = useCircuit();
     const actions = useNodeActions(node);

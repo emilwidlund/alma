@@ -3,31 +3,31 @@
 import { Input, Output } from '@usealma/graph';
 import { DraggableEventHandler } from 'react-draggable';
 
-interface INodePosition {
+interface NodePosition {
     x: number;
     y: number;
 }
 
-export interface INodeProps {
+export interface NodeProps {
     name: string;
     inputs: Input<any>[];
     outputs: Output<any>[];
-    position: INodePosition;
+    position: NodePosition;
     active: boolean;
     icon: string;
-    actions?: INodeActionProps[];
+    actions?: NodeActionProps[];
     onDrag: DraggableEventHandler;
     onClick?(e: React.MouseEvent<HTMLDivElement>): void;
     onFocus?(e: React.FocusEvent<HTMLDivElement>): void;
 }
 
-export interface INodeActionProps {
+export interface NodeActionProps {
     icon?: string;
     color?: string;
     onClick(e: React.MouseEvent<HTMLElement, MouseEvent>): void;
 }
 
-export interface INodePortsProps {
+export interface NodePortsProps {
     ports: Input<any>[] | Output<any>[];
     isOutputWrapper?: boolean;
 }

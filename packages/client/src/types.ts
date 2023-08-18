@@ -10,6 +10,11 @@ export enum Size {
     XXL
 }
 
+export type Point = {
+    x: number;
+    y: number;
+}
+
 /**
  * A const enum that includes all non-printable string values one can expect from $event.key.
  * For example, this enum includes values like "CapsLock", "Backspace", and "AudioVolumeMute",

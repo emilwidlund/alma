@@ -4,8 +4,8 @@ import * as React from 'react';
 import Draggable1, { DraggableProps } from 'react-draggable';
 export const Draggable = Draggable1 as React.ComponentClass<Partial<DraggableProps>>;
 
-import { INodeActionProps, INodePortsProps, INodeProps } from '~/components/Node/Node.types';
-import { Port } from '~/components/Node/Port/Port';
+import { NodeActionProps, NodePortsProps, NodeProps } from '~/components/Circuit/Node/Node.types';
+import { Port } from '~/components/Circuit/Node/Port/Port';
 import { CIRCUIT_SIZE, NODE_POSITION_OFFSET_X, NODE_WIDTH } from '~/constants/circuit';
 import { useHover } from '~/hooks/useHover/useHover';
 import { fromCartesianPoint } from '~/utils/coordinates/coordinates';
@@ -15,15 +15,15 @@ export const NODE_CONTENT_PADDING = 12;
 
 export const Node = observer(
     // eslint-disable-next-line react/display-name
-    React.forwardRef<HTMLDivElement, INodeProps>(
+    React.forwardRef<HTMLDivElement, NodeProps>(
         ({ name, active, inputs, outputs, position, actions, onDrag, onClick, onFocus }, ref) => {
             const { onMouseEnter, onMouseLeave, isHovered } = useHover();
 
             const nodeWrapperClassNames = clsx(
                 `absolute flex flex-col select-none rounded-xl transition-shadow bg-neutral-300 active:shadow-xl`,
                 {
-                    'z-10': active,
-                    'z-20': !active,
+                    'z-10': !active,
+                    'z-20': active,
                     'shadow-xl': active
                 }
             );
@@ -96,12 +96,12 @@ export const Node = observer(
 );
 
 // eslint-disable-next-line react/display-name
-const NodeAction = React.memo(({ onClick }: INodeActionProps) => {
+const NodeAction = React.memo(({ onClick }: NodeActionProps) => {
     return <div className="w-2 h-2 rounded bg-red-400 hover:opacity-50 transition-opacity" onClick={onClick} />;
 });
 
 // eslint-disable-next-line react/display-name
-const NodePorts = React.memo(({ ports, isOutputWrapper }: INodePortsProps) => {
+const NodePorts = React.memo(({ ports, isOutputWrapper }: NodePortsProps) => {
     const portsWrapperClassNames = clsx('flex flex-col grow-1', {
         'items-end': isOutputWrapper,
         'items-start': isOutputWrapper
