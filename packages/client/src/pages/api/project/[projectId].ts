@@ -99,7 +99,7 @@ const PUT = async (req: NextApiRequest, res: NextApiResponse) => {
         data: {
             name: projectData.name,
             image: projectData.image,
-            // layers: projectData.layers
+            layers: projectData.layers
         }
     });
 };
