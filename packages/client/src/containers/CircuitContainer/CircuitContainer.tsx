@@ -37,19 +37,36 @@ const Nodes = observer(() => {
 
 const Connections = observer(({ mousePosition }: IConnectionsProps) => {
     const ref = React.useRef<SVGSVGElement>(null);
+    const [mouseState, setMouseState] = React.useState<'idle' | 'down' | 'move'>('idle');
     const circuit = useCircuit();
+
+    const  onMouseDown = React.useCallback(() => {
+        if (mouseState === 'idle') {
+            setMouseState('down');
+        }
+    }, [mouseState]);
+
+    const onMouseMove = React.useCallback(() => {
+        if (mouseState === 'down') {
+            setMouseState('move');
+        }
+    }, [mouseState]);
+
+    const onMouseUp = React.useCallback(() => {
+        setMouseState('idle');
+    }, []);
 
     const onClick = React.useCallback(
         (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-            if (ref.current === e.target) {
+            if (ref.current === e.target && mouseState === 'down') {
                 circuit.setSelectedNodes([]);
             }
         },
-        [circuit]
+        [circuit, mouseState]
     );
 
     return (
-        <svg ref={ref} id="connections" width="100%" height="100%" onClick={onClick}>
+        <svg ref={ref} id="connections" width="100%" height="100%" onMouseDown={onMouseDown} onMouseMove={onMouseMove} onMouseUp={onMouseUp} onClick={onClick}>
             {Array.from(circuit.context?.connections.values() || []).map(connection => (
                 <Connection key={connection.id} connection={connection} />
             ))}
@@ -135,8 +152,6 @@ export const CircuitContainer = observer(
             circuit.setConnectionDraft();
             circuit.setSelectionBounds();
         }, [circuit]);
-
-
 
         const createNode = useCreateNode(
             circuit.context,
