@@ -167,7 +167,7 @@ export const LayerPanel = () => {
                 <Select
                     className="ml-2 border border-black border-opacity-5"
                     icon={TonalityOutlined}
-                    defaultValue={activeLayer?.blendingMode}
+                    value={activeLayer?.blendingMode}
                     onChange={handleUpdateBlendingMode}
                 >
                     {Object.values(BlendingModeSchema.Values).map(blendingMode => <option key={blendingMode}>{blendingMode}</option>)}
