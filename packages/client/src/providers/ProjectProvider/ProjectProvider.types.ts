@@ -1,4 +1,4 @@
-import { Layer, Project } from '@usealma/types';
+import { BlendingMode, Layer, Project } from '@usealma/types';
 import { WebGLContext } from '@usealma/webgl';
 import { PropsWithChildren } from 'react';
 
@@ -15,6 +15,7 @@ export type ProjectContextValue = {
     createLayer(layer: Layer): void;
     toggleLayer(layerId: string, toggle: boolean): void;
     renameLayer(layerId: string, name: string): void;
+    updateLayerBlendingMode(layerId: string, blendingMode: BlendingMode): void;
     updateLayerContext(layerId: string, context: string): void;
     reorderLayers(layers: Layer[]): void;
     updateCircuits(id: string, context: WebGLContext): void;

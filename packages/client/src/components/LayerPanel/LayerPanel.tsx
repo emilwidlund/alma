@@ -8,19 +8,20 @@ import {
     TonalityOutlined,
     MoreVertOutlined
 } from '@mui/icons-material';
+import { BlendingMode, BlendingModeSchema, Layer } from '@usealma/types';
 import { clsx } from 'clsx';
-import { FormEventHandler, useCallback, useMemo } from 'react';
+import { ChangeEventHandler, FormEventHandler, useCallback, useMemo } from 'react';
 import { DragDropContext, Draggable, OnDragEndResponder, OnDragStartResponder } from 'react-beautiful-dnd';
 
 import { LayerItemProps } from './LayerPanel.types';
 import { ButtonVariant } from '../Button/Button.types';
 import { IconButton } from '../IconButton/IconButton';
 import { Input } from '../Input/Input';
+import { Select } from '../Select/Select';
 import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable';
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
 
-import { Layer } from '@/../types/build';
 import { useNewLayerModal } from '~/hooks/useNewLayerModal/useNewLayerModal';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
@@ -111,7 +112,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
 };
 
 export const LayerPanel = () => {
-    const { project, activeLayer, setActiveLayerId, reorderLayers } = useProjectContext();
+    const { project, activeLayer, updateLayerBlendingMode, setActiveLayerId, reorderLayers } = useProjectContext();
     const items = useMemo(() => project?.layers.slice().reverse() ?? [], [project]);
     const { open } = useNewLayerModal();
 
@@ -153,18 +154,27 @@ export const LayerPanel = () => {
         [items, reorderLayers]
     );
 
+    const handleUpdateBlendingMode: ChangeEventHandler<HTMLSelectElement> = useCallback((e) => {
+        if (activeLayer) {
+            updateLayerBlendingMode(activeLayer.id, e.target.value as BlendingMode);
+        }
+    }, [activeLayer, updateLayerBlendingMode]);
+
     return (
         <div className="flex flex-col shrink-0 grow">
             <div className="flex items-center mb-4">
                 <IconButton icon={<AddOutlined />} onPress={handleCreateLayer} />
-                <Input
+                <Select
                     className="ml-2 border border-black border-opacity-5"
-                    icon={<TonalityOutlined />}
-                    defaultValue="Normal"
-                />
+                    icon={TonalityOutlined}
+                    defaultValue={activeLayer?.blendingMode}
+                    onChange={handleUpdateBlendingMode}
+                >
+                    {Object.values(BlendingModeSchema.Values).map(blendingMode => <option key={blendingMode}>{blendingMode}</option>)}
+                </Select>
                 <Input
                     className="ml-2 w-28 border border-black border-opacity-5"
-                    icon={<OpacityOutlined />}
+                    icon={OpacityOutlined}
                     defaultValue="100%"
                 />
                 <IconButton className="ml-2" variant={ButtonVariant.SECONDARY} icon={<MoreVertOutlined />} />

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars */
 
-import { Layer, Project, ProjectSchema } from '@usealma/types';
+import { BlendingMode, Layer, Project, ProjectSchema } from '@usealma/types';
 import { WebGLContext } from '@usealma/webgl';
 import { enableMapSet, produce } from 'immer';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
@@ -16,6 +16,7 @@ export const defaultProjectContextValue: ProjectContextValue = {
     createLayer: (layer: Layer) => {},
     toggleLayer: (layerId: string, toggle: boolean) => {},
     renameLayer: (layerId: string, name: string) => {},
+    updateLayerBlendingMode: (layerId: string, blendingMode: BlendingMode) => {},
     updateLayerContext: (layerId: string, context: string) => {},
     reorderLayers: (layers: Layer[]) => {},
     circuits: undefined,
@@ -106,6 +107,17 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
         );
     }, []);
 
+    const updateLayerBlendingMode = useCallback((layerId: string, blendingMode: BlendingMode) => {
+        setProject(
+            produce(draft => {
+                if (draft) {
+                    const index = draft.layers.findIndex(l => l.id === layerId);
+                    draft.layers[index].blendingMode = blendingMode;
+                }
+            })
+        );
+    }, []);
+
     const reorderLayers = useCallback((layers: Layer[]) => {
         setProject(
             produce(draft => {
@@ -145,6 +157,7 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
             createLayer,
             toggleLayer,
             renameLayer,
+            updateLayerBlendingMode,
             updateLayerContext,
             reorderLayers,
             circuits,
@@ -161,6 +174,7 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
             createLayer,
             toggleLayer,
             renameLayer,
+            updateLayerBlendingMode,
             updateLayerContext,
             reorderLayers,
             circuits,

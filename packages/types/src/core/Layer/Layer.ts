@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { ContextSchema } from '../Context/Context';
 import { FragmentSchema } from '../Fragment/Fragment';
 
-export const BlendingModeSchema = z.enum(['NONE', 'NORMAL', 'ADDITIVE', 'SUBTRACTIVE', 'MULTIPLY']);
+export const BlendingModeSchema = z.enum(['NONE', 'NORMAL', 'ADD', 'SCREEN', 'MULTIPLY', 'OVERLAY']);
 
 export const LayerTypeSchema = z.enum(['FRAGMENT', 'CIRCUIT']);
 

@@ -11,18 +11,21 @@ import {
     defFBO,
     compileModel,
     ShaderUniformSpecs,
-    BLEND_NORMAL,
     ShaderFn,
-    Shader
+    Shader,
+    BlendFunc
 } from '@thi.ng/webgl';
-import { Layer } from '@usealma/types';
+import { BlendingMode, Layer } from '@usealma/types';
 import { nodes, TextureResolver, WebGLContext } from '@usealma/webgl';
 
 import { RenderDisposer, RenderSequence } from './Renderer.types';
+import { BlendFn } from '../Blend/Blend';
+
 
 const createShaderSpec = (
     gl: WebGL2RenderingContext,
     fragmentSource: string | ShaderFn,
+    blendingMode: BlendingMode,
     uniforms?: ShaderUniformSpecs,
     textures?: [string, Texture][]
 ): ShaderSpec => {
@@ -45,7 +48,7 @@ const createShaderSpec = (
         varying: { vUv: 'vec2' },
         state: {
             blend: true,
-            blendFn: BLEND_NORMAL
+            blendFn: BlendFn[blendingMode] as BlendFunc,
         }
         // generateDecls: true
     };
@@ -157,6 +160,7 @@ export const render = (
                     const shaderSpec = createShaderSpec(
                         gl,
                         fragmentSource,
+                        currentLayer.blendingMode,
                         uniforms,
                         previousLayerTexture ? [['uPreviousLayer', previousLayerTexture]] : undefined
                     );

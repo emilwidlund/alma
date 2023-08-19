@@ -13,7 +13,7 @@ const SelectionBox = ({ icon: Icon, title, onClick }: {icon: typeof StreamOutlin
     return (
         <div className='flex flex-col items-center justify-center text-center w-48 h-48 bg-neutral-300 hover:bg-neutral-100 hover:text-accent hover:shadow-xl transition-colors rounded-3xl cursor-pointer text-5xl' onClick={onClick}>
             <Icon fontSize="inherit" />
-            <h4 className='text-lg font-medium mt-6'>{title}</h4>
+            <h4 className='text-base font-medium mt-6'>{title}</h4>
         </div>
     );
 }
