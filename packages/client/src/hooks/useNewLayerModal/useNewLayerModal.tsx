@@ -1,5 +1,5 @@
 
-import { StreamOutlined, TextSnippetOutlined } from '@mui/icons-material';
+import { NotesOutlined, RouteOutlined, StreamOutlined } from '@mui/icons-material';
 import * as React from 'react';
 
 import { NEW_LAYER_MODAL_ID } from '../../constants/modals';
@@ -11,9 +11,9 @@ import { DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT, DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT }
 
 const SelectionBox = ({ icon: Icon, title, onClick }: {icon: typeof StreamOutlined; title: string; onClick: React.MouseEventHandler<HTMLDivElement> | undefined}) => {
     return (
-        <div className='flex-1 flex-col items-center justify-center text-center p-12 bg-neutral-300 hover:bg-neutral-400 transition-colors rounded-2xl' onClick={onClick}>
-            <Icon fontSize="large" />
-            <h4 className='text-lg font-medium mt-4'>{title}</h4>
+        <div className='flex flex-col items-center justify-center text-center w-48 h-48 bg-neutral-300 hover:bg-neutral-100 hover:text-accent hover:shadow-xl transition-colors rounded-3xl cursor-pointer text-5xl' onClick={onClick}>
+            <Icon fontSize="inherit" />
+            <h4 className='text-lg font-medium mt-6'>{title}</h4>
         </div>
     );
 }
@@ -55,14 +55,14 @@ const NewLayerModalContent = () => {
             <p>
                 Select which kind of layer you would like to create
             </p>
-            <div className="flex flex-row items-center justify-center gap-4 mt-8 flex-wrap">
+            <div className="flex flex-row items-center mt-12 flex-wrap gap-x-6">
                 <SelectionBox
-                    icon={StreamOutlined}
+                    icon={RouteOutlined}
                     title="Circuit"
                     onClick={handleCreateCircuitProject}
                 />
                 <SelectionBox
-                    icon={TextSnippetOutlined}
+                    icon={NotesOutlined}
                     title="Code"
                     onClick={handleCreateSourceProject}
                 />
