@@ -53,7 +53,8 @@ function EditorContainer() {
     const circuitRef = useRef<HTMLDivElement>(null);
     const { circuits, activeLayer, compilationError } = useProjectContext();
 
-    const shouldRenderGraph = useMemo(() => activeLayer?.type === 'CIRCUIT', [activeLayer]);
+    const shouldRenderCircuit= useMemo(() => activeLayer?.type === 'CIRCUIT', [activeLayer]);
+    const shouldRenderEditor = useMemo(() => activeLayer?.type === 'FRAGMENT', [activeLayer]);
 
     const circuit = useMemo(() => {
         if (!activeLayer) return;
@@ -71,13 +72,14 @@ function EditorContainer() {
 
     return (
         <main className="relative flex flex-col items-center justify-center grow w-full h-full overflow-auto">
-            {shouldRenderGraph ? (
+            {shouldRenderCircuit && (
                 <div className={circuitContainerClassNames}>
                     <CircuitProvider context={circuit}>
                         <CircuitContainer ref={circuitRef} />
                     </CircuitProvider>
                 </div>
-            ) : (
+            )}
+            {shouldRenderEditor && (
                 <div className={fragmentEditorContainerClassNames}>
                     <FragmentEditor />
                 </div>

@@ -28,7 +28,7 @@ export const ContextMenuContainer = ({ position, sections, onClose }: ContextMen
     }, [closeOnEscapeKey]);
 
     return (
-        <div ref={ref} className="flex flex-col p-2 rounded-xl bg-neutral-300 absolute w-52 uppercase tracking-wider shadow-md z-20 font-medium text-xxs" 
+        <div ref={ref} className="flex flex-col p-2 rounded-xl bg-neutral-300 absolute w-52 uppercase tracking-wider shadow-lg z-20 font-medium text-xxs" 
         style={position ? { top: `${position.y}px`, left: `${position.x}px` }: undefined}>
             {sections.map((section, index) => (
                 <div className={"flex flex-col mt-4 first-of-type:mt-0"} key={index}>

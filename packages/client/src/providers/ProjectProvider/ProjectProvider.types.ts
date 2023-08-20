@@ -15,6 +15,7 @@ export type ProjectContextValue = {
     createLayer(layer: Layer): void;
     toggleLayer(layerId: string, toggle: boolean): void;
     renameLayer(layerId: string, name: string): void;
+    removeLayer(layerId: string): void;
     updateLayerBlendingMode(layerId: string, blendingMode: BlendingMode): void;
     updateLayerContext(layerId: string, context: string): void;
     reorderLayers(layers: Layer[]): void;

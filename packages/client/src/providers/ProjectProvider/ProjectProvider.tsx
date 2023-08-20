@@ -18,6 +18,7 @@ export const defaultProjectContextValue: ProjectContextValue = {
     renameLayer: (layerId: string, name: string) => {},
     updateLayerBlendingMode: (layerId: string, blendingMode: BlendingMode) => {},
     updateLayerContext: (layerId: string, context: string) => {},
+    removeLayer: (layerId: string) => {},
     reorderLayers: (layers: Layer[]) => {},
     circuits: undefined,
     updateCircuits: (id: string, context: WebGLContext) => {},
@@ -107,6 +108,25 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
         );
     }, []);
 
+    const removeLayer = useCallback((layerId: string) => {
+        const layerIndex = project?.layers.findIndex(layer => layer.id === layerId);
+
+        setProject(
+            produce(draft => {
+                if (draft) {
+                    draft.layers = draft.layers.filter(layer => layerId !== layer.id);
+
+                    if (typeof layerIndex !== 'undefined') {
+                        const candidateIndex = (layerIndex - 1) <= 0 ? 0 : layerIndex - 1;
+                        const layerId = draft?.layers[candidateIndex]?.id;
+                        setActiveLayerId(layerId);
+                    }
+                }
+            })
+        );
+
+    }, [project]);
+
     const updateLayerBlendingMode = useCallback((layerId: string, blendingMode: BlendingMode) => {
         setProject(
             produce(draft => {
@@ -157,6 +177,7 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
             createLayer,
             toggleLayer,
             renameLayer,
+            removeLayer,
             updateLayerBlendingMode,
             updateLayerContext,
             reorderLayers,
@@ -174,6 +195,7 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
             createLayer,
             toggleLayer,
             renameLayer,
+            removeLayer,
             updateLayerBlendingMode,
             updateLayerContext,
             reorderLayers,

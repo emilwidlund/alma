@@ -11,11 +11,12 @@ import { BlendingMode, BlendingModeSchema, Layer } from '@usealma/types';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
 import { capitalize, upperCase } from 'lodash';
-import { ChangeEventHandler, FormEventHandler, useCallback, useMemo } from 'react';
+import { ChangeEventHandler, FormEventHandler, useCallback, useMemo, useState } from 'react';
 import { DragDropContext, Draggable, OnDragEndResponder, OnDragStartResponder } from 'react-beautiful-dnd';
 
 import { LayerItemProps } from './LayerPanel.types';
 import { ButtonVariant } from '../Button/Button.types';
+import { ContextMenuContainer } from '../Circuit/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { IconButton } from '../IconButton/IconButton';
 import { Select } from '../Select/Select';
 import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable';
@@ -116,7 +117,8 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
 };
 
 export const LayerPanel = () => {
-    const { project, activeLayer, updateLayerBlendingMode, setActiveLayerId, reorderLayers } = useProjectContext();
+    const [contextMenuOpen, toggleContextMenu] = useState(false);
+    const { project, activeLayer, activeLayerId, updateLayerBlendingMode, removeLayer, setActiveLayerId, reorderLayers } = useProjectContext();
     const items = useMemo(() => project?.layers.slice().reverse() ?? [], [project]);
     const { open } = useNewLayerModal();
 
@@ -164,6 +166,17 @@ export const LayerPanel = () => {
         }
     }, [activeLayer, updateLayerBlendingMode]);
 
+    const handleToggleContextMenu = useCallback(() => {
+        toggleContextMenu(state => !state);
+    }, [toggleContextMenu]);
+
+    const handleRemoveLayer = useCallback(() => {
+        if (activeLayerId) {
+            removeLayer(activeLayerId);
+            toggleContextMenu(false);
+        }
+    }, [removeLayer, activeLayerId]);
+
     return (
         <div className="flex flex-col shrink-0 grow">
             <div className="flex flex-nowrap gap-x-4 items-center mb-4">
@@ -175,7 +188,10 @@ export const LayerPanel = () => {
                 >
                     {Object.values(BlendingModeSchema.Values).map(blendingMode => <option key={blendingMode}>{capitalize(blendingMode)}</option>)}
                 </Select>
-                <IconButton variant={ButtonVariant.SECONDARY} icon={<MoreVertOutlined />} />
+                <div className='relative'>
+                    <IconButton variant={ButtonVariant.SECONDARY} icon={<MoreVertOutlined />} onPress={handleToggleContextMenu} />
+                    {contextMenuOpen && <ContextMenuContainer sections={[{ items: [{ icon: '', label: 'Remove Layer', onClick: handleRemoveLayer }] }]} position={{ x: -160, y: 40 }} onClose={() => toggleContextMenu(false)} />}
+                </div>
             </div>
             <Well className="grow">
                 <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
