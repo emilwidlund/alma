@@ -2,20 +2,18 @@ import { float, Prim, exp } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
-import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
-import { WebGLNodeType } from '../../../types';
 import {
     IExponentiationNodeInputs,
     IExponentiationNodeOutputs,
     IExponentiationNodeProps
 } from './ExponentiationNode.types';
+import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
+import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { WebGLNodeType } from '../../../types';
 
 export class ExponentiationNode extends PolymorphicNode {
-    static icon = 'monitoring';
     static description = 'Returns the natural exponentiation of the given input.';
     static nodeName = 'Exponentiation';
-
     type = WebGLNodeType.EXPONENTIATION;
 
     declare inputs: IExponentiationNodeInputs;

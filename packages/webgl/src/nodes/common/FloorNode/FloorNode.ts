@@ -2,15 +2,13 @@ import { float, floor, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IFloorNodeInputs, IFloorNodeOutputs, IFloorNodeProps } from './FloorNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IFloorNodeInputs, IFloorNodeOutputs, IFloorNodeProps } from './FloorNode.types';
 
 export class FloorNode extends PolymorphicNode {
-    static icon = 'vertical_align_bottom';
     static description = 'Returns a value equal to the nearest integer that is less than or equal to the input.';
-
     static nodeName = 'Floor';
     type = WebGLNodeType.FLOOR;
 

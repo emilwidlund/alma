@@ -2,15 +2,13 @@ import { float, Prim, pow } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IPowerNodeInputs, IPowerNodeOutputs, IPowerNodeProps } from './PowerNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IPowerNodeInputs, IPowerNodeOutputs, IPowerNodeProps } from './PowerNode.types';
 
 export class PowerNode extends PolymorphicNode {
-    static icon = 'bolt';
     static description = 'Raises input A to the power of input B.';
-
     static nodeName = 'Power';
     type = WebGLNodeType.POWER;
 

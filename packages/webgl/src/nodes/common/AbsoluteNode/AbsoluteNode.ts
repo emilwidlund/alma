@@ -2,15 +2,13 @@ import { abs, float, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IAbsoluteNodeInputs, IAbsoluteNodeOutputs, IAbsoluteNodeProps } from './AbsoluteNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IAbsoluteNodeInputs, IAbsoluteNodeOutputs, IAbsoluteNodeProps } from './AbsoluteNode.types';
 
 export class AbsoluteNode extends PolymorphicNode {
-    static icon = 'call_missed_outgoing';
     static description = 'Computes the absolute value of the input.';
-
     static nodeName = 'Absolute';
     type = WebGLNodeType.ABSOLUTE;
 

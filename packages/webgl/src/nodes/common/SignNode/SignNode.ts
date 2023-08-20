@@ -2,16 +2,13 @@ import { float, Prim, sign } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { ISignNodeInputs, ISignNodeOutputs, ISignNodeProps } from './SignNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ISignNodeInputs, ISignNodeOutputs, ISignNodeProps } from './SignNode.types';
 
 export class SignNode extends PolymorphicNode {
-    static icon = 'turn_sharp_right';
-    static description =
-        'Returns -1.0 if input is less than 0.0, 0.0 if input is equal to 0.0, and +1.0 if input is greater than 0.0.';
-
+    static description = 'Returns -1.0 if input is less than 0.0, 0.0 if input is equal to 0.0, and +1.0 if input is greater than 0.0.';
     static nodeName = 'Sign';
     type = WebGLNodeType.SIGN;
 

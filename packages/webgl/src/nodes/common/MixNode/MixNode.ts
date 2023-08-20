@@ -8,10 +8,8 @@ import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 
 export class MixNode extends PolymorphicNode {
-    static icon = 'tonality';
     static description = 'Performs a linear interpolation between A and B using T to weight between them.';
     static nodeName = 'Mix';
-
     type = WebGLNodeType.MIX;
 
     declare inputs: IMixNodeInputs;

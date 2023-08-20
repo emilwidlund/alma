@@ -8,10 +8,7 @@ import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 
 export class SimplexNoiseNode extends Node {
-    static icon = 'snowing';
-    static description =
-        'The result of an n-dimensional noise function comparable to Perlin Noise but with fewer directional artifacts.';
-
+    static description = 'The result of an n-dimensional noise function comparable to Perlin Noise but with fewer directional artifacts.';
     static nodeName = 'Simplex Noise';
     type = WebGLNodeType.SIMPLEX_NOISE;
 

@@ -2,16 +2,14 @@ import { float, Prim, smoothstep } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { ISmoothstepNodeInputs, ISmoothstepNodeOutputs, ISmoothstepNodeProps } from './SmoothstepNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ISmoothstepNodeInputs, ISmoothstepNodeOutputs, ISmoothstepNodeProps } from './SmoothstepNode.types';
 
 export class SmoothstepNode extends PolymorphicNode {
-    static icon = 'border_vertical';
     static description = 'Returns a smooth Hermite interpolation between 0 and 1 when Edge A < Input < Edge B.';
     static nodeName = 'Smoothstep';
-
     type = WebGLNodeType.SMOOTHSTEP;
 
     declare inputs: ISmoothstepNodeInputs;

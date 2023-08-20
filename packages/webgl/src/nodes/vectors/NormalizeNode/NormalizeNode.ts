@@ -2,15 +2,13 @@ import { normalize, Vec, vec2 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { INormalizeNodeInputs, INormalizeNodeOutputs, INormalizeNodeProps } from './NormalizeNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { INormalizeNodeInputs, INormalizeNodeOutputs, INormalizeNodeProps } from './NormalizeNode.types';
 
 export class NormalizeNode extends PolymorphicNode {
-    static icon = 'keyboard_double_arrow_down';
     static description = 'Returns a vector of the same direction as the input, but with length 1.';
-
     static nodeName = 'Normalize';
     type = WebGLNodeType.NORMALIZE;
 

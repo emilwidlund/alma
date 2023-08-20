@@ -6,9 +6,7 @@ import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 
 export class TimeNode extends Node {
-    static icon = 'timer';
     static description = 'The amount of seconds that has elapsed since rendering began.';
-
     static nodeName = 'Time';
     type = WebGLNodeType.TIME;
 

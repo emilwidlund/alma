@@ -8,9 +8,7 @@ import { WebGLNodeType } from '../../../types';
 import { aspectCorrectedTextureUV } from '../../../utils/shaders/shaders';
 
 export class CameraNode extends Node {
-    static icon = 'camera';
     static description = 'Resolves a texture from the Webcam on desktop or Camera on phone.';
-
     static nodeName = 'Camera';
     type = WebGLNodeType.CAMERA;
 

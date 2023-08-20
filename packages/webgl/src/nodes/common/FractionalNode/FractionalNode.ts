@@ -2,15 +2,13 @@ import { float, fract, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IFractionalNodeInputs, IFractionalNodeOutputs, IFractionalNodeProps } from './FractionalNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IFractionalNodeInputs, IFractionalNodeOutputs, IFractionalNodeProps } from './FractionalNode.types';
 
 export class FractionalNode extends PolymorphicNode {
-    static icon = 'stacked_line_chart';
     static description = 'Computes the fractional part of the input.';
-
     static nodeName = 'Fractional';
     type = WebGLNodeType.FRACTIONAL;
 

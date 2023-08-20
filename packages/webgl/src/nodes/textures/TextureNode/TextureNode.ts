@@ -10,11 +10,10 @@ import { isPromise } from '../../../utils/predicates/predicates';
 import { aspectCorrectedTextureUV } from '../../../utils/shaders/shaders';
 
 export class TextureNode extends Node {
-    static icon = 'texture';
     static nodeName = 'Texture';
     static description = 'Represents an image, fetched from the provided URI.';
-
     type = WebGLNodeType.TEXTURE;
+    
     declare inputs: ITextureNodeInputs;
     declare outputs: ITextureNodeOutputs;
     data: ITextureNodeData;

@@ -24,9 +24,7 @@ const frag = `vec4 creation(in vec2 uv, in float time) {
 
 export class CreationEffectNode extends GLSLNode {
     static nodeName = 'Creation';
-    static icon = 'stream';
-    static description =
-        'Creation is an effect, originally made by Danilo Guanabara, which utilizes various shaping functions.';
+    static description = 'Creation is an effect, originally made by Danilo Guanabara, which utilizes various shaping functions.';
     static glsl = frag;
 
     type = WebGLNodeType.CREATION_EFFECT;

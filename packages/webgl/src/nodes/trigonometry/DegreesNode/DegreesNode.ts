@@ -2,16 +2,14 @@ import { float, Prim, degrees } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IDegreesNodeInputs, IDegreesNodeOutputs, IDegreesNodeProps } from './DegreesNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IDegreesNodeInputs, IDegreesNodeOutputs, IDegreesNodeProps } from './DegreesNode.types';
 
 export class DegreesNode extends PolymorphicNode {
-    static icon = 'fiber_manual_record';
     static description = 'Returns (180.0 * radians) / PI.';
     static nodeName = 'Degrees';
-
     type = WebGLNodeType.DEGREES;
 
     declare inputs: IDegreesNodeInputs;

@@ -2,15 +2,13 @@ import { clamp, float, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IClampNodeInputs, IClampNodeOutputs, IClampNodeProps } from './ClampNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IClampNodeInputs, IClampNodeOutputs, IClampNodeProps } from './ClampNode.types';
 
 export class ClampNode extends PolymorphicNode {
-    static icon = 'unfold_less';
     static description = 'Returns the value of input constrained between the range min to max.';
-
     static nodeName = 'Clamp';
     type = WebGLNodeType.CLAMP;
 

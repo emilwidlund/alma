@@ -2,15 +2,13 @@ import { ceil, float, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { ICeilNodeInputs, ICeilNodeOutputs, ICeilNodeProps } from './CeilNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ICeilNodeInputs, ICeilNodeOutputs, ICeilNodeProps } from './CeilNode.types';
 
 export class CeilNode extends PolymorphicNode {
-    static icon = 'vertical_align_top';
     static description = 'Returns a value equal to the nearest integer that is greater than or equal to input.';
-
     static nodeName = 'Ceil';
     type = WebGLNodeType.CEIL;
 

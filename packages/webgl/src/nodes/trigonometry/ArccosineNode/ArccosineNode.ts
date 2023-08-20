@@ -2,15 +2,13 @@ import { acos, float, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IArccosineNodeInputs, IArccosineNodeOutputs, IArccosineNodeProps } from './ArccosineNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IArccosineNodeInputs, IArccosineNodeOutputs, IArccosineNodeProps } from './ArccosineNode.types';
 
 export class ArccosineNode extends PolymorphicNode {
-    static icon = 'conversion_path';
     static description = 'Returns the angle whose trigonometric cosine is the input.';
-
     static nodeName = 'Arccosine';
     type = WebGLNodeType.ARCCOSINE;
 

@@ -8,9 +8,7 @@ import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 
 export class AdditionNode extends PolymorphicNode {
-    static icon = 'add';
     static description = 'Performs addition on the inputs.';
-
     static nodeName = 'Addition';
     type = WebGLNodeType.ADDITION;
 

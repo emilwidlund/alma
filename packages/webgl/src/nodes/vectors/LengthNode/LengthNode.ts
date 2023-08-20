@@ -2,15 +2,13 @@ import { length, Vec, vec2 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { ILengthNodeInputs, ILengthNodeOutputs, ILengthNodeProps } from './LengthNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ILengthNodeInputs, ILengthNodeOutputs, ILengthNodeProps } from './LengthNode.types';
 
 export class LengthNode extends PolymorphicNode {
-    static icon = 'call_made';
     static description = 'Returns the length (magnitude) of the input.';
-
     static nodeName = 'Length';
     type = WebGLNodeType.LENGTH;
 

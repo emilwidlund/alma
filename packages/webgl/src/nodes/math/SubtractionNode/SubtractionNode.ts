@@ -2,15 +2,13 @@ import { float, sub } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { ISubtractionNodeInputs, ISubtractionNodeOutputs, ISubtractionNodeProps } from './SubtractionNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ISubtractionNodeInputs, ISubtractionNodeOutputs, ISubtractionNodeProps } from './SubtractionNode.types';
 
 export class SubtractionNode extends PolymorphicNode {
-    static icon = 'remove';
     static description = 'Performs subtraction on the inputs.';
-
     static nodeName = 'Subtraction';
     type = WebGLNodeType.SUBTRACTION;
 

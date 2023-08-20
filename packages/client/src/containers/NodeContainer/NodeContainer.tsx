@@ -1,3 +1,4 @@
+import { WebGLNodeType } from '@usealma/webgl';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { DraggableEventHandler } from 'react-draggable';
@@ -7,11 +8,13 @@ import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { useNodeActions } from '../../hooks/useNodeActions/useNodeActions';
 
 import { Node } from '~/components/Circuit/Node/Node';
+import { NODE_ICON_RESOLVER_MAP } from '~/utils/icons/iconResolver';
 
 export const NodeContainer = observer(({ node }: NodeContainerProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
     const circuit = useCircuit();
     const actions = useNodeActions(node);
+    const Icon = NODE_ICON_RESOLVER_MAP[node.type as WebGLNodeType];
 
     React.useEffect(() => {
         if (ref.current) {
@@ -61,14 +64,13 @@ export const NodeContainer = observer(({ node }: NodeContainerProps) => {
             ref={ref}
             name={node.name}
             active={isSelected}
+            icon={Icon}
             inputs={Object.values(node.inputs)}
             outputs={Object.values(node.outputs)}
             onClick={onClick}
             onFocus={onFocus}
             onDrag={handleOnDrag}
             position={node.data.position}
-            // @ts-ignore
-            icon={node.constructor.icon}
             actions={actions}
         />
     );

@@ -2,15 +2,13 @@ import { atan, float, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IArctangentNodeInputs, IArctangentNodeOutputs, IArctangentNodeProps } from './ArctangentNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IArctangentNodeInputs, IArctangentNodeOutputs, IArctangentNodeProps } from './ArctangentNode.types';
 
 export class ArctangentNode extends PolymorphicNode {
-    static icon = 'conversion_path';
     static description = `Returns the angle whose trigonometric arctangent is x, y. The signs of x and y are used to determine the quadrant that the angle lies in. The values returned are in the range -PI and PI. Results are undefined if x is zero.`;
-
     static nodeName = 'Arctangent';
     type = WebGLNodeType.ARCTANGENT;
 

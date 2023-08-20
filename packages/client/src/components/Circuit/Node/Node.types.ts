@@ -1,5 +1,6 @@
 /** eslint-disable @typescript-eslint/no-explicit-any */
 
+import { TonalityOutlined } from '@mui/icons-material';
 import { Input, Output } from '@usealma/graph';
 import { DraggableEventHandler } from 'react-draggable';
 
@@ -14,7 +15,7 @@ export interface NodeProps {
     outputs: Output<any>[];
     position: NodePosition;
     active: boolean;
-    icon: string;
+    icon: typeof TonalityOutlined;
     actions?: NodeActionProps[];
     onDrag: DraggableEventHandler;
     onClick?(e: React.MouseEvent<HTMLDivElement>): void;

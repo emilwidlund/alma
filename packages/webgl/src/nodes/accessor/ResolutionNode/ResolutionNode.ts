@@ -6,9 +6,7 @@ import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 
 export class ResolutionNode extends Node {
-    static icon = 'panorama';
     static description = 'Resolution of the WebGL preview window.';
-
     static nodeName = 'Resolution';
     type = WebGLNodeType.RESOLUTION;
 

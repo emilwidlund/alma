@@ -2,12 +2,11 @@ import { cross, vec3 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps, Node } from '@usealma/graph';
 import { defaults } from 'lodash';
 
+import { ICrossProductNodeInputs, ICrossProductNodeOutputs, ICrossProductNodeProps } from './CrossProductNode.types';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ICrossProductNodeInputs, ICrossProductNodeOutputs, ICrossProductNodeProps } from './CrossProductNode.types';
 
 export class CrossProductNode extends Node {
-    static icon = 'shuffle';
     static description = 'Returns the cross product of two vectors, A and B.';
     static nodeName = 'Cross Product';
 

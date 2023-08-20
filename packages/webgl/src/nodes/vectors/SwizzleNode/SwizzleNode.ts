@@ -3,14 +3,12 @@ import { Input, IInputProps, Output, IOutputProps, SerializableInputValue, Node 
 import { defaults, defaultsDeep } from 'lodash';
 import { IReactionDisposer, reaction } from 'mobx';
 
+import { ISwizzleNodeInputs, ISwizzleNodeOutputs, ISwizzleNodeProps } from './SwizzleNode.types';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ISwizzleNodeInputs, ISwizzleNodeOutputs, ISwizzleNodeProps } from './SwizzleNode.types';
 
 export class SwizzleNode extends Node {
-    static icon = 'device_hub';
     static description = 'Destructs a Vector and returns its individual components.';
-
     static nodeName = 'Swizzle';
     type = WebGLNodeType.SWIZZLE;
 

@@ -2,16 +2,14 @@ import { float, Prim, degrees } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IRadiansNodeInputs, IRadiansNodeOutputs, IRadiansNodeProps } from './RadiansNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IRadiansNodeInputs, IRadiansNodeOutputs, IRadiansNodeProps } from './RadiansNode.types';
 
 export class RadiansNode extends PolymorphicNode {
-    static icon = 'pie_chart';
     static description = 'Returns (PI * degrees) / 180.';
     static nodeName = 'Radians';
-
     type = WebGLNodeType.RADIANS;
 
     declare inputs: IRadiansNodeInputs;

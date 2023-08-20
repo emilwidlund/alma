@@ -2,14 +2,12 @@ import { float, vec3 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Node, Output, IOutputProps } from '@usealma/graph';
 import { defaults } from 'lodash';
 
+import { IVector3NodeInputs, IVector3NodeOutputs, IVector3NodeProps } from './Vector3Node.types';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IVector3NodeInputs, IVector3NodeOutputs, IVector3NodeProps } from './Vector3Node.types';
 
 export class Vector3Node extends Node {
-    static icon = 'polyline';
     static description = 'A 3-component vector.';
-
     static nodeName = 'Vector 3';
     type = WebGLNodeType.VECTOR_3;
 

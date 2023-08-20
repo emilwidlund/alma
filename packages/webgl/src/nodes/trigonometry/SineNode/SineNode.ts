@@ -2,15 +2,13 @@ import { float, Prim, sin } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { ISineNodeInputs, ISineNodeOutputs, ISineNodeProps } from './SineNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ISineNodeInputs, ISineNodeOutputs, ISineNodeProps } from './SineNode.types';
 
 export class SineNode extends PolymorphicNode {
-    static icon = 'all_inclusive';
     static description = 'Returns the sine of the given input.';
-
     static nodeName = 'Sine';
     type = WebGLNodeType.SINE;
 

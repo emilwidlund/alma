@@ -16,7 +16,7 @@ export const NODE_CONTENT_PADDING = 12;
 export const Node = observer(
     // eslint-disable-next-line react/display-name
     React.forwardRef<HTMLDivElement, NodeProps>(
-        ({ name, active, inputs, outputs, position, actions, onDrag, onClick, onFocus }, ref) => {
+        ({ name, active, icon: Icon, inputs, outputs, position, actions, onDrag, onClick, onFocus }, ref) => {
             const { onMouseEnter, onMouseLeave, isHovered } = useHover();
 
             const nodeWrapperClassNames = clsx(
@@ -32,7 +32,8 @@ export const Node = observer(
                 'flex flex-row justify-between items-center py-2 px-4 text-xxs font-medium bg-neutral-300 uppercase tracking-wider rounded-t-xl border-b-2',
                 {
                     'border-b-neutral-400': !active,
-                    'border-b-accent': active
+                    'border-b-accent': active,
+                    'text-accent': active
                 }
             );
 
@@ -70,7 +71,10 @@ export const Node = observer(
                         tabIndex={0}
                     >
                         <div className={clsx(nodeHeaderWrapperClassNames, 'handle')}>
-                            <span>{name}</span>
+                            <span className='flex flex-row items-baseline'>
+                                <span className='text-base'><Icon fontSize='inherit' /></span>
+                                <span className='ml-2'>{name}</span>
+                            </span>
                             {!!actions?.length && (
                                 <div className={nodeActionsClassNames}>
                                     {actions.map((action, index) => (

@@ -8,9 +8,7 @@ import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 
 export class DivisionNode extends PolymorphicNode {
-    static icon = 'show_chart';
     static description = 'Performs division on the inputs.';
-
     static nodeName = 'Division';
     type = WebGLNodeType.DIVISION;
 

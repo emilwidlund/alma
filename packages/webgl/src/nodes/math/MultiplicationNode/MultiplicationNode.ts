@@ -12,9 +12,7 @@ import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
 
 export class MultiplicationNode extends PolymorphicNode {
-    static icon = 'close';
     static description = 'Performs multiplication on the inputs.';
-
     static nodeName = 'Multiplication';
     type = WebGLNodeType.MULTIPLICATION;
 

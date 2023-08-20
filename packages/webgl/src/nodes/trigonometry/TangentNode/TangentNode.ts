@@ -2,15 +2,13 @@ import { float, Prim, tan } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { ITangentNodeInputs, ITangentNodeOutputs, ITangentNodeProps } from './TangentNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ITangentNodeInputs, ITangentNodeOutputs, ITangentNodeProps } from './TangentNode.types';
 
 export class TangentNode extends PolymorphicNode {
-    static icon = 'swap_calls';
     static description = 'Returns the trigonometric tangent of the input.';
-
     static nodeName = 'Tangent';
     type = WebGLNodeType.TANGENT;
 

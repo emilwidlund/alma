@@ -2,16 +2,14 @@ import { float, min, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IMinimumNodeInputs, IMinimumNodeOutputs, IMinimumNodeProps } from './MinimumNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IMinimumNodeInputs, IMinimumNodeOutputs, IMinimumNodeProps } from './MinimumNode.types';
 
 export class MinimumNode extends PolymorphicNode {
-    static icon = 'arrow_downward';
     static description = 'Returns the lesser value of the given inputs.';
     static nodeName = 'Minimum';
-
     type = WebGLNodeType.MINIMUM;
 
     declare inputs: IMinimumNodeInputs;

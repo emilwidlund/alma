@@ -2,16 +2,14 @@ import { dot, Vec, vec2 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IDotProductNodeInputs, IDotProductNodeOutputs, IDotProductNodeProps } from './DotProductNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IDotProductNodeInputs, IDotProductNodeOutputs, IDotProductNodeProps } from './DotProductNode.types';
 
 export class DotProductNode extends PolymorphicNode {
-    static icon = 'multiple_stop';
     static description = 'Returns the dot product of two vectors, A and B.';
     static nodeName = 'Dot Product';
-
     type = WebGLNodeType.DOT_PRODUCT;
 
     declare inputs: IDotProductNodeInputs;

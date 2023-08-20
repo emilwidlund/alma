@@ -2,15 +2,13 @@ import { float, cos, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { ICosineNodeInputs, ICosineNodeOutputs, ICosineNodeProps } from './CosineNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ICosineNodeInputs, ICosineNodeOutputs, ICosineNodeProps } from './CosineNode.types';
 
 export class CosineNode extends PolymorphicNode {
-    static icon = 'all_inclusive';
     static description = 'Returns the cosine of the given input.';
-
     static nodeName = 'Cosine';
     type = WebGLNodeType.COSINE;
 

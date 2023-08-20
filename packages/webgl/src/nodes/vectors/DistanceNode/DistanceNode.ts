@@ -2,15 +2,13 @@ import { distance, Vec, vec2 } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IDistanceNodeInputs, IDistanceNodeOutputs, IDistanceNodeProps } from './DistanceNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IDistanceNodeInputs, IDistanceNodeOutputs, IDistanceNodeProps } from './DistanceNode.types';
 
 export class DistanceNode extends PolymorphicNode {
-    static icon = 'open_in_full';
     static description = 'Returns the distance between the inputs.';
-
     static nodeName = 'Distance';
     type = WebGLNodeType.DISTANCE;
 

@@ -2,15 +2,13 @@ import { float, Prim, step } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IStepNodeInputs, IStepNodeOutputs, IStepNodeProps } from './StepNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IStepNodeInputs, IStepNodeOutputs, IStepNodeProps } from './StepNode.types';
 
 export class StepNode extends PolymorphicNode {
-    static icon = 'horizontal_distribute';
     static description = 'Generates a step function by comparing input to edge.';
-
     static nodeName = 'Step';
     type = WebGLNodeType.STEP;
 

@@ -2,16 +2,14 @@ import { float, max, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IMaximumNodeInputs, IMaximumNodeOutputs, IMaximumNodeProps } from './MaximumNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IMaximumNodeInputs, IMaximumNodeOutputs, IMaximumNodeProps } from './MaximumNode.types';
 
 export class MaximumNode extends PolymorphicNode {
-    static icon = 'arrow_upward';
     static description = 'Returns the greater value of the given inputs.';
     static nodeName = 'Maximum';
-
     type = WebGLNodeType.MAXIMUM;
 
     declare inputs: IMaximumNodeInputs;

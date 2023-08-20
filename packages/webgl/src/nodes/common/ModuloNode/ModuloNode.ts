@@ -2,15 +2,13 @@ import { float, mod } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { IModuloNodeInputs, IModuloNodeOutputs, IModuloNodeProps } from './ModuloNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { IModuloNodeInputs, IModuloNodeOutputs, IModuloNodeProps } from './ModuloNode.types';
 
 export class ModuloNode extends PolymorphicNode {
-    static icon = 'percent';
     static description = 'Performs a modulo operation on inputs. Returns the remainder of a division.';
-
     static nodeName = 'Modulo';
     type = WebGLNodeType.MODULO;
 

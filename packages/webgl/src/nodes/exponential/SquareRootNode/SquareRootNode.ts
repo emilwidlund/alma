@@ -2,15 +2,13 @@ import { float, Prim, sqrt } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { ISquareRootNodeInputs, ISquareRootNodeOutputs, ISquareRootNodeProps } from './SquareRootNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ISquareRootNodeInputs, ISquareRootNodeOutputs, ISquareRootNodeProps } from './SquareRootNode.types';
 
 export class SquareRootNode extends PolymorphicNode {
-    static icon = 'file_download_done';
     static description = 'Returns the square root of the given input.';
-
     static nodeName = 'Square Root';
     type = WebGLNodeType.SQUARE_ROOT;
 

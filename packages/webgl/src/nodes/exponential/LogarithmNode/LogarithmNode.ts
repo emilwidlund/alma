@@ -2,16 +2,14 @@ import { float, Prim, log } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
+import { ILogarithmNodeInputs, ILogarithmNodeOutputs, ILogarithmNodeProps } from './LogarithmNode.types';
 import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
 import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
 import { WebGLNodeType } from '../../../types';
-import { ILogarithmNodeInputs, ILogarithmNodeOutputs, ILogarithmNodeProps } from './LogarithmNode.types';
 
 export class LogarithmNode extends PolymorphicNode {
-    static icon = 'reply_all';
     static description = 'Returns the natural logarithm of the given input.';
     static nodeName = 'Logarithm';
-
     type = WebGLNodeType.LOGARITHM;
 
     declare inputs: ILogarithmNodeInputs;

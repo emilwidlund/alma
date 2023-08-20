@@ -2,19 +2,17 @@ import { float, inversesqrt, Prim } from '@thi.ng/shader-ast';
 import { Input, IInputProps, Output, IOutputProps } from '@usealma/graph';
 import { defaults, defaultsDeep } from 'lodash';
 
-import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
-import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
-import { WebGLNodeType } from '../../../types';
 import {
     IInverseSquareRootNodeInputs,
     IInverseSquareRootNodeOutputs,
     IInverseSquareRootNodeProps
 } from './InverseSquareRootNode.types';
+import { PolymorphicNode } from '../../../models/PolymorphicNode/PolymorphicNode';
+import { WebGLContext } from '../../../models/WebGLContext/WebGLContext';
+import { WebGLNodeType } from '../../../types';
 
 export class InverseSquareRootNode extends PolymorphicNode {
-    static icon = 'file_download_done';
     static description = 'Returns the inverse square root of the given input.';
-
     static nodeName = 'Inverse Square Root';
     type = WebGLNodeType.INVERSE_SQUARE_ROOT;
 
