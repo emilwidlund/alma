@@ -201,15 +201,7 @@ export const CircuitContainer = observer(
                     <ContextMenuContainer
                         position={contextMenuPosition}
                         sections={[
-                            {
-                                items: [
-                                    {
-                                        icon: 'add',
-                                        label: 'New Node',
-                                        items: nodesHierarchy(onContextMenuItemClick)
-                                    }
-                                ]
-                            }
+                            ...nodesHierarchy(onContextMenuItemClick)
                         ]}
                         onClose={() => toggleContextMenu(undefined)}
                     />

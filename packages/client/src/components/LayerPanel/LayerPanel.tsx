@@ -4,29 +4,31 @@ import {
     RouteOutlined,
     NotesOutlined,
     AddOutlined,
-    OpacityOutlined,
     TonalityOutlined,
     MoreVertOutlined
 } from '@mui/icons-material';
 import { BlendingMode, BlendingModeSchema, Layer } from '@usealma/types';
 import { clsx } from 'clsx';
+import { motion } from 'framer-motion';
+import { capitalize, upperCase } from 'lodash';
 import { ChangeEventHandler, FormEventHandler, useCallback, useMemo } from 'react';
 import { DragDropContext, Draggable, OnDragEndResponder, OnDragStartResponder } from 'react-beautiful-dnd';
 
 import { LayerItemProps } from './LayerPanel.types';
 import { ButtonVariant } from '../Button/Button.types';
 import { IconButton } from '../IconButton/IconButton';
-import { Input } from '../Input/Input';
 import { Select } from '../Select/Select';
 import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable';
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
 
+import { useHover } from '~/hooks/useHover/useHover';
 import { useNewLayerModal } from '~/hooks/useNewLayerModal/useNewLayerModal';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
 const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
     const { toggleLayer, renameLayer } = useProjectContext();
+    const { isHovered, onMouseEnter, onMouseLeave } = useHover();
 
     const { type, name, enabled } = layer;
 
@@ -76,6 +78,8 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                         {...provided.dragHandleProps}
                         style={{ ...provided.draggableProps.style, marginBottom: 8 }}
                         onClick={onClick}
+                        onMouseEnter={onMouseEnter}
+                        onMouseLeave={onMouseLeave}
                     >
                         <div className="flex items-center">
                             <div className={iconClassNames}>
@@ -99,10 +103,10 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                                 <span className="text-xs opacity-50 mt-1 capitalize">{type.toLowerCase()}</span>
                             </div>
                         </div>
-                        {active && (
-                            <div className="mr-2 cursor-pointer">
+                        {(active || isHovered) && (
+                            <motion.div className="mr-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                 <Switch active={enabled} onChange={toggleEnabled} />
-                            </div>
+                            </motion.div>
                         )}
                     </div>
                 );
@@ -156,28 +160,22 @@ export const LayerPanel = () => {
 
     const handleUpdateBlendingMode: ChangeEventHandler<HTMLSelectElement> = useCallback((e) => {
         if (activeLayer) {
-            updateLayerBlendingMode(activeLayer.id, e.target.value as BlendingMode);
+            updateLayerBlendingMode(activeLayer.id, upperCase(e.target.value) as BlendingMode);
         }
     }, [activeLayer, updateLayerBlendingMode]);
 
     return (
         <div className="flex flex-col shrink-0 grow">
-            <div className="flex items-center mb-4">
+            <div className="flex flex-nowrap gap-x-4 items-center mb-4">
                 <IconButton icon={<AddOutlined />} onPress={handleCreateLayer} />
                 <Select
-                    className="ml-2 border border-black border-opacity-5"
                     icon={TonalityOutlined}
-                    value={activeLayer?.blendingMode}
+                    value={capitalize(activeLayer?.blendingMode)}
                     onChange={handleUpdateBlendingMode}
                 >
-                    {Object.values(BlendingModeSchema.Values).map(blendingMode => <option key={blendingMode}>{blendingMode}</option>)}
+                    {Object.values(BlendingModeSchema.Values).map(blendingMode => <option key={blendingMode}>{capitalize(blendingMode)}</option>)}
                 </Select>
-                <Input
-                    className="ml-2 w-28 border border-black border-opacity-5"
-                    icon={OpacityOutlined}
-                    defaultValue="100%"
-                />
-                <IconButton className="ml-2" variant={ButtonVariant.SECONDARY} icon={<MoreVertOutlined />} />
+                <IconButton variant={ButtonVariant.SECONDARY} icon={<MoreVertOutlined />} />
             </div>
             <Well className="grow">
                 <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>

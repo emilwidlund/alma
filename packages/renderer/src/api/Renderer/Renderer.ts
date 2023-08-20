@@ -49,7 +49,7 @@ const createShaderSpec = (
         state: {
             blend: true,
             blendFn: BlendFn[blendingMode] as BlendFunc,
-        }
+        },
         // generateDecls: true
     };
 };
