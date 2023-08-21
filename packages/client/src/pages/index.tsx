@@ -9,9 +9,9 @@ export default function Index() {
             <div className="flex flex-col items-center h-full min-w-md max-w-7xl mx-auto w-full">
                 <Header />
                 <section className="flex flex-col items-center text-center mt-16 max-w-4xl w-full">
-                    <span className="flex flex-row items-center px-5 py-3 rounded-full bg-neutral-500">
+                    <span className="flex flex-row items-center px-6 py-3 rounded-full bg-neutral-400 text-accent">
                         <StreamOutlined />
-                        <span className="ml-4 text-lg text-accent">A new kind of environment for creative coding</span>
+                        <span className="ml-4 text-lg">A new kind of environment for creative coding</span>
                     </span>
                     <h1
                         className="text-8xl font-bold leading-normal mt-16"
