@@ -8,6 +8,7 @@ import Script from 'next/script';
 
 import { HeaderNavigationLinkProps } from './Header.types';
 import { Avatar } from '../Avatar/Avatar';
+
 import { Database } from '@/lib/database.types';
 import { Size } from '~/types';
 
@@ -58,8 +59,8 @@ export default function Header() {
             </Link>
             <div className="absolute z-0 flex items-center justify-center w-full">
                 <HeaderNavigationLink href="/">Index</HeaderNavigationLink>
+                <HeaderNavigationLink href="/learn">Learn</HeaderNavigationLink>
                 <HeaderNavigationLink href="/community">Community</HeaderNavigationLink>
-                <HeaderNavigationLink href="/docs">Docs</HeaderNavigationLink>
             </div>
             <div className="z-10">{authSection}</div>
         </header>

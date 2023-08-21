@@ -15,6 +15,7 @@ module.exports = {
                 accent: '#0A5DFF',
                 'accent-faded': '#377bff',
                 'text-dark': '#5E647D',
+                'text-subtle': '#7B8097',
                 'button-bg-secondary': 'rgba(255, 255, 255, .2)',
                 'button-border-secondary': 'rgba(255, 255, 255, .2)',
                 'card-bg': 'rgba(234, 237, 255, .2)',
