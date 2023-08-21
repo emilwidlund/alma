@@ -6,15 +6,15 @@ import { circular } from '~/styles/fonts';
 export default function Index() {
     return (
         <main className={`flex flex-col h-screen bg-neutral-100 text-text-subtle px-12 overflow-y-auto ${circular.className}`}>
-            <div className="flex flex-col h-full min-w-md max-w-7xl mx-auto">
+            <div className="flex flex-col h-full min-w-md max-w-7xl mx-auto w-full">
                 <Header />
-                <section className="flex flex-col items-center text-center mt-24 w-full">
+                <section className="flex flex-col items-center text-center mt-24 max-w-4xl w-full">
                     <span>
                         <StreamOutlined />
                         A graphics environment like no other
                     </span>
                     <h1
-                        className="max-w-4xl text-8xl font-semibold leading-normal"
+                        className="text-8xl font-semibold leading-normal"
                         style={{
                             background: 'linear-gradient(90deg, #FD9DFF 0%, #f5e178 100%)',
                             backgroundClip: 'text',
@@ -37,7 +37,7 @@ export default function Index() {
                         >
                             Join the Beta
                         </button>
-                        <button className='px-8 py-3 text-text-dark'>View on Github</button>
+                        <a href="https://github.com/newfrgmnt/alma" target="_blank" className='px-8 py-3 text-text-dark'>View on Github</a>
                     </div>
                 </section>
                 <section className='flex flex-col items-center text-center py-48'>
