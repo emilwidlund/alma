@@ -9,12 +9,12 @@ export default function Index() {
             <div className="flex flex-col items-center h-full min-w-md max-w-7xl mx-auto w-full">
                 <Header />
                 <section className="flex flex-col items-center text-center mt-24 max-w-4xl w-full">
-                    <span className="flex flex-row items-center px-4 py-2 bg-white rounded-full">
+                    <span className="flex flex-row items-center px-5 py-3 bg-white rounded-full">
                         <StreamOutlined />
                         <span className="ml-2">A new kind of environment for creative coding</span>
                     </span>
                     <h1
-                        className="text-8xl font-semibold leading-normal"
+                        className="text-8xl font-semibold leading-normal mt-12"
                         style={{
                             background: 'linear-gradient(90deg, #FD9DFF 0%, #f5e178 100%)',
                             backgroundClip: 'text',
