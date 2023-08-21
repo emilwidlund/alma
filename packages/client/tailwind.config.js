@@ -14,6 +14,7 @@ module.exports = {
                 'pastel-blue': '#CACFEA',
                 accent: '#0A5DFF',
                 'accent-faded': '#377bff',
+                'complimentary': "#d7ddff",
                 'text-dark': '#5E647D',
                 'text-subtle': '#7B8097',
                 'button-bg-secondary': 'rgba(255, 255, 255, .2)',
