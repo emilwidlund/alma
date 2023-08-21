@@ -24,7 +24,7 @@ export default function Index() {
                     >
                         Your playgound for creative graphics
                     </h1>
-                    <p className="mt-16 text-2xl leading-loose">
+                    <p className="mt-16 text-2xl leading-loose max-w-xl w-full">
                         Unleash new dimensions of creative coding with our unique graphics environment
                     </p>
                     <div className='flex flex-row flex-nowrap items-center gap-x-4 mt-20'>
