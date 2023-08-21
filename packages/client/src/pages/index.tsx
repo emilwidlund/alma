@@ -5,7 +5,7 @@ import { circular } from '~/styles/fonts';
 
 export default function Index() {
     return (
-        <main className={`flex flex-col items-center h-screen bg-neutral-100 text-text-subtle ${circular.className}`}>
+        <main className={`flex flex-col items-center h-screen text-text-subtle ${circular.className}`}>
             <div className="absolute flex flex-col items-center h-full min-w-md max-w-7xl mx-auto w-full px-12">
                 <Header />
             </div>
@@ -17,7 +17,7 @@ export default function Index() {
                     </div>
                 </div>
             </section>
-            <section className="flex flex-col items-center text-center pt-16 pb-32 max-w-5xl w-full px-12">
+            <section className="flex flex-col items-center text-center pt-16 pb-32 max-w-5xl w-full px-12 bg-neutral-100">
                 <span className="flex flex-row items-center px-6 py-4 rounded-full bg-complimentary text-accent">
                     <StreamOutlined />
                     <span className="ml-4 text-lg">A new kind of environment for creative coding</span>
