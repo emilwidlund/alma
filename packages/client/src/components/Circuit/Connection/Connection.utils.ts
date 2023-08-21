@@ -17,13 +17,8 @@ export const quadraticCurve = (start: Point, end: Point) => {
     let offsetX = offset;
     let offsetY = offset;
 
-    if (y4 - y1 < 0) {
-        offsetY = -offset;
-    }
-
-    if (x4 - x1 < -(min_diff * 2)) {
-        offsetX = -offset;
-    }
+    offsetY = Math.min(Math.max((y4 - y1) / 2, -offset), offset);
+    offsetX = Math.min(Math.max((x4 - x1) / 2, -offset), offset);
 
     const midX = (x4 - x1) / 2 + x1;
 
