@@ -5,7 +5,7 @@ import { circular } from '~/styles/fonts';
 
 export default function Index() {
     return (
-        <main className={`flex flex-col items-center h-screen bg-neutral-100 text-text-subtle overflow-y-auto ${circular.className}`}>
+        <main className={`flex flex-col items-center h-screen bg-neutral-100 text-text-subtle ${circular.className}`}>
             <div className="absolute flex flex-col items-center h-full min-w-md max-w-7xl mx-auto w-full px-12">
                 <Header />
             </div>
