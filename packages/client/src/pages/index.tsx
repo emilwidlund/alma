@@ -6,9 +6,17 @@ import { circular } from '~/styles/fonts';
 export default function Index() {
     return (
         <main className={`flex flex-col items-center h-screen bg-neutral-100 text-text-subtle overflow-y-auto ${circular.className}`}>
-            <div className="flex flex-col items-center h-full min-w-md max-w-7xl mx-auto w-full px-12">
+            <div className="absolute flex flex-col items-center h-full min-w-md max-w-7xl mx-auto w-full px-12">
                 <Header />
             </div>
+            <section className='flex flex-col items-center text-center w-full bg-playground bg-cover bg-right py-52 px-12'>
+                <div className='flex flex-row max-w-7xl w-full'>
+                    <div className='flex flex-col w-1/2 text-left'>
+                        <h2 className='text-7xl text-white font-bold leading-tight'>A playground for your creative code</h2>
+                        <p className='text-xl text-slate-100 mt-12 leading-relaxed'>Join the community of coders, artists & visionaries who have embraced Alma as their creative environment</p>
+                    </div>
+                </div>
+            </section>
             <section className="flex flex-col items-center text-center pt-16 pb-32 max-w-5xl w-full px-12">
                 <span className="flex flex-row items-center px-6 py-4 rounded-full bg-complimentary text-accent">
                     <StreamOutlined />
@@ -39,14 +47,6 @@ export default function Index() {
                         Join the Beta
                     </button>
                     <a href="https://github.com/newfrgmnt/alma" target="_blank" className='px-8 py-3 text-text-dark'>View on Github</a>
-                </div>
-            </section>
-            <section className='flex flex-col items-center text-center w-full bg-playground bg-cover bg-right px-12'>
-                <div className='flex flex-row max-w-7xl w-full'>
-                    <div className='flex flex-col py-40 w-1/2 text-left'>
-                        <h2 className='mt-16 text-6xl text-white font-medium leading-tight'>A new home for creative ideas</h2>
-                        <p className='text-xl text-slate-100 mt-12 leading-relaxed'>Join the community of artists, designers, and visionaries who have embraced Alma as their creative partner.</p>
-                    </div>
                 </div>
             </section>
         </main>
