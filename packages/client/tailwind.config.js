@@ -43,6 +43,9 @@ module.exports = {
             },
             fontSize: {
                 xxs: '.65rem'
+            },
+            backgroundImage: {
+                'playground': "url('/playground.jpg')",
             }
         }
     },
