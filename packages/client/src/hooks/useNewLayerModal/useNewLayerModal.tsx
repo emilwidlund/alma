@@ -1,5 +1,5 @@
 
-import { NotesOutlined, RouteOutlined, StreamOutlined } from '@mui/icons-material';
+import { CodeOutlined, RouteOutlined, StreamOutlined } from '@mui/icons-material';
 import * as React from 'react';
 
 import { NEW_LAYER_MODAL_ID } from '../../constants/modals';
@@ -62,8 +62,8 @@ const NewLayerModalContent = () => {
                     onClick={handleCreateCircuitProject}
                 />
                 <SelectionBox
-                    icon={NotesOutlined}
-                    title="Code"
+                    icon={CodeOutlined}
+                    title="Fragment"
                     onClick={handleCreateSourceProject}
                 />
             </div>
