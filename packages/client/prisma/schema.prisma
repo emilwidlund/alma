@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Profile {
-  id              String          @id @default(cuid())
+  id              String          @id @default(uuid())
   userId          String          @unique
   username        String          @unique
   image           String?
@@ -28,7 +28,7 @@ model Profile {
 }
 
 model Relationship {
-  id            String      @id @default(cuid())
+  id            String      @id @default(uuid())
   profileId     String
   profile       Profile     @relation(name: "following", fields: [profileId], references: [id], onDelete: Cascade)
   targetUserId  String
@@ -52,7 +52,7 @@ enum BlendingMode {
 }
 
 model Layer {
-  id            String        @id @default(cuid())
+  id            String        @id @default(uuid())
   name          String
   enabled       Boolean       @default(true)
   blendingMode  BlendingMode  @default(NORMAL)
@@ -70,7 +70,7 @@ enum UniformType {
 }
 
 model Uniform {
-  id            String        @id @default(cuid())
+  id            String        @id @default(uuid())
   name          String
   type          UniformType
   value         String
@@ -81,7 +81,7 @@ model Uniform {
 }
 
 model Project {
-  id          String      @id @default(cuid())
+  id          String      @id @default(uuid())
   name        String
   image       String
   layers      Layer[]
@@ -96,7 +96,7 @@ model Project {
 }
 
 model Like {
-  id          String    @id @default(cuid())
+  id          String    @id @default(uuid())
   projectId   String
   project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
   profileId   String
@@ -107,7 +107,7 @@ model Like {
 }
 
 model Comment {
-  id          String    @id @default(cuid())
+  id          String    @id @default(uuid())
   projectId   String
   project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
   profileId   String
