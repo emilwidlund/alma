@@ -34,13 +34,13 @@ export default function Profile() {
                 <div className="relative">
                     {profile ? (
                         <div className="sticky flex flex-col items-center text-center bg-neutral-100 shadow-xl px-8 pt-12 pb-8 rounded-4xl w-80">
-                            <Avatar size={Size.MD} source={profile.image} />
+                            <Avatar size={Size.MD} source={profile.image ?? undefined} />
                             <h3 className="text-xl mt-8 font-medium">{profile.username}</h3>
                             <span className="mt-1 text-sm opacity-50">{profile.location}</span>
                             <span className="mt-6 text-sm">{profile.bio}</span>
-                            <a className="mt-2 text-sm text-accent" href={profile.website}>
-                                {prettifyURL(profile?.website ?? '')}
-                            </a>
+                            {profile.website && <a className="mt-2 text-sm text-accent" href={profile.website}>
+                                {prettifyURL(profile.website)}
+                            </a>}
                             <Button className="w-full justify-center mt-12">Follow</Button>
                         </div>
                     ) : (
