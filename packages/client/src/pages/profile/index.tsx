@@ -29,7 +29,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
             }
         };
     } else {
-        return { props: {} }
+        return { props: { session } }
     }
 };
 
