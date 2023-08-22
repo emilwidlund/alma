@@ -1,7 +1,9 @@
+'use client';
+
 import { AddOutlined } from '@mui/icons-material';
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { useUser } from '@supabase/auth-helpers-react';
 import { Project, ProjectSchema, Profile, ProfileSchema } from '@usealma/types';
-import { GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
 import { Avatar } from '~/components/Avatar/Avatar';
@@ -13,47 +15,33 @@ import { Spinner } from '~/components/Spinner/Spinner';
 import { Size } from '~/types';
 import { prettifyURL } from '~/utils/urls/urls';
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-    // Create authenticated Supabase Client
-    const supabase = createPagesServerClient(ctx);
-    // Check if we have a session
-    const {
-        data: { session }
-    } = await supabase.auth.getSession();
-
-    if (!session) {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false
-            }
-        };
-    } else {
-        return { props: { initialSession: session } }
-    }
-};
-
 export default function Profile() {
     const [profile, setProfile] = useState<Profile>();
     const [projects, setProjects] = useState<Project[]>();
+    const router = useRouter();
+    const user = useUser();
 
     useEffect(() => {
-        fetch(`/api/profile/me`)
-            .then(v => v.json())
-            .then(profile => {
-                ProfileSchema.parse(profile) ? setProfile(profile) : undefined;
-            });
+        if (!user) {
+            router.push('/')
+        } else {
+            fetch(`/api/profile/me`)
+                .then(v => v.json())
+                .then(profile => {
+                    ProfileSchema.parse(profile) ? setProfile(profile) : undefined;
+                });
 
-        fetch(`/api/projects/me`)
-            .then(v => v.json())
-            .then(projects =>
-                projects.map((project: Project) => ProjectSchema.parse(project)) ? setProjects(projects) : undefined
-            );
-    }, []);
+            fetch(`/api/projects/me`)
+                .then(v => v.json())
+                .then(projects =>
+                    projects.map((project: Project) => ProjectSchema.parse(project)) ? setProjects(projects) : undefined
+                );
+        }
+    }, [router, user]);
 
     const handleNewProject = useCallback(() => {
-        window.location.assign('/new')
-    }, []);
+       router.push('/new')
+    }, [router]);
 
     return (
         <main className="flex flex-col h-screen min-w-md max-w-7xl mx-auto">
