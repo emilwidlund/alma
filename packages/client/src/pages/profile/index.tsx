@@ -39,7 +39,7 @@ export default function Profile() {
                             <span className="mt-1 text-sm opacity-50">{profile.location}</span>
                             <span className="mt-6 text-sm">{profile.bio}</span>
                             <a className="mt-2 text-sm text-accent" href={profile.website}>
-                                {prettifyURL(profile.website)}
+                                {prettifyURL(profile?.website ?? '')}
                             </a>
                             <Button className="w-full justify-center mt-12">Follow</Button>
                         </div>
