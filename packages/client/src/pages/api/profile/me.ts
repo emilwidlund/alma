@@ -5,6 +5,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '~/db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    res.setHeader('Cache-Control', 'no-store');
+
     const supabaseServerClient = createPagesServerClient({ req, res });
     const {
         data: { user }
