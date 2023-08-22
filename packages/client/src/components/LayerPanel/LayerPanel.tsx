@@ -180,7 +180,7 @@ export const LayerPanel = () => {
     return (
         <div className="flex flex-col shrink-0 grow">
             <div className="flex flex-nowrap gap-x-4 items-center mb-4">
-                <IconButton icon={<AddOutlined />} onPress={handleCreateLayer} />
+                <IconButton icon={<AddOutlined />} onClick={handleCreateLayer} compact />
                 <Select
                     icon={TonalityOutlined}
                     value={capitalize(activeLayer?.blendingMode)}
@@ -189,7 +189,7 @@ export const LayerPanel = () => {
                     {Object.values(BlendingModeSchema.Values).map(blendingMode => <option key={blendingMode}>{capitalize(blendingMode)}</option>)}
                 </Select>
                 <div className='relative'>
-                    <IconButton variant={ButtonVariant.SECONDARY} icon={<MoreVertOutlined />} onPress={handleToggleContextMenu} />
+                    <IconButton variant={ButtonVariant.SECONDARY} icon={<MoreVertOutlined />} onClick={handleToggleContextMenu} />
                     {contextMenuOpen && <ContextMenuContainer sections={[{ items: [{ icon: '', label: 'Remove Layer', onClick: handleRemoveLayer }] }]} position={{ x: -160, y: 40 }} onClose={() => toggleContextMenu(false)} />}
                 </div>
             </div>

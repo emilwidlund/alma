@@ -66,6 +66,7 @@ export const render = (
     gl: WebGL2RenderingContext,
     layers: Layer[],
     updateCircuits: (id: string, circuit: WebGLContext) => void,
+    staticRender = false,
     uniforms?: ShaderUniformSpecs,
     onError?: (err: unknown) => void,
     onSuccess?: () => void
@@ -205,7 +206,9 @@ export const render = (
     const startTime = Date.now();
 
     const update = () => {
-        animationFrame = requestAnimationFrame(update);
+        if (!staticRender) {
+            animationFrame = requestAnimationFrame(update);
+        }
 
         const time = (Date.now() - startTime) / 1000;
 

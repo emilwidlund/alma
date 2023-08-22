@@ -10,8 +10,9 @@ import { useRenderer } from '~/hooks/useRenderer/useRenderer';
 
 const ProjectCardCanvas = ({ layers }: Pick<ProjectCardProps, 'layers'>) => {
     const ref = useRef<HTMLCanvasElement>(null);
+    const { isHovered, onMouseEnter, onMouseLeave } = useHover();
 
-    useRenderer(ref, layers);
+    useRenderer(ref, layers, !isHovered);
 
     return (
         <motion.canvas
@@ -20,34 +21,21 @@ const ProjectCardCanvas = ({ layers }: Pick<ProjectCardProps, 'layers'>) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
         />
     );
 };
 
-export const ProjectCard = ({ name, projectId, author, layers, image }: ProjectCardProps) => {
-    const { isHovered, onMouseEnter, onMouseLeave } = useHover<HTMLDivElement>();
-
+export const ProjectCard = ({ name, projectId, author, layers }: ProjectCardProps) => {
     return (
         <Link className="flex flex-col items-center text-center" href={`/${author.username}/${projectId}`}>
             <BaseCard
-                className="hover:shadow-lg transition-shadow"
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
+                className="hover:shadow-xl transition-shadow"
             >
                 <div className="relative w-64 h-40">
                     <AnimatePresence>
-                        {isHovered ? (
-                            <ProjectCardCanvas key="canvas" layers={layers} />
-                        ) : (
-                            <motion.div
-                                key="preview"
-                                className="absolute bg-neutral-200 bg-center bg-cover w-full h-full rounded-2xl"
-                                style={{ backgroundImage: `url('${image}')` }}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                            />
-                        )}
+                        <ProjectCardCanvas key="canvas" layers={layers} />
                     </AnimatePresence>
                 </div>
             </BaseCard>

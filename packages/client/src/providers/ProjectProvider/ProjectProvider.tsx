@@ -42,17 +42,6 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
                 .then(v => v.json())
                 .then((project: Project) => {
                     if (ProjectSchema.parse(project)) {
-                        if (typeof window !== 'undefined') {
-                            project.layers.push({
-                                id: '1234567890',
-                                name: 'Test Circuit',
-                                type: 'CIRCUIT',
-                                context: window.localStorage.getItem('context') || '{}',
-                                blendingMode: 'NORMAL',
-                                enabled: true
-                            });
-                        }
-
                         setProject(project);
 
                         if (project.layers.length > 0) {

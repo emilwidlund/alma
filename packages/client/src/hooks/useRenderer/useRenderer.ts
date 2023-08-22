@@ -7,6 +7,7 @@ import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 export const useRenderer = (
     ref: RefObject<HTMLCanvasElement>,
     layers: Layer[],
+    staticRender = false,
     onFragmentCompilationError?: (error: unknown) => void,
     onFragmentCompilationSuccess?: () => void
 ) => {
@@ -23,6 +24,7 @@ export const useRenderer = (
             context,
             layers,
             updateCircuits,
+            staticRender,
             { uResolution: ['vec2', [context.drawingBufferWidth, context.drawingBufferHeight]] },
             onFragmentCompilationError,
             onFragmentCompilationSuccess
@@ -31,5 +33,5 @@ export const useRenderer = (
         return () => {
             renderer.dispose();
         };
-    }, [ref, layers, onFragmentCompilationError, onFragmentCompilationSuccess, updateCircuits]);
+    }, [ref, layers, onFragmentCompilationError, onFragmentCompilationSuccess, updateCircuits, staticRender]);
 };

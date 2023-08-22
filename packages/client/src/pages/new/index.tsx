@@ -13,9 +13,19 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     } = await supabase.auth.getSession();
 
     const prisma = new PrismaClient();
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        };
+    }
+
     const profile = await prisma.profile.findUnique({ where: { userId: session?.user.id } });
 
-    if (!session || !profile) {
+    if (!profile) {
         return {
             redirect: {
                 destination: '/',

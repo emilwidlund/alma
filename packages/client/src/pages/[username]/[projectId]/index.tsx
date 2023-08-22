@@ -54,6 +54,7 @@ function PreviewContainer() {
     useRenderer(
         canvasRef,
         project?.layers || [],
+        false,
         handleCompilationError,
         handleCompilationSuccess
     );

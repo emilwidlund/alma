@@ -1,11 +1,11 @@
 import { float, Sym } from '@thi.ng/shader-ast';
 import _ from 'lodash';
 
+import { Context } from './Context';
+import { IContextProps } from './Context.types';
 import { Node } from '../Node/Node';
 import { ExtendedNode, IExtededNodeProps } from '../Node/Node.fixture';
 import { INodeSerialized } from '../Node/Node.types';
-import { Context } from './Context';
-import { IContextProps } from './Context.types';
 
 export class ExtendedContext extends Context {
     constructor(props: IContextProps = {}) {

@@ -1,4 +1,3 @@
-import { MouseEventHandler, PropsWithChildren } from 'react';
 
 export enum ButtonVariant {
     PRIMARY,
@@ -6,10 +5,8 @@ export enum ButtonVariant {
     TERTIARY
 }
 
-export type ButtonProps = PropsWithChildren<{
+export type ButtonProps = React.ComponentProps<'button'> & {
     variant?: ButtonVariant;
     disabled?: boolean;
     compact?: boolean;
-    onPress?: MouseEventHandler<HTMLButtonElement>;
-    className?: string;
-}>;
+}

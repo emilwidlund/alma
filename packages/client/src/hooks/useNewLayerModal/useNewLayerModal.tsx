@@ -11,9 +11,9 @@ import { DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT, DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT }
 
 const SelectionBox = ({ icon: Icon, title, onClick }: {icon: typeof StreamOutlined; title: string; onClick: React.MouseEventHandler<HTMLDivElement> | undefined}) => {
     return (
-        <div className='flex flex-col items-center justify-center text-center w-48 h-48 bg-neutral-300 hover:bg-neutral-100 hover:text-accent hover:shadow-xl transition-colors rounded-3xl cursor-pointer text-5xl' onClick={onClick}>
+        <div className='flex flex-col items-center justify-center text-center w-40 h-40 bg-neutral-300 hover:bg-neutral-100 hover:text-accent hover:shadow-xl transition-colors rounded-3xl cursor-pointer text-4xl' onClick={onClick}>
             <Icon fontSize="inherit" />
-            <h4 className='text-base font-medium mt-6'>{title}</h4>
+            <h4 className='text-base mt-4'>{title}</h4>
         </div>
     );
 }
@@ -83,7 +83,7 @@ export const useNewLayerModal = () => {
                 actions: [
                     {
                         children: 'Close',
-                        onPress: () => {
+                        onClick: () => {
                             modal.close(NEW_LAYER_MODAL_ID);
                         }
                     }

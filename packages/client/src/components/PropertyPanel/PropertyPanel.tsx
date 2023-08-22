@@ -22,6 +22,7 @@ export const PropertyPanel = () => {
     useRenderer(
         canvasRef,
         layersToRender,
+        false,
         handleCompilationError,
         handleCompilationSuccess
     );
