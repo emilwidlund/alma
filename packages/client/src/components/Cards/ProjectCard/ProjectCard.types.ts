@@ -1,12 +1,9 @@
-import { Layer } from '@usealma/types';
+import { Layer, Owner } from '@usealma/types';
 
 export type ProjectCardProps = {
     name: string;
     projectId: string;
-    author: {
-        username: string;
-        image: string;
-    };
+    author: Owner;
     layers: Layer[];
     image: string;
 };

@@ -4,6 +4,7 @@ import { useRef } from 'react';
 
 import { ProjectCardProps } from './ProjectCard.types';
 import { BaseCard } from '../BaseCard/BaseCard';
+
 import { useHover } from '~/hooks/useHover/useHover';
 import { useRenderer } from '~/hooks/useRenderer/useRenderer';
 
