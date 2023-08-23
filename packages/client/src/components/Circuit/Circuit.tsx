@@ -9,7 +9,7 @@ import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
     ({ children, size, className, onMouseMove, onClick, onMouseDown, onMouseUp, onContextMenu }: CircuitProps, ref) => {
         const scrollRef = React.useRef<HTMLDivElement>(null);
-        const { transform, setContainer, panZoomHandlers } = usePanZoom({ panOnDrag: false, enableZoom: false });
+        const { transform, setContainer, panZoomHandlers } = usePanZoom({ enableZoom: false });
 
         React.useEffect(() => {
             if (scrollRef.current) {
@@ -31,7 +31,9 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
         const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             e.preventDefault();
 
-            panZoomHandlers?.onMouseDown?.(e);
+            if (e.button === 2) {
+                panZoomHandlers?.onMouseDown?.(e);
+            }
         }, [panZoomHandlers]);
 
         return (
