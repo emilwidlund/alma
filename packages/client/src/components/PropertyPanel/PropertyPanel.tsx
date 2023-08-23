@@ -24,10 +24,7 @@ const CircuitPorts = observer(() => {
 
     const [selectedCandidate] = circuit.selectedNodes;
 
-    const inputs = selectedCandidate?.inputs;
-
-    const inputControls = Object.values(inputs || [])
-        .filter(input => !input.connected)
+    const inputControls = Object.values(selectedCandidate?.inputs || [])
         .map(input => {
             switch (input.type) {
                 case 'vec2':
