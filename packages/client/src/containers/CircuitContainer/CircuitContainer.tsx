@@ -140,8 +140,8 @@ export const CircuitContainer = observer(
         );
 
         const onMouseDown = React.useCallback(
-            ({ nativeEvent }: React.MouseEvent<HTMLDivElement>) => {
-                if ((nativeEvent.target as HTMLDivElement).id === 'connections') {
+            ({ nativeEvent, button }: React.MouseEvent<HTMLDivElement>) => {
+                if ((nativeEvent.target as HTMLDivElement).id === 'connections' && button === 0) {
                     circuit.setSelectionBounds({ x: mousePosition.x, y: mousePosition.y, width: 0, height: 0 });
                 }
             },
