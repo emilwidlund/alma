@@ -29,7 +29,7 @@ export const Node = observer(
             );
 
             const nodeHeaderWrapperClassNames = clsx(
-                'flex flex-row justify-between items-center py-2 px-4 text-xxs font-medium bg-neutral-300 uppercase tracking-wider rounded-t-xl border-b-2',
+                'flex flex-row justify-between items-center py-2 px-3 text-xxs font-medium bg-neutral-300 uppercase tracking-wider rounded-t-xl border-b-2',
                 {
                     'border-b-neutral-400': !active,
                     'border-b-accent': active,

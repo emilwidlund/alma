@@ -12,8 +12,7 @@ module.exports = {
             colors: {
                 'off-white': '#EAEDFF',
                 'pastel-blue': '#CACFEA',
-                accent: '#0A5DFF',
-                'accent-faded': '#377bff',
+                accent: '#2244FF',
                 'complimentary': "#d7ddff",
                 'text-dark': '#5E647D',
                 'text-subtle': '#7B8097',

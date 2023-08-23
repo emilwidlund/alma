@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { KeyboardAction } from './useKeyboardAction.types';
 import { useCircuit } from '../useCircuit/useCircuit';
+
 import { KeyboardKey } from '~/types';
 
 export const useKeyboardActions = () => {
@@ -14,8 +15,9 @@ export const useKeyboardActions = () => {
         }
     }, [circuit]);
 
-    const selectAllNodes = React.useCallback(() => {
+    const selectAllNodes = React.useCallback((e: KeyboardEvent) => {
         if (circuit.context) {
+            e.preventDefault();
             const nodes = Array.from(circuit.context.nodes.values() || []);
             circuit.setSelectedNodes(nodes);
         }

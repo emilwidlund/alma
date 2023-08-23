@@ -189,7 +189,7 @@ export const LayerPanel = () => {
                     {Object.values(BlendingModeSchema.Values).map(blendingMode => <option key={blendingMode}>{capitalize(blendingMode)}</option>)}
                 </Select>
                 <div className='relative'>
-                    <IconButton variant={ButtonVariant.SECONDARY} icon={<MoreVertOutlined />} onClick={handleToggleContextMenu} />
+                    <IconButton variant={ButtonVariant.SECONDARY} icon={<MoreVertOutlined />} onClick={handleToggleContextMenu} compact />
                     {contextMenuOpen && <ContextMenuContainer sections={[{ items: [{ icon: '', label: 'Remove Layer', onClick: handleRemoveLayer }] }]} position={{ x: -160, y: 40 }} onClose={() => toggleContextMenu(false)} />}
                 </div>
             </div>

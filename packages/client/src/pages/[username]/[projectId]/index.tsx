@@ -1,6 +1,6 @@
 'use client';
 
-import { MemoryOutlined, StreamOutlined, SettingsOutlined } from '@mui/icons-material';
+import { StreamOutlined, ShapeLineOutlined, TuneOutlined } from '@mui/icons-material';
 import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
 import { Project } from '@usealma/types';
@@ -109,12 +109,12 @@ export default function Preview() {
                                         {
                                             name: 'Edit',
                                             path: `/${username}/${projectId}/edit`,
-                                            icon: <MemoryOutlined />
+                                            icon: <ShapeLineOutlined />
                                         },
                                         {
                                             name: 'Settings',
                                             path: `/${username}/${projectId}/settings`,
-                                            icon: <SettingsOutlined />
+                                            icon: <TuneOutlined />
                                         }
                                     ]}
                                 />

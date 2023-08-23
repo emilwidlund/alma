@@ -14,7 +14,6 @@ const TabItem = ({ path, icon, active }: TabItemProps) => {
             'bg-accent': active,
             'text-white': active,
             'text-neutral-500': !active,
-            'shadow-md shadow-accent-faded': active,
             'hover:bg-neutral-400': !active
         }
     );
