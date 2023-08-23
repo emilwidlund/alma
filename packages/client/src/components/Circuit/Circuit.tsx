@@ -28,7 +28,7 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
 // eslint-disabled-next-line react-hooks/exhaustive-deps
         }, []);
 
-        const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             e.preventDefault();
 
             panZoomHandlers.onMouseDown(e);
