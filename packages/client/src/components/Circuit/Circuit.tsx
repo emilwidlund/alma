@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import * as React from 'react';
+import usePanZoom from "use-pan-and-zoom";
 
 import { CircuitProps } from './Circuit.types';
 import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
@@ -8,9 +9,12 @@ import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
 export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
     ({ children, size, className, onMouseMove, onClick, onMouseDown, onMouseUp, onContextMenu }: CircuitProps, ref) => {
         const scrollRef = React.useRef<HTMLDivElement>(null);
+        const { transform, setContainer, panZoomHandlers } = usePanZoom({ panOnDrag: false, enableZoom: false });
 
         React.useEffect(() => {
             if (scrollRef.current) {
+                setContainer(scrollRef.current)
+
                 const { x, y } = fromCartesianPoint(size.width, size.height, 0, 0);
                 const { x: offsetX, y: offsetY } = fromCartesianPoint(
                     scrollRef.current.clientWidth,
@@ -25,7 +29,7 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
         }, []);
 
         return (
-            <div ref={scrollRef} className={clsx('relative w-full h-full overflow-auto', className)}>
+            <div ref={scrollRef} className={clsx('relative w-full h-full overflow-auto', className)} {...panZoomHandlers}>
                 <div
                     ref={ref}
                     className="relative"
@@ -34,7 +38,8 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
                         height: size.height,
                         backgroundImage: 'radial-gradient(rgba(0,0,0,.15) 5%, transparent 5%)',
                         backgroundPosition: '0 0',
-                        backgroundSize: '30px 30px'
+                        backgroundSize: '30px 30px',
+                        transform
                     }}
                     onMouseMove={onMouseMove}
                     onMouseDown={onMouseDown}
