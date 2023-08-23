@@ -1,5 +1,5 @@
-import { Input } from 'alma-graph';
+import { Input } from '@usealma/graph';
 
-export interface IBooleanControlProps {
+export interface BooleanControlProps {
     port: Input<'bool'>;
 }

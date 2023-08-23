@@ -5,10 +5,9 @@ import * as React from 'react';
 import { useCircuit } from '../../../hooks/useCircuit/useCircuit';
 import { Input } from '../../Input/Input';
 import { BaseControl } from '../BaseControl/BaseControl';
-import { numberControlInputStyles, numberControlNameStyles, numberControlRangeStyles } from './NumberControl.styles';
 import { INumberControlProps } from './NumberControl.types';
 
-export const NumberControl = observer(({ port }: INumberControlProps) => {
+export const NumberControl = observer(({ port }: NumberControlProps) => {
     const circuit = useCircuit();
     const onChange = React.useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,18 +25,7 @@ export const NumberControl = observer(({ port }: INumberControlProps) => {
         <BaseControl>
             <span className={numberControlNameStyles}>{port.name}</span>
             <Input
-                className={numberControlRangeStyles}
-                placeholder="Number"
-                onChange={onChange}
-                value={value}
-                type="range"
-                min={-10}
-                max={10}
-                step={0.1}
-                disabled={disabled}
-            />
-            <Input
-                className={numberControlInputStyles}
+                className="w-16"
                 placeholder="Number"
                 onChange={onChange}
                 value={value}
