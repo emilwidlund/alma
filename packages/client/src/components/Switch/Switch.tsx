@@ -4,17 +4,20 @@ import { MouseEventHandler, useCallback } from 'react';
 
 import { SwitchProps } from './Switch.types';
 
-export const Switch = ({ active, onChange }: SwitchProps) => {
+export const Switch = ({ active, onChange, disabled }: SwitchProps) => {
     const containerClassNames = clsx('relative w-6 rounded-full p-1 transition-colors cursor-pointer', {
         'bg-neutral-400': !active,
-        'bg-accent': active
+        'bg-accent': active,
+        'opacity-30': disabled
     });
 
     const handleClick: MouseEventHandler<HTMLDivElement> = useCallback((e) => {
         e.stopPropagation();
 
-        onChange?.(e);
-    }, [onChange])
+        if (!disabled) {
+            onChange?.(e);
+        }
+    }, [onChange, disabled])
 
     return (
         <div className={containerClassNames} onClick={handleClick}>

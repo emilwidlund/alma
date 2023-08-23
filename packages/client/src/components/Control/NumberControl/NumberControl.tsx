@@ -2,18 +2,16 @@ import { float, Lit } from '@thi.ng/shader-ast';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import { useCircuit } from '../../../hooks/useCircuit/useCircuit';
+import { NumberControlProps } from './NumberControl.types';
 import { Input } from '../../Input/Input';
 import { BaseControl } from '../BaseControl/BaseControl';
-import { INumberControlProps } from './NumberControl.types';
 
 export const NumberControl = observer(({ port }: NumberControlProps) => {
-    const circuit = useCircuit();
     const onChange = React.useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             port.setValue(float(e.target.valueAsNumber));
         },
-        [port, circuit]
+        [port]
     );
 
     const disabled = React.useMemo(() => port.connected, [port.connected]);
@@ -22,8 +20,7 @@ export const NumberControl = observer(({ port }: NumberControlProps) => {
     const value = resolvedValue.type === 'float' && (resolvedValue as Lit<'float'>).val;
 
     return (
-        <BaseControl>
-            <span className={numberControlNameStyles}>{port.name}</span>
+        <BaseControl title={port.name}>
             <Input
                 className="w-16"
                 placeholder="Number"

@@ -49,7 +49,7 @@ function EditorHeader() {
     );
 }
 
-function EditorContainer() {
+function EditorContainer({ username, projectId }: {username: string | string[] | undefined; projectId: string | string[] | undefined}) {
     const circuitRef = useRef<HTMLDivElement>(null);
     const { circuits, activeLayer, compilationError } = useProjectContext();
 
@@ -71,25 +71,56 @@ function EditorContainer() {
     );
 
     return (
-        <main className="relative flex flex-col items-center justify-center grow w-full h-full overflow-auto">
-            {shouldRenderCircuit && (
-                <div className={circuitContainerClassNames}>
-                    <CircuitProvider context={circuit}>
-                        <CircuitContainer ref={circuitRef} />
-                    </CircuitProvider>
+        <CircuitProvider context={circuit}>
+            <main className="flex flex-row h-screen">
+                <div className="relative flex flex-col flex-grow">
+                    <EditorHeader />
+                    <div className="relative flex flex-row flex-grow items-center">
+                        <aside className="fixed flex flex-col h-full items-center justify-start pl-12 z-30">
+                            <div className="my-auto">
+                                <FloatingTabBar
+                                    items={[
+                                        {
+                                            name: 'Preview',
+                                            path: `/${username}/${projectId}`,
+                                            icon: <StreamOutlined />
+                                        },
+                                        {
+                                            name: 'Edit',
+                                            path: `/${username}/${projectId}/edit`,
+                                            icon: <ShapeLineOutlined />
+                                        },
+                                        {
+                                            name: 'Settings',
+                                            path: `/${username}/${projectId}/settings`,
+                                            icon: <TuneOutlined />
+                                        }
+                                    ]}
+                                />
+                            </div>
+                        </aside> 
+                        <main className="relative flex flex-col items-center justify-center grow w-full h-full overflow-auto">
+                            {shouldRenderCircuit && (
+                                <div className={circuitContainerClassNames}>
+                                        <CircuitContainer ref={circuitRef} />
+                                </div>
+                            )}
+                            {shouldRenderEditor && (
+                                <div className={fragmentEditorContainerClassNames}>
+                                    <FragmentEditor />
+                                </div>
+                            )}
+                            {compilationError && (
+                                <div className="fixed bottom-8 mx-auto">
+                                    <Banner text={compilationError} />
+                                </div>
+                            )}
+                        </main>
+                    </div>
                 </div>
-            )}
-            {shouldRenderEditor && (
-                <div className={fragmentEditorContainerClassNames}>
-                    <FragmentEditor />
-                </div>
-            )}
-            {compilationError && (
-                <div className="fixed bottom-8 mx-auto">
-                    <Banner text={compilationError} />
-                </div>
-            )}
-        </main>
+                <PropertyPanel />
+            </main>
+        </CircuitProvider>
     );
 }
 
@@ -101,38 +132,7 @@ export default function Editor() {
     return (
         <ProjectProvider projectId={projectId as string}>
             <ModalProvider>
-                <main className="flex flex-row h-screen">
-                    <div className="relative flex flex-col flex-grow">
-                        <EditorHeader />
-                        <div className="relative flex flex-row flex-grow items-center">
-                            <aside className="fixed flex flex-col h-full items-center justify-start pl-12 z-30">
-                                <div className="my-auto">
-                                    <FloatingTabBar
-                                        items={[
-                                            {
-                                                name: 'Preview',
-                                                path: `/${username}/${projectId}`,
-                                                icon: <StreamOutlined />
-                                            },
-                                            {
-                                                name: 'Edit',
-                                                path: `/${username}/${projectId}/edit`,
-                                                icon: <ShapeLineOutlined />
-                                            },
-                                            {
-                                                name: 'Settings',
-                                                path: `/${username}/${projectId}/settings`,
-                                                icon: <TuneOutlined />
-                                            }
-                                        ]}
-                                    />
-                                </div>
-                            </aside>
-                            <EditorContainer />
-                        </div>
-                    </div>
-                    <PropertyPanel />
-                </main>
+                <EditorContainer username={username} projectId={projectId} />
             </ModalProvider>
         </ProjectProvider>
     );

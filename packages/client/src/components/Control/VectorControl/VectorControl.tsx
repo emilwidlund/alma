@@ -1,18 +1,15 @@
 import { isLit, Lit, Vec, vec2, vec3, vec4 } from '@thi.ng/shader-ast';
-import { InputValue } from 'alma-graph';
+import { InputValue } from '@usealma/graph';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import { useCircuit } from '../../../hooks/useCircuit/useCircuit';
+import { VectorControlProps } from './VectorControl.types';
 import { Input } from '../../Input/Input';
 import { BaseControl } from '../BaseControl/BaseControl';
-import { vectorControlInputStyles, vectorControlNameStyles } from './VectorControl.styles';
-import { IVectorControlProps } from './VectorControl.types';
 
 const vectorLabels = ['x', 'y', 'z', 'w'];
 
-export const VectorControl = observer(({ port }: IVectorControlProps) => {
-    const circuit = useCircuit();
+export const VectorControl = observer(({ port }: VectorControlProps) => {
     const createOnChangeHandler = React.useCallback(
         (component: string) => {
             return (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +41,7 @@ export const VectorControl = observer(({ port }: IVectorControlProps) => {
                 }
             };
         },
-        [port, circuit]
+        [port]
     );
 
     const disabled = React.useMemo(() => port.connected, [port.connected]);
@@ -53,20 +50,20 @@ export const VectorControl = observer(({ port }: IVectorControlProps) => {
     const components = isLit(resolvedValue) ? resolvedValue.val.map((lit: Lit<Vec>) => lit.val) : [];
 
     return (
-        <BaseControl>
-            <span className={vectorControlNameStyles}>{port.name}</span>
-            {components.map((component: number, index: number) => (
-                <Input
-                    className={vectorControlInputStyles}
-                    key={index}
-                    placeholder={vectorLabels[index]}
-                    onChange={createOnChangeHandler(vectorLabels[index])}
-                    value={component}
-                    type="number"
-                    step={0.1}
-                    disabled={disabled}
-                />
-            ))}
+        <BaseControl title={port.name}>
+            <div className='flex flex-row flex-nowrap items-center gap-x-2 w-64'>
+                {components.map((component: number, index: number) => (
+                    <Input
+                        key={index}
+                        placeholder={vectorLabels[index]}
+                        onChange={createOnChangeHandler(vectorLabels[index])}
+                        value={component}
+                        type="number"
+                        step={0.1}
+                        disabled={disabled}
+                    />
+                ))}
+            </div>
         </BaseControl>
     );
 });

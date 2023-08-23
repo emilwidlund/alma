@@ -1,6 +1,6 @@
 import { Vec } from '@thi.ng/shader-ast';
-import { Input } from 'alma-graph';
+import { Input } from '@usealma/graph';
 
-export interface IVectorControlProps {
+export interface VectorControlProps {
     port: Input<Vec>;
 }

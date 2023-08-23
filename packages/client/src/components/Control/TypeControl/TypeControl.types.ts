@@ -1,5 +1,5 @@
-import { Node } from 'alma-graph';
+import { Node } from '@usealma/graph';
 
-export interface ITypeControlProps {
+export interface TypeControlProps {
     node: Node;
 }
