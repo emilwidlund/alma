@@ -28,8 +28,14 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
 // eslint-disabled-next-line react-hooks/exhaustive-deps
         }, []);
 
+        const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            e.preventDefault();
+
+            panZoomHandlers.onMouseDown(e);
+        }, [panZoomHandlers]);
+
         return (
-            <div ref={scrollRef} className={clsx('relative w-full h-full overflow-auto', className)} {...panZoomHandlers}>
+            <div ref={scrollRef} className={clsx('relative w-full h-full overflow-auto', className)} {...panZoomHandlers} onMouseDown={handleMouseDown}>
                 <div
                     ref={ref}
                     className="relative"
