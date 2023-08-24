@@ -9,12 +9,13 @@ import { FloatingTabBarProps, TabItemProps } from './FloatingTabBar.types';
 
 const TabItem = ({ path, icon, active }: TabItemProps) => {
     const classNames = clsx(
-        'flex items-center justify-center p-2 rounded-xl first:mt-0 mt-4 w-10 h-10 transition-colors hover:text-white',
+        'flex items-center justify-center p-2 rounded-xl first:mt-0 mt-4 w-10 h-10 transition-colors hover:text-accent',
         {
-            'bg-accent': active,
-            'text-white': active,
+            'bg-slate-100': active,
+            'text-accent': active,
+            'shadow-xl': active,
             'text-neutral-500': !active,
-            'hover:bg-neutral-400': !active
+            'hover:bg-slate-100': !active
         }
     );
 

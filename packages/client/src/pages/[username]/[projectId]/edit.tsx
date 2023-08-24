@@ -5,6 +5,7 @@ import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
 import { Project } from '@usealma/types';
 import { clsx } from 'clsx';
+import { motion } from 'framer-motion';
 import NextImage from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -112,9 +113,13 @@ function EditorContainer({
                                 </div>
                             )}
                             {shouldRenderEditor && (
-                                <div className={fragmentEditorContainerClassNames}>
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className={fragmentEditorContainerClassNames}
+                                >
                                     <FragmentEditor />
-                                </div>
+                                </motion.div>
                             )}
                             {compilationError && (
                                 <div className="fixed bottom-8 mx-auto">

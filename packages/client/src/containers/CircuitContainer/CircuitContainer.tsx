@@ -1,6 +1,7 @@
 import { Node } from '@usealma/graph';
 import { ClassConstructor } from '@usealma/webgl';
 import clsx from 'clsx';
+import { AnimatePresence } from 'framer-motion';
 import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
@@ -26,11 +27,11 @@ const Nodes = observer(() => {
     const circuit = useCircuit();
 
     return (
-        <>
+        <AnimatePresence>
             {Array.from(circuit.context?.nodes.values() || []).map(node => (
                 <NodeContainer key={node.id} node={node} />
             ))}
-        </>
+        </AnimatePresence>
     );
 });
 

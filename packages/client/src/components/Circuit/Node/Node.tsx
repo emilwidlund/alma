@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Draggable1, { DraggableProps } from 'react-draggable';
 export const Draggable = Draggable1 as React.ComponentClass<Partial<DraggableProps>>;
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { NodeActionProps, NodePortsProps, NodeProps } from '~/components/Circuit/Node/Node.types';
 import { Port } from '~/components/Circuit/Node/Port/Port';
@@ -47,68 +47,72 @@ export const Node = observer(
             );
 
             return (
-                <AnimatePresence>
-                    <Draggable
-                        position={fromCartesianPoint(
-                            CIRCUIT_SIZE,
-                            CIRCUIT_SIZE,
-                            position.x - NODE_POSITION_OFFSET_X,
-                            position.y
-                        )}
-                        onDrag={onDrag}
-                        handle=".handle"
-                    >
-                        <motion.div
-                            ref={ref}
-                            variants={{
-                                hidden: {
-                                    opacity: 0
-                                },
-                                show: {
-                                    opacity: 1
+                <Draggable
+                    position={fromCartesianPoint(
+                        CIRCUIT_SIZE,
+                        CIRCUIT_SIZE,
+                        position.x - NODE_POSITION_OFFSET_X,
+                        position.y
+                    )}
+                    onDrag={onDrag}
+                    handle=".handle"
+                >
+                    <motion.div
+                        ref={ref}
+                        variants={{
+                            hidden: {
+                                opacity: 0,
+                                transition: {
+                                    duration: 0.15
                                 }
-                            }}
-                            initial="hidden"
-                            animate="show"
-                            exit="hidden"
-                            className={nodeWrapperClassNames}
-                            style={{
-                                width: NODE_WIDTH,
-                                fontFeatureSettings: `"ss02" 1`
-                            }}
-                            onClick={onClick}
-                            onFocus={onFocus}
-                            onMouseEnter={onMouseEnter}
-                            onMouseLeave={onMouseLeave}
-                            tabIndex={0}
-                        >
-                            <div className={clsx(nodeHeaderWrapperClassNames, 'handle')}>
-                                <span className="flex flex-row items-baseline">
-                                    <span className="text-base">
-                                        <Icon fontSize="inherit" />
-                                    </span>
-                                    <span className="ml-2">{name}</span>
+                            },
+                            show: {
+                                opacity: 1,
+                                transition: {
+                                    duration: 0.15
+                                }
+                            }
+                        }}
+                        initial="hidden"
+                        animate="show"
+                        exit="hidden"
+                        className={nodeWrapperClassNames}
+                        style={{
+                            width: NODE_WIDTH,
+                            fontFeatureSettings: `"ss02" 1`
+                        }}
+                        onClick={onClick}
+                        onFocus={onFocus}
+                        onMouseEnter={onMouseEnter}
+                        onMouseLeave={onMouseLeave}
+                        tabIndex={0}
+                    >
+                        <div className={clsx(nodeHeaderWrapperClassNames, 'handle')}>
+                            <span className="flex flex-row items-baseline">
+                                <span className="text-base">
+                                    <Icon fontSize="inherit" />
                                 </span>
-                                {!!actions?.length && (
-                                    <div className={nodeActionsClassNames}>
-                                        {actions.map((action, index) => (
-                                            <NodeAction key={`${index}-action`} {...action} />
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                            <div
-                                className={nodeContentWrapperClassNames}
-                                style={{
-                                    padding: NODE_CONTENT_PADDING
-                                }}
-                            >
-                                <NodePorts ports={Object.values(inputs)} />
-                                <NodePorts ports={Object.values(outputs)} isOutputWrapper={true} />
-                            </div>
-                        </motion.div>
-                    </Draggable>
-                </AnimatePresence>
+                                <span className="ml-2">{name}</span>
+                            </span>
+                            {!!actions?.length && (
+                                <div className={nodeActionsClassNames}>
+                                    {actions.map((action, index) => (
+                                        <NodeAction key={`${index}-action`} {...action} />
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        <div
+                            className={nodeContentWrapperClassNames}
+                            style={{
+                                padding: NODE_CONTENT_PADDING
+                            }}
+                        >
+                            <NodePorts ports={Object.values(inputs)} />
+                            <NodePorts ports={Object.values(outputs)} isOutputWrapper={true} />
+                        </div>
+                    </motion.div>
+                </Draggable>
             );
         }
     )
