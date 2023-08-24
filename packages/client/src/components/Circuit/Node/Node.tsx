@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import Draggable1, { DraggableProps } from 'react-draggable';
 export const Draggable = Draggable1 as React.ComponentClass<Partial<DraggableProps>>;
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { NodeActionProps, NodePortsProps, NodeProps } from '~/components/Circuit/Node/Node.types';
 import { Port } from '~/components/Circuit/Node/Port/Port';
@@ -11,7 +12,6 @@ import { useHover } from '~/hooks/useHover/useHover';
 import { fromCartesianPoint } from '~/utils/coordinates/coordinates';
 
 export const NODE_CONTENT_PADDING = 12;
-
 
 export const Node = observer(
     // eslint-disable-next-line react/display-name
@@ -47,53 +47,68 @@ export const Node = observer(
             );
 
             return (
-                <Draggable
-                    position={fromCartesianPoint(
-                        CIRCUIT_SIZE,
-                        CIRCUIT_SIZE,
-                        position.x - NODE_POSITION_OFFSET_X,
-                        position.y
-                    )}
-                    onDrag={onDrag}
-                    handle=".handle"
-                >
-                    <div
-                        ref={ref}
-                        className={nodeWrapperClassNames}
-                        style={{
-                            width: NODE_WIDTH,
-                            fontFeatureSettings: `"ss02" 1`
-                        }}
-                        onClick={onClick}
-                        onFocus={onFocus}
-                        onMouseEnter={onMouseEnter}
-                        onMouseLeave={onMouseLeave}
-                        tabIndex={0}
+                <AnimatePresence>
+                    <Draggable
+                        position={fromCartesianPoint(
+                            CIRCUIT_SIZE,
+                            CIRCUIT_SIZE,
+                            position.x - NODE_POSITION_OFFSET_X,
+                            position.y
+                        )}
+                        onDrag={onDrag}
+                        handle=".handle"
                     >
-                        <div className={clsx(nodeHeaderWrapperClassNames, 'handle')}>
-                            <span className='flex flex-row items-baseline'>
-                                <span className='text-base'><Icon fontSize='inherit' /></span>
-                                <span className='ml-2'>{name}</span>
-                            </span>
-                            {!!actions?.length && (
-                                <div className={nodeActionsClassNames}>
-                                    {actions.map((action, index) => (
-                                        <NodeAction key={`${index}-action`} {...action} />
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                        <div
-                            className={nodeContentWrapperClassNames}
-                            style={{
-                                padding: NODE_CONTENT_PADDING
+                        <motion.div
+                            ref={ref}
+                            variants={{
+                                hidden: {
+                                    opacity: 0
+                                },
+                                show: {
+                                    opacity: 1
+                                }
                             }}
+                            initial="hidden"
+                            animate="show"
+                            exit="hidden"
+                            className={nodeWrapperClassNames}
+                            style={{
+                                width: NODE_WIDTH,
+                                fontFeatureSettings: `"ss02" 1`
+                            }}
+                            onClick={onClick}
+                            onFocus={onFocus}
+                            onMouseEnter={onMouseEnter}
+                            onMouseLeave={onMouseLeave}
+                            tabIndex={0}
                         >
-                            <NodePorts ports={Object.values(inputs)} />
-                            <NodePorts ports={Object.values(outputs)} isOutputWrapper={true} />
-                        </div>
-                    </div>
-                </Draggable>
+                            <div className={clsx(nodeHeaderWrapperClassNames, 'handle')}>
+                                <span className="flex flex-row items-baseline">
+                                    <span className="text-base">
+                                        <Icon fontSize="inherit" />
+                                    </span>
+                                    <span className="ml-2">{name}</span>
+                                </span>
+                                {!!actions?.length && (
+                                    <div className={nodeActionsClassNames}>
+                                        {actions.map((action, index) => (
+                                            <NodeAction key={`${index}-action`} {...action} />
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            <div
+                                className={nodeContentWrapperClassNames}
+                                style={{
+                                    padding: NODE_CONTENT_PADDING
+                                }}
+                            >
+                                <NodePorts ports={Object.values(inputs)} />
+                                <NodePorts ports={Object.values(outputs)} isOutputWrapper={true} />
+                            </div>
+                        </motion.div>
+                    </Draggable>
+                </AnimatePresence>
             );
         }
     )

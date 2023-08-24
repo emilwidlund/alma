@@ -1,11 +1,11 @@
 import { Type } from '@thi.ng/shader-ast';
 import { makeObservable, computed } from 'mobx';
 
+import { IOutputProps, OutputValue } from './Output.types';
 import { Connection } from '../Connection/Connection';
 import { Input } from '../Input/Input';
 import { Node } from '../Node/Node';
 import { Port } from '../Port/Port';
-import { IOutputProps, OutputValue } from './Output.types';
 
 export class Output<TType extends Type, TNode extends Node = Node> extends Port<TType, TNode> {
     /** Computed Value */

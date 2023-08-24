@@ -2,9 +2,9 @@ import { jest } from '@jest/globals';
 import { add, float } from '@thi.ng/shader-ast';
 import { observable } from 'mobx';
 
+import { Output } from './Output';
 import { ExtendedContext } from '../Context/Context.fixture';
 import { ExtendedNode } from '../Node/Node.fixture';
-import { Output } from './Output';
 
 describe('Output', () => {
     let context: ExtendedContext;

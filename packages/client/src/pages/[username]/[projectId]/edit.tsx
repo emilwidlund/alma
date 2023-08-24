@@ -49,11 +49,17 @@ function EditorHeader() {
     );
 }
 
-function EditorContainer({ username, projectId }: {username: string | string[] | undefined; projectId: string | string[] | undefined}) {
+function EditorContainer({
+    username,
+    projectId
+}: {
+    username: string | string[] | undefined;
+    projectId: string | string[] | undefined;
+}) {
     const circuitRef = useRef<HTMLDivElement>(null);
     const { circuits, activeLayer, compilationError } = useProjectContext();
 
-    const shouldRenderCircuit= useMemo(() => activeLayer?.type === 'CIRCUIT', [activeLayer]);
+    const shouldRenderCircuit = useMemo(() => activeLayer?.type === 'CIRCUIT', [activeLayer]);
     const shouldRenderEditor = useMemo(() => activeLayer?.type === 'FRAGMENT', [activeLayer]);
 
     const circuit = useMemo(() => {
@@ -98,11 +104,11 @@ function EditorContainer({ username, projectId }: {username: string | string[] |
                                     ]}
                                 />
                             </div>
-                        </aside> 
+                        </aside>
                         <main className="relative flex flex-col items-center justify-center grow w-full h-full overflow-auto">
                             {shouldRenderCircuit && (
                                 <div className={circuitContainerClassNames}>
-                                        <CircuitContainer ref={circuitRef} />
+                                    <CircuitContainer ref={circuitRef} />
                                 </div>
                             )}
                             {shouldRenderEditor && (

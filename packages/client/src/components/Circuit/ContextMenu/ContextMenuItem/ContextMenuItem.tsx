@@ -15,9 +15,12 @@ export const ContextMenuItem = ({ label, icon, items, onClick, selected, select 
         <ContextMenuContainer sections={items} position={{ x: 208, y: -8 }} />
     );
 
-    const contextMenuItemWrapperClassNames = clsx('relative flex flex-row items-center justify-between py-2 px-3 transition-colors rounded-md', {
-        'bg-neutral-400': selected
-    })
+    const contextMenuItemWrapperClassNames = clsx(
+        'relative flex flex-row items-center justify-between py-2 px-3 transition-colors rounded-md',
+        {
+            'bg-neutral-400': selected
+        }
+    );
 
     return (
         <div ref={ref} className={contextMenuItemWrapperClassNames} onMouseEnter={onMouseEnter} onClick={onClick}>
@@ -25,7 +28,7 @@ export const ContextMenuItem = ({ label, icon, items, onClick, selected, select 
                 {/* <Icon name={icon} size={16} color="inherit" outlined /> */}
                 <span>{label}</span>
             </div>
-            {!!items && <ChevronRightOutlined fontSize='inherit' />}
+            {!!items && <ChevronRightOutlined fontSize="inherit" />}
             {contextMenuContainer}
         </div>
     );

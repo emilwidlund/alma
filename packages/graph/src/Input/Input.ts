@@ -1,9 +1,6 @@
 import { Type } from '@thi.ng/shader-ast';
 import { action, computed, makeObservable, observable } from 'mobx';
 
-import { Connection } from '../Connection/Connection';
-import { Node } from '../Node/Node';
-import { Port } from '../Port/Port';
 import {
     ConnectedInputValue,
     IInputProps,
@@ -12,6 +9,9 @@ import {
     SerializableInputValue,
     ValidatorFunction
 } from './Input.types';
+import { Connection } from '../Connection/Connection';
+import { Node } from '../Node/Node';
+import { Port } from '../Port/Port';
 
 export class Input<TType extends Type, TNode extends Node = Node> extends Port<TType, TNode> {
     /** Port Default Value */

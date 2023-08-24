@@ -1,9 +1,9 @@
 import { Texture } from '@thi.ng/webgl';
 import { makeObservable, observable, action, computed } from 'mobx';
 
+import { ICameraManagerProps } from './CameraManager.types';
 import { TextureResolver } from '../TextureManager/TextureManager.types';
 import { WebGLContext } from '../WebGLContext/WebGLContext';
-import { ICameraManagerProps } from './CameraManager.types';
 
 export class CameraManager {
     /** WebGL Context */

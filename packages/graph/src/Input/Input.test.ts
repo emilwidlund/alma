@@ -1,9 +1,9 @@
 import { jest } from '@jest/globals';
 import { bool, float } from '@thi.ng/shader-ast';
 
+import { Input } from './Input';
 import { ExtendedContext } from '../Context/Context.fixture';
 import { ExtendedNode } from '../Node/Node.fixture';
-import { Input } from './Input';
 
 describe('Input', () => {
     let context: ExtendedContext;

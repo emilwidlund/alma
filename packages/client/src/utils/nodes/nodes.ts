@@ -54,7 +54,6 @@ import {
 import { ContextMenuContainerSection } from '~/components/Circuit/ContextMenu/ContextMenuContainer/ContextMenuContainer.types';
 import { ContextMenuItemProps } from '~/components/Circuit/ContextMenu/ContextMenuItem/ContextMenuItem.types';
 
-
 const extractItem = (
     createNodeCallback: (nodeClass: ClassConstructor<WebGLNode>) => void
 ): ((nodeClass: ClassConstructor<WebGLNode>) => ContextMenuItemProps) => {

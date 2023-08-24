@@ -15,13 +15,16 @@ export const useKeyboardActions = () => {
         }
     }, [circuit]);
 
-    const selectAllNodes = React.useCallback((e: KeyboardEvent) => {
-        if (circuit.context) {
-            e.preventDefault();
-            const nodes = Array.from(circuit.context.nodes.values() || []);
-            circuit.setSelectedNodes(nodes);
-        }
-    }, [circuit]);
+    const selectAllNodes = React.useCallback(
+        (e: KeyboardEvent) => {
+            if (circuit.context) {
+                e.preventDefault();
+                const nodes = Array.from(circuit.context.nodes.values() || []);
+                circuit.setSelectedNodes(nodes);
+            }
+        },
+        [circuit]
+    );
 
     const deselectAllNodes = React.useCallback(() => {
         if (circuit.selectedNodes?.length) {

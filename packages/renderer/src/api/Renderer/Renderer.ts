@@ -21,7 +21,6 @@ import { nodes, TextureResolver, WebGLContext } from '@usealma/webgl';
 import { RenderDisposer, RenderSequence } from './Renderer.types';
 import { BlendFn } from '../Blend/Blend';
 
-
 const createShaderSpec = (
     gl: WebGL2RenderingContext,
     fragmentSource: string | ShaderFn,
@@ -48,8 +47,8 @@ const createShaderSpec = (
         varying: { vUv: 'vec2' },
         state: {
             blend: true,
-            blendFn: BlendFn[blendingMode] as BlendFunc,
-        },
+            blendFn: BlendFn[blendingMode] as BlendFunc
+        }
         // generateDecls: true
     };
 };
@@ -221,7 +220,7 @@ export const render = (
                 draw(model);
                 fbo.unbind();
             }
-            
+
             // Draw to GL context
             draw(model);
         }

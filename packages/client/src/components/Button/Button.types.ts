@@ -1,4 +1,3 @@
-
 export enum ButtonVariant {
     PRIMARY,
     SECONDARY,
@@ -9,4 +8,4 @@ export type ButtonProps = React.ComponentProps<'button'> & {
     variant?: ButtonVariant;
     disabled?: boolean;
     compact?: boolean;
-}
+};

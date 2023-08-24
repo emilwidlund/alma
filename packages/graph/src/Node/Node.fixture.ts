@@ -1,13 +1,13 @@
 import { add, float, FloatTerm } from '@thi.ng/shader-ast';
 import _ from 'lodash';
 
+import { Node } from './Node';
+import { INodeInputs, INodeOutputs, INodeProps } from './Node.types';
 import { Context } from '../Context/Context';
 import { Input } from '../Input/Input';
 import { IInputProps } from '../Input/Input.types';
 import { Output } from '../Output/Output';
 import { IOutputProps } from '../Output/Output.types';
-import { Node } from './Node';
-import { INodeInputs, INodeOutputs, INodeProps } from './Node.types';
 
 export type IExtededNodeProps = INodeProps<
     { input?: IInputProps<'float'> },

@@ -37,7 +37,6 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
     const [selectedNodes, setSelectedNodes] = React.useState<Node[] | undefined>([]);
     const [selectionBounds, setSelectionBounds] = React.useState<Bounds | undefined>(undefined);
 
-
     const handleSetNodeElement = React.useCallback(
         (nodeId: string, nodeElement: HTMLDivElement) => {
             setNodeElements(nodeElements => {
@@ -166,7 +165,7 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
         setSelectedNodes: handleSetSelectedNodes,
         selectionBounds,
         setSelectionBounds: handleSetSelectionBounds
-    }
+    };
 
     return <CircuitContext.Provider value={value}>{children}</CircuitContext.Provider>;
 };

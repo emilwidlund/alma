@@ -1,12 +1,6 @@
 'use client';
 
-import {
-    RouteOutlined,
-    NotesOutlined,
-    AddOutlined,
-    TonalityOutlined,
-    MoreVertOutlined
-} from '@mui/icons-material';
+import { RouteOutlined, NotesOutlined, AddOutlined, TonalityOutlined, MoreVertOutlined } from '@mui/icons-material';
 import { BlendingMode, BlendingModeSchema, Layer } from '@usealma/types';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
@@ -42,22 +36,22 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
         toggleLayer(layer.id, !layer.enabled);
     }, [layer, toggleLayer]);
 
-    const handleInput: FormEventHandler<HTMLHeadingElement> = useCallback(
-        e => {
-            e.currentTarget.textContent?.replace(/(\r\n|\n|\r)/gm, '');
+    const handleInput: FormEventHandler<HTMLHeadingElement> = useCallback(e => {
+        e.currentTarget.textContent?.replace(/(\r\n|\n|\r)/gm, '');
+    }, []);
+
+    const handleBlur = useCallback(
+        (e: React.FocusEvent<HTMLHeadingElement>) => {
+            const name = e.currentTarget.textContent;
+
+            if (!name?.length) {
+                e.currentTarget.textContent = 'Untitled';
+            }
+
+            renameLayer(layer.id, name?.length ? name : 'Untitled');
         },
-        []
+        [layer.id, renameLayer]
     );
-
-    const handleBlur = useCallback((e: React.FocusEvent<HTMLHeadingElement>) => {
-        const name = e.currentTarget.textContent;
-
-        if (!name?.length) {
-            e.currentTarget.textContent = 'Untitled';
-        }
-
-        renameLayer(layer.id, name?.length ? name : 'Untitled');
-    }, [layer.id, renameLayer]);
 
     return (
         <Draggable draggableId={layer.id} index={index}>
@@ -118,7 +112,15 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
 
 export const LayerPanel = () => {
     const [contextMenuOpen, toggleContextMenu] = useState(false);
-    const { project, activeLayer, activeLayerId, updateLayerBlendingMode, removeLayer, setActiveLayerId, reorderLayers } = useProjectContext();
+    const {
+        project,
+        activeLayer,
+        activeLayerId,
+        updateLayerBlendingMode,
+        removeLayer,
+        setActiveLayerId,
+        reorderLayers
+    } = useProjectContext();
     const items = useMemo(() => project?.layers.slice().reverse() ?? [], [project]);
     const { open } = useNewLayerModal();
 
@@ -160,11 +162,14 @@ export const LayerPanel = () => {
         [items, reorderLayers]
     );
 
-    const handleUpdateBlendingMode: ChangeEventHandler<HTMLSelectElement> = useCallback((e) => {
-        if (activeLayer) {
-            updateLayerBlendingMode(activeLayer.id, upperCase(e.target.value) as BlendingMode);
-        }
-    }, [activeLayer, updateLayerBlendingMode]);
+    const handleUpdateBlendingMode: ChangeEventHandler<HTMLSelectElement> = useCallback(
+        e => {
+            if (activeLayer) {
+                updateLayerBlendingMode(activeLayer.id, upperCase(e.target.value) as BlendingMode);
+            }
+        },
+        [activeLayer, updateLayerBlendingMode]
+    );
 
     const handleToggleContextMenu = useCallback(() => {
         toggleContextMenu(state => !state);
@@ -186,17 +191,30 @@ export const LayerPanel = () => {
                     value={capitalize(activeLayer?.blendingMode)}
                     onChange={handleUpdateBlendingMode}
                 >
-                    {Object.values(BlendingModeSchema.Values).map(blendingMode => <option key={blendingMode}>{capitalize(blendingMode)}</option>)}
+                    {Object.values(BlendingModeSchema.Values).map(blendingMode => (
+                        <option key={blendingMode}>{capitalize(blendingMode)}</option>
+                    ))}
                 </Select>
-                <div className='relative'>
-                    <IconButton variant={ButtonVariant.SECONDARY} icon={<MoreVertOutlined />} onClick={handleToggleContextMenu} compact />
-                    {contextMenuOpen && <ContextMenuContainer sections={[{ items: [{ icon: '', label: 'Remove Layer', onClick: handleRemoveLayer }] }]} position={{ x: -160, y: 40 }} onClose={() => toggleContextMenu(false)} />}
+                <div className="relative">
+                    <IconButton
+                        variant={ButtonVariant.SECONDARY}
+                        icon={<MoreVertOutlined />}
+                        onClick={handleToggleContextMenu}
+                        compact
+                    />
+                    {contextMenuOpen && (
+                        <ContextMenuContainer
+                            sections={[{ items: [{ icon: '', label: 'Remove Layer', onClick: handleRemoveLayer }] }]}
+                            position={{ x: -160, y: 40 }}
+                            onClose={() => toggleContextMenu(false)}
+                        />
+                    )}
                 </div>
             </div>
             <Well className="grow">
                 <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
                     <StrictModeDroppable droppableId="layers">
-                        {(provided) => (
+                        {provided => (
                             <div ref={provided.innerRef} className="flex flex-col grow" {...provided.droppableProps}>
                                 {items.map((layer, index) => (
                                     <LayerItem

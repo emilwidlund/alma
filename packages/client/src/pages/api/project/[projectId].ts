@@ -98,7 +98,7 @@ const PUT = async (req: NextApiRequest, res: NextApiResponse) => {
         where: { id: projectId },
         data: {
             name: projectData.name,
-            image: projectData.image,
+            image: projectData.image
             // layers: projectData.layers
         }
     });

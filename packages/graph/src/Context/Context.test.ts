@@ -1,9 +1,9 @@
 import { jest } from '@jest/globals';
 
-import { InputValue } from '../Input/Input.types';
-import { ExtendedNode } from '../Node/Node.fixture';
 import { ExtendedContext, getContextProps } from './Context.fixture';
 import { IContextSerialized } from './Context.types';
+import { InputValue } from '../Input/Input.types';
+import { ExtendedNode } from '../Node/Node.fixture';
 
 describe('Context', () => {
     let context: ExtendedContext;

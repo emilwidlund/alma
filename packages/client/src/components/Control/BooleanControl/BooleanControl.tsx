@@ -11,13 +11,9 @@ export const BooleanControl = observer(({ port }: BooleanControlProps) => {
     const value = resolvedValue.type === 'bool' ? (resolvedValue as Lit<'bool'>).val : undefined;
     const disabled = React.useMemo(() => port.connected, [port.connected]);
 
-    const onChange = React.useCallback(
-        () => {
-            port.setValue(bool(!value));
-        },
-        [port, value]
-    );
-
+    const onChange = React.useCallback(() => {
+        port.setValue(bool(!value));
+    }, [port, value]);
 
     return typeof value !== 'undefined' ? (
         <BaseControl title={port.name}>

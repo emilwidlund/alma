@@ -48,16 +48,9 @@ function EditorHeader() {
 function PreviewContainer() {
     const previewRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const { project, handleCompilationError, compilationError, handleCompilationSuccess } =
-        useProjectContext();
+    const { project, handleCompilationError, compilationError, handleCompilationSuccess } = useProjectContext();
 
-    useRenderer(
-        canvasRef,
-        project?.layers || [],
-        false,
-        handleCompilationError,
-        handleCompilationSuccess
-    );
+    useRenderer(canvasRef, project?.layers || [], false, handleCompilationError, handleCompilationSuccess);
 
     useEffect(() => {
         if (previewRef.current && canvasRef.current) {

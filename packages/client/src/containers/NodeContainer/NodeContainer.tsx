@@ -24,17 +24,14 @@ export const NodeContainer = observer(({ node }: NodeContainerProps) => {
         return () => {
             circuit.removeNodeElement(node.id);
         };
-// eslint-disabled-next-line react-hooks/exhaustive-deps
+        // eslint-disabled-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const onClick = React.useCallback(
-        () => {
-            if (!circuit.selectedNodes?.includes(node)) {
-                circuit.setSelectedNodes([node]);
-            }
-        },
-        [circuit, node]
-    );
+    const onClick = React.useCallback(() => {
+        if (!circuit.selectedNodes?.includes(node)) {
+            circuit.setSelectedNodes([node]);
+        }
+    }, [circuit, node]);
 
     const onFocus = React.useCallback(() => {
         if (!circuit.selectedNodes?.includes(node)) {

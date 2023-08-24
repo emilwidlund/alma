@@ -2,8 +2,8 @@ import { Type } from '@thi.ng/shader-ast';
 import { makeObservable, observable, computed } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
-import { Node } from '../Node/Node';
 import { IPortProps, IPortSerialized } from './Port.types';
+import { Node } from '../Node/Node';
 
 export class Port<TType extends Type, TNode extends Node = Node> {
     /** Unique Identifier */

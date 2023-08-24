@@ -14,7 +14,6 @@ import { LayerPanel } from '../LayerPanel/LayerPanel';
 import { useCircuit } from '~/hooks/useCircuit/useCircuit';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
-
 const CircuitPorts = observer(() => {
     const circuit = useCircuit();
 
@@ -43,7 +42,7 @@ const CircuitPorts = observer(() => {
         .filter(Boolean);
 
     return inputControls.length ? (
-        <div className='p-6'>
+        <div className="p-6">
             <h3 className="text-md font-medium mb-6">Inputs</h3>
             {selectedCandidate && (!!inputControls.length || selectedCandidate.data.type) && (
                 <div>
@@ -59,20 +58,20 @@ export const PropertyPanel = observer(() => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const { project, activeLayer, handleCompilationError, handleCompilationSuccess } = useProjectContext();
 
-    const layersToRender = useMemo(() => project ? [
-        ...project.layers.slice(
-            undefined, 
-            project.layers.findIndex(layer => layer.id === activeLayer?.id) + 1
-        )
-    ] : [], [project, activeLayer]);
-
-    useRenderer(
-        canvasRef,
-        layersToRender,
-        false,
-        handleCompilationError,
-        handleCompilationSuccess
+    const layersToRender = useMemo(
+        () =>
+            project
+                ? [
+                      ...project.layers.slice(
+                          undefined,
+                          project.layers.findIndex(layer => layer.id === activeLayer?.id) + 1
+                      )
+                  ]
+                : [],
+        [project, activeLayer]
     );
+
+    useRenderer(canvasRef, layersToRender, false, handleCompilationError, handleCompilationSuccess);
 
     return (
         <aside className="flex flex-col w-96 h-full bg-neutral-100 z-10">

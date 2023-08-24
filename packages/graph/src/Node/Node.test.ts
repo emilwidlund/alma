@@ -1,8 +1,8 @@
 import { jest } from '@jest/globals';
 import { add, float } from '@thi.ng/shader-ast';
 
-import { ExtendedContext } from '../Context/Context.fixture';
 import { ExtendedNode, IExtededNodeProps } from './Node.fixture';
+import { ExtendedContext } from '../Context/Context.fixture';
 
 describe('Node', () => {
     let context: ExtendedContext;

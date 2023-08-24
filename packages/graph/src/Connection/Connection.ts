@@ -3,12 +3,12 @@ import _ from 'lodash';
 import { IReactionDisposer, autorun, computed, makeObservable, observable } from 'mobx';
 import { v4 as uuid } from 'uuid';
 
+import { IConnectionProps, IConnectionSerialized } from './Connection.types';
 import { Context } from '../Context/Context';
 import { Input } from '../Input/Input';
 import { InputValue, SerializableInputValue } from '../Input/Input.types';
 import { Node } from '../Node/Node';
 import { Output } from '../Output/Output';
-import { IConnectionProps, IConnectionSerialized } from './Connection.types';
 
 export class Connection<TType extends Type> {
     /** Unique Identifier */

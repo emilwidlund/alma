@@ -17,12 +17,7 @@ export const Icon = ({
 }: IIconProps) => {
     return (
         <i
-            className={clsx(
-                'select-none',
-                'material-symbols-outlined',
-                'icon',
-                extraClassName
-            )}
+            className={clsx('select-none', 'material-symbols-outlined', 'icon', extraClassName)}
             style={{
                 color,
                 fontSize: size,

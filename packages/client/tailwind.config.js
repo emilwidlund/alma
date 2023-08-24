@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ['./src/pages/**/*.{js,ts,jsx,tsx,mdx}', './src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/hooks/**/*.{js,ts,jsx,tsx,mdx}'],
+    content: [
+        './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/hooks/**/*.{js,ts,jsx,tsx,mdx}'
+    ],
     theme: {
         extend: {
             width: {
@@ -13,7 +17,7 @@ module.exports = {
                 'off-white': '#EAEDFF',
                 'pastel-blue': '#CACFEA',
                 accent: '#2244FF',
-                'complimentary': "#d7ddff",
+                complimentary: '#d7ddff',
                 'text-dark': '#5E647D',
                 'text-subtle': '#7B8097',
                 'button-bg-secondary': 'rgba(255, 255, 255, .2)',
@@ -34,7 +38,7 @@ module.exports = {
             },
             boxShadow: {
                 md: ['0 0 10px rgba(0, 0, 0, 0.02)', '0 0 5px rgba(0, 0, 0, 0.05)'],
-                lg: ['0 0 20px rgba(0, 0, 0, 0.02)', '0 0 10px rgba(0, 0, 0, 0.05)'],
+                lg: ['0 0 20px rgba(0, 0, 0, 0.02)', '0 0 10px rgba(0, 0, 0, 0.05)']
             },
             dropShadow: {
                 '3xl': ['0 35px 35px rgba(0, 0, 0, 0.25)', '0 45px 65px rgba(0, 0, 0, 0.15)']
@@ -43,7 +47,7 @@ module.exports = {
                 xxs: '.65rem'
             },
             backgroundImage: {
-                'playground': "url('/playground.jpg')",
+                playground: "url('/playground.jpg')"
             }
         }
     },

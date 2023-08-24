@@ -1,10 +1,9 @@
-import { Node } from '@usealma/graph'
+import { Node } from '@usealma/graph';
 import { ClassConstructor } from '@usealma/webgl';
 import clsx from 'clsx';
 import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
-
 
 import { ICircuitContainerProps, IConnectionsProps } from './CircuitContainer.types';
 import { Circuit } from '../../components/Circuit/Circuit';
@@ -40,7 +39,7 @@ const Connections = observer(({ mousePosition }: IConnectionsProps) => {
     const [mouseState, setMouseState] = React.useState<'idle' | 'down' | 'move'>('idle');
     const circuit = useCircuit();
 
-    const  onMouseDown = React.useCallback(() => {
+    const onMouseDown = React.useCallback(() => {
         if (mouseState === 'idle') {
             setMouseState('down');
         }
@@ -66,7 +65,16 @@ const Connections = observer(({ mousePosition }: IConnectionsProps) => {
     );
 
     return (
-        <svg ref={ref} id="connections" width="100%" height="100%" onMouseDown={onMouseDown} onMouseMove={onMouseMove} onMouseUp={onMouseUp} onClick={onClick}>
+        <svg
+            ref={ref}
+            id="connections"
+            width="100%"
+            height="100%"
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+            onClick={onClick}
+        >
             {Array.from(circuit.context?.connections.values() || []).map(connection => (
                 <Connection key={connection.id} connection={connection} />
             ))}
@@ -90,7 +98,7 @@ const Selection = observer(() => {
         height: `${bounds.height}px`,
         transform: `translate(${bounds.x}px, ${bounds.y}px)`,
         backgroundColor: 'rgba(0, 0, 0, 0.2)'
-    }
+    };
 
     return circuit.selectionBounds ? (
         <div className="absolute top-0 left-0 border border-accent z-20" style={style} />
@@ -140,7 +148,7 @@ export const CircuitContainer = observer(
         );
 
         const onMouseDown = React.useCallback(
-            ({ nativeEvent, button, metaKey }: React.MouseEvent<HTMLDivElement>) => {
+            ({ nativeEvent, button }: React.MouseEvent<HTMLDivElement>) => {
                 if ((nativeEvent.target as HTMLDivElement).id === 'connections' && button === 0) {
                     circuit.setSelectionBounds({ x: mousePosition.x, y: mousePosition.y, width: 0, height: 0 });
                 }
@@ -184,7 +192,7 @@ export const CircuitContainer = observer(
             [toggleContextMenu, mousePosition]
         );
 
-        return (
+        return (circuit.context?.nodes.size || 0) > 0 ? (
             <Circuit
                 ref={ref}
                 className={clsx('realtive bg-neutral-400')}
@@ -200,13 +208,11 @@ export const CircuitContainer = observer(
                 {!!contextMenuPosition && (
                     <ContextMenuContainer
                         position={contextMenuPosition}
-                        sections={[
-                            ...nodesHierarchy(onContextMenuItemClick)
-                        ]}
+                        sections={[...nodesHierarchy(onContextMenuItemClick)]}
                         onClose={() => toggleContextMenu(undefined)}
                     />
                 )}
             </Circuit>
-        );
+        ) : null;
     })
 );

@@ -11,13 +11,16 @@ export const Switch = ({ active, onChange, disabled }: SwitchProps) => {
         'opacity-30': disabled
     });
 
-    const handleClick: MouseEventHandler<HTMLDivElement> = useCallback((e) => {
-        e.stopPropagation();
+    const handleClick: MouseEventHandler<HTMLDivElement> = useCallback(
+        e => {
+            e.stopPropagation();
 
-        if (!disabled) {
-            onChange?.(e);
-        }
-    }, [onChange, disabled])
+            if (!disabled) {
+                onChange?.(e);
+            }
+        },
+        [onChange, disabled]
+    );
 
     return (
         <div className={containerClassNames} onClick={handleClick}>

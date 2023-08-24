@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-
-
 import { ContextMenuContainerProps } from './ContextMenuContainer.types';
 import { useClickOutside } from '../../../../hooks/useClickOutside/useClickOutside';
 import { ContextMenuItem } from '../ContextMenuItem/ContextMenuItem';
@@ -28,10 +26,13 @@ export const ContextMenuContainer = ({ position, sections, onClose }: ContextMen
     }, [closeOnEscapeKey]);
 
     return (
-        <div ref={ref} className="flex flex-col p-2 rounded-xl bg-neutral-300 absolute w-52 uppercase tracking-wider shadow-lg z-20 font-medium text-xxs" 
-        style={position ? { top: `${position.y}px`, left: `${position.x}px` }: undefined}>
+        <div
+            ref={ref}
+            className="flex flex-col p-2 rounded-xl bg-neutral-300 absolute w-52 uppercase tracking-wider shadow-lg z-20 font-medium text-xxs"
+            style={position ? { top: `${position.y}px`, left: `${position.x}px` } : undefined}
+        >
             {sections.map((section, index) => (
-                <div className={"flex flex-col mt-4 first-of-type:mt-0"} key={index}>
+                <div className={'flex flex-col mt-4 first-of-type:mt-0'} key={index}>
                     {!!section.title && <span className="mt-1 pb-2 pl-3 text-xxs">{section.title}</span>}
                     {section.items.map(item => (
                         <ContextMenuItem

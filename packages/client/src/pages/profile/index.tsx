@@ -23,7 +23,7 @@ export default function Profile() {
 
     useEffect(() => {
         if (!user) {
-            router.push('/')
+            router.push('/');
         } else {
             fetch(`/api/profile/me`)
                 .then(v => v.json())
@@ -40,7 +40,7 @@ export default function Profile() {
     }, [router, user]);
 
     const handleNewProject = useCallback(() => {
-       router.push('/new')
+        router.push('/new');
     }, [router]);
 
     return (
@@ -54,9 +54,11 @@ export default function Profile() {
                             <h3 className="text-xl mt-8 font-medium">{profile.username}</h3>
                             <span className="mt-1 text-sm opacity-50">{profile.location}</span>
                             <span className="mt-6 text-sm">{profile.bio}</span>
-                            {profile.website && <a className="mt-2 text-sm text-accent" href={profile.website}>
-                                {prettifyURL(profile.website)}
-                            </a>}
+                            {profile.website && (
+                                <a className="mt-2 text-sm text-accent" href={profile.website}>
+                                    {prettifyURL(profile.website)}
+                                </a>
+                            )}
                             <Button className="w-full justify-center mt-12">Follow</Button>
                         </div>
                     ) : (
@@ -66,23 +68,31 @@ export default function Profile() {
                     )}
                 </div>
                 {projects ? (
-                    <div className='flex flex-col w-full h-full'>
-                        <div className='flex flex-row justify-between items-center'>
-                            <h2 className='text-3xl font-medium'>Projects</h2>
-                            <IconButton icon={<AddOutlined />} onClick={handleNewProject}>New Project</IconButton>
+                    <div className="flex flex-col w-full h-full">
+                        <div className="flex flex-row justify-between items-center">
+                            <h2 className="text-3xl font-medium">Projects</h2>
+                            <IconButton icon={<AddOutlined />} onClick={handleNewProject}>
+                                New Project
+                            </IconButton>
                         </div>
-                        {projects.length ? <div className="relative grid grid-cols-3 gap-6 mt-12">
-                            {projects.map(project => (
-                                <ProjectCard
-                                    key={project.id}
-                                    projectId={project.id}
-                                    name={project.name}
-                                    author={project.owner}
-                                    image={project.image}
-                                    layers={project.layers}
-                                />
-                            ))}
-                        </div> : <div className='flex flex-col items-center justify-center h-full'><h4 className='font-medium text-lg'>You have no projects</h4></div>}
+                        {projects.length ? (
+                            <div className="relative grid grid-cols-3 gap-6 mt-12">
+                                {projects.map(project => (
+                                    <ProjectCard
+                                        key={project.id}
+                                        projectId={project.id}
+                                        name={project.name}
+                                        author={project.owner}
+                                        image={project.image}
+                                        layers={project.layers}
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="flex flex-col items-center justify-center h-full">
+                                <h4 className="font-medium text-lg">You have no projects</h4>
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <div className="flex flex-col items-center justify-center h-full w-full">

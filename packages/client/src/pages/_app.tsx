@@ -12,14 +12,16 @@ export default function App({ Component, pageProps: { initialSession, ...pagePro
     return (
         <>
             <style jsx global>
-                {`html {
-                    font-family: ${inter.style.fontFamily}
-                }`}
+                {`
+                    html {
+                        font-family: ${inter.style.fontFamily};
+                    }
+                `}
             </style>
             <SessionContextProvider supabaseClient={supabaseClient} initialSession={initialSession}>
-                    <main>
-                        <Component {...pageProps} />
-                    </main>
+                <main>
+                    <Component {...pageProps} />
+                </main>
             </SessionContextProvider>
         </>
     );

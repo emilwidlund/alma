@@ -97,24 +97,26 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
         );
     }, []);
 
-    const removeLayer = useCallback((layerId: string) => {
-        const layerIndex = project?.layers.findIndex(layer => layer.id === layerId);
+    const removeLayer = useCallback(
+        (layerId: string) => {
+            const layerIndex = project?.layers.findIndex(layer => layer.id === layerId);
 
-        setProject(
-            produce(draft => {
-                if (draft) {
-                    draft.layers = draft.layers.filter(layer => layerId !== layer.id);
+            setProject(
+                produce(draft => {
+                    if (draft) {
+                        draft.layers = draft.layers.filter(layer => layerId !== layer.id);
 
-                    if (typeof layerIndex !== 'undefined') {
-                        const candidateIndex = (layerIndex - 1) <= 0 ? 0 : layerIndex - 1;
-                        const layerId = draft?.layers[candidateIndex]?.id;
-                        setActiveLayerId(layerId);
+                        if (typeof layerIndex !== 'undefined') {
+                            const candidateIndex = layerIndex - 1 <= 0 ? 0 : layerIndex - 1;
+                            const layerId = draft?.layers[candidateIndex]?.id;
+                            setActiveLayerId(layerId);
+                        }
                     }
-                }
-            })
-        );
-
-    }, [project]);
+                })
+            );
+        },
+        [project]
+    );
 
     const updateLayerBlendingMode = useCallback((layerId: string, blendingMode: BlendingMode) => {
         setProject(
@@ -139,9 +141,11 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
 
     const updateCircuits = useCallback(
         (id: string, circuit: WebGLContext) => {
-            setCircuits(produce(draft => {
-                draft.set(id, circuit as any)
-            }));
+            setCircuits(
+                produce(draft => {
+                    draft.set(id, circuit as any);
+                })
+            );
         },
         [setCircuits]
     );

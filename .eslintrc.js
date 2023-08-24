@@ -4,12 +4,12 @@ module.exports = {
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
+        'plugin:prettier/recommended',
         'plugin:import/recommended',
-        'plugin:import/typescript',
-        'prettier'
+        'plugin:import/typescript'
     ],
     parser: '@typescript-eslint/parser',
-    plugins: ['@typescript-eslint', 'unused-imports'],
+    plugins: ['@typescript-eslint', 'unused-imports', 'prettier'],
     root: true,
     settings: {
         'import/resolver': {
@@ -44,6 +44,7 @@ module.exports = {
                 args: 'after-used',
                 argsIgnorePattern: '^_'
             }
-        ]
+        ],
+        'prettier/prettier': 'error'
     }
 };

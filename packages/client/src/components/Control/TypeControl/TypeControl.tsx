@@ -8,7 +8,6 @@ import { BaseControl } from '../BaseControl/BaseControl';
 
 import { Select } from '~/components/Select/Select';
 
-
 export const TypeControl = observer(({ node }: TypeControlProps) => {
     const circuit = useCircuit();
     const onChange = React.useCallback(
@@ -23,7 +22,7 @@ export const TypeControl = observer(({ node }: TypeControlProps) => {
     return (
         <BaseControl title="Type">
             <Select onChange={onChange} value={node?.data.type?.selected}>
-            {node.data.type?.options.map(type => (
+                {node.data.type?.options.map(type => (
                     <option key={type} value={type}>
                         {type.toUpperCase()}
                     </option>

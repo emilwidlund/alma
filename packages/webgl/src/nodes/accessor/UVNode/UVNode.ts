@@ -9,7 +9,8 @@ import { WebGLNodeType } from '../../../types';
 import { fragUV } from '../../../utils/shaders/shaders';
 
 export class UVNode extends Node {
-    static description = 'Access to fragment coordinates. Aspect Corrected output is the UV corrected for the preview resolution ratio.';
+    static description =
+        'Access to fragment coordinates. Aspect Corrected output is the UV corrected for the preview resolution ratio.';
     static nodeName = 'UV';
     type = WebGLNodeType.UV;
 

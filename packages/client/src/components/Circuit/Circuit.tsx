@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
+import { motion } from 'framer-motion';
 import * as React from 'react';
-import usePanZoom from "use-pan-and-zoom";
+import usePanZoom from 'use-pan-and-zoom';
 
 import { CircuitProps } from './Circuit.types';
 import { fromCartesianPoint } from '../../utils/coordinates/coordinates';
@@ -13,7 +14,7 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
 
         React.useEffect(() => {
             if (scrollRef.current) {
-                setContainer(scrollRef.current)
+                setContainer(scrollRef.current);
 
                 const { x, y } = fromCartesianPoint(size.width, size.height, 0, 0);
                 const { x: offsetX, y: offsetY } = fromCartesianPoint(
@@ -25,20 +26,28 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
 
                 scrollRef.current.scrollTo({ left: x - offsetX, top: y - offsetY });
             }
-// eslint-disabled-next-line react-hooks/exhaustive-deps
+            // eslint-disabled-next-line react-hooks/exhaustive-deps
         }, []);
 
-        const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            if (e.button === 1) {
-                e.preventDefault();
+        const handleMouseDown = React.useCallback(
+            (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+                if (e.button === 1) {
+                    e.preventDefault();
 
-                panZoomHandlers?.onMouseDown?.(e);
-            }
-        }, [panZoomHandlers]);
+                    panZoomHandlers?.onMouseDown?.(e);
+                }
+            },
+            [panZoomHandlers]
+        );
 
         return (
-            <div ref={scrollRef} className={clsx('relative w-full h-full overflow-auto', className)} {...panZoomHandlers} onMouseDown={handleMouseDown}>
-                <div
+            <div
+                ref={scrollRef}
+                className={clsx('relative w-full h-full overflow-auto', className)}
+                {...panZoomHandlers}
+                onMouseDown={handleMouseDown}
+            >
+                <motion.div
                     ref={ref}
                     className="relative"
                     style={{
@@ -56,7 +65,7 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
                     onContextMenu={onContextMenu}
                 >
                     {children}
-                </div>
+                </motion.div>
             </div>
         );
     }
