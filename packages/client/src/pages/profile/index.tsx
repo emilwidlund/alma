@@ -66,12 +66,12 @@ export default function Profile() {
                     )}
                 </div>
                 {projects ? (
-                    <div className='flex flex-col w-full'>
+                    <div className='flex flex-col w-full h-full'>
                         <div className='flex flex-row justify-between items-center'>
                             <h2 className='text-3xl font-medium'>Projects</h2>
                             <IconButton icon={<AddOutlined />} onClick={handleNewProject}>New Project</IconButton>
                         </div>
-                        <div className="relative grid grid-cols-3 gap-6 mt-12">
+                        {projects.length ? <div className="relative grid grid-cols-3 gap-6 mt-12">
                             {projects.map(project => (
                                 <ProjectCard
                                     key={project.id}
@@ -82,7 +82,7 @@ export default function Profile() {
                                     layers={project.layers}
                                 />
                             ))}
-                        </div>
+                        </div> : <div className='flex flex-col items-center justify-center h-full'><h4 className='font-medium text-lg'>You have no projects</h4></div>}
                     </div>
                 ) : (
                     <div className="flex flex-col items-center justify-center h-full w-full">
