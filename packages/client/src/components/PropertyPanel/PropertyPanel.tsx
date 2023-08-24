@@ -25,6 +25,7 @@ const CircuitPorts = observer(() => {
     const [selectedCandidate] = circuit.selectedNodes;
 
     const inputControls = Object.values(selectedCandidate?.inputs || [])
+        .filter(input => !input.connected)
         .map(input => {
             switch (input.type) {
                 case 'vec2':
@@ -35,6 +36,8 @@ const CircuitPorts = observer(() => {
                     return <NumberControl key={input.id} port={input} />;
                 case 'bool':
                     return <BooleanControl key={input.id} port={input} />;
+                default:
+                    return;
             }
         })
         .filter(Boolean);
