@@ -29,9 +29,9 @@ export const Circuit = React.forwardRef<HTMLDivElement, CircuitProps>(
         }, []);
 
         const handleMouseDown = React.useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            e.preventDefault();
-
             if (e.button === 1) {
+                e.preventDefault();
+
                 panZoomHandlers?.onMouseDown?.(e);
             }
         }, [panZoomHandlers]);
