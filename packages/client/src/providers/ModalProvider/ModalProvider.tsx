@@ -56,6 +56,7 @@ export const ModalProvider = ({ children }: React.PropsWithChildren) => {
                 }
             });
         },
+/** eslint-disable react-hooks/exhaustive-deps */
         [current]
     );
 

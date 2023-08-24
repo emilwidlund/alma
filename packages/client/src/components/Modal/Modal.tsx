@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { ModalProps } from './Modal.types';
 import { Button } from '../Button/Button';
