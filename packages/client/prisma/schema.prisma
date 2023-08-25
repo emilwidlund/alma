@@ -46,9 +46,10 @@ enum LayerType {
 enum BlendingMode {
   NONE
   NORMAL
-  ADDITIVE
-  SUBTRACTIVE
+  ADD
+  SCREEN
   MULTIPLY
+  OVERLAY
 }
 
 model Layer {

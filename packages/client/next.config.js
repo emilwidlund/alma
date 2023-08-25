@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+// eslint-disable-next-line import/no-anonymous-default-export
+const config = {
     reactStrictMode: true
 };
 
-module.exports = nextConfig;
+module.exports = config;
