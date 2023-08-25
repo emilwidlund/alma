@@ -1,34 +1,29 @@
-import { ApolloServer, gql } from 'apollo-server-micro';
-import Cors from 'micro-cors';
+import 'reflect-metadata';
+import { ApolloServer } from '@apollo/server';
+import { startServerAndCreateNextHandler } from '@as-integrations/next';
+import { PrismaClient } from '@prisma/client';
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-const cors = Cors();
+import { resolvers } from '~/graphql/resolvers';
+import { Context } from '~/graphql/schema';
+import { typeDefs } from '~/graphql/typeDefs';
 
-const typeDefs = gql`
-    type Project {
-        id: String
-    }
+const prisma = new PrismaClient();
 
-    type Query {
-        projects: [Project]!
-    }
-`;
-
-const apolloServer = new ApolloServer({
-    typeDefs
+const apolloServer = new ApolloServer<Context>({
+    typeDefs,
+    resolvers
 });
 
-const startServer = apolloServer.start();
-
-export default cors(async function handler(req, res) {
-    await startServer;
-
-    await apolloServer.createHandler({
-        path: '/api/graphql'
-    })(req, res);
+export default startServerAndCreateNextHandler(apolloServer, {
+    context: async (req: NextApiRequest, res: NextApiResponse) => ({
+        req,
+        res,
+        db: prisma,
+        user: await createPagesServerClient({ req, res }).auth.getUser()
+    })
 });
 
-export const config = {
-    api: {
-        bodyParser: false
-    }
-};
+// const supabase = createPagesServerClient({ req, res });
+// const user = await supabase.auth.getUser();
