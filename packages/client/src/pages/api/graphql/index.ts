@@ -21,7 +21,9 @@ export default startServerAndCreateNextHandler<NextApiRequest, Context>(apolloSe
         req,
         res,
         db: prisma,
-        user: await createPagesServerClient({ req, res }).auth.getUser()
+        user: await prisma.profile.findFirst({
+            where: { userId: await (await createPagesServerClient({ req, res }).auth.getUser()).data.user?.id }
+        })
     })
 });
 
