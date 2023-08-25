@@ -6,7 +6,6 @@ export const typeDefs = gql`
 
     type Profile {
         id: String!
-        userId: String!
         username: String!
         image: String
         location: String
@@ -99,7 +98,8 @@ export const typeDefs = gql`
     }
 
     type Query {
-        getProject(id: String!): Project
-        getProjects(userId: String!): [Project]!
+        profile(id: String, username: String): Profile
+        project(id: String!): Project
+        projects(profileId: String!): [Project]!
     }
 `;
