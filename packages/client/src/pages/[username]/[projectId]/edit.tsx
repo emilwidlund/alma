@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from '@apollo/client';
 import { StreamOutlined, ShapeLineOutlined, TuneOutlined } from '@mui/icons-material';
 import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
@@ -11,6 +12,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMemo, useRef } from 'react';
 
+import PROJECT_QUERY from '~/apollo/queries/project.gql';
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
@@ -140,11 +142,15 @@ export default function Editor() {
         query: { username, projectId }
     } = useRouter();
 
+    const results = useQuery(PROJECT_QUERY, { variables: { id: projectId } });
+
     return (
-        <ProjectProvider projectId={projectId as string}>
-            <ModalProvider>
-                <EditorContainer username={username} projectId={projectId} />
-            </ModalProvider>
-        </ProjectProvider>
+        results.data?.project && (
+            <ProjectProvider project={results.data.project}>
+                <ModalProvider>
+                    <EditorContainer username={username} projectId={projectId} />
+                </ModalProvider>
+            </ProjectProvider>
+        )
     );
 }

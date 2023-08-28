@@ -15,5 +15,9 @@ export const FragmentEditor = () => {
         [updateLayerContext, activeLayer]
     );
 
-    return <CodeEditor value={activeLayer?.context} onChange={handleFragmentChange} />;
+    if (activeLayer && 'circuit' in activeLayer) {
+        return null;
+    }
+
+    return <CodeEditor value={activeLayer?.fragment} onChange={handleFragmentChange} />;
 };

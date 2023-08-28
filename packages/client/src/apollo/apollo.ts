@@ -1,6 +1,11 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+
+const link = createHttpLink({
+    uri: '/api/graphql',
+    credentials: 'include'
+});
 
 export const apolloClient = new ApolloClient({
-    uri: '/api/graphql',
+    link: link,
     cache: new InMemoryCache()
 });

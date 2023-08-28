@@ -1,5 +1,7 @@
 // import { AddOutlined, TextureOutlined } from '@mui/icons-material';
+import { useQuery } from '@apollo/client';
 import { observer } from 'mobx-react-lite';
+import { useRouter } from 'next/router';
 import { useRef, useMemo } from 'react';
 
 import { useRenderer } from '../../hooks/useRenderer/useRenderer';
@@ -11,6 +13,7 @@ import { VectorControl } from '../Control/VectorControl/VectorControl';
 import { LayerPanel } from '../LayerPanel/LayerPanel';
 
 // import { UniformsPanel } from '../UniformsPanel/UniformsPanel';
+import PROJECT_QUERY from '~/apollo/queries/project.gql';
 import { useCircuit } from '~/hooks/useCircuit/useCircuit';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
@@ -55,8 +58,15 @@ const CircuitPorts = observer(() => {
 });
 
 export const PropertyPanel = observer(() => {
+    const {
+        query: { projectId }
+    } = useRouter();
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const { project, activeLayer, handleCompilationError, handleCompilationSuccess } = useProjectContext();
+    const { activeLayer, handleCompilationError, handleCompilationSuccess } = useProjectContext();
+
+    const {
+        data: { project }
+    } = useQuery(PROJECT_QUERY, { variables: { id: projectId } });
 
     const layersToRender = useMemo(
         () =>

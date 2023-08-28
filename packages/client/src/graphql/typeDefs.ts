@@ -4,6 +4,23 @@ export const typeDefs = gql`
     scalar Date
     scalar GraphQLJSON
 
+    type Me {
+        id: String!
+        username: String!
+        image: String
+        location: String
+        bio: String
+        website: String
+        projects: [Project]!
+        likes: [Like]!
+        comments: [Comment]!
+        following: [Relationship]
+        followers: [Relationship]
+        subscription: Subscription
+        createdAt: Date!
+        updatedAt: Date!
+    }
+
     type Profile {
         id: String!
         username: String!
@@ -23,7 +40,14 @@ export const typeDefs = gql`
     type Relationship {
         id: String!
         profile: Profile!
-        targetUser: Profile!
+        targetProfile: Profile!
+        createdAt: Date!
+        updatedAt: Date!
+    }
+
+    type Subscription {
+        id: String!
+        profile: Profile!
         createdAt: Date!
         updatedAt: Date!
     }
@@ -48,9 +72,10 @@ export const typeDefs = gql`
         enabled: Boolean!
         blendingMode: BlendingMode!
         type: LayerType!
-        context: String!
+        fragment: String!
         project: Project!
-        createdA: Date!
+        index: Int!
+        createdAt: Date!
         updatedAt: Date!
     }
 
@@ -60,9 +85,10 @@ export const typeDefs = gql`
         enabled: Boolean!
         blendingMode: BlendingMode!
         type: LayerType!
-        context: GraphQLJSON!
+        circuit: GraphQLJSON!
         project: Project!
-        createdA: Date!
+        index: Int!
+        createdAt: Date!
         updatedAt: Date!
     }
 
@@ -85,21 +111,45 @@ export const typeDefs = gql`
         updatedAt: Date!
     }
 
+    enum ProjectVisibility {
+        PUBLIC
+        PRIVATE
+    }
+
     type Project {
         id: String!
         name: String!
         layers: [Layer]!
-        private: Boolean!
+        visibility: ProjectVisibility!
         owner: Profile!
         likes: [Like]!
         comments: [Comment]!
+        origin: Project
+        forks: [Project]
         createdAt: Date!
         updatedAt: Date!
     }
 
     type Query {
+        me: Me
         profile(id: String, username: String): Profile
         project(id: String!): Project
         projects(profileId: String!): [Project]!
+        feed: [Project]!
+        searchProfiles(query: String!, limit: Int!): [Profile]!
+        searchProjects(query: String!, limit: Int!): [Project]!
+    }
+
+    type Mutation {
+        updateProfile(username: String, bio: String, website: String, image: String): Profile!
+        followProfile(id: String!): Relationship!
+        unfollowProfile(id: String!): Boolean!
+        createProject: Project!
+        updateProject(id: String!, name: String, visibility: ProjectVisibility): Project!
+        deleteProject(id: String!): Boolean!
+        forkProject(id: String): Project!
+        createLayer(projectId: String!): Layer!
+        updateLayer(id: String!, name: String, enabled: Boolean, blendingMode: BlendingMode, index: Int): Layer!
+        deleteLayer(id: String): Boolean!
     }
 `;

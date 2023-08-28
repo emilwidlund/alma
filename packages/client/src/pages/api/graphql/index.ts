@@ -17,14 +17,21 @@ const apolloServer = new ApolloServer<Context>({
 });
 
 export default startServerAndCreateNextHandler<NextApiRequest, Context>(apolloServer, {
-    context: async (req, res) => ({
-        req,
-        res,
-        db: prisma,
-        user: await prisma.profile.findFirst({
-            where: { userId: await (await createPagesServerClient({ req, res }).auth.getUser()).data.user?.id }
-        })
-    })
+    context: async (req, res) => {
+        const supabaseServerClient = createPagesServerClient({ req, res });
+        const {
+            data: { user }
+        } = await supabaseServerClient.auth.getUser();
+
+        return {
+            req,
+            res,
+            db: prisma,
+            profile: await prisma.profile.findFirst({
+                where: { userId: user?.id }
+            })
+        };
+    }
 });
 
 // const supabase = createPagesServerClient({ req, res });

@@ -34,39 +34,6 @@ export interface Database {
   }
   public: {
     Tables: {
-      _prisma_migrations: {
-        Row: {
-          applied_steps_count: number
-          checksum: string
-          finished_at: string | null
-          id: string
-          logs: string | null
-          migration_name: string
-          rolled_back_at: string | null
-          started_at: string
-        }
-        Insert: {
-          applied_steps_count?: number
-          checksum: string
-          finished_at?: string | null
-          id: string
-          logs?: string | null
-          migration_name: string
-          rolled_back_at?: string | null
-          started_at?: string
-        }
-        Update: {
-          applied_steps_count?: number
-          checksum?: string
-          finished_at?: string | null
-          id?: string
-          logs?: string | null
-          migration_name?: string
-          rolled_back_at?: string | null
-          started_at?: string
-        }
-        Relationships: []
-      }
       Comment: {
         Row: {
           createdAt: string
@@ -115,6 +82,7 @@ export interface Database {
           enabled: boolean
           fragment: string | null
           id: string
+          index: number
           name: string
           projectId: string
           type: Database["public"]["Enums"]["LayerType"]
@@ -127,6 +95,7 @@ export interface Database {
           enabled?: boolean
           fragment?: string | null
           id: string
+          index: number
           name: string
           projectId: string
           type: Database["public"]["Enums"]["LayerType"]
@@ -139,6 +108,7 @@ export interface Database {
           enabled?: boolean
           fragment?: string | null
           id?: string
+          index?: number
           name?: string
           projectId?: string
           type?: Database["public"]["Enums"]["LayerType"]
@@ -230,31 +200,37 @@ export interface Database {
         Row: {
           createdAt: string
           id: string
-          image: string
           name: string
+          originId: string | null
           ownerId: string
-          private: boolean
           updatedAt: string
+          visibility: Database["public"]["Enums"]["ProjectVisibility"]
         }
         Insert: {
           createdAt?: string
           id: string
-          image: string
           name: string
+          originId?: string | null
           ownerId: string
-          private?: boolean
           updatedAt?: string
+          visibility?: Database["public"]["Enums"]["ProjectVisibility"]
         }
         Update: {
           createdAt?: string
           id?: string
-          image?: string
           name?: string
+          originId?: string | null
           ownerId?: string
-          private?: boolean
           updatedAt?: string
+          visibility?: Database["public"]["Enums"]["ProjectVisibility"]
         }
         Relationships: [
+          {
+            foreignKeyName: "Project_originId_fkey"
+            columns: ["originId"]
+            referencedRelation: "Project"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "Project_ownerId_fkey"
             columns: ["ownerId"]
@@ -268,21 +244,21 @@ export interface Database {
           createdAt: string
           id: string
           profileId: string
-          targetUserId: string
+          targetProfileId: string
           updatedAt: string
         }
         Insert: {
           createdAt?: string
           id: string
           profileId: string
-          targetUserId: string
+          targetProfileId: string
           updatedAt?: string
         }
         Update: {
           createdAt?: string
           id?: string
           profileId?: string
-          targetUserId?: string
+          targetProfileId?: string
           updatedAt?: string
         }
         Relationships: [
@@ -293,8 +269,42 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "Relationship_targetUserId_fkey"
-            columns: ["targetUserId"]
+            foreignKeyName: "Relationship_targetProfileId_fkey"
+            columns: ["targetProfileId"]
+            referencedRelation: "Profile"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      Subscription: {
+        Row: {
+          createdAt: string
+          id: string
+          profileId: string
+          stripeCustomerId: string
+          stripeSubscriptionId: string
+          updatedAt: string
+        }
+        Insert: {
+          createdAt?: string
+          id: string
+          profileId: string
+          stripeCustomerId: string
+          stripeSubscriptionId: string
+          updatedAt?: string
+        }
+        Update: {
+          createdAt?: string
+          id?: string
+          profileId?: string
+          stripeCustomerId?: string
+          stripeSubscriptionId?: string
+          updatedAt?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Subscription_profileId_fkey"
+            columns: ["profileId"]
             referencedRelation: "Profile"
             referencedColumns: ["id"]
           }
@@ -345,8 +355,15 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      BlendingMode: "NONE" | "NORMAL" | "ADDITIVE" | "SUBTRACTIVE" | "MULTIPLY"
+      BlendingMode:
+        | "NONE"
+        | "NORMAL"
+        | "ADD"
+        | "SCREEN"
+        | "MULTIPLY"
+        | "OVERLAY"
       LayerType: "FRAGMENT" | "CIRCUIT"
+      ProjectVisibility: "PUBLIC" | "PRIVATE"
       UniformType: "TEXTURE"
     }
     CompositeTypes: {
