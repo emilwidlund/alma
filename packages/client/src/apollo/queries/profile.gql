@@ -6,38 +6,48 @@ query Profile($id: String, $username: String) {
         location
         bio
         website
-        following
-        followers
-        createdAt
-        updatedAt
-    }
-    projects(profileId: $id) {
-        id
-        name
-        owner {
+        projects {
             id
-            username
-        }
-        layers {
-            ... on CircuitLayer {
+            name
+            owner {
                 id
-                name
-                type
-                enabled
-                circuit
-                blendingMode
-                createdAt
-                updatedAt
+                username
             }
-            ... on FragmentLayer {
+            layers {
+                ... on CircuitLayer {
+                    id
+                    name
+                    type
+                    enabled
+                    circuit
+                    blendingMode
+                    createdAt
+                    updatedAt
+                }
+                ... on FragmentLayer {
+                    id
+                    name
+                    type
+                    enabled
+                    fragment
+                    blendingMode
+                    createdAt
+                    updatedAt
+                }
+            }
+            createdAt
+            updatedAt
+        }
+        following {
+            targetProfile {
                 id
-                name
-                type
-                enabled
-                fragment
-                blendingMode
-                createdAt
-                updatedAt
+                username
+            }
+        }
+        followers {
+            targetProfile {
+                id
+                username
             }
         }
         createdAt

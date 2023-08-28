@@ -1,14 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["fullTextSearch"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "multiSchema"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Profile {
@@ -37,6 +35,7 @@ model Relationship {
   targetProfile     Profile     @relation("followers", fields: [targetProfileId], references: [id], onDelete: Cascade)
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt @default(now())
+
   @@unique([profileId, targetProfileId])
 }
 
@@ -48,6 +47,7 @@ model Subscription {
   stripeSubscriptionId  String            @unique
   createdAt             DateTime          @default(now())
   updatedAt             DateTime          @updatedAt @default(now())
+
   @@unique([stripeCustomerId, stripeSubscriptionId])
 }
 
@@ -125,6 +125,7 @@ model Like {
   profile     Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt @default(now())
+
   @@unique([projectId, profileId])
 }
 

@@ -4,8 +4,9 @@ export const typeDefs = gql`
     scalar Date
     scalar GraphQLJSON
 
-    type Me {
+    type Profile {
         id: String!
+        userId: String!
         username: String!
         image: String
         location: String
@@ -17,22 +18,6 @@ export const typeDefs = gql`
         following: [Relationship]
         followers: [Relationship]
         subscription: Subscription
-        createdAt: Date!
-        updatedAt: Date!
-    }
-
-    type Profile {
-        id: String!
-        username: String!
-        image: String
-        location: String
-        bio: String
-        website: String
-        projects: [Project]!
-        likes: [Like]!
-        comments: [Comment]!
-        following: [Relationship]
-        followers: [Relationship]
         createdAt: Date!
         updatedAt: Date!
     }
@@ -131,7 +116,7 @@ export const typeDefs = gql`
     }
 
     type Query {
-        me: Me
+        me: Profile
         profile(id: String, username: String): Profile
         project(id: String!): Project
         projects(profileId: String!): [Project]!
@@ -148,8 +133,16 @@ export const typeDefs = gql`
         updateProject(id: String!, name: String, visibility: ProjectVisibility): Project!
         deleteProject(id: String!): Boolean!
         forkProject(id: String): Project!
-        createLayer(projectId: String!): Layer!
-        updateLayer(id: String!, name: String, enabled: Boolean, blendingMode: BlendingMode, index: Int): Layer!
+        createLayer(projectId: String!, type: LayerType!, index: Int!, circuit: GraphQLJSON, fragment: String): Layer!
+        updateLayer(
+            id: String!
+            name: String
+            enabled: Boolean
+            blendingMode: BlendingMode
+            index: Int
+            circuit: GraphQLJSON
+            fragment: String
+        ): Layer!
         deleteLayer(id: String): Boolean!
     }
 `;

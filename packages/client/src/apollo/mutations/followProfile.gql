@@ -1,0 +1,11 @@
+mutation FollowProfile($id: String!) {
+    followProfile(id: $id) {
+        id
+        targetProfile {
+            id
+            username
+        }
+        createdAt
+        updatedAt
+    }
+}
