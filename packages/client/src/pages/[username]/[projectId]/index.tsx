@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from '@apollo/client';
 import { StreamOutlined, ShapeLineOutlined, TuneOutlined } from '@mui/icons-material';
 import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
@@ -10,6 +11,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 
+import PROJECT_QUERY from '~/apollo/queries/project.gql';
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
@@ -84,39 +86,43 @@ export default function Preview() {
         query: { username, projectId }
     } = useRouter();
 
+    const { data = { project: undefined } } = useQuery(PROJECT_QUERY, { variables: { id: projectId } });
+
     return (
-        <ProjectProvider projectId={projectId as string}>
-            <main className="flex flex-row h-screen">
-                <div className="flex flex-col flex-grow">
-                    <EditorHeader />
-                    <div className="flex flex-row flex-grow items-center">
-                        <aside className="flex flex-col h-full items-center justify-start pl-12">
-                            <div className="my-auto">
-                                <FloatingTabBar
-                                    items={[
-                                        {
-                                            name: 'Preview',
-                                            path: `/${username}/${projectId}`,
-                                            icon: <StreamOutlined />
-                                        },
-                                        {
-                                            name: 'Edit',
-                                            path: `/${username}/${projectId}/edit`,
-                                            icon: <ShapeLineOutlined />
-                                        },
-                                        {
-                                            name: 'Settings',
-                                            path: `/${username}/${projectId}/settings`,
-                                            icon: <TuneOutlined />
-                                        }
-                                    ]}
-                                />
-                            </div>
-                        </aside>
-                        <PreviewContainer />
+        data.project && (
+            <ProjectProvider project={data.project}>
+                <main className="flex flex-row h-screen">
+                    <div className="flex flex-col flex-grow">
+                        <EditorHeader />
+                        <div className="flex flex-row flex-grow items-center">
+                            <aside className="flex flex-col h-full items-center justify-start pl-12">
+                                <div className="my-auto">
+                                    <FloatingTabBar
+                                        items={[
+                                            {
+                                                name: 'Preview',
+                                                path: `/${username}/${projectId}`,
+                                                icon: <StreamOutlined />
+                                            },
+                                            {
+                                                name: 'Edit',
+                                                path: `/${username}/${projectId}/edit`,
+                                                icon: <ShapeLineOutlined />
+                                            },
+                                            {
+                                                name: 'Settings',
+                                                path: `/${username}/${projectId}/settings`,
+                                                icon: <TuneOutlined />
+                                            }
+                                        ]}
+                                    />
+                                </div>
+                            </aside>
+                            <PreviewContainer />
+                        </div>
                     </div>
-                </div>
-            </main>
-        </ProjectProvider>
+                </main>
+            </ProjectProvider>
+        )
     );
 }
