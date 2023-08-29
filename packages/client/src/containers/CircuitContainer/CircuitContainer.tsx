@@ -1,3 +1,4 @@
+import { useMutation } from '@apollo/client';
 import { Node } from '@usealma/graph';
 import { ClassConstructor } from '@usealma/webgl';
 import clsx from 'clsx';
@@ -16,6 +17,9 @@ import { normalizeBounds } from '../../utils/bounds/bounds';
 import { nodesHierarchy } from '../../utils/nodes/nodes';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
 
+import UPDATE_LAYER_MUTATION from '~/apollo/mutations/updateLayer.gql';
+import LAYER_QUERY from '~/apollo/queries/layer.gql';
+import PROJECT_QUERY from '~/apollo/queries/project.gql';
 import { Connection } from '~/components/Circuit/Connection/Connection';
 import { ContextMenuContainer } from '~/components/Circuit/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { useCreateNode } from '~/hooks/useCreateNode/useCreateNode';
@@ -110,23 +114,34 @@ export const CircuitContainer = observer(
     // eslint-disable-next-line react/display-name
     React.forwardRef<HTMLDivElement, ICircuitContainerProps>((_, ref) => {
         const [contextMenuPosition, toggleContextMenu] = React.useState<Point | undefined>(undefined);
-        const project = useProjectContext();
+        const { project, activeLayer } = useProjectContext();
         const circuit = useCircuit();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
         useKeyboardActions();
+
+        const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, {
+            refetchQueries: [
+                { query: LAYER_QUERY, variables: { id: activeLayer?.id } },
+                { query: PROJECT_QUERY, variables: { id: project?.id } }
+            ]
+        });
 
         React.useEffect(() => {
             return reaction(
                 () => circuit.context?.values,
                 () => {
-                    const serialized = JSON.stringify(circuit.context);
-
-                    if (project.activeLayerId) {
-                        project.updateLayerContext(project.activeLayerId, serialized);
+                    if (activeLayer) {
+                        updateLayer({
+                            variables: {
+                                id: activeLayer?.id,
+                                projectId: project?.id,
+                                circuit: JSON.parse(JSON.stringify(circuit.context))
+                            }
+                        });
                     }
                 }
             );
-        }, [project, circuit]);
+        }, [project, circuit, activeLayer, updateLayer]);
 
         const onMouseMove = React.useCallback(
             (e: React.MouseEvent<HTMLDivElement>) => {
