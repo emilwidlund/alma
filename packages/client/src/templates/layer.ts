@@ -16,4 +16,202 @@ export const DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT = `void main() {
     fragColor = texture(uPreviousLayer, uv);
 }`;
 
-export const DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT = `{"id":"946cbf0c-555c-4a23-8871-153033dcb299","name":"Untitled","nodes":[["06aa734d-94cc-4665-8f61-dcd80963268a",{"id":"06aa734d-94cc-4665-8f61-dcd80963268a","name":"WebGL Context","type":"WEBGL_CONTEXT","data":{"position":{"x":2710,"y":70}},"inputs":{"color":{"id":"d891629e-b32b-4684-a3e0-8583cb6ca75f","name":"Color","type":"vec4","defaultValue":{"tag":"lit","type":"vec4","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":1}]}}},"outputs":{}}],["7fd116b3-e867-4937-be58-95ee9584c998",{"id":"7fd116b3-e867-4937-be58-95ee9584c998","name":"Vector 3","type":"VECTOR_3","data":{"position":{"x":8,"y":-127}},"inputs":{"x":{"id":"95b1fe8a-d19e-4cfe-8007-f7f79fea9252","name":"X","type":"float","defaultValue":{"tag":"lit","type":"float","val":0},"value":{"tag":"lit","type":"float","val":0}},"y":{"id":"51a98ddc-00b8-4fc7-9029-8fc511e25c98","name":"Y","type":"float","defaultValue":{"tag":"lit","type":"float","val":0},"value":{"tag":"lit","type":"float","val":2}},"z":{"id":"07f26d89-fcd6-4325-aada-1610ecb82abc","name":"Z","type":"float","defaultValue":{"tag":"lit","type":"float","val":0},"value":{"tag":"lit","type":"float","val":4}}},"outputs":{"vector3":{"id":"84b5a254-3781-41a2-a39b-ce1746390959","name":"Vector 3","type":"vec3"}}}],["ef1e4c89-52a5-47ce-8ed9-9c4e2f94617b",{"id":"ef1e4c89-52a5-47ce-8ed9-9c4e2f94617b","name":"Time","type":"TIME","data":{"position":{"x":-472,"y":330}},"inputs":{},"outputs":{"time":{"id":"36568d1d-926e-45e5-b18c-dd4a69db57ba","name":"Time","type":"float"}}}],["2b194e37-34f5-4db6-ad2e-02b85910ce1d",{"id":"2b194e37-34f5-4db6-ad2e-02b85910ce1d","name":"Addition","type":"ADDITION","data":{"position":{"x":326,"y":-27},"type":{"selected":"vec3","options":["float","int","vec2","vec3","vec4","mat2","mat3","mat4"]}},"inputs":{"a":{"id":"b5ea5919-3c2f-4bee-a2a3-d0c12fff3d44","name":"A","type":"vec3","defaultValue":{"tag":"lit","type":"vec3","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0}]}},"b":{"id":"92c2faca-38d2-4fbd-bcf9-a2d18775467c","name":"B","type":"vec3","defaultValue":{"tag":"lit","type":"vec3","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0}]}}},"outputs":{"result":{"id":"a27bf672-96a5-4780-90f9-52c0b3f1c6bd","name":"Result","type":"vec3"}}}],["c791b580-e8a1-44ac-86a0-4f7aab029d94",{"id":"c791b580-e8a1-44ac-86a0-4f7aab029d94","name":"Swizzle","type":"SWIZZLE","data":{"position":{"x":-315,"y":102},"type":{"selected":"vec2","options":["vec2","vec3","vec4"]}},"inputs":{"vector":{"id":"2eb2de3b-6e4f-43ad-abd1-cbdf481ca9f8","name":"Vector","type":"vec2","defaultValue":{"tag":"lit","type":"vec2","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0}]}}},"outputs":{"x":{"id":"546ed542-8b20-40a8-bb01-cd9ce97e7601","name":"X","type":"float"},"y":{"id":"e89855c6-32f4-4483-970b-7faa82c41a41","name":"Y","type":"float"}}}],["b0a8e220-daeb-48d9-b491-30a764fddeea",{"id":"b0a8e220-daeb-48d9-b491-30a764fddeea","name":"Vector 3","type":"VECTOR_3","data":{"position":{"x":4,"y":40}},"inputs":{"x":{"id":"7bd26f1a-30ad-4adc-a231-58052cff0f8a","name":"X","type":"float","defaultValue":{"tag":"lit","type":"float","val":0}},"y":{"id":"abc3a0a1-5cff-4b22-aec0-3623237a8080","name":"Y","type":"float","defaultValue":{"tag":"lit","type":"float","val":0}},"z":{"id":"ed4aeaf9-9915-4eca-96b5-04e0e2b579ec","name":"Z","type":"float","defaultValue":{"tag":"lit","type":"float","val":0}}},"outputs":{"vector3":{"id":"667f95bc-8f8c-40d3-aa29-e2d2fff93f01","name":"Vector 3","type":"vec3"}}}],["3729e4c7-7ff4-47dc-9a21-1a001b3fb2f3",{"id":"3729e4c7-7ff4-47dc-9a21-1a001b3fb2f3","name":"Vector 3","type":"VECTOR_3","data":{"position":{"x":2,"y":278}},"inputs":{"x":{"id":"b51c7b62-7897-4ea6-8090-fb60345cf2e8","name":"X","type":"float","defaultValue":{"tag":"lit","type":"float","val":0}},"y":{"id":"f0c6aae9-3887-49f8-8766-ed430e79bf45","name":"Y","type":"float","defaultValue":{"tag":"lit","type":"float","val":0}},"z":{"id":"b72e0be8-0a47-4eda-bce8-6b78fe4a59cb","name":"Z","type":"float","defaultValue":{"tag":"lit","type":"float","val":0}}},"outputs":{"vector3":{"id":"42691b5b-9d1e-40d5-aa1a-cd6619bc47f1","name":"Vector 3","type":"vec3"}}}],["9ab8b070-42e3-4e35-8833-c51d0d80a775",{"id":"9ab8b070-42e3-4e35-8833-c51d0d80a775","name":"Addition","type":"ADDITION","data":{"position":{"x":668,"y":114},"type":{"selected":"vec3","options":["float","int","vec2","vec3","vec4","mat2","mat3","mat4"]}},"inputs":{"a":{"id":"6bd28984-24aa-42fd-9ae2-52dfa8e57042","name":"A","type":"vec3","defaultValue":{"tag":"lit","type":"vec3","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0}]}},"b":{"id":"93d7c7a4-25d6-421b-912a-d5636ed675ef","name":"B","type":"vec3","defaultValue":{"tag":"lit","type":"vec3","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0}]}}},"outputs":{"result":{"id":"99a521a6-7c2b-4f6c-a00f-4641665133f8","name":"Result","type":"vec3"}}}],["19aa7043-3f45-47b2-83e2-181154c4a133",{"id":"19aa7043-3f45-47b2-83e2-181154c4a133","name":"Cosine","type":"COSINE","data":{"position":{"x":1048,"y":77},"type":{"selected":"vec3","options":["float","vec2","vec3","vec4"]}},"inputs":{"input":{"id":"95d8021e-c4e5-4c17-a4b7-34da1f90f117","name":"Input","type":"vec3","defaultValue":{"tag":"lit","type":"vec3","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0}]}}},"outputs":{"output":{"id":"9631790c-be99-48b5-88eb-36907debe7d0","name":"Output","type":"vec3"}}}],["36688df3-496e-4bba-9976-06cc539dc3ba",{"id":"36688df3-496e-4bba-9976-06cc539dc3ba","name":"Multiplication","type":"MULTIPLICATION","data":{"position":{"x":1355,"y":106},"type":{"selected":"vec3","options":["float","int","vec2","vec3","vec4","mat2","mat3","mat4"]}},"inputs":{"a":{"id":"04c42a38-6581-4925-8685-433b4f896d3d","name":"A","type":"vec3","defaultValue":{"tag":"lit","type":"vec3","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0}]}},"b":{"id":"8b1340b5-39ba-4b72-8286-137c64ae122a","name":"B","type":"vec3","defaultValue":{"tag":"lit","type":"vec3","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0}]},"value":{"tag":"lit","type":"vec3","val":[{"tag":"lit","type":"float","val":0.5},{"tag":"lit","type":"float","val":0.5},{"tag":"lit","type":"float","val":0.5}]}}},"outputs":{"result":{"id":"719a5e2b-2abe-4d97-8895-7b59e571978a","name":"Result","type":"vec3"}}}],["b6eb83e0-5dcf-47a1-b595-4d1e21c1c375",{"id":"b6eb83e0-5dcf-47a1-b595-4d1e21c1c375","name":"Addition","type":"ADDITION","data":{"position":{"x":1673,"y":135},"type":{"selected":"vec3","options":["float","int","vec2","vec3","vec4","mat2","mat3","mat4"]}},"inputs":{"a":{"id":"67c8dc4c-2020-4eae-be59-90b0c43541db","name":"A","type":"vec3","defaultValue":{"tag":"lit","type":"vec3","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0}]}},"b":{"id":"2192698b-252d-442a-b71d-b7371c8c2215","name":"B","type":"vec3","defaultValue":{"tag":"lit","type":"vec3","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0}]},"value":{"tag":"lit","type":"vec3","val":[{"tag":"lit","type":"float","val":0.5},{"tag":"lit","type":"float","val":0.5},{"tag":"lit","type":"float","val":0.5}]}}},"outputs":{"result":{"id":"73efdf67-761c-4974-8960-b5704a562170","name":"Result","type":"vec3"}}}],["7ad0b301-21c9-4597-b481-9b2ce2f7a097",{"id":"7ad0b301-21c9-4597-b481-9b2ce2f7a097","name":"Swizzle","type":"SWIZZLE","data":{"position":{"x":1981,"y":130},"type":{"selected":"vec3","options":["vec2","vec3","vec4"]}},"inputs":{"vector":{"id":"4a1d6ad5-7b73-4743-ba71-b36472d78935","name":"Vector","type":"vec3","defaultValue":{"tag":"lit","type":"vec2","val":[{"tag":"lit","type":"float","val":0},{"tag":"lit","type":"float","val":0}]}}},"outputs":{"x":{"id":"b4492f65-f1c9-4d0e-9208-b7d200137122","name":"X","type":"float"},"y":{"id":"804b0cc2-a098-48c0-904b-de6a5b61e9d5","name":"Y","type":"float"},"z":{"id":"d7482e5c-1059-4bf7-9c8e-d089af21df7c","name":"Z","type":"float"}}}],["70107342-bd78-4183-9193-92fd37372b8b",{"id":"70107342-bd78-4183-9193-92fd37372b8b","name":"Vector 4","type":"VECTOR_4","data":{"position":{"x":2323,"y":118}},"inputs":{"x":{"id":"3691d332-f1c4-4a7f-b155-103428697015","name":"X","type":"float","defaultValue":{"tag":"lit","type":"float","val":0}},"y":{"id":"2d8ee734-6c97-4a00-8601-fec12a984487","name":"Y","type":"float","defaultValue":{"tag":"lit","type":"float","val":0}},"z":{"id":"365ca9a7-e7fc-4f71-890a-8a8b5a772fe1","name":"Z","type":"float","defaultValue":{"tag":"lit","type":"float","val":0}},"w":{"id":"4989ec63-7a05-4ed8-ba00-2ed6e2cb990e","name":"W","type":"float","defaultValue":{"tag":"lit","type":"float","val":1},"value":{"tag":"lit","type":"float","val":1}}},"outputs":{"vector4":{"id":"c833aa57-7c40-43b4-b778-64ecfb7c8f6f","name":"Vector 4","type":"vec4"}}}],["fb906b20-25e2-4a5e-b685-a94cd038d42a",{"id":"fb906b20-25e2-4a5e-b685-a94cd038d42a","name":"UV","type":"UV","data":{"position":{"x":-691,"y":123}},"inputs":{},"outputs":{"aspectCorrected":{"id":"c78248e4-6939-456a-be83-4108d8a58090","name":"Aspect Corrected","type":"vec2"},"uv":{"id":"e94cd0da-3110-4c5e-b0c6-fa2ac40137a9","name":"UV","type":"vec2"},"fragCoord":{"id":"94c66c5e-c1fe-4c56-9c54-bb2b1af50383","name":"Frag Coord","type":"vec4"}}}]],"connections":[["a7d8a8f1-cd34-4b85-8e61-0e706be2c430",{"id":"a7d8a8f1-cd34-4b85-8e61-0e706be2c430","from":"546ed542-8b20-40a8-bb01-cd9ce97e7601","to":"7bd26f1a-30ad-4adc-a231-58052cff0f8a"}],["9436242b-0a10-4094-ade6-385de2de5def",{"id":"9436242b-0a10-4094-ade6-385de2de5def","from":"e89855c6-32f4-4483-970b-7faa82c41a41","to":"abc3a0a1-5cff-4b22-aec0-3623237a8080"}],["9ce20b8a-8820-46f6-8aca-87ca491a467c",{"id":"9ce20b8a-8820-46f6-8aca-87ca491a467c","from":"546ed542-8b20-40a8-bb01-cd9ce97e7601","to":"ed4aeaf9-9915-4eca-96b5-04e0e2b579ec"}],["32b486f4-89d8-42c7-a2e9-a8818092a257",{"id":"32b486f4-89d8-42c7-a2e9-a8818092a257","from":"84b5a254-3781-41a2-a39b-ce1746390959","to":"92c2faca-38d2-4fbd-bcf9-a2d18775467c"}],["8da9cee3-babc-4d49-ab52-0b6f9eacde63",{"id":"8da9cee3-babc-4d49-ab52-0b6f9eacde63","from":"667f95bc-8f8c-40d3-aa29-e2d2fff93f01","to":"b5ea5919-3c2f-4bee-a2a3-d0c12fff3d44"}],["7ccd1081-80fb-4bbf-b2b7-dc79081960a4",{"id":"7ccd1081-80fb-4bbf-b2b7-dc79081960a4","from":"36568d1d-926e-45e5-b18c-dd4a69db57ba","to":"b51c7b62-7897-4ea6-8090-fb60345cf2e8"}],["c3a1cac9-c73e-41fc-935d-b129cf52b9dd",{"id":"c3a1cac9-c73e-41fc-935d-b129cf52b9dd","from":"36568d1d-926e-45e5-b18c-dd4a69db57ba","to":"f0c6aae9-3887-49f8-8766-ed430e79bf45"}],["b10aee92-b573-4462-bd8f-b60fa912315d",{"id":"b10aee92-b573-4462-bd8f-b60fa912315d","from":"36568d1d-926e-45e5-b18c-dd4a69db57ba","to":"b72e0be8-0a47-4eda-bce8-6b78fe4a59cb"}],["b9223cce-bd03-4d9b-b9c6-6e6e0be028ee",{"id":"b9223cce-bd03-4d9b-b9c6-6e6e0be028ee","from":"42691b5b-9d1e-40d5-aa1a-cd6619bc47f1","to":"6bd28984-24aa-42fd-9ae2-52dfa8e57042"}],["bed97995-5c77-4691-9648-f1571bc70952",{"id":"bed97995-5c77-4691-9648-f1571bc70952","from":"a27bf672-96a5-4780-90f9-52c0b3f1c6bd","to":"93d7c7a4-25d6-421b-912a-d5636ed675ef"}],["8684af75-f252-457a-84f3-1a7bdcf5c4a8",{"id":"8684af75-f252-457a-84f3-1a7bdcf5c4a8","from":"99a521a6-7c2b-4f6c-a00f-4641665133f8","to":"95d8021e-c4e5-4c17-a4b7-34da1f90f117"}],["2f104495-68bb-429c-97eb-1d55d5cdfde2",{"id":"2f104495-68bb-429c-97eb-1d55d5cdfde2","from":"9631790c-be99-48b5-88eb-36907debe7d0","to":"04c42a38-6581-4925-8685-433b4f896d3d"}],["8069f38a-25d7-481d-8e97-04443f54739d",{"id":"8069f38a-25d7-481d-8e97-04443f54739d","from":"719a5e2b-2abe-4d97-8895-7b59e571978a","to":"67c8dc4c-2020-4eae-be59-90b0c43541db"}],["110ba221-abdf-4905-bcdd-c5ee6ada1e55",{"id":"110ba221-abdf-4905-bcdd-c5ee6ada1e55","from":"b4492f65-f1c9-4d0e-9208-b7d200137122","to":"3691d332-f1c4-4a7f-b155-103428697015"}],["3405f8bd-ffda-4121-9f00-7a8c359405cd",{"id":"3405f8bd-ffda-4121-9f00-7a8c359405cd","from":"804b0cc2-a098-48c0-904b-de6a5b61e9d5","to":"2d8ee734-6c97-4a00-8601-fec12a984487"}],["f1afba24-1a86-4ebe-9052-a0cb5863e92b",{"id":"f1afba24-1a86-4ebe-9052-a0cb5863e92b","from":"d7482e5c-1059-4bf7-9c8e-d089af21df7c","to":"365ca9a7-e7fc-4f71-890a-8a8b5a772fe1"}],["1095cf8b-abff-4194-8720-a4d5f2502e6c",{"id":"1095cf8b-abff-4194-8720-a4d5f2502e6c","from":"73efdf67-761c-4974-8960-b5704a562170","to":"4a1d6ad5-7b73-4743-ba71-b36472d78935"}],["a18f4c42-68ab-4c51-bb81-39fe947f7f52",{"id":"a18f4c42-68ab-4c51-bb81-39fe947f7f52","from":"c833aa57-7c40-43b4-b778-64ecfb7c8f6f","to":"d891629e-b32b-4684-a3e0-8583cb6ca75f"}],["ed538170-2481-47c4-94f8-15ebca104863",{"id":"ed538170-2481-47c4-94f8-15ebca104863","from":"c78248e4-6939-456a-be83-4108d8a58090","to":"2eb2de3b-6e4f-43ad-abd1-cbdf481ca9f8"}]]}`;
+export const DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT = {
+    id: '946cbf0c-555c-4a23-8871-153033dcb299',
+    name: 'Untitled',
+    nodes: [
+        [
+            'b6f2b947-2e50-455e-bdf3-e865a583d2ce',
+            {
+                id: 'b6f2b947-2e50-455e-bdf3-e865a583d2ce',
+                name: 'WebGL Context',
+                type: 'WEBGL_CONTEXT',
+                data: { position: { x: 211, y: 159 } },
+                inputs: {
+                    color: {
+                        id: '31de6cb7-6270-4354-aa20-7f304199d367',
+                        name: 'Color',
+                        type: 'vec4',
+                        defaultValue: {
+                            tag: 'lit',
+                            type: 'vec4',
+                            val: [
+                                { tag: 'lit', type: 'float', val: 0 },
+                                { tag: 'lit', type: 'float', val: 0 },
+                                { tag: 'lit', type: 'float', val: 0 },
+                                { tag: 'lit', type: 'float', val: 1 }
+                            ]
+                        }
+                    }
+                },
+                outputs: {}
+            }
+        ],
+        [
+            '9bdc0741-eb8b-4d2b-baec-90816d106feb',
+            {
+                id: '9bdc0741-eb8b-4d2b-baec-90816d106feb',
+                name: 'UV',
+                type: 'UV',
+                data: { position: { x: -802, y: 240 } },
+                inputs: {},
+                outputs: {
+                    aspectCorrected: {
+                        id: '4eddd22e-f245-4b7a-b447-651b2f913876',
+                        name: 'Aspect Corrected',
+                        type: 'vec2'
+                    },
+                    uv: { id: '75478c57-926d-47ea-8713-d1ddeab4a4f2', name: 'UV', type: 'vec2' },
+                    fragCoord: { id: 'aab11ca5-c503-499e-9f9e-8dd70c32940c', name: 'Frag Coord', type: 'vec4' }
+                }
+            }
+        ],
+        [
+            '6ce61422-ae36-4b50-a727-6f845b434636',
+            {
+                id: '6ce61422-ae36-4b50-a727-6f845b434636',
+                name: 'Vector 4',
+                type: 'VECTOR_4',
+                data: { position: { x: -168, y: 143 } },
+                inputs: {
+                    x: {
+                        id: 'ce885d60-add2-4e1a-b214-774c4520e8b6',
+                        name: 'X',
+                        type: 'float',
+                        defaultValue: { tag: 'lit', type: 'float', val: 0 }
+                    },
+                    y: {
+                        id: 'e5c6a901-d9a1-4c42-8a77-f4c220f6db74',
+                        name: 'Y',
+                        type: 'float',
+                        defaultValue: { tag: 'lit', type: 'float', val: 0 }
+                    },
+                    z: {
+                        id: '9d2e0fe6-7f9c-46ca-a5d1-352f9202ee0e',
+                        name: 'Z',
+                        type: 'float',
+                        defaultValue: { tag: 'lit', type: 'float', val: 0 }
+                    },
+                    w: {
+                        id: '636747b5-bd58-40d1-95cf-9a0907d66bab',
+                        name: 'W',
+                        type: 'float',
+                        defaultValue: { tag: 'lit', type: 'float', val: 1 },
+                        value: { tag: 'lit', type: 'float', val: 1 }
+                    }
+                },
+                outputs: { vector4: { id: 'c0d436e2-2758-44f5-87d5-39f4b99fe663', name: 'Vector 4', type: 'vec4' } }
+            }
+        ],
+        [
+            '29c0266f-2134-4784-84c4-5a7e8bb736f5',
+            {
+                id: '29c0266f-2134-4784-84c4-5a7e8bb736f5',
+                name: 'Swizzle',
+                type: 'SWIZZLE',
+                data: { position: { x: -487, y: 301 }, type: { selected: 'vec2', options: ['vec2', 'vec3', 'vec4'] } },
+                inputs: {
+                    vector: {
+                        id: 'e4ea6634-e63f-4c98-a508-14dbd3f73fc8',
+                        name: 'Vector',
+                        type: 'vec2',
+                        defaultValue: {
+                            tag: 'lit',
+                            type: 'vec2',
+                            val: [
+                                { tag: 'lit', type: 'float', val: 0 },
+                                { tag: 'lit', type: 'float', val: 0 }
+                            ]
+                        }
+                    }
+                },
+                outputs: {
+                    x: { id: 'a382325c-52a8-452f-87f7-df7b137b0848', name: 'X', type: 'float' },
+                    y: { id: 'dd96d8fd-3a11-40c8-a488-b7166eeed45e', name: 'Y', type: 'float' }
+                }
+            }
+        ],
+        [
+            '8ba2eddf-1c8f-4cb2-ab41-abde5e0dcb03',
+            {
+                id: '8ba2eddf-1c8f-4cb2-ab41-abde5e0dcb03',
+                name: 'Time',
+                type: 'TIME',
+                data: { position: { x: -856, y: -6 } },
+                inputs: {},
+                outputs: { time: { id: '511a3495-edee-4d1a-a4c8-9edb97f22023', name: 'Time', type: 'float' } }
+            }
+        ],
+        [
+            'd122a086-3e8c-4e08-ae7f-5d7e8cae7235',
+            {
+                id: 'd122a086-3e8c-4e08-ae7f-5d7e8cae7235',
+                name: 'Sine',
+                type: 'SINE',
+                data: {
+                    position: { x: -530, y: 43 },
+                    type: { selected: 'float', options: ['float', 'vec2', 'vec3', 'vec4'] }
+                },
+                inputs: {
+                    input: {
+                        id: 'df23ecef-2fd9-4a58-baa4-61b893e3d3d7',
+                        name: 'Input',
+                        type: 'float',
+                        defaultValue: { tag: 'lit', type: 'float', val: 0 }
+                    }
+                },
+                outputs: { output: { id: '3c3bb6c1-136b-4ffd-8efa-bb4b706978cb', name: 'Output', type: 'float' } }
+            }
+        ]
+    ],
+    connections: [
+        [
+            '4b1d7a5b-55b6-4e8f-8452-57d5a948eb6c',
+            {
+                id: '4b1d7a5b-55b6-4e8f-8452-57d5a948eb6c',
+                from: 'a382325c-52a8-452f-87f7-df7b137b0848',
+                to: 'ce885d60-add2-4e1a-b214-774c4520e8b6'
+            }
+        ],
+        [
+            '7b58c75f-90f9-45d4-b1cd-a4d70324ea0f',
+            {
+                id: '7b58c75f-90f9-45d4-b1cd-a4d70324ea0f',
+                from: 'dd96d8fd-3a11-40c8-a488-b7166eeed45e',
+                to: 'e5c6a901-d9a1-4c42-8a77-f4c220f6db74'
+            }
+        ],
+        [
+            '5dd32fa7-af4f-4207-9e34-0b176cdbcb50',
+            {
+                id: '5dd32fa7-af4f-4207-9e34-0b176cdbcb50',
+                from: '75478c57-926d-47ea-8713-d1ddeab4a4f2',
+                to: 'e4ea6634-e63f-4c98-a508-14dbd3f73fc8'
+            }
+        ],
+        [
+            'b6ec7770-388e-44e4-af3b-589028c40368',
+            {
+                id: 'b6ec7770-388e-44e4-af3b-589028c40368',
+                from: 'c0d436e2-2758-44f5-87d5-39f4b99fe663',
+                to: '31de6cb7-6270-4354-aa20-7f304199d367'
+            }
+        ],
+        [
+            'e6003195-2ec5-4e29-a2ac-6643daf130e0',
+            {
+                id: 'e6003195-2ec5-4e29-a2ac-6643daf130e0',
+                from: '511a3495-edee-4d1a-a4c8-9edb97f22023',
+                to: 'df23ecef-2fd9-4a58-baa4-61b893e3d3d7'
+            }
+        ],
+        [
+            'ad3e9e7d-4244-457b-a7a7-52790f942228',
+            {
+                id: 'ad3e9e7d-4244-457b-a7a7-52790f942228',
+                from: '3c3bb6c1-136b-4ffd-8efa-bb4b706978cb',
+                to: '9d2e0fe6-7f9c-46ca-a5d1-352f9202ee0e'
+            }
+        ]
+    ]
+};

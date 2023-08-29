@@ -91,7 +91,7 @@ export const PropertyPanel = observer(() => {
             <CircuitPorts />
             <div className="flex flex-col p-6 grow-1 h-full">
                 <h3 className="text-md font-medium mb-6">Layers</h3>
-                {project && <LayerPanel />}
+                {project && <LayerPanel layers={project.layers} />}
             </div>
         </aside>
     );

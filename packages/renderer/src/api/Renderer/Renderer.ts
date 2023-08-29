@@ -151,7 +151,7 @@ export const render = (
                                 textureResolver: textureResolver
                             },
                             nodesCollection: nodes,
-                            ...currentLayer.circuit
+                            ...structuredClone(currentLayer.circuit)
                         });
                         fragmentSource = context.compileGraph.bind(context);
                     } else {

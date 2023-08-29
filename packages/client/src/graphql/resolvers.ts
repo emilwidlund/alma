@@ -51,10 +51,20 @@ export const resolvers: IResolvers<any, Context> = {
         },
         projects: async (parent, args, context) => {
             return await context.db.project.findMany({
-                where: { ownerId: args.userId, visibility: 'PUBLIC' },
+                where: { ownerId: args.profileId, visibility: 'PUBLIC' },
                 include: { owner: true, likes: true, comments: { include: { profile: true } }, layers: true }
             });
         },
+        layer: withUserAuthorization(async (parent, args, context) => {
+            return await context.db.layer.findFirst({
+                where: {
+                    OR: [
+                        { id: args.id, project: { visibility: 'PUBLIC' } },
+                        { id: args.id, project: { ownerId: context.profile.id } }
+                    ]
+                }
+            });
+        }),
         searchProfiles: async (parent, args, context) => {
             return await context.db.profile.findMany({
                 take: args.limit,
@@ -164,7 +174,7 @@ export const resolvers: IResolvers<any, Context> = {
             });
         }),
         updateLayer: withUserAuthorization(async (parent, { id, projectId, ...args }, context) => {
-            const project = await context.db.project.findUnique({ where: { id: args.projectId } });
+            const project = await context.db.project.findUnique({ where: { id: projectId } });
 
             if (project?.ownerId !== context.profile.id) {
                 return new ApolloError({ errorMessage: 'User Authorization failed' });

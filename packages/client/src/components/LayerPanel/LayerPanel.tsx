@@ -1,5 +1,6 @@
 'use client';
 
+import { useMutation, useQuery } from '@apollo/client';
 import { RouteOutlined, NotesOutlined, AddOutlined, TonalityOutlined, MoreVertOutlined } from '@mui/icons-material';
 import { BlendingMode, BlendingModeSchema, Layer } from '@usealma/types';
 import { clsx } from 'clsx';
@@ -8,7 +9,7 @@ import { capitalize, upperCase } from 'lodash';
 import { ChangeEventHandler, FormEventHandler, useCallback, useMemo, useState } from 'react';
 import { DragDropContext, Draggable, OnDragEndResponder, OnDragStartResponder } from 'react-beautiful-dnd';
 
-import { LayerItemProps } from './LayerPanel.types';
+import { LayerItemProps, LayerPanelProps } from './LayerPanel.types';
 import { ButtonVariant } from '../Button/Button.types';
 import { ContextMenuContainer } from '../Circuit/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { IconButton } from '../IconButton/IconButton';
@@ -17,15 +18,24 @@ import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable'
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
 
+import UPDATE_LAYER_MUTATION from '~/apollo/mutations/updateLayer.gql';
+import LAYER_QUERY from '~/apollo/queries/layer.gql';
+import PROJECT_QUERY from '~/apollo/queries/project.gql';
 import { useHover } from '~/hooks/useHover/useHover';
 import { useNewLayerModal } from '~/hooks/useNewLayerModal/useNewLayerModal';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
 const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
-    const { toggleLayer, renameLayer } = useProjectContext();
+    const { project } = useProjectContext();
     const { isHovered, onMouseEnter, onMouseLeave } = useHover();
 
-    const { type, name, enabled } = layer;
+    const { data = { layer: undefined } } = useQuery(LAYER_QUERY, { variables: { id: layer.id } });
+    const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, {
+        refetchQueries: [
+            { query: LAYER_QUERY, variables: { id: layer.id } },
+            { query: PROJECT_QUERY, variables: { id: project?.id } }
+        ]
+    });
 
     const iconClassNames = clsx('flex items-center justify-center rounded-xl w-10 h-10', {
         'bg-neutral-100': !active,
@@ -33,8 +43,14 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
     });
 
     const toggleEnabled = useCallback(() => {
-        toggleLayer(layer.id, !layer.enabled);
-    }, [layer, toggleLayer]);
+        updateLayer({
+            variables: {
+                id: data.layer.id,
+                projectId: project?.id,
+                enabled: !data.layer.enabled
+            }
+        });
+    }, [data, project, updateLayer]);
 
     const handleInput: FormEventHandler<HTMLHeadingElement> = useCallback(e => {
         e.currentTarget.textContent?.replace(/(\r\n|\n|\r)/gm, '');
@@ -48,13 +64,23 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                 e.currentTarget.textContent = 'Untitled';
             }
 
-            renameLayer(layer.id, name?.length ? name : 'Untitled');
+            updateLayer({
+                variables: {
+                    id: data.layer.id,
+                    projectId: project?.id,
+                    name: name?.length ? name : 'Untitled'
+                }
+            });
         },
-        [layer.id, renameLayer]
+        [data, project, updateLayer]
     );
 
+    if (!data.layer) {
+        return;
+    }
+
     return (
-        <Draggable draggableId={layer.id} index={index}>
+        <Draggable draggableId={data.layer.id} index={index}>
             {(provided, snap) => {
                 const classNames = clsx(
                     'flex items-center justify-between p-3 rounded-2xl last:mb-0 transition-colors transitions-shadow duration-100 cursor-pointer',
@@ -78,7 +104,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                     >
                         <div className="flex items-center">
                             <div className={iconClassNames}>
-                                {type === 'FRAGMENT' ? (
+                                {layer.type === 'FRAGMENT' ? (
                                     <NotesOutlined fontSize="small" />
                                 ) : (
                                     <RouteOutlined fontSize="small" />
@@ -93,14 +119,14 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                                     onInput={handleInput}
                                     onBlur={handleBlur}
                                 >
-                                    {name}
+                                    {layer.name}
                                 </h3>
-                                <span className="text-xs opacity-50 mt-1 capitalize">{type.toLowerCase()}</span>
+                                <span className="text-xs opacity-50 mt-1 capitalize">{layer.type.toLowerCase()}</span>
                             </div>
                         </div>
                         {(active || isHovered) && (
                             <motion.div className="mr-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                                <Switch active={enabled} onChange={toggleEnabled} />
+                                <Switch active={layer.enabled} onChange={toggleEnabled} />
                             </motion.div>
                         )}
                     </div>
@@ -110,7 +136,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
     );
 };
 
-export const LayerPanel = () => {
+export const LayerPanel = ({ layers }: LayerPanelProps) => {
     const [contextMenuOpen, toggleContextMenu] = useState(false);
     const {
         project,
@@ -121,8 +147,12 @@ export const LayerPanel = () => {
         setActiveLayerId,
         reorderLayers
     } = useProjectContext();
-    const items = useMemo(() => project?.layers.slice().reverse() ?? [], [project]);
+    const items = useMemo(() => layers.slice().reverse() ?? [], [layers]);
     const { open } = useNewLayerModal();
+
+    const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, {
+        refetchQueries: [{ query: PROJECT_QUERY, variables: { id: project?.id } }]
+    });
 
     const handleCreateLayer = useCallback(() => {
         open();
@@ -165,10 +195,16 @@ export const LayerPanel = () => {
     const handleUpdateBlendingMode: ChangeEventHandler<HTMLSelectElement> = useCallback(
         e => {
             if (activeLayer) {
-                updateLayerBlendingMode(activeLayer.id, upperCase(e.target.value) as BlendingMode);
+                updateLayer({
+                    variables: {
+                        id: activeLayer.id,
+                        projectId: project?.id,
+                        blendingMode: upperCase(e.target.value) as BlendingMode
+                    }
+                });
             }
         },
-        [activeLayer, updateLayerBlendingMode]
+        [activeLayer, project, updateLayer]
     );
 
     const handleToggleContextMenu = useCallback(() => {

@@ -70,7 +70,7 @@ export const ProjectProvider = ({ project: apolloProject, children }: ProjectPro
             produce(draft => {
                 if (draft) {
                     const index = draft.layers.findIndex(l => l.id === layerId);
-                    draft.layers[index].context = context;
+                    draft.layers[index].circuit = context;
                 }
             })
         );

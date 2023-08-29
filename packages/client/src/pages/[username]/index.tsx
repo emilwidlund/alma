@@ -3,7 +3,6 @@
 import { useQuery } from '@apollo/client';
 import { Profile } from '@usealma/types';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
 
 import PROFILE_QUERY from '~/apollo/queries/profile.gql';
 import { ProjectCard } from '~/components/Cards/ProjectCard/ProjectCard';
@@ -17,10 +16,6 @@ export default function Profile() {
     const { data: { profile: profileData } = { me: undefined } } = useQuery(PROFILE_QUERY, {
         variables: { username: router.query.username }
     });
-
-    const handleNewProject = useCallback(() => {
-        router.push('/new');
-    }, [router]);
 
     return (
         <main className="flex flex-col h-screen min-w-md max-w-7xl mx-auto">

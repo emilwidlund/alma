@@ -1,18 +1,30 @@
+import { useMutation } from '@apollo/client';
+import { debounce } from 'lodash';
 import { useCallback } from 'react';
 
+import UPDATE_LAYER_MUTATION from '~/apollo/mutations/updateLayer.gql';
 import { CodeEditor } from '~/components/CodeEditor/CodeEditor';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
 export const FragmentEditor = () => {
-    const { activeLayer, updateLayerContext } = useProjectContext();
+    const { project, activeLayer } = useProjectContext();
+    const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
+
+    const updateLayerDebounced = useCallback(debounce(updateLayer, 500), []);
 
     const handleFragmentChange = useCallback(
         (fragmentSource: string | undefined) => {
             if (activeLayer) {
-                updateLayerContext(activeLayer.id, fragmentSource || '');
+                updateLayerDebounced({
+                    variables: {
+                        projectId: project?.id,
+                        id: activeLayer.id,
+                        fragment: fragmentSource
+                    }
+                });
             }
         },
-        [updateLayerContext, activeLayer]
+        [activeLayer, project?.id, updateLayerDebounced]
     );
 
     if (activeLayer && 'circuit' in activeLayer) {

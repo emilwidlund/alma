@@ -120,6 +120,7 @@ export const typeDefs = gql`
         profile(id: String, username: String): Profile
         project(id: String!): Project
         projects(profileId: String!): [Project]!
+        layer(id: String): Layer
         feed: [Project]!
         searchProfiles(query: String!, limit: Int!): [Profile]!
         searchProjects(query: String!, limit: Int!): [Project]!
@@ -136,6 +137,7 @@ export const typeDefs = gql`
         createLayer(projectId: String!, type: LayerType!, index: Int!, circuit: GraphQLJSON, fragment: String): Layer!
         updateLayer(
             id: String!
+            projectId: String!
             name: String
             enabled: Boolean
             blendingMode: BlendingMode
