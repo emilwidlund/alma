@@ -1,7 +1,7 @@
 import { editor } from 'monaco-editor';
 
 export const alma: editor.IStandaloneThemeData = {
-    base: 'vs',
+    base: 'vs-dark',
     inherit: true,
     rules: [
         {
@@ -9,7 +9,7 @@ export const alma: editor.IStandaloneThemeData = {
             token: ''
         },
         {
-            foreground: 'a9adbd',
+            foreground: '5E647D',
             token: 'comment'
         },
         {
@@ -49,35 +49,35 @@ export const alma: editor.IStandaloneThemeData = {
             token: 'variable'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'punctuation.accessor'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'storage'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'meta.var.expr'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'meta.class meta.method.declaration meta.var.expr storage.type.jsm'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'storage.type.property.js'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'storage.type.property.ts'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'storage.type.property.tsx'
         },
         {
@@ -153,7 +153,7 @@ export const alma: editor.IStandaloneThemeData = {
             token: 'string.template punctuation.definition.string'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             fontStyle: 'italic',
             token: 'italic'
         },
@@ -271,67 +271,67 @@ export const alma: editor.IStandaloneThemeData = {
             token: 'keyword.control'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.operator.comparison'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.flow.js'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.flow.ts'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.flow.tsx'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.ruby'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.module.ruby'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.class.ruby'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.def.ruby'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.loop.js'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.loop.ts'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.import.js'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.import.ts'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.import.tsx'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.from.js'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.from.ts'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.control.from.tsx'
         },
         {
@@ -349,27 +349,27 @@ export const alma: editor.IStandaloneThemeData = {
             token: 'keyword.operator'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.operator.relational'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.operator.assignement'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.operator.arithmetic'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.operator.bitwise'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.operator.increment'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'keyword.operator.ternary'
         },
         {
@@ -389,7 +389,7 @@ export const alma: editor.IStandaloneThemeData = {
             token: 'meta.brace'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'meta.delimiter.period'
         },
         {
@@ -441,7 +441,7 @@ export const alma: editor.IStandaloneThemeData = {
             token: 'keyword.other.unit'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'meta.selector'
         },
         {
@@ -453,11 +453,11 @@ export const alma: editor.IStandaloneThemeData = {
             token: 'meta.property-name'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'entity.name.tag.doctype'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             token: 'meta.tag.sgml.doctype'
         },
         {
@@ -611,7 +611,7 @@ export const alma: editor.IStandaloneThemeData = {
             token: 'markup.heading.markdown'
         },
         {
-            foreground: '0A5DFF',
+            foreground: '6078fc',
             fontStyle: 'italic',
             token: 'markup.italic.markdown'
         },
@@ -670,9 +670,9 @@ export const alma: editor.IStandaloneThemeData = {
         }
     ],
     colors: {
-        'editor.foreground': '#5E647D',
+        'editor.foreground': '#a9adbd',
         'editor.background': '#222637',
-        'editor.selectionBackground': '#CACFEA',
+        'editor.selectionBackground': '#2E324A',
         'editor.lineHighlightBackground': '#2E324A',
         'editorCursor.foreground': '#5E647D',
         'editorWhitespace.foreground': '#5E647D',

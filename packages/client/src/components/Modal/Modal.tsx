@@ -1,3 +1,4 @@
+import { CloseOutlined } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import * as React from 'react';
 
@@ -34,12 +35,19 @@ export const Modal = ({ modal: { title, children, actions, id }, onClose }: Moda
                     initial={{ opacity: 0, transform: 'translateY(-10px)' }}
                     animate={{ opacity: 1, transform: 'translateY(0)' }}
                 >
-                    <div className="relative flex flex-col p-14 max-h-96 overflow-y-auto">{children}</div>
-                    <div className="flex flex-row justify-center items-center py-8 px-12 border-t border-neutral-500 [&>*]:mr-4 [&>*:last-child]:mr-0">
-                        {actions.map((action, index) => (
-                            <Button key={index} {...action} />
-                        ))}
+                    <div className="flex justify-end pt-8 pr-8">
+                        <div className="hover:text-slate-300 transition-colors cursor-pointer" onClick={onClose}>
+                            <CloseOutlined />
+                        </div>
                     </div>
+                    <div className="relative flex flex-col pt-8 pb-24 max-h-96 overflow-y-auto">{children}</div>
+                    {actions && (
+                        <div className="flex flex-row justify-center items-center py-8 px-12 border-t border-neutral-500 [&>*]:mr-4 [&>*:last-child]:mr-0">
+                            {actions.map((action, index) => (
+                                <Button key={index} {...action} />
+                            ))}
+                        </div>
+                    )}
                 </motion.div>
             </motion.div>
         </Portal>

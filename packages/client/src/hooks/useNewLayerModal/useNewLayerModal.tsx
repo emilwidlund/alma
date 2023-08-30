@@ -85,15 +85,7 @@ export const useNewLayerModal = () => {
         modal.queue({
             id: NEW_LAYER_MODAL_ID,
             title: '',
-            children: <NewLayerModalContent />,
-            actions: [
-                {
-                    children: 'Close',
-                    onClick: () => {
-                        modal.close(NEW_LAYER_MODAL_ID);
-                    }
-                }
-            ]
+            children: <NewLayerModalContent />
         });
     }, [modal]);
 
