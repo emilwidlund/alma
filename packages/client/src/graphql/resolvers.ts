@@ -151,9 +151,11 @@ export const resolvers: IResolvers<any, Context> = {
             });
         }),
         deleteProject: withUserAuthorization(async (parent, args, context) => {
-            return await context.db.project.delete({
+            const project = await context.db.project.delete({
                 where: { id: args.id, ownerId: context.profile.id }
             });
+
+            return !!project;
         }),
         createLayer: withUserAuthorization(async (parent, args, context) => {
             const project = await context.db.project.findUnique({ where: { id: args.projectId } });
@@ -192,9 +194,11 @@ export const resolvers: IResolvers<any, Context> = {
             });
         }),
         deleteLayer: withUserAuthorization(async (parent, args, context) => {
-            return await context.db.layer.delete({
+            const layer = await context.db.layer.delete({
                 where: { id: args.id, project: { ownerId: context.profile.id } }
             });
+
+            return !!layer;
         })
     }
 };

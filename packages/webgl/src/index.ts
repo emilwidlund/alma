@@ -15,7 +15,6 @@ import { ModuloNode } from './nodes/common/ModuloNode/ModuloNode';
 import { SignNode } from './nodes/common/SignNode/SignNode';
 import { SmoothstepNode } from './nodes/common/SmoothstepNode/SmoothstepNode';
 import { StepNode } from './nodes/common/StepNode/StepNode';
-import { CreationEffectNode } from './nodes/effects/CreationEffectNode/CreationEffectNode';
 import { ExponentiationNode } from './nodes/exponential/ExponentiationNode/ExponentiationNode';
 import { InverseSquareRootNode } from './nodes/exponential/InverseSquareRootNode/InverseSquareRootNode';
 import { LogarithmNode } from './nodes/exponential/LogarithmNode/LogarithmNode';
@@ -95,10 +94,7 @@ export const nodes: IWebGLNodeCollection = {
     [WebGLNodeType.VECTOR_3]: Vector3Node,
     [WebGLNodeType.VECTOR_4]: Vector4Node,
     [WebGLNodeType.PI]: PINode,
-    [WebGLNodeType.RESOLUTION]: ResolutionNode,
-
-    // Effects
-    [WebGLNodeType.CREATION_EFFECT]: CreationEffectNode
+    [WebGLNodeType.RESOLUTION]: ResolutionNode
 };
 
 /** Types */
@@ -220,7 +216,6 @@ export * from './nodes/textures/CameraNode/CameraNode.types';
 export * from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode';
 export * from './nodes/noise/SimplexNoiseNode/SimplexNoiseNode.types';
 
-/** Effect Nodes */
+/** Misc Nodes */
 export * from './nodes/glsl/GLSLNode/GLSLNode';
 export * from './nodes/glsl/GLSLNode/GLSLNode.types';
-export * from './nodes/effects/CreationEffectNode/CreationEffectNode';

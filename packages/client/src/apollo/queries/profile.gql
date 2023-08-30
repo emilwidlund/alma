@@ -1,4 +1,4 @@
-query Profile($id: String, $username: String) {
+query Profile($id: ID, $username: String) {
     profile(id: $id, username: $username) {
         id
         username

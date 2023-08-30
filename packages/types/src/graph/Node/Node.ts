@@ -266,11 +266,6 @@ export const StepNodeSchema<TType extends Prim = Prim> = NodeSchema.extend({
 });
 
 
-export const CreationNodeSchema = NodeSchema.extend({
-    type: WebGLNodeTypeSchema.Enum.CREATION_EFFECT;
-});
-
-
 export const ExponentiationNodeSchema<TType extends Prim = Prim> = NodeSchema.extend({
     type: WebGLNodeTypeSchema.Enum.EXPONENTIATION;
     props: {
@@ -671,7 +666,6 @@ export const WebGLNodeSchema =
     | SignNodeSchema
     | SmoothstepNodeSchema
     | StepNodeSchema
-    | CreationNodeSchema
     | ExponentiationNodeSchema
     | InverseSquareRootNodeSchema
     | LogarithmNodeSchema

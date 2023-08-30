@@ -25,18 +25,18 @@ export default function Profile() {
     return (
         <main className="flex flex-col h-screen min-w-md max-w-7xl mx-auto">
             <Header />
-            <section className="flex flex-row flex-nowrap items-start justify-between mt-8 gap-x-12">
+            <section className="flex flex-row flex-nowrap items-start justify-between mt-8 gap-x-16">
                 {profileData && <ProfileContainer {...profileData} profileId={profileData.id} loading={!profileData} />}
                 {profileData ? (
                     <div className="flex flex-col w-full h-full">
                         <div className="flex flex-row justify-between items-center">
-                            <h2 className="text-3xl font-medium">Projects</h2>
+                            <h3 className="text-3xl font-medium">Projects</h3>
                             <IconButton icon={<AddOutlined />} onClick={handleNewProject}>
                                 New Project
                             </IconButton>
                         </div>
                         {profileData.projects?.length ? (
-                            <div className="relative grid grid-cols-3 gap-6 mt-12">
+                            <div className="relative grid grid-cols-3 gap-x-6 gap-y-10 mt-12">
                                 {profileData.projects.map(project => (
                                     <ProjectCard
                                         key={project.id}

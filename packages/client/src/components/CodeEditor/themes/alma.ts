@@ -5,7 +5,7 @@ export const alma: editor.IStandaloneThemeData = {
     inherit: true,
     rules: [
         {
-            background: '222637',
+            background: '1F233A',
             token: ''
         },
         {
@@ -671,14 +671,14 @@ export const alma: editor.IStandaloneThemeData = {
     ],
     colors: {
         'editor.foreground': '#a9adbd',
-        'editor.background': '#222637',
+        'editor.background': '#1F233A',
         'editor.selectionBackground': '#2E324A',
         'editor.lineHighlightBackground': '#2E324A',
         'editorCursor.foreground': '#5E647D',
         'editorWhitespace.foreground': '#5E647D',
         'editorLineNumber.foreground': '#ffffff33',
         'editorLineNumber.activeForeground': '#ffffff88',
-        'editorIndentGuide.background': '#222637',
-        'editorIndentGuide.activeBackground': '#222637'
+        'editorIndentGuide.background': '#1F233A',
+        'editorIndentGuide.activeBackground': '#1F233A'
     }
 };

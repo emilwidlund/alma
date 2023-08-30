@@ -1,4 +1,4 @@
-mutation FollowProfile($id: String!) {
+mutation FollowProfile($id: ID!) {
     followProfile(id: $id) {
         id
         targetProfile {

@@ -1,4 +1,4 @@
-query Layer($id: String!) {
+query Layer($id: ID!) {
     layer(id: $id) {
         ... on CircuitLayer {
             id

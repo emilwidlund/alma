@@ -18,6 +18,7 @@ import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable'
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
 
+import DELETE_LAYER_MUTATION from '~/apollo/mutations/deleteLayer.gql';
 import UPDATE_LAYER_MUTATION from '~/apollo/mutations/updateLayer.gql';
 import LAYER_QUERY from '~/apollo/queries/layer.gql';
 import PROJECT_QUERY from '~/apollo/queries/project.gql';
@@ -76,7 +77,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
     );
 
     if (!data.layer) {
-        return;
+        return null;
     }
 
     return (
@@ -154,6 +155,10 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
     const items = useMemo(() => layers.slice().reverse() ?? [], [layers]);
     const { open } = useNewLayerModal();
 
+    const [deleteLayer] = useMutation(DELETE_LAYER_MUTATION, {
+        refetchQueries: [{ query: PROJECT_QUERY, variables: { id: project?.id } }]
+    });
+
     const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, {
         refetchQueries: [{ query: PROJECT_QUERY, variables: { id: project?.id } }]
     });
@@ -217,10 +222,10 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
 
     const handleRemoveLayer = useCallback(() => {
         if (activeLayerId) {
-            removeLayer(activeLayerId);
+            deleteLayer({ variables: { id: activeLayer?.id } });
             toggleContextMenu(false);
         }
-    }, [removeLayer, activeLayerId]);
+    }, [activeLayerId, deleteLayer, activeLayer]);
 
     return (
         <div className="flex flex-col shrink-0 grow">
@@ -244,7 +249,17 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
                     />
                     {contextMenuOpen && (
                         <ContextMenuContainer
-                            sections={[{ items: [{ icon: '', label: 'Remove Layer', onClick: handleRemoveLayer }] }]}
+                            sections={[
+                                {
+                                    items: [
+                                        {
+                                            icon: '',
+                                            label: 'Remove Layer',
+                                            onClick: handleRemoveLayer
+                                        }
+                                    ]
+                                }
+                            ]}
                             position={{ x: -160, y: 40 }}
                             onClose={() => toggleContextMenu(false)}
                         />

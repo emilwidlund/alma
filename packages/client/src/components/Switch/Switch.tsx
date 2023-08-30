@@ -7,12 +7,12 @@ import { SwitchProps } from './Switch.types';
 export const Switch = ({ active, onChange, disabled }: SwitchProps) => {
     const containerClassNames = clsx('relative w-6 rounded-full p-1 transition-colors cursor-pointer', {
         'bg-neutral-800': !active,
-        'bg-neutral-400': active,
+        'bg-accent': active,
         'opacity-30': disabled
     });
 
     const dotClassNames = clsx('rounded-full w-1 h-1', {
-        'bg-accent': active,
+        'bg-white': active,
         'bg-neutral-300': !active
     });
 

@@ -31,16 +31,24 @@ export const defaultProjectContextValue: ProjectContextValue = {
 export const ProjectContext = createContext(defaultProjectContextValue);
 
 export const ProjectProvider = ({ project: apolloProject, children }: ProjectProviderProps) => {
-    const [project, setProject] = useState<Project | undefined>(apolloProject);
+    const [project, setProject] = useState<Project | undefined>();
     const [circuits, setCircuits] = useState<Map<string, WebGLContext>>(new Map<string, WebGLContext>());
     const [activeLayerId, setActiveLayerId] = useState<string>();
     const [compilationError, setCompilationError] = useState<string>();
 
     useEffect(() => {
-        if (project && project.layers.length > 0) {
-            setActiveLayerId(project.layers[project.layers.length - 1].id);
+        if (apolloProject) {
+            setProject(apolloProject);
+
+            if (apolloProject.layers.length > 0) {
+                const hasLayerId = apolloProject.layers.find(layer => layer.id === activeLayerId);
+
+                if (!hasLayerId) {
+                    setActiveLayerId(apolloProject.layers[apolloProject.layers.length - 1].id);
+                }
+            }
         }
-    }, [project]);
+    }, [apolloProject]);
 
     const createLayer = useCallback((layer: Layer) => {
         setProject(

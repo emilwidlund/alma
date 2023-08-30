@@ -23,11 +23,11 @@ export const ProfileContainer = ({
     return (
         <div className="relative">
             {loading ? (
-                <div className="sticky flex flex-col items-center justify-center text-center bg-neutral-700 shadow-xl px-8 pt-12 pb-8 rounded-4xl w-80 h-96">
+                <div className="sticky flex flex-col items-center justify-center text-center bg-neutral-800 shadow-xl px-8 pt-12 pb-8 rounded-4xl w-80 h-96">
                     <Spinner />
                 </div>
             ) : (
-                <div className="sticky flex flex-col items-center text-center bg-neutral-700 shadow-xl px-8 pt-12 pb-8 rounded-4xl w-80">
+                <div className="sticky flex flex-col items-center text-center bg-neutral-800 shadow-xl px-8 pt-12 pb-8 rounded-4xl w-80">
                     <Avatar size={Size.MD} source={image ?? undefined} />
                     <h3 className="text-xl mt-8 font-medium">{username}</h3>
                     {location && <span className="mt-1 text-sm opacity-50">{location}</span>}

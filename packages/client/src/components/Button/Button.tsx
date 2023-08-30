@@ -22,7 +22,7 @@ export const Button = ({
             'py-2.5 px-3': compact,
             'rounded-xl': !compact,
             'rounded-lg': compact,
-            'text-text-dark': variant !== ButtonVariant.PRIMARY,
+            'text-slate-500': variant !== ButtonVariant.PRIMARY,
             'text-white': variant === ButtonVariant.PRIMARY
         },
         className

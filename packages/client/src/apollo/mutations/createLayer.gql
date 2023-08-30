@@ -1,4 +1,4 @@
-mutation CreateLayer($projectId: String!, $type: LayerType!, $index: Int!, $circuit: GraphQLJSON, $fragment: String) {
+mutation CreateLayer($projectId: ID!, $type: LayerType!, $index: Int!, $circuit: GraphQLJSON, $fragment: String) {
     createLayer(projectId: $projectId, type: $type, index: $index, circuit: $circuit, fragment: $fragment) {
          ... on CircuitLayer {
             id

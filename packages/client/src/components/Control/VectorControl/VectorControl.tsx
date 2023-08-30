@@ -51,10 +51,11 @@ export const VectorControl = observer(({ port }: VectorControlProps) => {
 
     return (
         <BaseControl title={port.name}>
-            <div className="flex flex-row flex-nowrap items-center gap-x-2 w-64">
+            <div className="flex flex-row flex-nowrap items-center gap-x-2 w-full">
                 {components.map((component: number, index: number) => (
                     <Input
                         key={index}
+                        className="w-16 min-w-0 flex-shrink"
                         placeholder={vectorLabels[index]}
                         onChange={createOnChangeHandler(vectorLabels[index])}
                         value={component}

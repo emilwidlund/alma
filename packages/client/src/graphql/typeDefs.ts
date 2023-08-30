@@ -5,7 +5,7 @@ export const typeDefs = gql`
     scalar GraphQLJSON
 
     type Profile {
-        id: String!
+        id: ID!
         userId: String!
         username: String!
         image: String
@@ -23,7 +23,7 @@ export const typeDefs = gql`
     }
 
     type Relationship {
-        id: String!
+        id: ID!
         profile: Profile!
         targetProfile: Profile!
         createdAt: Date!
@@ -31,7 +31,7 @@ export const typeDefs = gql`
     }
 
     type Subscription {
-        id: String!
+        id: ID!
         profile: Profile!
         createdAt: Date!
         updatedAt: Date!
@@ -52,7 +52,7 @@ export const typeDefs = gql`
     }
 
     type FragmentLayer {
-        id: String!
+        id: ID!
         name: String!
         enabled: Boolean!
         blendingMode: BlendingMode!
@@ -65,7 +65,7 @@ export const typeDefs = gql`
     }
 
     type CircuitLayer {
-        id: String!
+        id: ID!
         name: String!
         enabled: Boolean!
         blendingMode: BlendingMode!
@@ -80,7 +80,7 @@ export const typeDefs = gql`
     union Layer = FragmentLayer | CircuitLayer
 
     type Like {
-        id: String!
+        id: ID!
         project: Project!
         profile: Profile!
         createdAt: Date!
@@ -88,7 +88,7 @@ export const typeDefs = gql`
     }
 
     type Comment {
-        id: String!
+        id: ID!
         project: Project!
         profile: Profile!
         text: String!
@@ -102,7 +102,7 @@ export const typeDefs = gql`
     }
 
     type Project {
-        id: String!
+        id: ID!
         name: String!
         layers: [Layer]!
         visibility: ProjectVisibility!
@@ -117,10 +117,10 @@ export const typeDefs = gql`
 
     type Query {
         me: Profile
-        profile(id: String, username: String): Profile
-        project(id: String!): Project
-        projects(profileId: String!): [Project]!
-        layer(id: String): Layer
+        profile(id: ID, username: String): Profile
+        project(id: ID!): Project
+        projects(profileId: ID!): [Project]!
+        layer(id: ID): Layer
         feed: [Project]!
         searchProfiles(query: String!, limit: Int!): [Profile]!
         searchProjects(query: String!, limit: Int!): [Project]!
@@ -128,16 +128,16 @@ export const typeDefs = gql`
 
     type Mutation {
         updateProfile(username: String, bio: String, website: String, image: String): Profile!
-        followProfile(id: String!): Relationship!
-        unfollowProfile(id: String!): Boolean!
+        followProfile(id: ID!): Relationship!
+        unfollowProfile(id: ID!): Boolean!
         createProject: Project!
-        updateProject(id: String!, name: String, visibility: ProjectVisibility): Project!
-        deleteProject(id: String!): Boolean!
-        forkProject(id: String): Project!
-        createLayer(projectId: String!, type: LayerType!, index: Int!, circuit: GraphQLJSON, fragment: String): Layer!
+        updateProject(id: ID!, name: String, visibility: ProjectVisibility): Project!
+        deleteProject(id: ID!): Boolean!
+        forkProject(id: ID): Project!
+        createLayer(projectId: ID!, type: LayerType!, index: Int!, circuit: GraphQLJSON, fragment: String): Layer!
         updateLayer(
-            id: String!
-            projectId: String!
+            id: ID!
+            projectId: ID!
             name: String
             enabled: Boolean
             blendingMode: BlendingMode
@@ -145,6 +145,6 @@ export const typeDefs = gql`
             circuit: GraphQLJSON
             fragment: String
         ): Layer!
-        deleteLayer(id: String): Boolean!
+        deleteLayer(id: ID): Boolean!
     }
 `;
