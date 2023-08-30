@@ -20,7 +20,7 @@ export const Node = observer(
             const { onMouseEnter, onMouseLeave, isHovered } = useHover();
 
             const nodeWrapperClassNames = clsx(
-                `absolute flex flex-col select-none rounded-2xl transition-shadow bg-neutral-700 active:shadow-2xl border border-neutral-600`,
+                `absolute flex flex-col select-none rounded-2xl transition-shadow bg-neutral-700 active:shadow-2xl border border-neutral-600 focus:outline-none`,
                 {
                     'z-10': !active,
                     'z-20': active,

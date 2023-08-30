@@ -37,8 +37,10 @@ function EditorHeader() {
             </Link>
             {project && (
                 <div className="absolute w-full flex flex-col items-center mx-auto">
-                    <h2 className="text-lg font-medium">{project.name}</h2>
-                    <span className="text-sm mt-1 opacity-50">{project.private ? 'Private' : 'Public'}</span>
+                    <h2 className="text-lg font-medium text-slate-400">{project.name}</h2>
+                    <span className="text-sm mt-1 opacity-50 text-slate-500">
+                        {project.private ? 'Private' : 'Public'}
+                    </span>
                 </div>
             )}
             {session && (

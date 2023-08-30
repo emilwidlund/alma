@@ -46,7 +46,7 @@ const CircuitPorts = observer(() => {
 
     return inputControls.length ? (
         <div className="p-6">
-            <h3 className="text-md font-medium mb-6">Inputs</h3>
+            <h3 className="text-md font-medium mb-6 text-slate-400">Inputs</h3>
             {selectedCandidate && (!!inputControls.length || selectedCandidate.data.type) && (
                 <div>
                     {selectedCandidate.data.type && <TypeControl node={selectedCandidate} />}
@@ -90,7 +90,7 @@ export const PropertyPanel = observer(() => {
             </div>
             <CircuitPorts />
             <div className="flex flex-col p-6 grow-1 h-full">
-                <h3 className="text-md font-medium mb-6">Layers</h3>
+                <h3 className="text-md font-medium mb-6 text-slate-400">Layers</h3>
                 {project && <LayerPanel layers={project.layers} />}
             </div>
         </aside>
