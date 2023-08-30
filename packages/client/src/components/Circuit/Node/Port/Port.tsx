@@ -41,7 +41,7 @@ export const Port = observer(({ port }: IPortProps) => {
             'flex-row-reverse': isOutput,
             'flex-row': !isOutput,
             'opacity-30': visuallyDisabled,
-            'text-accent': highlighted,
+            'text-slate-300': highlighted,
             'text-text-dark': !highlighted
         }
     );
@@ -49,7 +49,7 @@ export const Port = observer(({ port }: IPortProps) => {
     const portTypeClassNames = clsx(
         'flex flex-col items-center justify-center text-xxs font-medium tracking-normal rounded w-4 h-4 transition-all',
         {
-            'bg-red-400': port.connected && isPortTypeHovered,
+            'bg-red-500': port.connected && isPortTypeHovered,
             'bg-neutral-500': !port.connected && !isHovered,
             'bg-accent': (port.connected && !isPortTypeHovered) || (!port.connected && isHovered),
             'text-white': highlighted,

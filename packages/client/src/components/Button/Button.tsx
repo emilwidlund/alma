@@ -15,15 +15,15 @@ export const Button = ({
         {
             'bg-accent': variant === ButtonVariant.PRIMARY,
             'bg-transparent': variant === ButtonVariant.TERTIARY,
-            'bg-neutral-300': variant === ButtonVariant.SECONDARY,
+            'bg-neutral-500': variant === ButtonVariant.SECONDARY,
             'drop-shadow-xl': variant === ButtonVariant.PRIMARY,
             'py-3 px-6': !compact,
-            'py-2 px-3': compact,
+            'py-2.5 px-3': compact,
             'rounded-xl': !compact,
             'rounded-lg': compact,
             'text-text-dark': variant !== ButtonVariant.PRIMARY,
             'text-white': variant === ButtonVariant.PRIMARY,
-            'border border-black border-opacity-5': variant === ButtonVariant.SECONDARY
+            'border border-neutral-200': variant === ButtonVariant.SECONDARY
         },
         className
     );

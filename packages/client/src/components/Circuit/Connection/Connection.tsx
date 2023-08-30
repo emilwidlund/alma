@@ -109,7 +109,7 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
 
     const selectedConnection =
         connection && circuit.selectedNodes?.flatMap(node => node.connections).includes(connection);
-    const strokeColor = selectedConnection || output ? '#4444ff' : '#bec2d9';
+    const strokeColor = selectedConnection || output ? '#4444ff' : '#343753';
 
     return (
         <g>

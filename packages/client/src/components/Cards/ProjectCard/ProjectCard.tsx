@@ -17,7 +17,7 @@ const ProjectCardCanvas = ({ layers }: Pick<ProjectCardProps, 'layers'>) => {
     return (
         <motion.canvas
             ref={ref}
-            className="absolute rounded-2xl w-full h-full bg-neutral-200"
+            className="absolute rounded-2xl w-full h-full bg-black"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -73,7 +73,7 @@ function EditorContainer({
 
     const circuitContainerClassNames = clsx('absolute top-0 right-0 bottom-0 left-0 overflow-auto');
     const fragmentEditorContainerClassNames = clsx(
-        'absolute top-48 right-32 bottom-32 left-56 rounded-3xl bg-neutral-100 drop-shadow-2xl overflow-hidden border-2',
+        'absolute top-48 right-32 bottom-32 left-56 rounded-3xl bg-neutral-900 drop-shadow-2xl overflow-hidden border-2',
         {
             'border-red-400': !!compilationError
         }

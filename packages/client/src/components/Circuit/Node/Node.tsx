@@ -20,7 +20,7 @@ export const Node = observer(
             const { onMouseEnter, onMouseLeave, isHovered } = useHover();
 
             const nodeWrapperClassNames = clsx(
-                `absolute flex flex-col select-none rounded-xl transition-shadow bg-neutral-300 active:shadow-xl`,
+                `absolute flex flex-col select-none rounded-2xl transition-shadow bg-neutral-700 active:shadow-2xl border border-neutral-600`,
                 {
                     'z-10': !active,
                     'z-20': active,
@@ -29,11 +29,11 @@ export const Node = observer(
             );
 
             const nodeHeaderWrapperClassNames = clsx(
-                'flex flex-row justify-between items-center py-2 px-3 text-xxs font-medium bg-neutral-300 uppercase tracking-wider rounded-t-xl border-b-2',
+                'flex flex-row justify-between items-center py-2 pl-3 pr-4 text-xxs font-medium uppercase tracking-wider rounded-t-xl border-b-2',
                 {
                     'border-b-neutral-400': !active,
                     'border-b-accent': active,
-                    'text-accent': active
+                    'text-slate-300': active
                 }
             );
 
@@ -43,7 +43,7 @@ export const Node = observer(
             });
 
             const nodeContentWrapperClassNames = clsx(
-                `flex flex-row justify-between items-start rounded-b-xl border-b-neutral-300`
+                `flex flex-row justify-between items-start rounded-b-xl border-b-neutral-700`
             );
 
             return (
@@ -120,7 +120,7 @@ export const Node = observer(
 
 // eslint-disable-next-line react/display-name
 const NodeAction = React.memo(({ onClick }: NodeActionProps) => {
-    return <div className="w-2 h-2 rounded bg-red-400 hover:opacity-50 transition-opacity" onClick={onClick} />;
+    return <div className="w-2 h-2 rounded bg-red-500 hover:opacity-50 transition-opacity" onClick={onClick} />;
 });
 
 // eslint-disable-next-line react/display-name

@@ -26,10 +26,10 @@ export const Modal = ({ modal: { title, children, actions, id }, onClose }: Moda
             <motion.div
                 className="flex flex-col justify-center items-center fixed inset-0 z-50 overflow-hidden"
                 initial={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
-                animate={{ backgroundColor: 'rgba(0, 0, 0, .2)' }}
+                animate={{ backgroundColor: 'rgba(0, 0, 0, .5)' }}
             >
                 <motion.div
-                    className="flex flex-col rounded-3xl text-sm shadow-xl bg-neutral-100"
+                    className="flex flex-col rounded-3xl text-sm shadow-xl bg-neutral-700"
                     style={{ width: 600 }}
                     initial={{ opacity: 0, transform: 'translateY(-10px)' }}
                     animate={{ opacity: 1, transform: 'translateY(0)' }}

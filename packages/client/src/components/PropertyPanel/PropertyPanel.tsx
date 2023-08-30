@@ -84,9 +84,9 @@ export const PropertyPanel = observer(() => {
     useRenderer(canvasRef, layersToRender, false, handleCompilationError, handleCompilationSuccess);
 
     return (
-        <aside className="flex flex-col w-96 h-full bg-neutral-100 z-10">
+        <aside className="flex flex-col w-96 h-full bg-neutral-700 z-10 border-l border-neutral-600">
             <div className="relative flex flex-col p-6 pt-12">
-                <canvas ref={canvasRef} className="rounded-2xl bg-neutral-300" width="285" height="180" />
+                <canvas ref={canvasRef} className="rounded-2xl bg-black" width="285" height="180" />
             </div>
             <CircuitPorts />
             <div className="flex flex-col p-6 grow-1 h-full">

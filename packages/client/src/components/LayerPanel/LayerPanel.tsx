@@ -38,7 +38,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
     });
 
     const iconClassNames = clsx('flex items-center justify-center rounded-xl w-10 h-10', {
-        'bg-neutral-100': !active,
+        'bg-neutral-600': !active,
         'shadow-sm': !active
     });
 
@@ -82,19 +82,23 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
     return (
         <Draggable draggableId={data.layer.id} index={index}>
             {(provided, snap) => {
-                const classNames = clsx(
+                const wrapperClassNames = clsx(
                     'flex items-center justify-between p-3 rounded-2xl last:mb-0 transition-colors transitions-shadow duration-100 cursor-pointer',
                     {
-                        'bg-neutral-100': active || snap.isDragging,
-                        'hover:bg-neutral-100': !active,
-                        'shadow-lg': active || snap.isDragging
+                        'bg-neutral-600': active || snap.isDragging,
+                        'hover:bg-neutral-600': !active,
+                        'shadow-xl': active || snap.isDragging
                     }
                 );
+
+                const titleClassNames = clsx('font-medium text-xs line-clamp-1 cursor-text', {
+                    'text-slate-300': active
+                });
 
                 return (
                     <div
                         ref={provided.innerRef}
-                        className={classNames}
+                        className={wrapperClassNames}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         style={{ ...provided.draggableProps.style, marginBottom: 8 }}
@@ -112,7 +116,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                             </div>
                             <div className="flex flex-col ml-4">
                                 <h3
-                                    className="font-medium text-xs line-clamp-1 cursor-text"
+                                    className={titleClassNames}
                                     spellCheck={false}
                                     contentEditable
                                     suppressContentEditableWarning={true}

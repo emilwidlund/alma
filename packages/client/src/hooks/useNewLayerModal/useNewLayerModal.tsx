@@ -21,7 +21,7 @@ const SelectionBox = ({
 }) => {
     return (
         <div
-            className="flex flex-col items-center justify-center text-center w-40 h-40 bg-neutral-300 hover:bg-neutral-100 hover:text-accent hover:shadow-xl transition-colors rounded-3xl cursor-pointer text-4xl"
+            className="flex flex-col items-center justify-center text-center w-40 h-40 bg-neutral-600 hover:bg-neutral-500 hover:text-slate-300 hover:shadow-xl transition-colors rounded-3xl cursor-pointer text-4xl"
             onClick={onClick}
         >
             <Icon fontSize="inherit" />
@@ -68,7 +68,7 @@ const NewLayerModalContent = () => {
 
     return (
         <div className="flex flex-col justify-center items-center">
-            <h1 className="text-xl font-medium mb-4">New Layer</h1>
+            <h1 className="text-xl font-medium mb-4 text-slate-100">New Layer</h1>
             <p>Select which kind of layer you would like to create</p>
             <div className="flex flex-row items-center mt-12 flex-wrap gap-x-6">
                 <SelectionBox icon={RouteOutlined} title="Circuit" onClick={handleCreateCircuitProject} />

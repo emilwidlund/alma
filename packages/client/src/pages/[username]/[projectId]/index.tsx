@@ -9,7 +9,7 @@ import { clsx } from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 import PROJECT_QUERY from '~/apollo/queries/project.gql';
 import { Avatar } from '~/components/Avatar/Avatar';
@@ -54,15 +54,7 @@ function PreviewContainer() {
 
     useRenderer(canvasRef, project?.layers || [], false, handleCompilationError, handleCompilationSuccess);
 
-    useEffect(() => {
-        if (previewRef.current && canvasRef.current) {
-            const { width, height } = previewRef.current.getBoundingClientRect();
-            canvasRef.current.width = width;
-            canvasRef.current.height = height;
-        }
-    }, []);
-
-    const mainContainerClassNames = clsx('rounded-3xl bg-neutral-100 drop-shadow-2xl overflow-hidden border-2 mx-40', {
+    const mainContainerClassNames = clsx('rounded-3xl bg-neutral-900 drop-shadow-2xl overflow-hidden border-2 mx-40', {
         'border-none': !compilationError,
         'border-red-400': !!compilationError
     });
@@ -70,7 +62,7 @@ function PreviewContainer() {
     return (
         <main className="relative flex flex-col items-center justify-center grow w-full h-full">
             <div ref={previewRef} className={mainContainerClassNames}>
-                <canvas ref={canvasRef} className="rounded-2xl bg-neutral-300" width={1280} height={720} />
+                <canvas ref={canvasRef} className="rounded-2xl bg-neutral-700" width={1280} height={720} />
             </div>
             {compilationError && (
                 <div className="fixed bottom-8 mx-auto">
