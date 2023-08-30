@@ -6,27 +6,17 @@ import type { AppProps } from 'next/app';
 import { useState } from 'react';
 
 import { apolloClient } from '~/apollo/apollo';
-import { inter } from '~/styles/fonts';
 
 export default function App({ Component, pageProps: { initialSession, ...pageProps } }: AppProps) {
     const [supabaseClient] = useState(() => createPagesBrowserClient());
 
     return (
-        <>
-            <style jsx global>
-                {`
-                    html {
-                        font-family: ${inter.style.fontFamily};
-                    }
-                `}
-            </style>
-            <SessionContextProvider supabaseClient={supabaseClient} initialSession={initialSession}>
-                <ApolloProvider client={apolloClient}>
-                    <main>
-                        <Component {...pageProps} />
-                    </main>
-                </ApolloProvider>
-            </SessionContextProvider>
-        </>
+        <SessionContextProvider supabaseClient={supabaseClient} initialSession={initialSession}>
+            <ApolloProvider client={apolloClient}>
+                <main>
+                    <Component {...pageProps} />
+                </main>
+            </ApolloProvider>
+        </SessionContextProvider>
     );
 }

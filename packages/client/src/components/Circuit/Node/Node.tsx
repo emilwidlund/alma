@@ -79,7 +79,7 @@ export const Node = observer(
                         className={nodeWrapperClassNames}
                         style={{
                             width: NODE_WIDTH,
-                            fontFeatureSettings: `"ss02" 1`
+                            fontFeatureSettings: `"ss02" on`
                         }}
                         onClick={onClick}
                         onFocus={onFocus}

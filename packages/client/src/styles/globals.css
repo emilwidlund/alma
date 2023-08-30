@@ -5,6 +5,12 @@
 @import url('/material-icons.css');
 @import url('/material-icons-outlined.css');
 
+:root { font-family: 'Inter', sans-serif; }
+
+@supports (font-variation-settings: normal) {
+    :root { font-family: 'Inter var', sans-serif; }
+}
+
 :root {
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;
