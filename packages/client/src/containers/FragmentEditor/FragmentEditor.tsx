@@ -10,7 +10,7 @@ export const FragmentEditor = () => {
     const { project, activeLayer } = useProjectContext();
     const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
 
-    const updateLayerDebounced = useCallback(debounce(updateLayer, 500), []);
+    const updateLayerDebounced = useCallback(debounce(updateLayer, 500), [updateLayer]);
 
     const handleFragmentChange = useCallback(
         (fragmentSource: string | undefined) => {
@@ -20,6 +20,13 @@ export const FragmentEditor = () => {
                         projectId: project?.id,
                         id: activeLayer.id,
                         fragment: fragmentSource
+                    },
+                    optimisticResponse: {
+                        updateLayer: {
+                            __typename: 'FragmentLayer',
+                            id: activeLayer.id,
+                            fragment: fragmentSource
+                        }
                     }
                 });
             }

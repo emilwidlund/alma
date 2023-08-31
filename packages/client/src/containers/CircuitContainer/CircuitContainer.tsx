@@ -125,9 +125,18 @@ export const CircuitContainer = observer(
             const valueReactionDisposer = reaction(
                 () => circuit.context?.values,
                 () => {
+                    const serializedCircuit = JSON.parse(JSON.stringify(circuit.context));
+
                     updateLayer({
                         variables: {
-                            circuit: JSON.parse(JSON.stringify(circuit.context))
+                            circuit: serializedCircuit
+                        },
+                        optimisticResponse: {
+                            updateLayer: {
+                                __typename: 'CircuitLayer',
+                                id: activeLayer?.id,
+                                circuit: serializedCircuit
+                            }
                         }
                     });
                 }
@@ -136,9 +145,18 @@ export const CircuitContainer = observer(
             const positionReactionDisposer = reaction(
                 () => circuit.context?.positions,
                 debounce(() => {
+                    const serializedCircuit = JSON.parse(JSON.stringify(circuit.context));
+
                     updateLayer({
                         variables: {
-                            circuit: JSON.parse(JSON.stringify(circuit.context))
+                            circuit: serializedCircuit
+                        },
+                        optimisticResponse: {
+                            updateLayer: {
+                                __typename: 'CircuitLayer',
+                                id: activeLayer?.id,
+                                circuit: serializedCircuit
+                            }
                         }
                     });
                 }, 200)
