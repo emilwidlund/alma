@@ -9,8 +9,8 @@ declare module '*.json' {
 }
 
 declare module '*.gql' {
-    import { DocumentNode } from 'graphql';
-    const Schema: DocumentNode;
+    import { DocumentNode, TypedDocumentNode, OperationVariables } from 'graphql';
+    const Schema: DocumentNode | TypedDocumentNode<any, OperationVariables>;
 
     export default Schema;
 }

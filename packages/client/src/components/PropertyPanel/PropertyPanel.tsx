@@ -6,15 +6,11 @@ import { useRouter } from 'next/router';
 import { useRef, useMemo } from 'react';
 
 import { useRenderer } from '../../hooks/useRenderer/useRenderer';
-// import { IconButton } from '../IconButton/IconButton';
 import { BooleanControl } from '../Control/BooleanControl/BooleanControl';
 import { NumberControl } from '../Control/NumberControl/NumberControl';
 import { TypeControl } from '../Control/TypeControl/TypeControl';
 import { VectorControl } from '../Control/VectorControl/VectorControl';
 import { LayerPanel } from '../LayerPanel/LayerPanel';
-
-// import { UniformsPanel } from '../UniformsPanel/UniformsPanel';
-
 import PROJECT_QUERY from '~/apollo/queries/project.gql';
 import { useCircuit } from '~/hooks/useCircuit/useCircuit';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';

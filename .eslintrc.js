@@ -6,6 +6,9 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:prettier/recommended',
         'plugin:import/recommended',
+        'plugin:import/typescript',
+        'plugin:import/errors',
+        'plugin:import/warnings',
         'plugin:import/typescript'
     ],
     parser: '@typescript-eslint/parser',
@@ -13,7 +16,10 @@ module.exports = {
     root: true,
     settings: {
         'import/resolver': {
-            typescript: true,
+            typescript: {
+                alwaysTryTypes: true,
+                project: 'packages/*/tsconfig.json'
+            },
             node: true
         }
     },
