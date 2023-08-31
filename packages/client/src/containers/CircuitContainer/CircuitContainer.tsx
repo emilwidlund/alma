@@ -3,6 +3,7 @@ import { Node } from '@usealma/graph';
 import { ClassConstructor } from '@usealma/webgl';
 import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
+import { debounce } from 'lodash';
 import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
@@ -16,10 +17,7 @@ import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition'
 import { normalizeBounds } from '../../utils/bounds/bounds';
 import { nodesHierarchy } from '../../utils/nodes/nodes';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
-
 import UPDATE_LAYER_MUTATION from '~/apollo/mutations/updateLayer.gql';
-import LAYER_QUERY from '~/apollo/queries/layer.gql';
-import PROJECT_QUERY from '~/apollo/queries/project.gql';
 import { Connection } from '~/components/Circuit/Connection/Connection';
 import { ContextMenuContainer } from '~/components/Circuit/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { useCreateNode } from '~/hooks/useCreateNode/useCreateNode';
@@ -119,17 +117,12 @@ export const CircuitContainer = observer(
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
         useKeyboardActions();
 
-        const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, {
-            refetchQueries: [
-                { query: LAYER_QUERY, variables: { id: activeLayer?.id } },
-                { query: PROJECT_QUERY, variables: { id: project?.id } }
-            ]
-        });
+        const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
 
         React.useEffect(() => {
             return reaction(
-                () => circuit.context?.values,
-                () => {
+                () => circuit.context?.persistenceView,
+                debounce(() => {
                     if (activeLayer) {
                         updateLayer({
                             variables: {
@@ -139,7 +132,7 @@ export const CircuitContainer = observer(
                             }
                         });
                     }
-                }
+                }, 200)
             );
         }, [project, circuit, activeLayer, updateLayer]);
 

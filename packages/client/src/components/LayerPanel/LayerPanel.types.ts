@@ -5,7 +5,7 @@ export type LayerPanelProps = {
 };
 
 export type LayerItemProps = {
-    layer: Layer;
+    layerId: string;
     index: number;
     active: boolean;
     onClick?: React.MouseEventHandler;

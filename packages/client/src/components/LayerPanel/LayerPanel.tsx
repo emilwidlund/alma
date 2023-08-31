@@ -6,6 +6,7 @@ import { BlendingMode, BlendingModeSchema, Layer } from '@usealma/types';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
 import { capitalize, upperCase } from 'lodash';
+import { useRouter } from 'next/router';
 import { ChangeEventHandler, FormEventHandler, useCallback, useMemo, useState } from 'react';
 import { DragDropContext, Draggable, OnDragEndResponder, OnDragStartResponder } from 'react-beautiful-dnd';
 
@@ -17,7 +18,6 @@ import { Select } from '../Select/Select';
 import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable';
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
-
 import DELETE_LAYER_MUTATION from '~/apollo/mutations/deleteLayer.gql';
 import UPDATE_LAYER_MUTATION from '~/apollo/mutations/updateLayer.gql';
 import LAYER_QUERY from '~/apollo/queries/layer.gql';
@@ -26,17 +26,16 @@ import { useHover } from '~/hooks/useHover/useHover';
 import { useNewLayerModal } from '~/hooks/useNewLayerModal/useNewLayerModal';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
-const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
-    const { project } = useProjectContext();
+const LayerItem = ({ active, onClick, layerId, index }: LayerItemProps) => {
     const { isHovered, onMouseEnter, onMouseLeave } = useHover();
 
-    const { data = { layer: undefined } } = useQuery(LAYER_QUERY, { variables: { id: layer.id } });
-    const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, {
-        refetchQueries: [
-            { query: LAYER_QUERY, variables: { id: layer.id } },
-            { query: PROJECT_QUERY, variables: { id: project?.id } }
-        ]
-    });
+    const {
+        query: { projectId }
+    } = useRouter();
+
+    const { data: { layer } = { layer: undefined } } = useQuery(LAYER_QUERY, { variables: { id: layerId } });
+
+    const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
 
     const iconClassNames = clsx('flex items-center justify-center rounded-xl w-10 h-10', {
         'bg-neutral-600': !active,
@@ -46,12 +45,12 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
     const toggleEnabled = useCallback(() => {
         updateLayer({
             variables: {
-                id: data.layer.id,
-                projectId: project?.id,
-                enabled: !data.layer.enabled
+                id: layerId,
+                projectId: projectId,
+                enabled: !layer.enabled
             }
         });
-    }, [data, project, updateLayer]);
+    }, [layer, layerId, projectId, updateLayer]);
 
     const handleInput: FormEventHandler<HTMLHeadingElement> = useCallback(e => {
         e.currentTarget.textContent?.replace(/(\r\n|\n|\r)/gm, '');
@@ -67,21 +66,21 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
 
             updateLayer({
                 variables: {
-                    id: data.layer.id,
-                    projectId: project?.id,
+                    id: layerId,
+                    projectId: projectId,
                     name: name?.length ? name : 'Untitled'
                 }
             });
         },
-        [data, project, updateLayer]
+        [layerId, projectId, updateLayer]
     );
 
-    if (!data.layer) {
+    if (!layer) {
         return null;
     }
 
     return (
-        <Draggable draggableId={data.layer.id} index={index}>
+        <Draggable draggableId={layer.id} index={index}>
             {(provided, snap) => {
                 const wrapperClassNames = clsx(
                     'flex items-center justify-between p-3 rounded-2xl last:mb-0 transition-colors transitions-shadow duration-100 cursor-pointer',
@@ -143,15 +142,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
 
 export const LayerPanel = ({ layers }: LayerPanelProps) => {
     const [contextMenuOpen, toggleContextMenu] = useState(false);
-    const {
-        project,
-        activeLayer,
-        activeLayerId,
-        updateLayerBlendingMode,
-        removeLayer,
-        setActiveLayerId,
-        reorderLayers
-    } = useProjectContext();
+    const { project, activeLayer, activeLayerId, setActiveLayerId, reorderLayers } = useProjectContext();
     const items = useMemo(() => layers.slice().reverse() ?? [], [layers]);
     const { open } = useNewLayerModal();
 
@@ -159,9 +150,7 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
         refetchQueries: [{ query: PROJECT_QUERY, variables: { id: project?.id } }]
     });
 
-    const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, {
-        refetchQueries: [{ query: PROJECT_QUERY, variables: { id: project?.id } }]
-    });
+    const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
 
     const handleCreateLayer = useCallback(() => {
         open();
@@ -276,7 +265,7 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
                                         key={layer.id}
                                         index={index}
                                         onClick={createSelectLayerHandler(layer)}
-                                        layer={layer}
+                                        layerId={layer.id}
                                         active={activeLayer?.id === layer.id}
                                     />
                                 ))}
