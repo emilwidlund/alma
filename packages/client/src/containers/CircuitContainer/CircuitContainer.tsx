@@ -117,18 +117,21 @@ export const CircuitContainer = observer(
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
         useKeyboardActions();
 
-        const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
+        // Don't write result into cache, as that will cause problems with the selected nodes
+        const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, { fetchPolicy: 'no-cache' });
 
         React.useEffect(() => {
             return reaction(
                 () => circuit.context?.persistenceView,
                 debounce(() => {
+                    const serialized = JSON.parse(JSON.stringify(circuit.context));
+
                     if (activeLayer) {
                         updateLayer({
                             variables: {
                                 id: activeLayer?.id,
                                 projectId: project?.id,
-                                circuit: JSON.parse(JSON.stringify(circuit.context))
+                                circuit: serialized
                             }
                         });
                     }
