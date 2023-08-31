@@ -117,26 +117,37 @@ export const CircuitContainer = observer(
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
         useKeyboardActions();
 
-        // Don't write result into cache, as that will cause problems with the selected nodes
-        const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, { fetchPolicy: 'no-cache' });
+        const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, {
+            variables: { id: activeLayer?.id, projectId: project?.id }
+        });
 
         React.useEffect(() => {
-            return reaction(
-                () => circuit.context?.persistenceView,
-                debounce(() => {
-                    const serialized = JSON.parse(JSON.stringify(circuit.context));
+            const valueReactionDisposer = reaction(
+                () => circuit.context?.values,
+                () => {
+                    updateLayer({
+                        variables: {
+                            circuit: JSON.parse(JSON.stringify(circuit.context))
+                        }
+                    });
+                }
+            );
 
-                    if (activeLayer) {
-                        updateLayer({
-                            variables: {
-                                id: activeLayer?.id,
-                                projectId: project?.id,
-                                circuit: serialized
-                            }
-                        });
-                    }
+            const positionReactionDisposer = reaction(
+                () => circuit.context?.positions,
+                debounce(() => {
+                    updateLayer({
+                        variables: {
+                            circuit: JSON.parse(JSON.stringify(circuit.context))
+                        }
+                    });
                 }, 200)
             );
+
+            return () => {
+                valueReactionDisposer();
+                positionReactionDisposer();
+            };
         }, [project, circuit, activeLayer, updateLayer]);
 
         const onMouseMove = React.useCallback(

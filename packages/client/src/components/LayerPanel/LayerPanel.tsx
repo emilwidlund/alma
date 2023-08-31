@@ -48,6 +48,13 @@ const LayerItem = ({ active, onClick, layerId, index }: LayerItemProps) => {
                 id: layerId,
                 projectId: projectId,
                 enabled: !layer.enabled
+            },
+            optimisticResponse: {
+                updateLayer: {
+                    __typename: layer.type === 'FRAGMENT' ? 'FragmentLayer' : 'CircuitLayer',
+                    id: layerId,
+                    enabled: !layer.enabled
+                }
             }
         });
     }, [layer, layerId, projectId, updateLayer]);

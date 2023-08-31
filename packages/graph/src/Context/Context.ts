@@ -46,7 +46,7 @@ export abstract class Context<TRoot extends Node = Node> {
             name: observable,
             nodes: observable,
             connections: observable,
-            persistenceView: computed,
+            values: computed,
             add: action,
             remove: action,
             connect: action,
@@ -56,11 +56,14 @@ export abstract class Context<TRoot extends Node = Node> {
         });
     }
 
-    public get persistenceView(): { values: (InputValue<any> | OutputValue<any>)[]; positions: INodePosition[] } {
-        return {
-            values: [...this.nodes.values()].flatMap(node => node.ports).flatMap(port => port.value),
-            positions: [...this.nodes.values()].flatMap(node => node.data.position)
-        };
+    /** All port values across the graph context */
+    public get values(): (InputValue<any> | OutputValue<any>)[] {
+        return [...this.nodes.values()].flatMap(node => node.ports).flatMap(port => port.value);
+    }
+
+    /** All position values across the graph context */
+    public get positions(): INodePosition[] {
+        return [...this.nodes.values()].flatMap(node => node.data.position);
     }
 
     /** Initializes Context */

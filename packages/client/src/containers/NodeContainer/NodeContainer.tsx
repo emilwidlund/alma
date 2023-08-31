@@ -6,7 +6,6 @@ import { DraggableEventHandler } from 'react-draggable';
 import { NodeContainerProps } from './NodeContainer.types';
 import { useCircuit } from '../../hooks/useCircuit/useCircuit';
 import { useNodeActions } from '../../hooks/useNodeActions/useNodeActions';
-
 import { Node } from '~/components/Circuit/Node/Node';
 import { NODE_ICON_RESOLVER_MAP } from '~/utils/icons/iconResolver';
 
