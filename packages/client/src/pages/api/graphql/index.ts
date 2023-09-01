@@ -6,7 +6,7 @@ import { NextApiRequest } from 'next';
 
 import { resolvers } from '~/graphql/resolvers';
 import { Context } from '~/graphql/schema';
-import { typeDefs } from '~/graphql/typeDefs';
+import typeDefs from '~/graphql/schema.gql';
 
 const prisma = new PrismaClient();
 
@@ -32,6 +32,3 @@ export default startServerAndCreateNextHandler<NextApiRequest, Context>(apolloSe
         };
     }
 });
-
-// const supabase = createPagesServerClient({ req, res });
-// const user = await supabase.auth.getUser();

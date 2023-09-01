@@ -133,6 +133,7 @@ export const CircuitContainer = observer(
                         },
                         optimisticResponse: {
                             updateLayer: {
+                                ...activeLayer,
                                 __typename: 'CircuitLayer',
                                 id: activeLayer?.id,
                                 circuit: serializedCircuit
@@ -153,6 +154,7 @@ export const CircuitContainer = observer(
                         },
                         optimisticResponse: {
                             updateLayer: {
+                                ...activeLayer,
                                 __typename: 'CircuitLayer',
                                 id: activeLayer?.id,
                                 circuit: serializedCircuit

@@ -51,6 +51,7 @@ const LayerItem = ({ active, onClick, layerId, index }: LayerItemProps) => {
             },
             optimisticResponse: {
                 updateLayer: {
+                    ...layer,
                     __typename: layer.type === 'FRAGMENT' ? 'FragmentLayer' : 'CircuitLayer',
                     id: layerId,
                     enabled: !layer.enabled
@@ -205,6 +206,14 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
                         id: activeLayer.id,
                         projectId: project?.id,
                         blendingMode: upperCase(e.target.value) as BlendingMode
+                    },
+                    optimisticResponse: {
+                        updateLayer: {
+                            ...activeLayer,
+                            __typename: activeLayer.type === 'FRAGMENT' ? 'FragmentLayer' : 'CircuitLayer',
+                            id: activeLayer.id,
+                            blendingMode: upperCase(e.target.value) as BlendingMode
+                        }
                     }
                 });
             }
@@ -213,7 +222,7 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
     );
 
     const handleToggleContextMenu = useCallback(() => {
-        toggleContextMenu(state => !state);
+        toggleContextMenu(true);
     }, [toggleContextMenu]);
 
     const handleRemoveLayer = useCallback(() => {
@@ -252,6 +261,11 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
                                             icon: '',
                                             label: 'Remove Layer',
                                             onClick: handleRemoveLayer
+                                        },
+                                        {
+                                            icon: '',
+                                            label: 'Duplicate Layer',
+                                            onClick: () => {}
                                         }
                                     ]
                                 }

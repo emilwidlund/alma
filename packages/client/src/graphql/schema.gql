@@ -1,0 +1,146 @@
+scalar Date
+scalar GraphQLJSON
+
+type Profile {
+    id: ID!
+    userId: String!
+    username: String!
+    image: String
+    location: String
+    bio: String
+    website: String
+    projects: [Project]!
+    likes: [Like]!
+    comments: [Comment]!
+    following: [Relationship]
+    followers: [Relationship]
+    subscription: Subscription
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+type Relationship {
+    id: ID!
+    profile: Profile!
+    targetProfile: Profile!
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+type Subscription {
+    id: ID!
+    profile: Profile!
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+enum LayerType {
+    FRAGMENT
+    CIRCUIT
+}
+
+enum BlendingMode {
+    NONE
+    NORMAL
+    ADD
+    SCREEN
+    MULTIPLY
+    OVERLAY
+}
+
+type FragmentLayer {
+    id: ID!
+    name: String!
+    enabled: Boolean!
+    blendingMode: BlendingMode!
+    type: LayerType!
+    fragment: String!
+    project: Project!
+    index: Int!
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+type CircuitLayer {
+    id: ID!
+    name: String!
+    enabled: Boolean!
+    blendingMode: BlendingMode!
+    type: LayerType!
+    circuit: GraphQLJSON!
+    project: Project!
+    index: Int!
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+union Layer = FragmentLayer | CircuitLayer
+
+type Like {
+    id: ID!
+    project: Project!
+    profile: Profile!
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+type Comment {
+    id: ID!
+    project: Project!
+    profile: Profile!
+    text: String!
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+enum ProjectVisibility {
+    PUBLIC
+    PRIVATE
+}
+
+type Project {
+    id: ID!
+    name: String!
+    layers: [Layer]!
+    visibility: ProjectVisibility!
+    owner: Profile!
+    likes: [Like]!
+    comments: [Comment]!
+    origin: Project
+    forks: [Project]
+    createdAt: Date!
+    updatedAt: Date!
+}
+
+type Query {
+    me: Profile
+    profile(id: ID, username: String): Profile
+    project(id: ID!): Project
+    projects(profileId: ID!): [Project]!
+    layer(id: ID): Layer
+    feed: [Project]!
+    searchProfiles(query: String!, limit: Int!): [Profile]!
+    searchProjects(query: String!, limit: Int!): [Project]!
+}
+
+type Mutation {
+    updateProfile(username: String, bio: String, website: String, image: String): Profile!
+    followProfile(id: ID!): Relationship!
+    unfollowProfile(id: ID!): Boolean!
+    createProject: Project!
+    updateProject(id: ID!, name: String, visibility: ProjectVisibility): Project!
+    deleteProject(id: ID!): Boolean!
+    forkProject(id: ID): Project!
+    createLayer(projectId: ID!, type: LayerType!, index: Int!, circuit: GraphQLJSON, fragment: String): Layer!
+    updateLayer(
+        id: ID!
+        projectId: ID!
+        name: String
+        enabled: Boolean
+        blendingMode: BlendingMode
+        index: Int
+        circuit: GraphQLJSON
+        fragment: String
+    ): Layer!
+    deleteLayer(id: ID): Boolean!
+}
