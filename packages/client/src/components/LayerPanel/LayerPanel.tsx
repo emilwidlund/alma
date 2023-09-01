@@ -26,37 +26,35 @@ import { useNewLayerModal } from '~/hooks/useNewLayerModal/useNewLayerModal';
 import { useProject } from '~/providers/ProjectProvider/ProjectProvider';
 
 const LayerItem = ({ active, onClick, layerId, index }: LayerItemProps) => {
+    const { projectId } = useProject();
     const { isHovered, onMouseEnter, onMouseLeave } = useHover();
-
-    const {
-        query: { projectId }
-    } = useRouter();
-
     const { data: { layer } = { layer: undefined } } = useQuery(LAYER_QUERY, { variables: { id: layerId } });
-
     const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
 
     const iconClassNames = clsx('flex items-center justify-center rounded-xl w-10 h-10', {
         'bg-neutral-600': !active,
+        'text-accent': active,
         'shadow-sm': !active
     });
 
     const toggleEnabled = useCallback(() => {
-        updateLayer({
-            variables: {
-                id: layerId,
-                projectId: projectId,
-                enabled: !layer.enabled
-            },
-            optimisticResponse: {
-                updateLayer: {
-                    ...layer,
-                    __typename: layer.type === 'FRAGMENT' ? 'FragmentLayer' : 'CircuitLayer',
+        if (layer) {
+            updateLayer({
+                variables: {
                     id: layerId,
+                    projectId: projectId,
                     enabled: !layer.enabled
+                },
+                optimisticResponse: {
+                    updateLayer: {
+                        ...layer,
+                        __typename: layer.type === 'FRAGMENT' ? 'FragmentLayer' : 'CircuitLayer',
+                        id: layerId,
+                        enabled: !layer.enabled
+                    }
                 }
-            }
-        });
+            });
+        }
     }, [layer, layerId, projectId, updateLayer]);
 
     const handleInput: FormEventHandler<HTMLHeadingElement> = useCallback(e => {
