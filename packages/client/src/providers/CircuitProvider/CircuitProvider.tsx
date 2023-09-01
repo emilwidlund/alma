@@ -2,6 +2,8 @@
 
 import { Input, Node, Output } from '@usealma/graph';
 import { noop } from 'lodash';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import type { ICircuitContextValue, ICircuitProviderProps } from './CircuitProvider.types';
@@ -30,11 +32,20 @@ const defaultCircuitValue: ICircuitContextValue = {
 export const CircuitContext = React.createContext(defaultCircuitValue);
 
 export const CircuitProvider = ({ context, children }: ICircuitProviderProps) => {
+    const router = useRouter();
     const [nodeElements, setNodeElements] = React.useState<Record<string, HTMLDivElement>>({});
     const [portElements, setPortElements] = React.useState<Record<string, HTMLDivElement>>({});
     const [connectionDraft, setConnectionDraft] = React.useState<Output<any> | undefined>();
-    const [selectedNodes, setSelectedNodes] = React.useState<Node[] | undefined>([]);
     const [selectionBounds, setSelectionBounds] = React.useState<Bounds | undefined>(undefined);
+
+    const params = useSearchParams();
+    const selectedNodeIds = params.get('selectedNodeIds')?.split(',');
+
+    const selectedNodes = React.useMemo(() => {
+        if (!selectedNodeIds || !context) return [];
+
+        return selectedNodeIds.map(nodeId => context.nodes.get(nodeId)).filter(Boolean) as Node[];
+    }, [context, selectedNodeIds]);
 
     const handleSetNodeElement = React.useCallback(
         (nodeId: string, nodeElement: HTMLDivElement) => {
@@ -104,9 +115,20 @@ export const CircuitProvider = ({ context, children }: ICircuitProviderProps) =>
 
     const handleSetSelectedNodes = React.useCallback(
         (nodes?: Node[]) => {
-            setSelectedNodes(nodes);
+            const query = {
+                ...router.query,
+                selectedNodeIds: nodes?.map(node => node.id).join(',')
+            };
+
+            if ((nodes?.length || 0) < 1) {
+                delete query.selectedNodeIds;
+            }
+
+            router.replace({
+                query
+            });
         },
-        [setSelectedNodes]
+        [router]
     );
 
     const handleSetSelectionBounds = React.useCallback(
