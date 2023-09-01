@@ -4,5 +4,5 @@ export interface Modal {
     id: string;
     title: string;
     children: JSX.Element;
-    actions: ButtonProps[];
+    actions?: ButtonProps[];
 }

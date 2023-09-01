@@ -1,7 +1,9 @@
+import { useMutation } from '@apollo/client';
 import { Node } from '@usealma/graph';
 import { ClassConstructor } from '@usealma/webgl';
 import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
+import { debounce } from 'lodash';
 import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
@@ -15,7 +17,7 @@ import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition'
 import { normalizeBounds } from '../../utils/bounds/bounds';
 import { nodesHierarchy } from '../../utils/nodes/nodes';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
-
+import UPDATE_LAYER_MUTATION from '~/apollo/mutations/updateLayer.gql';
 import { Connection } from '~/components/Circuit/Connection/Connection';
 import { ContextMenuContainer } from '~/components/Circuit/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { useCreateNode } from '~/hooks/useCreateNode/useCreateNode';
@@ -110,23 +112,61 @@ export const CircuitContainer = observer(
     // eslint-disable-next-line react/display-name
     React.forwardRef<HTMLDivElement, ICircuitContainerProps>((_, ref) => {
         const [contextMenuPosition, toggleContextMenu] = React.useState<Point | undefined>(undefined);
-        const project = useProjectContext();
+        const { project, activeLayer } = useProjectContext();
         const circuit = useCircuit();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
         useKeyboardActions();
 
+        const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, {
+            variables: { id: activeLayer?.id, projectId: project?.id }
+        });
+
         React.useEffect(() => {
-            return reaction(
+            const valueReactionDisposer = reaction(
                 () => circuit.context?.values,
                 () => {
-                    const serialized = JSON.stringify(circuit.context);
+                    const serializedCircuit = JSON.parse(JSON.stringify(circuit.context));
 
-                    if (project.activeLayerId) {
-                        project.updateLayerContext(project.activeLayerId, serialized);
-                    }
+                    updateLayer({
+                        variables: {
+                            circuit: serializedCircuit
+                        },
+                        optimisticResponse: {
+                            updateLayer: {
+                                __typename: 'CircuitLayer',
+                                id: activeLayer?.id,
+                                circuit: serializedCircuit
+                            }
+                        }
+                    });
                 }
             );
-        }, [project, circuit]);
+
+            const positionReactionDisposer = reaction(
+                () => circuit.context?.positions,
+                debounce(() => {
+                    const serializedCircuit = JSON.parse(JSON.stringify(circuit.context));
+
+                    updateLayer({
+                        variables: {
+                            circuit: serializedCircuit
+                        },
+                        optimisticResponse: {
+                            updateLayer: {
+                                __typename: 'CircuitLayer',
+                                id: activeLayer?.id,
+                                circuit: serializedCircuit
+                            }
+                        }
+                    });
+                }, 200)
+            );
+
+            return () => {
+                valueReactionDisposer();
+                positionReactionDisposer();
+            };
+        }, [project, circuit, activeLayer, updateLayer]);
 
         const onMouseMove = React.useCallback(
             (e: React.MouseEvent<HTMLDivElement>) => {
@@ -196,7 +236,7 @@ export const CircuitContainer = observer(
         return (circuit.context?.nodes.size || 0) > 0 ? (
             <Circuit
                 ref={ref}
-                className={clsx('realtive bg-neutral-400')}
+                className={clsx('realtive bg-neutral-800')}
                 size={{ width: CIRCUIT_SIZE, height: CIRCUIT_SIZE }}
                 onMouseDown={onMouseDown}
                 onMouseMove={onMouseMove}

@@ -8,6 +8,13 @@ declare module '*.json' {
     export default value;
 }
 
+declare module '*.gql' {
+    import { DocumentNode, TypedDocumentNode, OperationVariables } from 'graphql';
+    const Schema: DocumentNode | TypedDocumentNode<any, OperationVariables>;
+
+    export default Schema;
+}
+
 declare global {
     interface Document {
         mozCancelFullScreen?: () => Promise<void>;

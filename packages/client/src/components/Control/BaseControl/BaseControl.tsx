@@ -5,9 +5,9 @@ import { BaseControlProps } from './BaseControl.types';
 
 export const BaseControl = observer(({ title, children }: BaseControlProps) => {
     return (
-        <div className="flex flex-row items-center justify-between my-1">
-            <span className="grow-1 text-sm w-42 mr-6 font-medium">{title}</span>
-            <div className="flex flex-row items-center">{children}</div>
+        <div className="flex flex-row items-center justify-between my-2">
+            <span className="text-sm mr-6 grow font-medium">{title}</span>
+            <div className="relative flex flex-row justify-end items-center">{children}</div>
         </div>
     );
 });

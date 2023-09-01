@@ -1,0 +1,24 @@
+query Layer($id: ID!) {
+    layer(id: $id) {
+        ... on CircuitLayer {
+            id
+            name
+            type
+            enabled
+            circuit
+            blendingMode
+            createdAt
+            updatedAt
+        }
+        ... on FragmentLayer {
+            id
+            name
+            type
+            enabled
+            fragment
+            blendingMode
+            createdAt
+            updatedAt
+        }
+    }
+}

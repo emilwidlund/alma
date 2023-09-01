@@ -38,7 +38,7 @@ export default function Index() {
                     </div>
                 </div>
             </section>
-            <section className="flex flex-col items-center text-center pt-16 pb-32 w-full px-12 bg-neutral-100">
+            <section className="flex flex-col items-center text-center pt-16 pb-32 w-full px-12 bg-neutral-900">
                 <div className="flex flex-col max-w-5xl w-full">
                     <span className="flex flex-row items-center px-6 py-4 rounded-full bg-complimentary text-accent">
                         <StreamOutlined />

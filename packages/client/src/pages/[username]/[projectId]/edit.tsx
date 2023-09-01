@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from '@apollo/client';
 import { StreamOutlined, ShapeLineOutlined, TuneOutlined } from '@mui/icons-material';
 import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
@@ -11,6 +12,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMemo, useRef } from 'react';
 
+import PROJECT_QUERY from '~/apollo/queries/project.gql';
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
@@ -35,8 +37,10 @@ function EditorHeader() {
             </Link>
             {project && (
                 <div className="absolute w-full flex flex-col items-center mx-auto">
-                    <h2 className="text-lg font-medium">{project.name}</h2>
-                    <span className="text-sm mt-1 opacity-50">{project.private ? 'Private' : 'Public'}</span>
+                    <h2 className="text-lg font-medium text-slate-400">{project.name}</h2>
+                    <span className="text-sm mt-1 opacity-50 text-slate-500">
+                        {project.private ? 'Private' : 'Public'}
+                    </span>
                 </div>
             )}
             {session && (
@@ -71,7 +75,7 @@ function EditorContainer({
 
     const circuitContainerClassNames = clsx('absolute top-0 right-0 bottom-0 left-0 overflow-auto');
     const fragmentEditorContainerClassNames = clsx(
-        'absolute top-48 right-32 bottom-32 left-56 rounded-3xl bg-neutral-100 drop-shadow-2xl overflow-hidden border-2',
+        'absolute top-48 right-32 bottom-32 left-56 rounded-3xl bg-neutral-700 drop-shadow-2xl overflow-hidden border-2 border-transparent',
         {
             'border-red-400': !!compilationError
         }
@@ -140,11 +144,15 @@ export default function Editor() {
         query: { username, projectId }
     } = useRouter();
 
+    const results = useQuery(PROJECT_QUERY, { variables: { id: projectId } });
+
     return (
-        <ProjectProvider projectId={projectId as string}>
-            <ModalProvider>
-                <EditorContainer username={username} projectId={projectId} />
-            </ModalProvider>
-        </ProjectProvider>
+        results.data?.project && (
+            <ProjectProvider project={results.data.project}>
+                <ModalProvider>
+                    <EditorContainer username={username} projectId={projectId} />
+                </ModalProvider>
+            </ProjectProvider>
+        )
     );
 }

@@ -9,7 +9,7 @@ const UniformItem = ({ name, type, icon }: UniformItemProps) => {
     return (
         <div className="flex items-center justify-between p-2">
             <div className="flex items-center">
-                <div className="flex items-center justify-center rounded-xl w-10 h-10 bg-neutral-100 shadow-sm">
+                <div className="flex items-center justify-center rounded-xl w-10 h-10 bg-neutral-900 shadow-sm">
                     {cloneElement(icon, { fontSize: 'small' })}
                 </div>
                 <div className="flex flex-col ml-4">

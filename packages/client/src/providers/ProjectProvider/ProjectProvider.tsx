@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars */
 
-import { BlendingMode, Layer, Project, ProjectSchema } from '@usealma/types';
+import { BlendingMode, Layer, Project } from '@usealma/types';
 import { WebGLContext } from '@usealma/webgl';
 import { enableMapSet, produce } from 'immer';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
@@ -30,27 +30,25 @@ export const defaultProjectContextValue: ProjectContextValue = {
 
 export const ProjectContext = createContext(defaultProjectContextValue);
 
-export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) => {
-    const [project, setProject] = useState<Project>();
+export const ProjectProvider = ({ project: apolloProject, children }: ProjectProviderProps) => {
+    const [project, setProject] = useState<Project | undefined>();
     const [circuits, setCircuits] = useState<Map<string, WebGLContext>>(new Map<string, WebGLContext>());
     const [activeLayerId, setActiveLayerId] = useState<string>();
     const [compilationError, setCompilationError] = useState<string>();
 
     useEffect(() => {
-        if (projectId) {
-            fetch(`/api/project/${projectId}`)
-                .then(v => v.json())
-                .then((project: Project) => {
-                    if (ProjectSchema.parse(project)) {
-                        setProject(project);
+        if (apolloProject) {
+            setProject(apolloProject);
 
-                        if (project.layers.length > 0) {
-                            setActiveLayerId(project.layers[project.layers.length - 1].id);
-                        }
-                    }
-                });
+            if (apolloProject.layers.length > 0) {
+                const hasLayerId = apolloProject.layers.find(layer => layer.id === activeLayerId);
+
+                if (!hasLayerId) {
+                    setActiveLayerId(apolloProject.layers[apolloProject.layers.length - 1].id);
+                }
+            }
         }
-    }, [projectId]);
+    }, [apolloProject]);
 
     const createLayer = useCallback((layer: Layer) => {
         setProject(
@@ -80,7 +78,7 @@ export const ProjectProvider = ({ projectId, children }: ProjectProviderProps) =
             produce(draft => {
                 if (draft) {
                     const index = draft.layers.findIndex(l => l.id === layerId);
-                    draft.layers[index].context = context;
+                    draft.layers[index].circuit = context;
                 }
             })
         );

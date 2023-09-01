@@ -14,6 +14,12 @@ export const useRenderer = (
     const { updateCircuits } = useProjectContext();
 
     useEffect(() => {
+        if (ref.current) {
+            const { width, height } = ref.current.getBoundingClientRect();
+            ref.current.width = width;
+            ref.current.height = height;
+        }
+
         const context = ref.current?.getContext('webgl2');
 
         if (!context) {

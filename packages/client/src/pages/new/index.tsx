@@ -37,14 +37,14 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const project = await prisma.project.create({
         data: {
             name: 'Untitled',
-            image: '',
             ownerId: profile.id,
             layers: {
                 create: [
                     {
                         name: 'Untitled',
                         type: 'FRAGMENT',
-                        fragment: DEFAULT_FRAGMENT_LAYER_CONTEXT
+                        fragment: DEFAULT_FRAGMENT_LAYER_CONTEXT,
+                        index: 0
                     }
                 ]
             }

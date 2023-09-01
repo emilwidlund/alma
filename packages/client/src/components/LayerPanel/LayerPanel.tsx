@@ -1,14 +1,16 @@
 'use client';
 
+import { useMutation, useQuery } from '@apollo/client';
 import { RouteOutlined, NotesOutlined, AddOutlined, TonalityOutlined, MoreVertOutlined } from '@mui/icons-material';
 import { BlendingMode, BlendingModeSchema, Layer } from '@usealma/types';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
 import { capitalize, upperCase } from 'lodash';
+import { useRouter } from 'next/router';
 import { ChangeEventHandler, FormEventHandler, useCallback, useMemo, useState } from 'react';
 import { DragDropContext, Draggable, OnDragEndResponder, OnDragStartResponder } from 'react-beautiful-dnd';
 
-import { LayerItemProps } from './LayerPanel.types';
+import { LayerItemProps, LayerPanelProps } from './LayerPanel.types';
 import { ButtonVariant } from '../Button/Button.types';
 import { ContextMenuContainer } from '../Circuit/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { IconButton } from '../IconButton/IconButton';
@@ -16,25 +18,46 @@ import { Select } from '../Select/Select';
 import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable';
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
-
+import DELETE_LAYER_MUTATION from '~/apollo/mutations/deleteLayer.gql';
+import UPDATE_LAYER_MUTATION from '~/apollo/mutations/updateLayer.gql';
+import LAYER_QUERY from '~/apollo/queries/layer.gql';
+import PROJECT_QUERY from '~/apollo/queries/project.gql';
 import { useHover } from '~/hooks/useHover/useHover';
 import { useNewLayerModal } from '~/hooks/useNewLayerModal/useNewLayerModal';
 import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
 
-const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
-    const { toggleLayer, renameLayer } = useProjectContext();
+const LayerItem = ({ active, onClick, layerId, index }: LayerItemProps) => {
     const { isHovered, onMouseEnter, onMouseLeave } = useHover();
 
-    const { type, name, enabled } = layer;
+    const {
+        query: { projectId }
+    } = useRouter();
+
+    const { data: { layer } = { layer: undefined } } = useQuery(LAYER_QUERY, { variables: { id: layerId } });
+
+    const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
 
     const iconClassNames = clsx('flex items-center justify-center rounded-xl w-10 h-10', {
-        'bg-neutral-100': !active,
+        'bg-neutral-600': !active,
         'shadow-sm': !active
     });
 
     const toggleEnabled = useCallback(() => {
-        toggleLayer(layer.id, !layer.enabled);
-    }, [layer, toggleLayer]);
+        updateLayer({
+            variables: {
+                id: layerId,
+                projectId: projectId,
+                enabled: !layer.enabled
+            },
+            optimisticResponse: {
+                updateLayer: {
+                    __typename: layer.type === 'FRAGMENT' ? 'FragmentLayer' : 'CircuitLayer',
+                    id: layerId,
+                    enabled: !layer.enabled
+                }
+            }
+        });
+    }, [layer, layerId, projectId, updateLayer]);
 
     const handleInput: FormEventHandler<HTMLHeadingElement> = useCallback(e => {
         e.currentTarget.textContent?.replace(/(\r\n|\n|\r)/gm, '');
@@ -48,27 +71,41 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                 e.currentTarget.textContent = 'Untitled';
             }
 
-            renameLayer(layer.id, name?.length ? name : 'Untitled');
+            updateLayer({
+                variables: {
+                    id: layerId,
+                    projectId: projectId,
+                    name: name?.length ? name : 'Untitled'
+                }
+            });
         },
-        [layer.id, renameLayer]
+        [layerId, projectId, updateLayer]
     );
+
+    if (!layer) {
+        return null;
+    }
 
     return (
         <Draggable draggableId={layer.id} index={index}>
             {(provided, snap) => {
-                const classNames = clsx(
+                const wrapperClassNames = clsx(
                     'flex items-center justify-between p-3 rounded-2xl last:mb-0 transition-colors transitions-shadow duration-100 cursor-pointer',
                     {
-                        'bg-neutral-100': active || snap.isDragging,
-                        'hover:bg-neutral-100': !active,
-                        'shadow-lg': active || snap.isDragging
+                        'bg-neutral-600': active || snap.isDragging,
+                        'hover:bg-neutral-600': !active,
+                        'shadow-xl': active || snap.isDragging
                     }
                 );
+
+                const titleClassNames = clsx('font-medium text-xs line-clamp-1 cursor-text', {
+                    'text-slate-300': active
+                });
 
                 return (
                     <div
                         ref={provided.innerRef}
-                        className={classNames}
+                        className={wrapperClassNames}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         style={{ ...provided.draggableProps.style, marginBottom: 8 }}
@@ -78,7 +115,7 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                     >
                         <div className="flex items-center">
                             <div className={iconClassNames}>
-                                {type === 'FRAGMENT' ? (
+                                {layer.type === 'FRAGMENT' ? (
                                     <NotesOutlined fontSize="small" />
                                 ) : (
                                     <RouteOutlined fontSize="small" />
@@ -86,21 +123,21 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
                             </div>
                             <div className="flex flex-col ml-4">
                                 <h3
-                                    className="font-medium text-xs line-clamp-1 cursor-text"
+                                    className={titleClassNames}
                                     spellCheck={false}
                                     contentEditable
                                     suppressContentEditableWarning={true}
                                     onInput={handleInput}
                                     onBlur={handleBlur}
                                 >
-                                    {name}
+                                    {layer.name}
                                 </h3>
-                                <span className="text-xs opacity-50 mt-1 capitalize">{type.toLowerCase()}</span>
+                                <span className="text-xs opacity-50 mt-1 capitalize">{layer.type.toLowerCase()}</span>
                             </div>
                         </div>
                         {(active || isHovered) && (
                             <motion.div className="mr-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                                <Switch active={enabled} onChange={toggleEnabled} />
+                                <Switch active={layer.enabled} onChange={toggleEnabled} />
                             </motion.div>
                         )}
                     </div>
@@ -110,19 +147,17 @@ const LayerItem = ({ active, onClick, layer, index }: LayerItemProps) => {
     );
 };
 
-export const LayerPanel = () => {
+export const LayerPanel = ({ layers }: LayerPanelProps) => {
     const [contextMenuOpen, toggleContextMenu] = useState(false);
-    const {
-        project,
-        activeLayer,
-        activeLayerId,
-        updateLayerBlendingMode,
-        removeLayer,
-        setActiveLayerId,
-        reorderLayers
-    } = useProjectContext();
-    const items = useMemo(() => project?.layers.slice().reverse() ?? [], [project]);
+    const { project, activeLayer, activeLayerId, setActiveLayerId, reorderLayers } = useProjectContext();
+    const items = useMemo(() => layers.slice().reverse() ?? [], [layers]);
     const { open } = useNewLayerModal();
+
+    const [deleteLayer] = useMutation(DELETE_LAYER_MUTATION, {
+        refetchQueries: [{ query: PROJECT_QUERY, variables: { id: project?.id } }]
+    });
+
+    const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
 
     const handleCreateLayer = useCallback(() => {
         open();
@@ -165,10 +200,16 @@ export const LayerPanel = () => {
     const handleUpdateBlendingMode: ChangeEventHandler<HTMLSelectElement> = useCallback(
         e => {
             if (activeLayer) {
-                updateLayerBlendingMode(activeLayer.id, upperCase(e.target.value) as BlendingMode);
+                updateLayer({
+                    variables: {
+                        id: activeLayer.id,
+                        projectId: project?.id,
+                        blendingMode: upperCase(e.target.value) as BlendingMode
+                    }
+                });
             }
         },
-        [activeLayer, updateLayerBlendingMode]
+        [activeLayer, project, updateLayer]
     );
 
     const handleToggleContextMenu = useCallback(() => {
@@ -177,10 +218,10 @@ export const LayerPanel = () => {
 
     const handleRemoveLayer = useCallback(() => {
         if (activeLayerId) {
-            removeLayer(activeLayerId);
+            deleteLayer({ variables: { id: activeLayer?.id } });
             toggleContextMenu(false);
         }
-    }, [removeLayer, activeLayerId]);
+    }, [activeLayerId, deleteLayer, activeLayer]);
 
     return (
         <div className="flex flex-col shrink-0 grow">
@@ -204,7 +245,17 @@ export const LayerPanel = () => {
                     />
                     {contextMenuOpen && (
                         <ContextMenuContainer
-                            sections={[{ items: [{ icon: '', label: 'Remove Layer', onClick: handleRemoveLayer }] }]}
+                            sections={[
+                                {
+                                    items: [
+                                        {
+                                            icon: '',
+                                            label: 'Remove Layer',
+                                            onClick: handleRemoveLayer
+                                        }
+                                    ]
+                                }
+                            ]}
                             position={{ x: -160, y: 40 }}
                             onClose={() => toggleContextMenu(false)}
                         />
@@ -221,7 +272,7 @@ export const LayerPanel = () => {
                                         key={layer.id}
                                         index={index}
                                         onClick={createSelectLayerHandler(layer)}
-                                        layer={layer}
+                                        layerId={layer.id}
                                         active={activeLayer?.id === layer.id}
                                     />
                                 ))}

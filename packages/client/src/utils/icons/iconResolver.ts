@@ -30,7 +30,6 @@ import {
     ShowChartOutlined,
     ShuffleOutlined,
     StackedLineChartOutlined,
-    StreamOutlined,
     SwapCallsOutlined,
     TextSnippetOutlined,
     TextureOutlined,
@@ -90,6 +89,5 @@ export const NODE_ICON_RESOLVER_MAP: { [key in WebGLNodeType]: typeof TonalityOu
     [WebGLNodeType.VECTOR_3]: PolylineOutlined,
     [WebGLNodeType.VECTOR_4]: PolylineOutlined,
     [WebGLNodeType.PI]: DonutLargeOutlined,
-    [WebGLNodeType.RESOLUTION]: PanoramaOutlined,
-    [WebGLNodeType.CREATION_EFFECT]: StreamOutlined
+    [WebGLNodeType.RESOLUTION]: PanoramaOutlined
 };

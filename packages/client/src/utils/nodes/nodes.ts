@@ -24,7 +24,6 @@ import {
     Vector4Node,
     WebGLNode,
     TextureNode,
-    CreationEffectNode,
     FractionalNode,
     AbsoluteNode,
     FloorNode,
@@ -177,11 +176,6 @@ export const nodesHierarchy: (
                 icon: 'grain',
                 label: 'Noise',
                 items: [{ items: [SimplexNoiseNode].map(extractItem(createNodeCallback)) }]
-            },
-            {
-                icon: 'stream',
-                label: 'Effect',
-                items: [{ items: [CreationEffectNode].map(extractItem(createNodeCallback)) }]
             }
         ]
     }

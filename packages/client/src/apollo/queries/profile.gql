@@ -1,0 +1,56 @@
+query Profile($id: ID, $username: String) {
+    profile(id: $id, username: $username) {
+        id
+        username
+        image
+        location
+        bio
+        website
+        projects {
+            id
+            name
+            owner {
+                id
+                username
+            }
+            layers {
+                ... on CircuitLayer {
+                    id
+                    name
+                    type
+                    enabled
+                    circuit
+                    blendingMode
+                    createdAt
+                    updatedAt
+                }
+                ... on FragmentLayer {
+                    id
+                    name
+                    type
+                    enabled
+                    fragment
+                    blendingMode
+                    createdAt
+                    updatedAt
+                }
+            }
+            createdAt
+            updatedAt
+        }
+        following {
+            targetProfile {
+                id
+                username
+            }
+        }
+        followers {
+            targetProfile {
+                id
+                username
+            }
+        }
+        createdAt
+        updatedAt
+    }
+}

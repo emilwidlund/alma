@@ -88,7 +88,8 @@ module.exports = [
                 {
                     name: 'Gradient',
                     type: 'FRAGMENT',
-                    fragment: GRADIENT_FRAGMENT
+                    fragment: GRADIENT_FRAGMENT,
+                    index: 0
                 }
             ]
         },
@@ -106,7 +107,8 @@ module.exports = [
                 {
                     name: 'Flow',
                     type: 'FRAGMENT',
-                    fragment: FLOW_GRADIENT_FRAGMENT
+                    fragment: FLOW_GRADIENT_FRAGMENT,
+                    index: 0
                 }
             ]
         },
@@ -124,7 +126,8 @@ module.exports = [
                 {
                     name: 'Gradient',
                     type: 'FRAGMENT',
-                    fragment: GRADIENT_FRAGMENT
+                    fragment: GRADIENT_FRAGMENT,
+                    index: 0
                 }
             ]
         },
@@ -142,7 +145,8 @@ module.exports = [
                 {
                     name: 'Flow',
                     type: 'FRAGMENT',
-                    fragment: FLOW_GRADIENT_FRAGMENT
+                    fragment: FLOW_GRADIENT_FRAGMENT,
+                    index: 0
                 }
             ]
         },

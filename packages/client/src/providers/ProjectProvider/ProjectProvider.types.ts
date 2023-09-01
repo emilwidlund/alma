@@ -3,7 +3,7 @@ import { WebGLContext } from '@usealma/webgl';
 import { PropsWithChildren } from 'react';
 
 export type ProjectProviderProps = PropsWithChildren<{
-    projectId: string | undefined;
+    project: Project | undefined;
 }>;
 
 export type ProjectContextValue = {

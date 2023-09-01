@@ -8,7 +8,7 @@ import { Connection } from '../Connection/Connection';
 import { Input } from '../Input/Input';
 import { InputValue } from '../Input/Input.types';
 import { Node } from '../Node/Node';
-import { INodeSerialized } from '../Node/Node.types';
+import { INodePosition, INodeSerialized } from '../Node/Node.types';
 import { Output } from '../Output/Output';
 import { OutputValue } from '../Output/Output.types';
 import { Port } from '../Port/Port';
@@ -59,6 +59,11 @@ export abstract class Context<TRoot extends Node = Node> {
     /** All port values across the graph context */
     public get values(): (InputValue<any> | OutputValue<any>)[] {
         return [...this.nodes.values()].flatMap(node => node.ports).flatMap(port => port.value);
+    }
+
+    /** All position values across the graph context */
+    public get positions(): INodePosition[] {
+        return [...this.nodes.values()].flatMap(node => node.data.position);
     }
 
     /** Initializes Context */

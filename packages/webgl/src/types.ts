@@ -15,7 +15,6 @@ import { ModuloNode } from './nodes/common/ModuloNode/ModuloNode';
 import { SignNode } from './nodes/common/SignNode/SignNode';
 import { SmoothstepNode } from './nodes/common/SmoothstepNode/SmoothstepNode';
 import { StepNode } from './nodes/common/StepNode/StepNode';
-import { CreationEffectNode } from './nodes/effects/CreationEffectNode/CreationEffectNode';
 import { ExponentiationNode } from './nodes/exponential/ExponentiationNode/ExponentiationNode';
 import { InverseSquareRootNode } from './nodes/exponential/InverseSquareRootNode/InverseSquareRootNode';
 import { LogarithmNode } from './nodes/exponential/LogarithmNode/LogarithmNode';
@@ -94,10 +93,7 @@ export enum WebGLNodeType {
     VECTOR_3 = 'VECTOR_3',
     VECTOR_4 = 'VECTOR_4',
     PI = 'PI',
-    RESOLUTION = 'RESOLUTION',
-
-    // Effects
-    CREATION_EFFECT = 'CREATION_EFFECT'
+    RESOLUTION = 'RESOLUTION'
 }
 
 export interface ClassConstructor<T> {
@@ -153,12 +149,7 @@ export interface IWebGLNodeCollection {
     [WebGLNodeType.VECTOR_4]: ClassConstructor<Vector4Node>;
     [WebGLNodeType.PI]: ClassConstructor<PINode>;
     [WebGLNodeType.RESOLUTION]: ClassConstructor<ResolutionNode>;
-
-    // Effects
-    [WebGLNodeType.CREATION_EFFECT]: ClassConstructor<CreationEffectNode>;
 }
-
-export type WebGLEffectNode = CreationEffectNode;
 
 export type WebGLNode =
     | WebGLContextNode
@@ -207,5 +198,4 @@ export type WebGLNode =
     | Vector3Node
     | Vector4Node
     | PINode
-    | ResolutionNode
-    | WebGLEffectNode;
+    | ResolutionNode;

@@ -4,7 +4,6 @@ import * as React from 'react';
 
 import { IConnectionProps } from './Connection.types';
 import { quadraticCurve } from './Connection.utils';
-
 import { CIRCUIT_SIZE, NODE_POSITION_OFFSET_X } from '~/constants/circuit';
 import { useCircuit } from '~/hooks/useCircuit/useCircuit';
 import { fromCircuitCartesianPoint } from '~/utils/coordinates/coordinates';
@@ -109,7 +108,7 @@ export const Connection = observer(({ output, point, connection }: IConnectionPr
 
     const selectedConnection =
         connection && circuit.selectedNodes?.flatMap(node => node.connections).includes(connection);
-    const strokeColor = selectedConnection || output ? '#4444ff' : '#bec2d9';
+    const strokeColor = selectedConnection || output ? '#2849ff' : '#343753';
 
     return (
         <g>

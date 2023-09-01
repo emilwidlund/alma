@@ -1,0 +1,3 @@
+mutation DeleteLayer($id: ID!) {
+    deleteLayer(id: $id)
+}

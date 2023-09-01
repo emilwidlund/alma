@@ -1,13 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "multiSchema"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Profile {
@@ -21,21 +20,35 @@ model Profile {
   projects        Project[]
   likes           Like[]
   comments        Comment[]
-  following       Relationship[]  @relation(name: "following")
-  followers       Relationship[]  @relation(name: "followers")
+  following       Relationship[]  @relation("following")
+  followers       Relationship[]  @relation("followers")
+  subscription    Subscription?   @relation("subscription")
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt @default(now())
 }
 
 model Relationship {
-  id            String      @id @default(uuid())
-  profileId     String
-  profile       Profile     @relation(name: "following", fields: [profileId], references: [id], onDelete: Cascade)
-  targetUserId  String
-  targetUser    Profile     @relation(name: "followers", fields: [targetUserId], references: [id], onDelete: Cascade)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt @default(now())
-  @@unique([profileId, targetUserId])
+  id                String      @id @default(uuid())
+  profileId         String
+  profile           Profile     @relation("following", fields: [profileId], references: [id], onDelete: Cascade)
+  targetProfileId   String
+  targetProfile     Profile     @relation("followers", fields: [targetProfileId], references: [id], onDelete: Cascade)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt @default(now())
+
+  @@unique([profileId, targetProfileId])
+}
+
+model Subscription {
+  id                    String            @id @default(uuid())
+  profileId             String            @unique
+  profile               Profile           @relation("subscription", fields: [profileId], references: [id], onDelete: Cascade)
+  stripeCustomerId      String            @unique
+  stripeSubscriptionId  String            @unique
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt @default(now())
+
+  @@unique([stripeCustomerId, stripeSubscriptionId])
 }
 
 enum LayerType {
@@ -46,9 +59,10 @@ enum LayerType {
 enum BlendingMode {
   NONE
   NORMAL
-  ADDITIVE
-  SUBTRACTIVE
+  ADD
+  SCREEN
   MULTIPLY
+  OVERLAY
 }
 
 model Layer {
@@ -61,6 +75,7 @@ model Layer {
   fragment      String?
   projectId     String
   project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  index         Int           
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt @default(now())
 }
@@ -80,19 +95,26 @@ model Uniform {
   updatedAt     DateTime      @updatedAt @default(now())
 }
 
+enum ProjectVisibility {
+  PUBLIC
+  PRIVATE
+}
+
 model Project {
-  id          String      @id @default(uuid())
+  id          String              @id @default(uuid())
   name        String
-  image       String
   layers      Layer[]
-  private     Boolean     @default(false)
   ownerId     String    
-  owner       Profile     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner       Profile             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   uniforms    Uniform[]
   likes       Like[]
   comments    Comment[]
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt @default(now())
+  visibility  ProjectVisibility   @default(PUBLIC)
+  originId    String?
+  origin      Project?            @relation("origin", fields: [originId], references: [id], onDelete: SetDefault)
+  forks       Project[]           @relation("origin")
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt @default(now())
 }
 
 model Like {
@@ -103,6 +125,7 @@ model Like {
   profile     Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt @default(now())
+
   @@unique([projectId, profileId])
 }
 

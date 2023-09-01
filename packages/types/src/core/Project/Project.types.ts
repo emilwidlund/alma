@@ -1,5 +1,5 @@
 import { z } from 'zod';
 
-import { ProjectSchema } from './Project';
+import { ProjectVisibilitySchema } from './Project';
 
-export type Project = z.infer<typeof ProjectSchema>;
+export type ProjectVisibility = z.infer<typeof ProjectVisibilitySchema>;

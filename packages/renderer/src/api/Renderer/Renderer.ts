@@ -96,7 +96,7 @@ export const render = (
                               image: null
                           });
 
-                    const isCircuitContext = currentLayer.type === 'CIRCUIT';
+                    const isCircuitContext = 'circuit' in currentLayer;
                     let fragmentSource: string | ShaderFn;
                     let context: WebGLContext | undefined;
 
@@ -141,6 +141,7 @@ export const render = (
                                 image.src = uri || '';
                             });
 
+                        // @ts-ignore
                         context = new WebGLContext(gl, {
                             cameraManager: {
                                 onInit: onCameraResolverInit,
@@ -150,11 +151,11 @@ export const render = (
                                 textureResolver: textureResolver
                             },
                             nodesCollection: nodes,
-                            ...JSON.parse(currentLayer.context)
+                            ...structuredClone(currentLayer.circuit)
                         });
                         fragmentSource = context.compileGraph.bind(context);
                     } else {
-                        fragmentSource = currentLayer.context;
+                        fragmentSource = currentLayer.fragment;
                     }
 
                     const shaderSpec = createShaderSpec(

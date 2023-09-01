@@ -1,0 +1,34 @@
+query Project($id: ID!) {
+    project(id: $id) {
+        id
+        name
+        owner {
+            id
+            username
+        }
+        layers {
+            ... on CircuitLayer {
+                id
+                name
+                type
+                enabled
+                circuit
+                blendingMode
+                createdAt
+                updatedAt
+            }
+            ... on FragmentLayer {
+                id
+                name
+                type
+                enabled
+                fragment
+                blendingMode
+                createdAt
+                updatedAt
+            }
+        }
+        createdAt
+        updatedAt
+    }
+}
