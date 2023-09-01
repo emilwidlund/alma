@@ -32,7 +32,7 @@ export const EditorHeader = () => {
     if (!project) return null;
 
     return (
-        <header className="relative flex flex-row items-center justify-between p-12 pb-0">
+        <header className="absolute top-0 left-0 right-0 flex flex-row items-center justify-between p-12 pb-0">
             <Link className="z-10" href="/">
                 <Image src="/alma_outline.png" alt="logo" width={40} height={40} quality={100} />
             </Link>

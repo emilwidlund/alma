@@ -54,12 +54,9 @@ export const NodeSchema = z.object({
     id: z.string(),
     name: z.string(),
     type: WebGLNodeTypeSchema,
-    data: z.object({
-        position: z.object({
-            x: z.number(),
-            y: z.number()
-        })
-    })
+    inputs: z.any(),
+    outputs: z.any(),
+    data: z.any()
 });
 
 /**

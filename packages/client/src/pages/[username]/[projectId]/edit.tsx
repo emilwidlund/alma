@@ -41,7 +41,7 @@ const EditorContainer = () => {
 
     const { data: { layer: activeLayer } = { layer: undefined } } = useQuery(editorContainerQuery, {
         variables: {
-            id: activeLayerId
+            id: activeLayerId || ''
         }
     });
 
