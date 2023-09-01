@@ -33,7 +33,7 @@ const NodeInfo = observer(() => {
                 <Icon fontSize="small" />
                 <h3 className="text-md font-medium ml-3 pt-0.5 text-slate-400">{selectedNode.name}</h3>
             </div>
-            <p className="text-sm leading-normal">{selectedNode.constructor.description as string}</p>
+            {'description' in selectedNode.constructor && <p className="text-sm leading-normal">{selectedNode.constructor.description as string}</p>}
         </div>
     );
 });
