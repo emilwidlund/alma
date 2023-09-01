@@ -63,21 +63,25 @@ const LayerItem = ({ active, onClick, layerId, index }: LayerItemProps) => {
 
     const handleBlur = useCallback(
         (e: React.FocusEvent<HTMLHeadingElement>) => {
-            const name = e.currentTarget.textContent;
-
-            if (!name?.length) {
-                e.currentTarget.textContent = 'Untitled';
-            }
+            const name = e.currentTarget.textContent?.length ? e.currentTarget.textContent : 'Untitled';
 
             updateLayer({
                 variables: {
                     id: layerId,
                     projectId: projectId,
-                    name: name?.length ? name : 'Untitled'
+                    name
+                },
+                optimisticResponse: {
+                    updateLayer: {
+                        ...layer,
+                        __typename: layer?.type === 'FRAGMENT' ? 'FragmentLayer' : 'CircuitLayer',
+                        id: layerId,
+                        name
+                    }
                 }
             });
         },
-        [layerId, projectId, updateLayer]
+        [layer, layerId, projectId, updateLayer]
     );
 
     if (!layer) {

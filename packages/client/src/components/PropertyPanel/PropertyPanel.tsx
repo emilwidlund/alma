@@ -89,7 +89,12 @@ export const PropertyPanel = observer(() => {
     const layers = useMemo(() => project?.layers.map(layer => LayerSchema.parse(layer)) || [], [project]);
 
     const layersToRender = useMemo(
-        () => (project ? [...layers.slice(undefined, layers.findIndex(layer => layer.id === activeLayerId) + 1)] : []),
+        () =>
+            project
+                ? activeLayerId
+                    ? [...layers.slice(undefined, layers.findIndex(layer => layer.id === activeLayerId) + 1)]
+                    : layers
+                : [],
         [project, layers, activeLayerId]
     );
 
