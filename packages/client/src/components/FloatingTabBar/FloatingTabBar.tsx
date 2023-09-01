@@ -3,7 +3,6 @@
 import { clsx } from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cloneElement } from 'react';
 
 import { FloatingTabBarProps, TabItemProps } from './FloatingTabBar.types';
 
@@ -14,14 +13,14 @@ const TabItem = ({ path, icon, active }: TabItemProps) => {
             'bg-accent': active,
             'text-slate-200': active,
             'shadow-xl': active,
-            'text-neutral-200': !active,
+            'text-neutral-100': !active,
             'hover:bg-neutral-400': !active
         }
     );
 
     return (
         <Link href={path} className={classNames}>
-            {cloneElement(icon, { fontSize: 'inherit' })}
+            {icon}
         </Link>
     );
 };

@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { Node } from '@usealma/graph';
 import { ClassConstructor } from '@usealma/webgl';
 import clsx from 'clsx';
@@ -18,6 +18,7 @@ import { normalizeBounds } from '../../utils/bounds/bounds';
 import { nodesHierarchy } from '../../utils/nodes/nodes';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
 import { UPDATE_LAYER_MUTATION } from '~/apollo/mutations';
+import { LAYER_QUERY } from '~/apollo/queries';
 import { Connection } from '~/components/Circuit/Connection/Connection';
 import { ContextMenuContainer } from '~/components/Circuit/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { useCreateNode } from '~/hooks/useCreateNode/useCreateNode';
@@ -112,55 +113,65 @@ export const CircuitContainer = observer(
     // eslint-disable-next-line react/display-name
     React.forwardRef<HTMLDivElement, ICircuitContainerProps>((_, ref) => {
         const [contextMenuPosition, toggleContextMenu] = React.useState<Point | undefined>(undefined);
-        const { project, activeLayer } = useProject();
+        const { projectId, activeLayerId } = useProject();
         const circuit = useCircuit();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
         useKeyboardActions();
 
-        const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION, {
-            variables: { id: activeLayer?.id, projectId: project?.id }
+        const { data: { layer: activeLayer } = { activeLayer: undefined } } = useQuery(LAYER_QUERY, {
+            variables: { id: activeLayerId || '' }
         });
+
+        const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
 
         React.useEffect(() => {
             const valueReactionDisposer = reaction(
                 () => circuit.context?.values,
                 () => {
-                    const serializedCircuit = JSON.parse(JSON.stringify(circuit.context));
+                    if (projectId && activeLayerId) {
+                        const serializedCircuit = JSON.parse(JSON.stringify(circuit.context));
 
-                    updateLayer({
-                        variables: {
-                            circuit: serializedCircuit
-                        },
-                        optimisticResponse: {
-                            updateLayer: {
-                                ...activeLayer,
-                                __typename: 'CircuitLayer',
-                                id: activeLayer?.id,
+                        updateLayer({
+                            variables: {
+                                id: activeLayerId,
+                                projectId: projectId,
                                 circuit: serializedCircuit
+                            },
+                            optimisticResponse: {
+                                updateLayer: {
+                                    ...activeLayer,
+                                    __typename: 'CircuitLayer',
+                                    id: activeLayerId,
+                                    circuit: serializedCircuit
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             );
 
             const positionReactionDisposer = reaction(
                 () => circuit.context?.positions,
                 debounce(() => {
-                    const serializedCircuit = JSON.parse(JSON.stringify(circuit.context));
+                    if (projectId && activeLayerId) {
+                        const serializedCircuit = JSON.parse(JSON.stringify(circuit.context));
 
-                    updateLayer({
-                        variables: {
-                            circuit: serializedCircuit
-                        },
-                        optimisticResponse: {
-                            updateLayer: {
-                                ...activeLayer,
-                                __typename: 'CircuitLayer',
-                                id: activeLayer?.id,
+                        updateLayer({
+                            variables: {
+                                id: activeLayerId,
+                                projectId: projectId,
                                 circuit: serializedCircuit
+                            },
+                            optimisticResponse: {
+                                updateLayer: {
+                                    ...activeLayer,
+                                    __typename: 'CircuitLayer',
+                                    id: activeLayerId,
+                                    circuit: serializedCircuit
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }, 200)
             );
 
@@ -168,7 +179,7 @@ export const CircuitContainer = observer(
                 valueReactionDisposer();
                 positionReactionDisposer();
             };
-        }, [project, circuit, activeLayer, updateLayer]);
+        }, [circuit, activeLayer, updateLayer, activeLayerId, projectId]);
 
         const onMouseMove = React.useCallback(
             (e: React.MouseEvent<HTMLDivElement>) => {

@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery } from '@apollo/client';
 import { RouteOutlined, NotesOutlined, AddOutlined, TonalityOutlined, MoreVertOutlined } from '@mui/icons-material';
-import { BlendingMode, BlendingModeSchema, Layer } from '@usealma/types';
+import { BlendingModeSchema, Layer } from '@usealma/types';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
 import { capitalize, upperCase } from 'lodash';
@@ -18,6 +18,7 @@ import { Select } from '../Select/Select';
 import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable';
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
+import { BlendingMode } from '~/apollo/generated/graphql';
 import { DELETE_LAYER_MUTATION, UPDATE_LAYER_MUTATION } from '~/apollo/mutations';
 import { LAYER_QUERY, PROJECT_QUERY } from '~/apollo/queries';
 import { useHover } from '~/hooks/useHover/useHover';
@@ -148,12 +149,17 @@ const LayerItem = ({ active, onClick, layerId, index }: LayerItemProps) => {
 
 export const LayerPanel = ({ layers }: LayerPanelProps) => {
     const [contextMenuOpen, toggleContextMenu] = useState(false);
-    const { project, activeLayer, activeLayerId, setActiveLayerId, reorderLayers } = useProject();
+    const { projectId, activeLayerId, reorderLayers } = useProject();
     const items = useMemo(() => layers.slice().reverse() ?? [], [layers]);
     const { open } = useNewLayerModal();
+    const router = useRouter();
 
     const [deleteLayer] = useMutation(DELETE_LAYER_MUTATION, {
-        refetchQueries: [{ query: PROJECT_QUERY, variables: { id: project?.id } }]
+        refetchQueries: [{ query: PROJECT_QUERY, variables: { id: projectId } }]
+    });
+
+    const { data: { layer: activeLayer } = { layer: undefined } } = useQuery(LAYER_QUERY, {
+        variables: { id: activeLayerId || '' }
     });
 
     const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
@@ -165,17 +171,27 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
     const createSelectLayerHandler = useCallback(
         (layer: Layer) => {
             return () => {
-                setActiveLayerId(layer.id);
+                router.replace({
+                    query: {
+                        ...router.query,
+                        activeLayerId: layer.id
+                    }
+                });
             };
         },
-        [setActiveLayerId]
+        [router]
     );
 
     const handleDragStart: OnDragStartResponder = useCallback(
         result => {
-            setActiveLayerId(result.draggableId);
+            router.replace({
+                query: {
+                    ...router.query,
+                    activeLayerId: result.draggableId
+                }
+            });
         },
-        [setActiveLayerId]
+        [router]
     );
 
     const handleDragEnd: OnDragEndResponder = useCallback(
@@ -198,25 +214,25 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
 
     const handleUpdateBlendingMode: ChangeEventHandler<HTMLSelectElement> = useCallback(
         e => {
-            if (activeLayer) {
+            if (activeLayerId) {
                 updateLayer({
                     variables: {
-                        id: activeLayer.id,
-                        projectId: project?.id,
+                        id: activeLayerId,
+                        projectId: projectId,
                         blendingMode: upperCase(e.target.value) as BlendingMode
                     },
                     optimisticResponse: {
                         updateLayer: {
                             ...activeLayer,
-                            __typename: activeLayer.type === 'FRAGMENT' ? 'FragmentLayer' : 'CircuitLayer',
-                            id: activeLayer.id,
+                            __typename: activeLayer?.type === 'FRAGMENT' ? 'FragmentLayer' : 'CircuitLayer',
+                            id: activeLayerId,
                             blendingMode: upperCase(e.target.value) as BlendingMode
                         }
                     }
                 });
             }
         },
-        [activeLayer, project, updateLayer]
+        [activeLayer, activeLayerId, projectId, updateLayer]
     );
 
     const handleToggleContextMenu = useCallback(() => {
@@ -225,10 +241,10 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
 
     const handleRemoveLayer = useCallback(() => {
         if (activeLayerId) {
-            deleteLayer({ variables: { id: activeLayer?.id } });
+            deleteLayer({ variables: { id: activeLayerId } });
             toggleContextMenu(false);
         }
-    }, [activeLayerId, deleteLayer, activeLayer]);
+    }, [activeLayerId, deleteLayer]);
 
     return (
         <div className="flex flex-col shrink-0 grow">

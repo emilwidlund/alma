@@ -31,40 +31,42 @@ const SelectionBox = ({
 };
 
 const NewLayerModalContent = () => {
-    const { project } = useProject();
+    const { projectId } = useProject();
     const modal = React.useContext(ModalContext);
 
     const [createLayer] = useMutation(CREATE_LAYER_MUTATION, {
-        refetchQueries: [{ query: PROJECT_QUERY, variables: { id: project?.id } }]
+        refetchQueries: [{ query: PROJECT_QUERY, variables: { id: projectId } }]
     });
 
     const handleCreateCircuitProject = React.useCallback(() => {
-        createLayer({
-            variables: {
-                projectId: project?.id,
-                name: 'Untitled',
-                type: LayerType.Circuit,
-                index: 0,
-                circuit: DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT
-            }
-        });
+        if (projectId) {
+            createLayer({
+                variables: {
+                    projectId: projectId,
+                    type: LayerType.Circuit,
+                    index: 0,
+                    circuit: DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT
+                }
+            });
 
-        modal.close(NEW_LAYER_MODAL_ID);
-    }, [createLayer, project, modal]);
+            modal.close(NEW_LAYER_MODAL_ID);
+        }
+    }, [createLayer, modal, projectId]);
 
     const handleCreateSourceProject = React.useCallback(() => {
-        createLayer({
-            variables: {
-                projectId: project?.id,
-                name: 'Untitled',
-                type: LayerType.Fragment,
-                index: 0,
-                fragment: DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT
-            }
-        });
+        if (projectId) {
+            createLayer({
+                variables: {
+                    projectId: projectId,
+                    type: LayerType.Fragment,
+                    index: 0,
+                    fragment: DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT
+                }
+            });
 
-        modal.close(NEW_LAYER_MODAL_ID);
-    }, [createLayer, project, modal]);
+            modal.close(NEW_LAYER_MODAL_ID);
+        }
+    }, [createLayer, projectId, modal]);
 
     return (
         <div className="flex flex-col justify-center items-center">

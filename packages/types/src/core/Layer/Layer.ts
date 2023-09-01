@@ -13,7 +13,7 @@ export const LayerBaseSchema = z.object({
     type: LayerTypeSchema,
     enabled: z.boolean(),
     blendingMode: BlendingModeSchema,
-    index: z.number().positive()
+    index: z.number().gt(-1)
 });
 
 export const FragmentLayerSchema = LayerBaseSchema.extend({

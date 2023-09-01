@@ -1,21 +1,20 @@
 /* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars */
 
-import { Layer, Project } from '@usealma/types';
 import { WebGLContext } from '@usealma/webgl';
 import { enableMapSet, produce } from 'immer';
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
+import { createContext, PropsWithChildren, useCallback, useContext, useMemo, useState } from 'react';
 
-import { ProjectProviderProps, ProjectContextValue } from './ProjectProvider.types';
+import { ProjectContextValue } from './ProjectProvider.types';
 
 enableMapSet();
 
 export const defaultProjectContextValue: ProjectContextValue = {
-    project: undefined,
-    activeLayerId: undefined,
-    reorderLayers: (layers: Layer[]) => {},
+    projectId: '',
+    activeLayerId: null,
     circuits: undefined,
     updateCircuits: (id: string, context: WebGLContext) => {},
-    activeLayer: undefined,
     compilationError: undefined,
     handleCompilationError: (error: unknown) => {},
     handleCompilationSuccess: () => {}
@@ -23,35 +22,18 @@ export const defaultProjectContextValue: ProjectContextValue = {
 
 export const ProjectContext = createContext(defaultProjectContextValue);
 
-export const ProjectProvider = ({ project: apolloProject, children }: ProjectProviderProps) => {
-    const [project, setProject] = useState<Project | undefined>();
+export const ProjectProvider = ({ children }: PropsWithChildren) => {
     const [circuits, setCircuits] = useState<Map<string, WebGLContext>>(new Map<string, WebGLContext>());
-    const [activeLayerId, setActiveLayerId] = useState<string>();
     const [compilationError, setCompilationError] = useState<string>();
 
-    useEffect(() => {
-        if (apolloProject) {
-            setProject(apolloProject);
+    const {
+        query: { projectId: projectIdFromQuery }
+    } = useRouter();
 
-            if (apolloProject.layers.length > 0) {
-                const hasLayerId = apolloProject.layers.find(layer => layer.id === activeLayerId);
+    const projectId = typeof projectIdFromQuery === 'string' ? projectIdFromQuery : '';
 
-                if (!hasLayerId) {
-                    setActiveLayerId(apolloProject?.layers[apolloProject.layers.length - 1].id);
-                }
-            }
-        }
-    }, [apolloProject]);
-
-    const reorderLayers = useCallback((layers: Layer[]) => {
-        setProject(
-            produce(draft => {
-                if (draft) {
-                    draft.layers = layers;
-                }
-            })
-        );
-    }, []);
+    const params = useSearchParams();
+    const activeLayerId = params.get('activeLayerId');
 
     const updateCircuits = useCallback(
         (id: string, circuit: WebGLContext) => {
@@ -77,23 +59,17 @@ export const ProjectProvider = ({ project: apolloProject, children }: ProjectPro
 
     const value: ProjectContextValue = useMemo(
         () => ({
-            project,
-            setProject,
+            projectId,
             activeLayerId,
-            setActiveLayerId,
-            reorderLayers,
             circuits,
             updateCircuits,
-            activeLayer: project?.layers.find(layer => layer.id === activeLayerId),
             compilationError,
             handleCompilationError,
             handleCompilationSuccess
         }),
         [
-            project,
+            projectId,
             activeLayerId,
-            setActiveLayerId,
-            reorderLayers,
             circuits,
             updateCircuits,
             compilationError,

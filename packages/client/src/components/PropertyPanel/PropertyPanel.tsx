@@ -1,8 +1,8 @@
 // import { AddOutlined, TextureOutlined } from '@mui/icons-material';
+import { LayerSchema } from '@/../types/build';
 import { useQuery } from '@apollo/client';
 import { WebGLNodeType } from '@usealma/webgl';
 import { observer } from 'mobx-react-lite';
-import { useRouter } from 'next/router';
 import { useRef, useMemo } from 'react';
 
 import { useRenderer } from '../../hooks/useRenderer/useRenderer';
@@ -26,6 +26,8 @@ const NodeInfo = observer(() => {
     const [selectedNode] = circuit.selectedNodes;
 
     const Icon = NODE_ICON_RESOLVER_MAP[selectedNode.type as WebGLNodeType];
+    const description =
+        'description' in selectedNode.constructor ? (selectedNode.constructor.description as string) : undefined;
 
     return (
         <div className="p-6">
@@ -33,9 +35,7 @@ const NodeInfo = observer(() => {
                 <Icon fontSize="small" />
                 <h3 className="text-md font-medium ml-3 pt-0.5 text-slate-400">{selectedNode.name}</h3>
             </div>
-            {'description' in selectedNode.constructor && (
-                <p className="text-sm leading-normal">{selectedNode.constructor.description as string}</p>
-            )}
+            {description && <p className="text-sm leading-normal">{description}</p>}
         </div>
     );
 });
@@ -81,27 +81,16 @@ const NodePorts = observer(() => {
 });
 
 export const PropertyPanel = observer(() => {
-    const {
-        query: { projectId }
-    } = useRouter();
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const { activeLayer, handleCompilationError, handleCompilationSuccess } = useProject();
+    const { projectId, activeLayerId, handleCompilationError, handleCompilationSuccess } = useProject();
 
-    const {
-        data: { project }
-    } = useQuery(PROJECT_QUERY, { variables: { id: projectId } });
+    const { data: { project } = { project: undefined } } = useQuery(PROJECT_QUERY, { variables: { id: projectId } });
+
+    const layers = useMemo(() => project?.layers.map(layer => LayerSchema.parse(layer)) || [], [project]);
 
     const layersToRender = useMemo(
-        () =>
-            project
-                ? [
-                      ...project.layers.slice(
-                          undefined,
-                          project.layers.findIndex(layer => layer.id === activeLayer?.id) + 1
-                      )
-                  ]
-                : [],
-        [project, activeLayer]
+        () => (project ? [...layers.slice(undefined, layers.findIndex(layer => layer.id === activeLayerId) + 1)] : []),
+        [project, layers, activeLayerId]
     );
 
     useRenderer(canvasRef, layersToRender, false, handleCompilationError, handleCompilationSuccess);
@@ -117,7 +106,7 @@ export const PropertyPanel = observer(() => {
             </div>
             <div className="flex flex-col p-6 grow-1 h-full">
                 <h3 className="text-md font-medium mb-6 text-slate-400">Layers</h3>
-                {project && <LayerPanel layers={project.layers} />}
+                {project && <LayerPanel layers={layers} />}
             </div>
         </aside>
     );

@@ -1,68 +1,49 @@
 'use client';
 
 import { useQuery } from '@apollo/client';
-import { StreamOutlined, ShapeLineOutlined, TuneOutlined } from '@mui/icons-material';
 import { Session } from '@supabase/auth-helpers-nextjs';
-import { useSession } from '@supabase/auth-helpers-react';
-import { Project, ProjectSchema } from '@usealma/types';
+import { Project } from '@usealma/types';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
-import NextImage from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useMemo, useRef } from 'react';
 
-import { PROJECT_QUERY } from '~/apollo/queries';
-import { Avatar } from '~/components/Avatar/Avatar';
+import { graphql } from '~/apollo/generated';
 import { Banner } from '~/components/Banner/Banner';
-import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
 import { PropertyPanel } from '~/components/PropertyPanel/PropertyPanel';
 import { CircuitContainer } from '~/containers/CircuitContainer/CircuitContainer';
+import { EditorHeader } from '~/containers/EditorHeader/EditorHeader';
 import { FragmentEditor } from '~/containers/FragmentEditor/FragmentEditor';
+import { ProjectTabsContainer } from '~/containers/ProjectTabsContainer/ProjectTabsContainer';
 import { CircuitProvider } from '~/providers/CircuitProvider/CircuitProvider';
 import { ModalProvider } from '~/providers/ModalProvider/ModalProvider';
 import { ProjectProvider, useProject } from '~/providers/ProjectProvider/ProjectProvider';
-import { Size } from '~/types';
 
 export type EditorProps = { initialSession: Session; project: Project };
 
-function EditorHeader() {
-    const session = useSession();
-    const { project } = useProject();
+const editorContainerQuery = graphql(`
+    query EditorContainer($id: ID!) {
+        layer(id: $id) {
+            ... on CircuitLayer {
+                id
+                type
+            }
+            ... on FragmentLayer {
+                id
+                type
+            }
+        }
+    }
+`);
 
-    return (
-        <header className="absolute top-0 right-0 left-0 flex flex-row items-center justify-between p-12 pb-0 z-10">
-            <Link className="z-10" href="/">
-                <NextImage src="/alma_outline.png" alt="logo" width={40} height={40} quality={100} />
-            </Link>
-            {project && (
-                <div className="absolute w-full flex flex-col items-center mx-auto">
-                    <h2 className="text-lg font-medium text-slate-400">{project.name}</h2>
-                    <span className="text-sm mt-1 opacity-50 text-slate-500">
-                        {project.private ? 'Private' : 'Public'}
-                    </span>
-                </div>
-            )}
-            {session && (
-                <div className="z-10">
-                    <Link href="/profile">
-                        <Avatar size={Size.SM} source={session.user.user_metadata.picture} />
-                    </Link>
-                </div>
-            )}
-        </header>
-    );
-}
-
-function EditorContainer({
-    username,
-    projectId
-}: {
-    username: string | string[] | undefined;
-    projectId: string | string[] | undefined;
-}) {
+const EditorContainer = () => {
     const circuitRef = useRef<HTMLDivElement>(null);
-    const { circuits, activeLayer, compilationError } = useProject();
+    const { activeLayerId, circuits, compilationError } = useProject();
+
+    const { data: { layer: activeLayer } = { layer: undefined } } = useQuery(editorContainerQuery, {
+        variables: {
+            id: activeLayerId
+        }
+    });
 
     const shouldRenderCircuit = useMemo(() => activeLayer?.type === 'CIRCUIT', [activeLayer]);
     const shouldRenderEditor = useMemo(() => activeLayer?.type === 'FRAGMENT', [activeLayer]);
@@ -87,29 +68,7 @@ function EditorContainer({
                 <div className="relative flex flex-col flex-grow">
                     <EditorHeader />
                     <div className="relative flex flex-row flex-grow items-center">
-                        <aside className="fixed flex flex-col h-full items-center justify-start pl-12 z-30">
-                            <div className="my-auto">
-                                <FloatingTabBar
-                                    items={[
-                                        {
-                                            name: 'Preview',
-                                            path: `/${username}/${projectId}`,
-                                            icon: <StreamOutlined />
-                                        },
-                                        {
-                                            name: 'Edit',
-                                            path: `/${username}/${projectId}/edit`,
-                                            icon: <ShapeLineOutlined />
-                                        },
-                                        {
-                                            name: 'Settings',
-                                            path: `/${username}/${projectId}/settings`,
-                                            icon: <TuneOutlined />
-                                        }
-                                    ]}
-                                />
-                            </div>
-                        </aside>
+                        <ProjectTabsContainer />
                         <main className="relative flex flex-col items-center justify-center grow w-full h-full overflow-auto">
                             {shouldRenderCircuit && (
                                 <div className={circuitContainerClassNames}>
@@ -137,28 +96,14 @@ function EditorContainer({
             </main>
         </CircuitProvider>
     );
-}
+};
 
 export default function Editor() {
-    const {
-        query: { username, projectId }
-    } = useRouter();
-
-    const { data = { project: undefined } } = useQuery(PROJECT_QUERY, {
-        variables: { id: projectId as string }
-    });
-
-    if (!data.project) return null;
-
-    const project = ProjectSchema.parse(data.project);
-
     return (
-        project && (
-            <ProjectProvider project={project}>
-                <ModalProvider>
-                    <EditorContainer username={username} projectId={projectId} />
-                </ModalProvider>
-            </ProjectProvider>
-        )
+        <ProjectProvider>
+            <ModalProvider>
+                <EditorContainer />
+            </ModalProvider>
+        </ProjectProvider>
     );
 }
