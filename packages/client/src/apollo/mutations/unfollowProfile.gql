@@ -1,3 +1,0 @@
-mutation UnfollowProfile($id: ID!) {
-    unfollowProfile(id: $id)
-}

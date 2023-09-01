@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { Profile } from '@usealma/types';
 import { useRouter } from 'next/router';
 
-import PROFILE_QUERY from '~/apollo/queries/profile.gql';
+import { PROFILE_QUERY } from '~/apollo/queries';
 import { ProjectCard } from '~/components/Cards/ProjectCard/ProjectCard';
 import Header from '~/components/Header/Header';
 import { Spinner } from '~/components/Spinner/Spinner';

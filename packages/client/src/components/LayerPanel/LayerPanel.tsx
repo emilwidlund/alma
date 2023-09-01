@@ -18,13 +18,11 @@ import { Select } from '../Select/Select';
 import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable';
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
-import DELETE_LAYER_MUTATION from '~/apollo/mutations/deleteLayer.gql';
-import UPDATE_LAYER_MUTATION from '~/apollo/mutations/updateLayer.gql';
-import LAYER_QUERY from '~/apollo/queries/layer.gql';
-import PROJECT_QUERY from '~/apollo/queries/project.gql';
+import { DELETE_LAYER_MUTATION, UPDATE_LAYER_MUTATION } from '~/apollo/mutations';
+import { LAYER_QUERY, PROJECT_QUERY } from '~/apollo/queries';
 import { useHover } from '~/hooks/useHover/useHover';
 import { useNewLayerModal } from '~/hooks/useNewLayerModal/useNewLayerModal';
-import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
+import { useProject } from '~/providers/ProjectProvider/ProjectProvider';
 
 const LayerItem = ({ active, onClick, layerId, index }: LayerItemProps) => {
     const { isHovered, onMouseEnter, onMouseLeave } = useHover();
@@ -150,7 +148,7 @@ const LayerItem = ({ active, onClick, layerId, index }: LayerItemProps) => {
 
 export const LayerPanel = ({ layers }: LayerPanelProps) => {
     const [contextMenuOpen, toggleContextMenu] = useState(false);
-    const { project, activeLayer, activeLayerId, setActiveLayerId, reorderLayers } = useProjectContext();
+    const { project, activeLayer, activeLayerId, setActiveLayerId, reorderLayers } = useProject();
     const items = useMemo(() => layers.slice().reverse() ?? [], [layers]);
     const { open } = useNewLayerModal();
 
@@ -264,8 +262,7 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
                                         },
                                         {
                                             icon: '',
-                                            label: 'Duplicate Layer',
-                                            onClick: () => {}
+                                            label: 'Duplicate Layer'
                                         }
                                     ]
                                 }

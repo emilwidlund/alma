@@ -4,10 +4,10 @@ import * as React from 'react';
 
 import { NEW_LAYER_MODAL_ID } from '../../constants/modals';
 import { ModalContext } from '../../providers/ModalProvider/ModalProvider';
-
-import CREATE_LAYER_MUTATION from '~/apollo/mutations/createLayer.gql';
-import PROJECT_QUERY from '~/apollo/queries/project.gql';
-import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
+import { LayerType } from '~/apollo/generated/graphql';
+import { CREATE_LAYER_MUTATION } from '~/apollo/mutations';
+import { PROJECT_QUERY } from '~/apollo/queries';
+import { useProject } from '~/providers/ProjectProvider/ProjectProvider';
 import { DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT, DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT } from '~/templates/layer';
 
 const SelectionBox = ({
@@ -31,7 +31,7 @@ const SelectionBox = ({
 };
 
 const NewLayerModalContent = () => {
-    const { project } = useProjectContext();
+    const { project } = useProject();
     const modal = React.useContext(ModalContext);
 
     const [createLayer] = useMutation(CREATE_LAYER_MUTATION, {
@@ -43,7 +43,7 @@ const NewLayerModalContent = () => {
             variables: {
                 projectId: project?.id,
                 name: 'Untitled',
-                type: 'CIRCUIT',
+                type: LayerType.Circuit,
                 index: 0,
                 circuit: DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT
             }
@@ -57,7 +57,7 @@ const NewLayerModalContent = () => {
             variables: {
                 projectId: project?.id,
                 name: 'Untitled',
-                type: 'FRAGMENT',
+                type: LayerType.Fragment,
                 index: 0,
                 fragment: DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT
             }

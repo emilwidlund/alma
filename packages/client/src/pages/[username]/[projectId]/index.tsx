@@ -11,19 +11,20 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
 
-import PROJECT_QUERY from '~/apollo/queries/project.gql';
+import { ProjectVisibility } from '~/apollo/generated/graphql';
+import { PROJECT_QUERY } from '~/apollo/queries';
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
 import { useRenderer } from '~/hooks/useRenderer/useRenderer';
-import { ProjectProvider, useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
+import { ProjectProvider, useProject } from '~/providers/ProjectProvider/ProjectProvider';
 import { Size } from '~/types';
 
 export type EditorProps = { initialSession: Session; project: Project };
 
 function EditorHeader() {
     const session = useSession();
-    const { project } = useProjectContext();
+    const { project } = useProject();
 
     return (
         <header className="relative flex flex-row items-center justify-between p-12 pb-0">
@@ -33,7 +34,9 @@ function EditorHeader() {
             {project && (
                 <div className="absolute w-full flex flex-col items-center mx-auto">
                     <h2 className="text-lg font-medium">{project.name}</h2>
-                    <span className="text-sm mt-1 opacity-50">{project.private ? 'Private' : 'Public'}</span>
+                    <span className="text-sm mt-1 opacity-50">
+                        {project.visibility === ProjectVisibility.Private ? 'Private' : 'Public'}
+                    </span>
                 </div>
             )}
             {session && (
@@ -50,7 +53,7 @@ function EditorHeader() {
 function PreviewContainer() {
     const previewRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const { project, handleCompilationError, compilationError, handleCompilationSuccess } = useProjectContext();
+    const { project, handleCompilationError, compilationError, handleCompilationSuccess } = useProject();
 
     useRenderer(canvasRef, project?.layers || [], false, handleCompilationError, handleCompilationSuccess);
 

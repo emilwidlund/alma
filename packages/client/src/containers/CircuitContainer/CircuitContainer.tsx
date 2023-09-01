@@ -17,11 +17,11 @@ import { useMousePosition } from '../../hooks/useMousePosition/useMousePosition'
 import { normalizeBounds } from '../../utils/bounds/bounds';
 import { nodesHierarchy } from '../../utils/nodes/nodes';
 import { NodeContainer } from '../NodeContainer/NodeContainer';
-import UPDATE_LAYER_MUTATION from '~/apollo/mutations/updateLayer.gql';
+import { UPDATE_LAYER_MUTATION } from '~/apollo/mutations';
 import { Connection } from '~/components/Circuit/Connection/Connection';
 import { ContextMenuContainer } from '~/components/Circuit/ContextMenu/ContextMenuContainer/ContextMenuContainer';
 import { useCreateNode } from '~/hooks/useCreateNode/useCreateNode';
-import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
+import { useProject } from '~/providers/ProjectProvider/ProjectProvider';
 import { Point } from '~/types';
 import { toCartesianPoint } from '~/utils/coordinates/coordinates';
 
@@ -112,7 +112,7 @@ export const CircuitContainer = observer(
     // eslint-disable-next-line react/display-name
     React.forwardRef<HTMLDivElement, ICircuitContainerProps>((_, ref) => {
         const [contextMenuPosition, toggleContextMenu] = React.useState<Point | undefined>(undefined);
-        const { project, activeLayer } = useProjectContext();
+        const { project, activeLayer } = useProject();
         const circuit = useCircuit();
         const { onMouseMove: mouseMoveHandler, mousePosition } = useMousePosition();
         useKeyboardActions();

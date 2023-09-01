@@ -2,7 +2,7 @@ import { render } from '@usealma/renderer';
 import { Layer } from '@usealma/types';
 import { useEffect, RefObject } from 'react';
 
-import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
+import { useProject } from '~/providers/ProjectProvider/ProjectProvider';
 
 export const useRenderer = (
     ref: RefObject<HTMLCanvasElement>,
@@ -11,7 +11,7 @@ export const useRenderer = (
     onFragmentCompilationError?: (error: unknown) => void,
     onFragmentCompilationSuccess?: () => void
 ) => {
-    const { updateCircuits } = useProjectContext();
+    const { updateCircuits } = useProject();
 
     useEffect(() => {
         if (ref.current) {

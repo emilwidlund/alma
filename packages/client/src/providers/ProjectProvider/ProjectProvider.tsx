@@ -1,24 +1,17 @@
 /* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars */
 
-import { BlendingMode, Layer, Project } from '@usealma/types';
+import { Layer, Project } from '@usealma/types';
 import { WebGLContext } from '@usealma/webgl';
 import { enableMapSet, produce } from 'immer';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-enableMapSet();
-
 import { ProjectProviderProps, ProjectContextValue } from './ProjectProvider.types';
+
+enableMapSet();
 
 export const defaultProjectContextValue: ProjectContextValue = {
     project: undefined,
     activeLayerId: undefined,
-    setActiveLayerId: (layerId: string | undefined) => {},
-    createLayer: (layer: Layer) => {},
-    toggleLayer: (layerId: string, toggle: boolean) => {},
-    renameLayer: (layerId: string, name: string) => {},
-    updateLayerBlendingMode: (layerId: string, blendingMode: BlendingMode) => {},
-    updateLayerContext: (layerId: string, context: string) => {},
-    removeLayer: (layerId: string) => {},
     reorderLayers: (layers: Layer[]) => {},
     circuits: undefined,
     updateCircuits: (id: string, context: WebGLContext) => {},
@@ -44,88 +37,11 @@ export const ProjectProvider = ({ project: apolloProject, children }: ProjectPro
                 const hasLayerId = apolloProject.layers.find(layer => layer.id === activeLayerId);
 
                 if (!hasLayerId) {
-                    setActiveLayerId(apolloProject.layers[apolloProject.layers.length - 1].id);
+                    setActiveLayerId(apolloProject?.layers[apolloProject.layers.length - 1].id);
                 }
             }
         }
     }, [apolloProject]);
-
-    const createLayer = useCallback((layer: Layer) => {
-        setProject(
-            produce(draft => {
-                if (draft) {
-                    draft.layers.push(layer);
-                }
-            })
-        );
-
-        setActiveLayerId(layer.id);
-    }, []);
-
-    const toggleLayer = useCallback((layerId: string, toggle: boolean) => {
-        setProject(
-            produce(draft => {
-                if (draft) {
-                    const index = draft.layers.findIndex(l => l.id === layerId);
-                    draft.layers[index].enabled = toggle;
-                }
-            })
-        );
-    }, []);
-
-    const updateLayerContext = useCallback((layerId: string, context: string) => {
-        setProject(
-            produce(draft => {
-                if (draft) {
-                    const index = draft.layers.findIndex(l => l.id === layerId);
-                    draft.layers[index].circuit = context;
-                }
-            })
-        );
-    }, []);
-
-    const renameLayer = useCallback((layerId: string, name: string) => {
-        setProject(
-            produce(draft => {
-                if (draft) {
-                    const index = draft.layers.findIndex(l => l.id === layerId);
-                    draft.layers[index].name = name;
-                }
-            })
-        );
-    }, []);
-
-    const removeLayer = useCallback(
-        (layerId: string) => {
-            const layerIndex = project?.layers.findIndex(layer => layer.id === layerId);
-
-            setProject(
-                produce(draft => {
-                    if (draft) {
-                        draft.layers = draft.layers.filter(layer => layerId !== layer.id);
-
-                        if (typeof layerIndex !== 'undefined') {
-                            const candidateIndex = layerIndex - 1 <= 0 ? 0 : layerIndex - 1;
-                            const layerId = draft?.layers[candidateIndex]?.id;
-                            setActiveLayerId(layerId);
-                        }
-                    }
-                })
-            );
-        },
-        [project]
-    );
-
-    const updateLayerBlendingMode = useCallback((layerId: string, blendingMode: BlendingMode) => {
-        setProject(
-            produce(draft => {
-                if (draft) {
-                    const index = draft.layers.findIndex(l => l.id === layerId);
-                    draft.layers[index].blendingMode = blendingMode;
-                }
-            })
-        );
-    }, []);
 
     const reorderLayers = useCallback((layers: Layer[]) => {
         setProject(
@@ -165,12 +81,6 @@ export const ProjectProvider = ({ project: apolloProject, children }: ProjectPro
             setProject,
             activeLayerId,
             setActiveLayerId,
-            createLayer,
-            toggleLayer,
-            renameLayer,
-            removeLayer,
-            updateLayerBlendingMode,
-            updateLayerContext,
             reorderLayers,
             circuits,
             updateCircuits,
@@ -183,12 +93,6 @@ export const ProjectProvider = ({ project: apolloProject, children }: ProjectPro
             project,
             activeLayerId,
             setActiveLayerId,
-            createLayer,
-            toggleLayer,
-            renameLayer,
-            removeLayer,
-            updateLayerBlendingMode,
-            updateLayerContext,
             reorderLayers,
             circuits,
             updateCircuits,
@@ -201,4 +105,4 @@ export const ProjectProvider = ({ project: apolloProject, children }: ProjectPro
     return <ProjectContext.Provider value={value}>{children}</ProjectContext.Provider>;
 };
 
-export const useProjectContext = () => useContext(ProjectContext);
+export const useProject = () => useContext(ProjectContext);

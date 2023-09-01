@@ -9,12 +9,12 @@ import { useRouter } from 'next/router';
 import { Avatar } from '~/components/Avatar/Avatar';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
 import { PropertyPanel } from '~/components/PropertyPanel/PropertyPanel';
-import { ProjectProvider, useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
+import { ProjectProvider, useProject } from '~/providers/ProjectProvider/ProjectProvider';
 import { Size } from '~/types';
 
 function ProjectHeader() {
     const session = useSession();
-    const { project } = useProjectContext();
+    const { project } = useProject();
 
     return (
         <header className="fixed flex flex-row items-center justify-between p-12 pb-0 w-full">

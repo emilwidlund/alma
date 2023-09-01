@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { StreamOutlined, ShapeLineOutlined, TuneOutlined } from '@mui/icons-material';
 import { Session } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
-import { Project } from '@usealma/types';
+import { Project, ProjectSchema } from '@usealma/types';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
 import NextImage from 'next/image';
@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMemo, useRef } from 'react';
 
-import PROJECT_QUERY from '~/apollo/queries/project.gql';
+import { PROJECT_QUERY } from '~/apollo/queries';
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Banner } from '~/components/Banner/Banner';
 import { FloatingTabBar } from '~/components/FloatingTabBar/FloatingTabBar';
@@ -21,14 +21,14 @@ import { CircuitContainer } from '~/containers/CircuitContainer/CircuitContainer
 import { FragmentEditor } from '~/containers/FragmentEditor/FragmentEditor';
 import { CircuitProvider } from '~/providers/CircuitProvider/CircuitProvider';
 import { ModalProvider } from '~/providers/ModalProvider/ModalProvider';
-import { ProjectProvider, useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
+import { ProjectProvider, useProject } from '~/providers/ProjectProvider/ProjectProvider';
 import { Size } from '~/types';
 
 export type EditorProps = { initialSession: Session; project: Project };
 
 function EditorHeader() {
     const session = useSession();
-    const { project } = useProjectContext();
+    const { project } = useProject();
 
     return (
         <header className="absolute top-0 right-0 left-0 flex flex-row items-center justify-between p-12 pb-0 z-10">
@@ -62,7 +62,7 @@ function EditorContainer({
     projectId: string | string[] | undefined;
 }) {
     const circuitRef = useRef<HTMLDivElement>(null);
-    const { circuits, activeLayer, compilationError } = useProjectContext();
+    const { circuits, activeLayer, compilationError } = useProject();
 
     const shouldRenderCircuit = useMemo(() => activeLayer?.type === 'CIRCUIT', [activeLayer]);
     const shouldRenderEditor = useMemo(() => activeLayer?.type === 'FRAGMENT', [activeLayer]);
@@ -144,11 +144,17 @@ export default function Editor() {
         query: { username, projectId }
     } = useRouter();
 
-    const results = useQuery(PROJECT_QUERY, { variables: { id: projectId } });
+    const { data = { project: undefined } } = useQuery(PROJECT_QUERY, {
+        variables: { id: projectId as string }
+    });
+
+    if (!data.project) return null;
+
+    const project = ProjectSchema.parse(data.project);
 
     return (
-        results.data?.project && (
-            <ProjectProvider project={results.data.project}>
+        project && (
+            <ProjectProvider project={project}>
                 <ModalProvider>
                     <EditorContainer username={username} projectId={projectId} />
                 </ModalProvider>

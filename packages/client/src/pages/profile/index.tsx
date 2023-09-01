@@ -6,7 +6,7 @@ import { Profile } from '@usealma/types';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 
-import ME_QUERY from '~/apollo/queries/me.gql';
+import { ME_QUERY } from '~/apollo/queries';
 import { ProjectCard } from '~/components/Cards/ProjectCard/ProjectCard';
 import Header from '~/components/Header/Header';
 import { IconButton } from '~/components/IconButton/IconButton';

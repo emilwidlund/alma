@@ -11,9 +11,9 @@ import { NumberControl } from '../Control/NumberControl/NumberControl';
 import { TypeControl } from '../Control/TypeControl/TypeControl';
 import { VectorControl } from '../Control/VectorControl/VectorControl';
 import { LayerPanel } from '../LayerPanel/LayerPanel';
-import PROJECT_QUERY from '~/apollo/queries/project.gql';
+import { PROJECT_QUERY } from '~/apollo/queries';
 import { useCircuit } from '~/hooks/useCircuit/useCircuit';
-import { useProjectContext } from '~/providers/ProjectProvider/ProjectProvider';
+import { useProject } from '~/providers/ProjectProvider/ProjectProvider';
 import { NODE_ICON_RESOLVER_MAP } from '~/utils/icons/iconResolver';
 
 const NodeInfo = observer(() => {
@@ -33,7 +33,9 @@ const NodeInfo = observer(() => {
                 <Icon fontSize="small" />
                 <h3 className="text-md font-medium ml-3 pt-0.5 text-slate-400">{selectedNode.name}</h3>
             </div>
-            {'description' in selectedNode.constructor && <p className="text-sm leading-normal">{selectedNode.constructor.description as string}</p>}
+            {'description' in selectedNode.constructor && (
+                <p className="text-sm leading-normal">{selectedNode.constructor.description as string}</p>
+            )}
         </div>
     );
 });
@@ -83,7 +85,7 @@ export const PropertyPanel = observer(() => {
         query: { projectId }
     } = useRouter();
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const { activeLayer, handleCompilationError, handleCompilationSuccess } = useProjectContext();
+    const { activeLayer, handleCompilationError, handleCompilationSuccess } = useProject();
 
     const {
         data: { project }
