@@ -75,7 +75,6 @@ model Layer {
   fragment      String?
   projectId     String
   project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  index         Int           
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt @default(now())
 }
@@ -101,20 +100,22 @@ enum ProjectVisibility {
 }
 
 model Project {
-  id          String              @id @default(uuid())
-  name        String
-  layers      Layer[]
-  ownerId     String    
-  owner       Profile             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  uniforms    Uniform[]
-  likes       Like[]
-  comments    Comment[]
-  visibility  ProjectVisibility   @default(PUBLIC)
-  originId    String?
-  origin      Project?            @relation("origin", fields: [originId], references: [id], onDelete: SetDefault)
-  forks       Project[]           @relation("origin")
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt @default(now())
+  id            String              @id @default(uuid())
+  name          String
+  description   String?
+  layers        Layer[]
+  layerOrder    String[]            @default([])
+  ownerId       String    
+  owner         Profile             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  uniforms      Uniform[]
+  likes         Like[]
+  comments      Comment[]
+  visibility    ProjectVisibility   @default(PUBLIC)
+  originId      String?
+  origin        Project?            @relation("origin", fields: [originId], references: [id], onDelete: SetDefault)
+  forks         Project[]           @relation("origin")
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt @default(now())
 }
 
 model Like {

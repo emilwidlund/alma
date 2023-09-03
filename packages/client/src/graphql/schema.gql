@@ -56,7 +56,6 @@ type FragmentLayer {
     type: LayerType!
     fragment: String!
     project: Project!
-    index: Int!
     createdAt: Date!
     updatedAt: Date!
 }
@@ -69,7 +68,6 @@ type CircuitLayer {
     type: LayerType!
     circuit: GraphQLJSON!
     project: Project!
-    index: Int!
     createdAt: Date!
     updatedAt: Date!
 }
@@ -101,7 +99,9 @@ enum ProjectVisibility {
 type Project {
     id: ID!
     name: String!
+    description: String
     layers: [Layer]!
+    layerOrder: [ID]!
     visibility: ProjectVisibility!
     owner: Profile!
     likes: [Like]!
@@ -128,17 +128,16 @@ type Mutation {
     followProfile(id: ID!): Relationship!
     unfollowProfile(id: ID!): Boolean!
     createProject: Project!
-    updateProject(id: ID!, name: String, visibility: ProjectVisibility): Project!
+    updateProject(id: ID!, name: String, description: String, visibility: ProjectVisibility, layerOrder: [ID]): Project!
     deleteProject(id: ID!): Boolean!
     forkProject(id: ID): Project!
-    createLayer(projectId: ID!, type: LayerType!, index: Int!, circuit: GraphQLJSON, fragment: String): Layer!
+    createLayer(projectId: ID!, type: LayerType!, circuit: GraphQLJSON, fragment: String): Layer!
     updateLayer(
         id: ID!
         projectId: ID!
         name: String
         enabled: Boolean
         blendingMode: BlendingMode
-        index: Int
         circuit: GraphQLJSON
         fragment: String
     ): Layer!

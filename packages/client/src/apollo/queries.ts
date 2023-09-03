@@ -5,6 +5,7 @@ export const PROJECT_QUERY = graphql(`
         project(id: $id) {
             id
             name
+            description
             owner {
                 id
                 username
@@ -17,7 +18,6 @@ export const PROJECT_QUERY = graphql(`
                     enabled
                     circuit
                     blendingMode
-                    index
                     createdAt
                     updatedAt
                 }
@@ -28,11 +28,11 @@ export const PROJECT_QUERY = graphql(`
                     enabled
                     fragment
                     blendingMode
-                    index
                     createdAt
                     updatedAt
                 }
             }
+            layerOrder
             createdAt
             updatedAt
         }
@@ -51,6 +51,7 @@ export const PROFILE_QUERY = graphql(`
             projects {
                 id
                 name
+                description
                 owner {
                     id
                     username
@@ -110,6 +111,7 @@ export const ME_QUERY = graphql(`
             projects {
                 id
                 name
+                description
                 owner {
                     id
                     username
@@ -172,7 +174,6 @@ export const LAYER_QUERY = graphql(`
                 enabled
                 circuit
                 blendingMode
-                index
                 createdAt
                 updatedAt
             }
@@ -183,7 +184,6 @@ export const LAYER_QUERY = graphql(`
                 enabled
                 fragment
                 blendingMode
-                index
                 createdAt
                 updatedAt
             }

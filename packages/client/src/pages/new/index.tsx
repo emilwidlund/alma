@@ -43,8 +43,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
                     {
                         name: 'Untitled',
                         type: 'FRAGMENT',
-                        fragment: DEFAULT_FRAGMENT_LAYER_CONTEXT,
-                        index: 0
+                        fragment: DEFAULT_FRAGMENT_LAYER_CONTEXT
                     }
                 ]
             }

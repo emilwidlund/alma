@@ -44,7 +44,6 @@ const NewLayerModalContent = () => {
                 variables: {
                     projectId: projectId,
                     type: LayerType.Circuit,
-                    index: 0,
                     circuit: DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT
                 }
             });
@@ -59,7 +58,6 @@ const NewLayerModalContent = () => {
                 variables: {
                     projectId: projectId,
                     type: LayerType.Fragment,
-                    index: 0,
                     fragment: DEFAULT_NEW_FRAGMENT_LAYER_CONTEXT
                 }
             });

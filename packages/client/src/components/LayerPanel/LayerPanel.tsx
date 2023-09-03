@@ -19,7 +19,7 @@ import { StrictModeDroppable } from '../StrictModeDroppable/StrictModeDroppable'
 import { Switch } from '../Switch/Switch';
 import { Well } from '../Well/Well';
 import { BlendingMode } from '~/apollo/generated/graphql';
-import { DELETE_LAYER_MUTATION, UPDATE_LAYER_MUTATION } from '~/apollo/mutations';
+import { DELETE_LAYER_MUTATION, UPDATE_LAYER_MUTATION, UPDATE_PROJECT_MUTATION } from '~/apollo/mutations';
 import { LAYER_QUERY, PROJECT_QUERY } from '~/apollo/queries';
 import { useHover } from '~/hooks/useHover/useHover';
 import { useNewLayerModal } from '~/hooks/useNewLayerModal/useNewLayerModal';
@@ -151,20 +151,21 @@ const LayerItem = ({ active, onClick, layerId, index }: LayerItemProps) => {
 
 export const LayerPanel = ({ layers }: LayerPanelProps) => {
     const [contextMenuOpen, toggleContextMenu] = useState(false);
-    const { projectId, activeLayerId, reorderLayers } = useProject();
-    const items = useMemo(() => layers.slice().reverse() ?? [], [layers]);
+    const { projectId, activeLayerId } = useProject();
     const { open } = useNewLayerModal();
     const router = useRouter();
 
+    const { data: { project } = { project: undefined } } = useQuery(PROJECT_QUERY, { variables: { id: projectId } });
+    const [updateProject] = useMutation(UPDATE_PROJECT_MUTATION);
     const [deleteLayer] = useMutation(DELETE_LAYER_MUTATION, {
         refetchQueries: [{ query: PROJECT_QUERY, variables: { id: projectId } }]
     });
-
     const { data: { layer: activeLayer } = { layer: undefined } } = useQuery(LAYER_QUERY, {
         variables: { id: activeLayerId || '' }
     });
-
     const [updateLayer] = useMutation(UPDATE_LAYER_MUTATION);
+
+    const items = useMemo(() => layers.slice().reverse(), [layers]);
 
     const handleCreateLayer = useCallback(() => {
         open();
@@ -209,9 +210,28 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
             // put the removed one into destination.
             itemsCopy.splice(result.destination.index, 0, removed);
 
-            reorderLayers(itemsCopy.slice().reverse());
+            const order = itemsCopy
+                .slice()
+                .reverse()
+                .map(layer => layer.id);
+
+            updateProject({
+                variables: { id: projectId, layerOrder: order },
+                optimisticResponse: {
+                    updateProject: {
+                        ...project,
+                        __typename: 'Project',
+                        id: projectId,
+                        // @ts-ignore
+                        layers:
+                            project?.layers
+                                ?.slice()
+                                .sort((a, b) => order.indexOf(a?.id || '') - order.indexOf(b?.id || '')) ?? []
+                    }
+                }
+            });
         },
-        [items, reorderLayers]
+        [items, project, projectId, updateProject]
     );
 
     const handleUpdateBlendingMode: ChangeEventHandler<HTMLSelectElement> = useCallback(

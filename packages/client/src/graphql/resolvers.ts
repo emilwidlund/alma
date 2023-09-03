@@ -1,7 +1,6 @@
 import { ApolloError } from '@apollo/client';
 import { IResolvers } from '@graphql-tools/utils';
-import { PrismaClient, Profile } from '@prisma/client';
-import { Layer } from '@usealma/types';
+import { Layer, PrismaClient, Profile } from '@prisma/client';
 
 import { Context } from './schema';
 
@@ -15,6 +14,10 @@ const withUserAuthorization = <TParent, TArgs, TReturn>(
 
         return callback(parent, args, context as { profile: Profile; db: PrismaClient });
     };
+};
+
+const sortLayers = (layers: Layer[] = [], layerOrder: string[] = []) => {
+    return layers.sort((a, b) => layerOrder.indexOf(a.id) - layerOrder.indexOf(b.id));
 };
 
 export const resolvers: IResolvers<any, Context> = {
@@ -44,16 +47,24 @@ export const resolvers: IResolvers<any, Context> = {
             });
         },
         project: async (parent, args, context) => {
-            return await context.db.project.findUnique({
+            const project = await context.db.project.findUnique({
                 where: { id: args.id, visibility: 'PUBLIC' },
                 include: { owner: true, likes: true, comments: { include: { profile: true } }, layers: true }
             });
+
+            sortLayers(project?.layers, project?.layerOrder);
+
+            return project;
         },
         projects: async (parent, args, context) => {
-            return await context.db.project.findMany({
+            const projects = await context.db.project.findMany({
                 where: { ownerId: args.profileId, visibility: 'PUBLIC' },
                 include: { owner: true, likes: true, comments: { include: { profile: true } }, layers: true }
             });
+
+            projects?.map(project => sortLayers(project.layers, project.layerOrder));
+
+            return projects;
         },
         layer: withUserAuthorization(async (parent, args, context) => {
             return await context.db.layer.findFirst({
@@ -78,7 +89,7 @@ export const resolvers: IResolvers<any, Context> = {
             });
         },
         searchProjects: async (parent, args, context) => {
-            return await context.db.project.findMany({
+            const projects = await context.db.project.findMany({
                 where: {
                     visibility: 'PUBLIC'
                 },
@@ -90,8 +101,12 @@ export const resolvers: IResolvers<any, Context> = {
                         sort: 'asc'
                     }
                 },
-                include: { owner: true }
+                include: { owner: true, layers: true }
             });
+
+            projects?.map(project => sortLayers(project.layers, project.layerOrder));
+
+            return projects;
         }
     },
     Mutation: {
@@ -137,18 +152,28 @@ export const resolvers: IResolvers<any, Context> = {
             return !!relationship;
         }),
         createProject: withUserAuthorization(async (parent, args, context) => {
-            return await context.db.project.create({
+            const project = await context.db.project.create({
                 data: {
                     name: 'Untitled',
                     ownerId: context.profile.id
-                }
+                },
+                include: { owner: true, likes: true, comments: { include: { profile: true } }, layers: true }
             });
+
+            sortLayers(project.layers, project.layerOrder);
+
+            return project;
         }),
         updateProject: withUserAuthorization(async (parent, { id, ...args }, context) => {
-            return await context.db.project.update({
+            const project = await context.db.project.update({
                 where: { id, ownerId: context.profile.id },
-                data: args
+                data: args,
+                include: { owner: true, likes: true, comments: { include: { profile: true } }, layers: true }
             });
+
+            sortLayers(project?.layers, project?.layerOrder);
+
+            return project;
         }),
         deleteProject: withUserAuthorization(async (parent, args, context) => {
             const project = await context.db.project.delete({
@@ -164,16 +189,30 @@ export const resolvers: IResolvers<any, Context> = {
                 return new ApolloError({ errorMessage: 'User Authorization failed' });
             }
 
-            return await context.db.layer.create({
-                data: {
-                    name: 'Untitled',
-                    type: args.type,
-                    index: args.index,
-                    projectId: args.projectId,
-                    [args.type === 'FRAGMENT' ? 'fragment' : 'circuit']:
-                        args.type === 'FRAGMENT' ? args.fragment : args.circuit
-                }
+            const layer = await context.db.$transaction(async tx => {
+                const layer = await tx.layer.create({
+                    data: {
+                        name: 'Untitled',
+                        type: args.type,
+                        projectId: args.projectId,
+                        [args.type === 'FRAGMENT' ? 'fragment' : 'circuit']:
+                            args.type === 'FRAGMENT' ? args.fragment : args.circuit
+                    }
+                });
+
+                await tx.project.update({
+                    where: { id: args.projectId },
+                    data: {
+                        layerOrder: {
+                            push: layer.id
+                        }
+                    }
+                });
+
+                return layer;
             });
+
+            return layer;
         }),
         updateLayer: withUserAuthorization(async (parent, { id, projectId, ...args }, context) => {
             const project = await context.db.project.findUnique({ where: { id: projectId } });
