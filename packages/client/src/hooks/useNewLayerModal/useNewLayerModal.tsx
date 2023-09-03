@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { CodeOutlined, RouteOutlined, StreamOutlined } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import { NEW_LAYER_MODAL_ID } from '../../constants/modals';
@@ -33,14 +34,27 @@ const SelectionBox = ({
 const NewLayerModalContent = () => {
     const { projectId } = useProject();
     const modal = React.useContext(ModalContext);
+    const router = useRouter();
 
     const [createLayer] = useMutation(CREATE_LAYER_MUTATION, {
         refetchQueries: [{ query: PROJECT_QUERY, variables: { id: projectId } }]
     });
 
-    const handleCreateCircuitProject = React.useCallback(() => {
+    const updateActiveLayerId = React.useCallback(
+        (id: string) => {
+            router.replace({
+                query: {
+                    ...router.query,
+                    activeLayerId: id
+                }
+            });
+        },
+        [router]
+    );
+
+    const handleCreateCircuitProject = React.useCallback(async () => {
         if (projectId) {
-            createLayer({
+            const { data = { createLayer: undefined } } = await createLayer({
                 variables: {
                     projectId: projectId,
                     type: LayerType.Circuit,
@@ -48,13 +62,15 @@ const NewLayerModalContent = () => {
                 }
             });
 
+            updateActiveLayerId(data?.createLayer?.id || '');
+
             modal.close(NEW_LAYER_MODAL_ID);
         }
-    }, [createLayer, modal, projectId]);
+    }, [createLayer, modal, projectId, updateActiveLayerId]);
 
-    const handleCreateSourceProject = React.useCallback(() => {
+    const handleCreateSourceProject = React.useCallback(async () => {
         if (projectId) {
-            createLayer({
+            const { data = { createLayer: undefined } } = await createLayer({
                 variables: {
                     projectId: projectId,
                     type: LayerType.Fragment,
@@ -62,9 +78,11 @@ const NewLayerModalContent = () => {
                 }
             });
 
+            updateActiveLayerId(data?.createLayer?.id || '');
+
             modal.close(NEW_LAYER_MODAL_ID);
         }
-    }, [createLayer, projectId, modal]);
+    }, [projectId, createLayer, updateActiveLayerId, modal]);
 
     return (
         <div className="flex flex-col justify-center items-center">

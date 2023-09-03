@@ -12,6 +12,7 @@ export interface Project {
     name: string;
     image: string;
     layers: Layer[];
+    layerOrder: string[];
     uniforms: Uniform[];
     owner: Owner;
     visibility: 'PUBLIC' | 'PRIVATE';
@@ -29,6 +30,7 @@ export const ProjectSchema: z.ZodType<Project> = z.lazy(() =>
         name: z.string(),
         image: z.string(),
         layers: z.array(LayerSchema),
+        layerOrder: z.array(z.string()),
         uniforms: z.array(UniformSchema),
         owner: OwnerSchema,
         visibility: ProjectVisibilitySchema,

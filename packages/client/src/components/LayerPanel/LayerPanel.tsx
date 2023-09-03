@@ -264,9 +264,17 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
     const handleRemoveLayer = useCallback(() => {
         if (activeLayerId) {
             deleteLayer({ variables: { id: activeLayerId } });
+
+            const query = router.query;
+            delete query.activeLayerId;
+
+            router.replace({
+                query
+            });
+
             toggleContextMenu(false);
         }
-    }, [activeLayerId, deleteLayer]);
+    }, [activeLayerId, deleteLayer, router]);
 
     return (
         <div className="flex flex-col shrink-0 grow">
