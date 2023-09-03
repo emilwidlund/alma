@@ -56,12 +56,11 @@ export const DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT = {
                 data: { position: { x: -802, y: 240 } },
                 inputs: {},
                 outputs: {
-                    aspectCorrected: {
+                    uv: {
                         id: '4eddd22e-f245-4b7a-b447-651b2f913876',
-                        name: 'Aspect Corrected',
+                        name: 'UV',
                         type: 'vec2'
                     },
-                    uv: { id: '75478c57-926d-47ea-8713-d1ddeab4a4f2', name: 'UV', type: 'vec2' },
                     fragCoord: { id: 'aab11ca5-c503-499e-9f9e-8dd70c32940c', name: 'Frag Coord', type: 'vec4' }
                 }
             }
@@ -185,7 +184,7 @@ export const DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT = {
             '5dd32fa7-af4f-4207-9e34-0b176cdbcb50',
             {
                 id: '5dd32fa7-af4f-4207-9e34-0b176cdbcb50',
-                from: '75478c57-926d-47ea-8713-d1ddeab4a4f2',
+                from: '4eddd22e-f245-4b7a-b447-651b2f913876',
                 to: 'e4ea6634-e63f-4c98-a508-14dbd3f73fc8'
             }
         ],

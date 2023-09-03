@@ -67,10 +67,10 @@ const NodePorts = observer(() => {
         })
         .filter(Boolean);
 
-    return inputControls.length ? (
-        <div className="p-6 border-t border-neutral-500">
+    return !!inputControls.length || selectedNode?.data.type ? (
+        <div className="p-6 border-t border-b border-neutral-500">
             <h3 className="text-md font-medium mb-6 text-slate-400">Inputs</h3>
-            {selectedNode && (!!inputControls.length || selectedNode.data.type) && (
+            {selectedNode && (
                 <div>
                     {selectedNode.data.type && <TypeControl node={selectedNode} />}
                     {!!inputControls.length && inputControls}
@@ -105,10 +105,8 @@ export const PropertyPanel = observer(() => {
             <div className="relative flex flex-col p-6 pt-12">
                 <canvas ref={canvasRef} className="rounded-2xl bg-black" width="285" height="180" />
             </div>
-            <div className="border-b border-neutral-500">
-                <NodeInfo />
-                <NodePorts />
-            </div>
+            <NodeInfo />
+            <NodePorts />
             <div className="flex flex-col p-6 grow-1 h-full">
                 <h3 className="text-md font-medium mb-6 text-slate-400">Layers</h3>
                 {project && <LayerPanel layers={layers} />}

@@ -64,7 +64,7 @@ const EditorContainer = () => {
 
     useEffect(() => {
         if (!activeLayerId) {
-            const activeLayerIdCanditate = project?.layers[0]?.id;
+            const activeLayerIdCanditate = project?.layers[project.layers.length - 1]?.id;
 
             if (activeLayerIdCanditate) {
                 router.replace({

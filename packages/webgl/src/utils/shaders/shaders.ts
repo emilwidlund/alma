@@ -17,11 +17,6 @@ import {
     Vec4Term
 } from '@thi.ng/shader-ast';
 
-export const aspectCorrectedUV = defn('vec2', 'aspectCorrectedUV', ['vec2', 'vec2'], (pos, res) => {
-    let uv;
-    return [(uv = sym(div(pos, res))), assign($x(uv), mul($x(uv), div($x(res), $y(res)))), ret(uv)];
-});
-
 export const fragUV = (fragCoord: Vec4Term, res: Vec2Term) => div($xy(fragCoord), res);
 
 export const aspectCorrectedTextureUV = defn(

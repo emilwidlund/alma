@@ -55,7 +55,7 @@ export const VectorControl = observer(({ port }: VectorControlProps) => {
                 {components.map((component: number, index: number) => (
                     <Input
                         key={index}
-                        className="w-16 min-w-0 flex-shrink"
+                        className="w-12 min-w-0 flex-shrink"
                         placeholder={vectorLabels[index]}
                         onChange={createOnChangeHandler(vectorLabels[index])}
                         value={component}
