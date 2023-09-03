@@ -107,6 +107,8 @@ export * from './models/CameraManager/CameraManager';
 export * from './models/CameraManager/CameraManager.types';
 export * from './models/TextureManager/TextureManager';
 export * from './models/TextureManager/TextureManager.types';
+export * from './glsl/Processor/Processor';
+export * from './glsl/Processor/Processor.types';
 
 /** Common Nodes */
 export * from './nodes/common/ModuloNode/ModuloNode';

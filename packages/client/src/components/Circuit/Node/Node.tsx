@@ -37,7 +37,7 @@ export const Node = observer(
                 }
             );
 
-            const nodeActionsClassNames = clsx('transition-opacity', {
+            const nodeActionsClassNames = clsx('flex flex-row nowrap gap-x-2 align-center transition-opacity', {
                 'opacity-0': !(isHovered || active),
                 'opacity-100': isHovered || active
             });
@@ -119,8 +119,8 @@ export const Node = observer(
 );
 
 // eslint-disable-next-line react/display-name
-const NodeAction = React.memo(({ onClick }: NodeActionProps) => {
-    return <div className="w-2 h-2 rounded bg-red-500 hover:opacity-50 transition-opacity" onClick={onClick} />;
+const NodeAction = React.memo(({ color, onClick }: NodeActionProps) => {
+    return <div className={`w-2 h-2 rounded hover:opacity-50 transition-opacity ${color}`} onClick={onClick} />;
 });
 
 // eslint-disable-next-line react/display-name

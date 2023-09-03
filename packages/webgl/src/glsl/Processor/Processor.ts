@@ -35,7 +35,7 @@ export class Processor {
     parse(source: string): IParsedFunctionDeclaration[] {
         const functions: IParsedFunctionDeclaration[] = [];
 
-        const ast = parse(source);
+        const ast = parse(source, { failOnWarn: true, includeLocation: true });
 
         visit(ast, {
             function: this.function(functions)

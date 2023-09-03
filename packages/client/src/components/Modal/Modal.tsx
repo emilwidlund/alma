@@ -35,12 +35,16 @@ export const Modal = ({ modal: { title, children, actions, id }, onClose }: Moda
                     initial={{ opacity: 0, transform: 'translateY(-10px)' }}
                     animate={{ opacity: 1, transform: 'translateY(0)' }}
                 >
-                    <div className="flex justify-end pt-8 pr-8">
-                        <div className="hover:text-slate-300 transition-colors cursor-pointer" onClick={onClose}>
+                    <div className="relative pt-8 pr-8">
+                        <div className="absolute text-lg text-center w-full font-medium text-slate-300">{title}</div>
+                        <div
+                            className="absolute right-8 hover:text-slate-300 transition-colors cursor-pointer z-10"
+                            onClick={onClose}
+                        >
                             <CloseOutlined />
                         </div>
                     </div>
-                    <div className="relative flex flex-col pt-8 pb-24 max-h-96 overflow-y-auto">{children}</div>
+                    <div className="relative flex flex-col pt-12 pb-4 max-h-96 overflow-y-auto">{children}</div>
                     {actions && (
                         <div className="flex flex-row justify-center items-center py-8 px-12 border-t border-neutral-500 [&>*]:mr-4 [&>*:last-child]:mr-0">
                             {actions.map((action, index) => (
