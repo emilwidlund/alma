@@ -172,7 +172,7 @@ export const CircuitContainer = observer(
                             }
                         });
                     }
-                }, 200)
+                }, 500)
             );
 
             return () => {

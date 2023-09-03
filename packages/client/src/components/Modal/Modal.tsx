@@ -44,7 +44,7 @@ export const Modal = ({ modal: { title, children, actions, id }, onClose }: Moda
                             <CloseOutlined />
                         </div>
                     </div>
-                    <div className="relative flex flex-col pt-12 pb-4 max-h-96 overflow-y-auto">{children}</div>
+                    <div className="relative flex flex-col pt-14 pb-4 max-h-96 overflow-y-auto">{children}</div>
                     {actions && (
                         <div className="flex flex-row justify-center items-center py-8 px-12 border-t border-neutral-500 [&>*]:mr-4 [&>*:last-child]:mr-0">
                             {actions.map((action, index) => (

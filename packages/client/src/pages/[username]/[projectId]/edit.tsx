@@ -5,7 +5,8 @@ import { Session } from '@supabase/auth-helpers-nextjs';
 import { Project } from '@usealma/types';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
-import { useMemo, useRef } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useMemo, useRef } from 'react';
 
 import { graphql } from '~/apollo/generated';
 import { Banner } from '~/components/Banner/Banner';
@@ -21,8 +22,19 @@ import { ProjectProvider, useProject } from '~/providers/ProjectProvider/Project
 export type EditorProps = { initialSession: Session; project: Project };
 
 const editorContainerQuery = graphql(`
-    query EditorContainer($id: ID!) {
-        layer(id: $id) {
+    query EditorContainer($projectId: ID!, $layerId: ID!) {
+        project(id: $projectId) {
+            id
+            layers {
+                ... on CircuitLayer {
+                    id
+                }
+                ... on FragmentLayer {
+                    id
+                }
+            }
+        }
+        layer(id: $layerId) {
             ... on CircuitLayer {
                 id
                 type
@@ -37,13 +49,33 @@ const editorContainerQuery = graphql(`
 
 const EditorContainer = () => {
     const circuitRef = useRef<HTMLDivElement>(null);
-    const { activeLayerId, circuits, compilationError } = useProject();
+    const { projectId, activeLayerId, circuits, compilationError } = useProject();
+    const router = useRouter();
 
-    const { data: { layer: activeLayer } = { layer: undefined } } = useQuery(editorContainerQuery, {
-        variables: {
-            id: activeLayerId || ''
+    const { data: { project, layer: activeLayer } = { project: undefined, layer: undefined } } = useQuery(
+        editorContainerQuery,
+        {
+            variables: {
+                projectId,
+                layerId: activeLayerId || ''
+            }
         }
-    });
+    );
+
+    useEffect(() => {
+        if (!activeLayerId) {
+            const activeLayerIdCanditate = project?.layers[0]?.id;
+
+            if (activeLayerIdCanditate) {
+                router.replace({
+                    query: {
+                        ...router.query,
+                        activeLayerId: activeLayerIdCanditate
+                    }
+                });
+            }
+        }
+    }, [activeLayerId, project, projectId, router]);
 
     const shouldRenderCircuit = useMemo(() => activeLayer?.type === 'CIRCUIT', [activeLayer]);
     const shouldRenderEditor = useMemo(() => activeLayer?.type === 'FRAGMENT', [activeLayer]);

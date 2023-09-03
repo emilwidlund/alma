@@ -65,7 +65,9 @@ export const GLSLModalContent = ({ content: defaultContent, onSave, onCancel }: 
 
     return (
         <div className="flex flex-col h-96">
-            <p className="w-full text-center">The defined GLSL function will be parsed into a Node</p>
+            <p className="text-center mb-4 mx-auto w-96 leading-normal">
+                Provide a GLSL function. Arguments and return type will be inferred automatically on the resulted node.
+            </p>
             <CodeEditor value={content} onChange={onChange} />
         </div>
     );

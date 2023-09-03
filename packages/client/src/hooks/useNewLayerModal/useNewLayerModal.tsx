@@ -85,8 +85,7 @@ const NewLayerModalContent = () => {
     }, [projectId, createLayer, updateActiveLayerId, modal]);
 
     return (
-        <div className="flex flex-col justify-center items-center pb-24">
-            <h1 className="text-xl font-medium mb-4 text-slate-100">New Layer</h1>
+        <div className="flex flex-col justify-center items-center pb-12">
             <p>Select which kind of layer you would like to create</p>
             <div className="flex flex-row items-center mt-12 flex-wrap gap-x-6">
                 <SelectionBox icon={RouteOutlined} title="Circuit" onClick={handleCreateCircuitProject} />
@@ -102,7 +101,7 @@ export const useNewLayerModal = () => {
     const open = React.useCallback(() => {
         modal.queue({
             id: NEW_LAYER_MODAL_ID,
-            title: '',
+            title: 'New Layer',
             children: <NewLayerModalContent />
         });
     }, [modal]);

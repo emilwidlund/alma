@@ -313,7 +313,7 @@ export const LayerPanel = ({ layers }: LayerPanelProps) => {
                                     ]
                                 }
                             ]}
-                            position={{ x: -160, y: 40 }}
+                            position={{ x: -167, y: -90 }}
                             onClose={() => toggleContextMenu(false)}
                         />
                     )}
