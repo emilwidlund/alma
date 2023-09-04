@@ -1,9 +1,10 @@
-import { INodeProps, IOutputProps, Output } from '@usealma/graph';
+import { IInputProps, INodeProps, Input, IOutputProps, Output } from '@usealma/graph';
 
 import { UVNode } from './UVNode';
 
 export interface IUVNodeInputs {
-    [key: string]: never;
+    [key: string]: Input<'bool', UVNode>;
+    center: Input<'bool', UVNode>;
 }
 
 export interface IUVNodeOutputs {
@@ -13,6 +14,9 @@ export interface IUVNodeOutputs {
 }
 
 export interface IUVNodeProps extends INodeProps {
+    inputs?: {
+        center?: IInputProps<'bool'>;
+    };
     outputs?: {
         uv?: IOutputProps<'vec2'>;
         fragCoord?: IOutputProps<'vec4'>;

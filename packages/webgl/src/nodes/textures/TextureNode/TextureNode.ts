@@ -16,7 +16,7 @@ export class TextureNode extends Node {
 
     declare inputs: ITextureNodeInputs;
     declare outputs: ITextureNodeOutputs;
-    data: ITextureNodeData;
+    declare data: ITextureNodeData;
     textureId!: string;
     texture!: Texture;
 

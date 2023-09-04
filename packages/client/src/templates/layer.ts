@@ -54,7 +54,14 @@ export const DEFAULT_NEW_CIRCUIT_LAYER_CONTEXT = {
                 name: 'UV',
                 type: 'UV',
                 data: { position: { x: -802, y: 240 } },
-                inputs: {},
+                inputs: {
+                    center: {
+                        id: '4b1d7a5b-55b1-4e8f-8252-57d5a948gb6c',
+                        name: 'Center',
+                        type: 'bool',
+                        defaultValue: { tag: 'lit', type: 'bool', val: false }
+                    }
+                },
                 outputs: {
                     uv: {
                         id: '4eddd22e-f245-4b7a-b447-651b2f913876',

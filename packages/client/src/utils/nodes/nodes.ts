@@ -72,6 +72,7 @@ export const nodesHierarchy: (
 ) => ContextMenuContainerSection[] = createNodeCallback => [
     {
         items: [
+            extractItem(createNodeCallback)(GLSLNode),
             {
                 icon: 'shapes',
                 label: 'Common',
@@ -89,8 +90,7 @@ export const nodesHierarchy: (
                             CeilNode,
                             ClampNode,
                             StepNode,
-                            SmoothstepNode,
-                            GLSLNode
+                            SmoothstepNode
                         ].map(extractItem(createNodeCallback))
                     }
                 ]
