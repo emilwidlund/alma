@@ -34,39 +34,6 @@ export interface Database {
   }
   public: {
     Tables: {
-      _prisma_migrations: {
-        Row: {
-          applied_steps_count: number
-          checksum: string
-          finished_at: string | null
-          id: string
-          logs: string | null
-          migration_name: string
-          rolled_back_at: string | null
-          started_at: string
-        }
-        Insert: {
-          applied_steps_count?: number
-          checksum: string
-          finished_at?: string | null
-          id: string
-          logs?: string | null
-          migration_name: string
-          rolled_back_at?: string | null
-          started_at?: string
-        }
-        Update: {
-          applied_steps_count?: number
-          checksum?: string
-          finished_at?: string | null
-          id?: string
-          logs?: string | null
-          migration_name?: string
-          rolled_back_at?: string | null
-          started_at?: string
-        }
-        Relationships: []
-      }
       Comment: {
         Row: {
           createdAt: string
@@ -115,7 +82,6 @@ export interface Database {
           enabled: boolean
           fragment: string | null
           id: string
-          index: number
           name: string
           projectId: string
           type: Database["public"]["Enums"]["LayerType"]
@@ -128,7 +94,6 @@ export interface Database {
           enabled?: boolean
           fragment?: string | null
           id: string
-          index: number
           name: string
           projectId: string
           type: Database["public"]["Enums"]["LayerType"]
@@ -141,7 +106,6 @@ export interface Database {
           enabled?: boolean
           fragment?: string | null
           id?: string
-          index?: number
           name?: string
           projectId?: string
           type?: Database["public"]["Enums"]["LayerType"]
@@ -232,7 +196,9 @@ export interface Database {
       Project: {
         Row: {
           createdAt: string
+          description: string | null
           id: string
+          layerOrder: string[] | null
           name: string
           originId: string | null
           ownerId: string
@@ -241,7 +207,9 @@ export interface Database {
         }
         Insert: {
           createdAt?: string
+          description?: string | null
           id: string
+          layerOrder?: string[] | null
           name: string
           originId?: string | null
           ownerId: string
@@ -250,7 +218,9 @@ export interface Database {
         }
         Update: {
           createdAt?: string
+          description?: string | null
           id?: string
+          layerOrder?: string[] | null
           name?: string
           originId?: string | null
           ownerId?: string
