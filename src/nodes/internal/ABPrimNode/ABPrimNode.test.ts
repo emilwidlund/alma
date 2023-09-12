@@ -4,7 +4,8 @@ import {ABPrimNode} from './ABPrimNode';
 
 describe('AB Prim', () => {
     it('should initialize with correct values', () => {
-        const abPrim = new ABPrimNode();
+        class TestABPrimNode extends ABPrimNode {}
+        const abPrim = new TestABPrimNode();
 
         expect(typeof abPrim.id).toEqual('string');
         expect(abPrim.name).toEqual('AB Prim Node');

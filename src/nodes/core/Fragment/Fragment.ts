@@ -4,8 +4,8 @@ import { GLSLTarget } from '@thi.ng/shader-ast-glsl';
 
 import { Vec4Schema } from '../../../schemas/Vec4/Vec4';
 
-export class Root extends Node {
-    name = 'Root';
+export class Fragment extends Node {
+    name = 'Fragment';
 
     uniforms = {};
     ins = {};

@@ -3,7 +3,7 @@ import { float, Prim, Term } from '@thi.ng/shader-ast';
 
 import { PrimSchema } from '../../../schemas/Prim/Prim';
 
-export class ABPrimNode extends Node {
+export abstract class ABPrimNode extends Node {
     name = 'AB Prim Node';
 
     inputs = {

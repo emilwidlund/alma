@@ -1,5 +1,5 @@
 import { GLSLVersion } from '@thi.ng/shader-ast-glsl';
-import {Root} from '../nodes/common/Root/Root';
+import {Fragment} from '../nodes/common/Fragment/Fragment';
 import {Vector4} from '../nodes/vectors/Vector4/Vector4';
 import {Addition} from '../nodes/math/Addition/Addition';
 import {compile} from './Compiler';
@@ -7,8 +7,8 @@ import { float } from '@thi.ng/shader-ast';
 
 describe('Compiler', () => {
     it('should produce valid GLSL code', () => {
-        const rootNode = new Root();
-        const compiledOutput = compile(rootNode, {}, GLSLVersion.GLES_300);
+        const fragmentNode = new Fragment();
+        const compiledOutput = compile(fragmentNode, {}, GLSLVersion.GLES_300);
 
         expect(compiledOutput).toMatchSnapshot();
     });
@@ -17,7 +17,7 @@ describe('Compiler', () => {
         const a = new Vector4();
         const b = new Vector4();
         const add = new Addition();
-        const rootNode = new Root();
+        const fragmentNode = new Fragment();
 
         a.inputs.x.next(float(.3));
         a.inputs.y.next(float(.5));
@@ -30,9 +30,9 @@ describe('Compiler', () => {
 
         a.outputs.output.connect(add.inputs.a);
         b.outputs.output.connect(add.inputs.b);
-        add.outputs.output.connect(rootNode.inputs.color);
+        add.outputs.output.connect(fragmentNode.inputs.color);
 
-        const compiledOutput = compile(rootNode, {}, GLSLVersion.GLES_300);
+        const compiledOutput = compile(fragmentNode, {}, GLSLVersion.GLES_300);
 
         expect(compiledOutput).toMatchSnapshot();
     });
