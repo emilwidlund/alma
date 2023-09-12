@@ -12,7 +12,7 @@ describe('Vector 2', () => {
         expect(vector.inputs.y).toBeDefined();
         expect(vector.outputs.output).toBeDefined();
     });
-
+    
     it('should compute properly', () => {
         const vector = new Vector2();
 

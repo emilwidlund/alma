@@ -1,5 +1,5 @@
 import { Input, Node, Output } from '@nodl/core';
-import { float, vec3, vec4 } from '@thi.ng/shader-ast';
+import { float, Prim, Term, Vec, vec3, vec4 } from '@thi.ng/shader-ast';
 import { combineLatest, map } from 'rxjs';
 
 import { FloatSchema } from '../../../schemas/Float/Float';
@@ -30,7 +30,7 @@ export class Vector4 extends Node {
             defaultValue: float(1)
         })
     }
-
+    
     outputs = {
         output: new Output({
             name: 'Output',
