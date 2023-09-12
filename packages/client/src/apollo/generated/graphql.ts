@@ -168,7 +168,6 @@ export type Profile = {
   projects: Array<Maybe<Project>>;
   subscription?: Maybe<Subscription>;
   updatedAt: Scalars['Date']['output'];
-  userId: Scalars['String']['output'];
   username: Scalars['String']['output'];
   website?: Maybe<Scalars['String']['output']>;
 };

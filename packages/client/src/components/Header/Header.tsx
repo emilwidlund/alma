@@ -4,52 +4,30 @@ import { clsx } from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Script from 'next/script';
 
 import { HeaderNavigationLinkProps } from './Header.types';
 import { Avatar } from '../Avatar/Avatar';
-
 import { Database } from '@/lib/database.types';
 import { Size } from '~/types';
 
 const supabase = createClientComponentClient<Database>();
-async function handleSignInWithGoogle({ credential }: { credential: string }) {
-    await supabase.auth.signInWithIdToken({
-        provider: 'google',
-        token: credential
+
+async function signInWithGitHub() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'github'
     });
 }
 
-global.handleSignInWithGoogle = handleSignInWithGoogle;
+global.signInWithGitHub = signInWithGitHub;
 
 export default function Header() {
     const session = useSession();
     const authSection = session ? (
         <Link href="/profile">
-            <Avatar size={Size.SM} source={session.user.user_metadata.picture} />
+            <Avatar size={Size.SM} source={session.user.user_metadata.avatar_url} />
         </Link>
     ) : (
-        <>
-            <Script src="https://accounts.google.com/gsi/client" async defer></Script>
-            <div
-                id="g_id_onload"
-                data-client_id="86219534501-b0qri9b7168frrlispegvsarkmt5gmm6.apps.googleusercontent.com"
-                data-context="signin"
-                data-ux_mode="popup"
-                data-callback="handleSignInWithGoogle"
-                data-auto_select="true"
-                data-itp_support="true"
-            ></div>
-            <div
-                className="g_id_signin"
-                data-type="standard"
-                data-shape="pill"
-                data-theme="outline"
-                data-text="signin_with"
-                data-size="large"
-                data-logo_alignment="left"
-            ></div>
-        </>
+        <button onClick={signInWithGitHub}>Login</button>
     );
 
     return (

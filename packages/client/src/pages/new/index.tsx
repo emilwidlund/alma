@@ -23,7 +23,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         };
     }
 
-    const profile = await prisma.profile.findUnique({ where: { userId: session?.user.id } });
+    const profile = await prisma.profile.findUnique({ where: { id: session?.user.id } });
 
     if (!profile) {
         return {
@@ -37,7 +37,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const project = await prisma.project.create({
         data: {
             name: 'Untitled',
-            ownerId: profile.id,
+            profileId: profile.id,
             layers: {
                 create: [
                     {

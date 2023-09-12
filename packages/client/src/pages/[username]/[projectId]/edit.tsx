@@ -96,36 +96,38 @@ const EditorContainer = () => {
 
     return (
         <CircuitProvider context={circuit}>
-            <main className="flex flex-row h-screen">
-                <div className="relative flex flex-col flex-grow">
-                    <EditorHeader />
-                    <div className="relative flex flex-row flex-grow items-center">
-                        <ProjectTabsContainer />
-                        <main className="relative flex flex-col items-center justify-center grow w-full h-full overflow-auto">
-                            {shouldRenderCircuit && (
-                                <div className={circuitContainerClassNames}>
-                                    <CircuitContainer ref={circuitRef} />
-                                </div>
-                            )}
-                            {shouldRenderEditor && (
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    className={fragmentEditorContainerClassNames}
-                                >
-                                    <FragmentEditor />
-                                </motion.div>
-                            )}
-                            {compilationError && (
-                                <div className="fixed bottom-8 mx-auto">
-                                    <Banner text={compilationError} />
-                                </div>
-                            )}
-                        </main>
+            <ModalProvider>
+                <main className="flex flex-row h-screen">
+                    <div className="relative flex flex-col flex-grow">
+                        <EditorHeader />
+                        <div className="relative flex flex-row flex-grow items-center">
+                            <ProjectTabsContainer />
+                            <main className="relative flex flex-col items-center justify-center grow w-full h-full overflow-auto">
+                                {shouldRenderCircuit && (
+                                    <div className={circuitContainerClassNames}>
+                                        <CircuitContainer ref={circuitRef} />
+                                    </div>
+                                )}
+                                {shouldRenderEditor && (
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        className={fragmentEditorContainerClassNames}
+                                    >
+                                        <FragmentEditor />
+                                    </motion.div>
+                                )}
+                                {compilationError && (
+                                    <div className="fixed bottom-8 mx-auto">
+                                        <Banner text={compilationError} />
+                                    </div>
+                                )}
+                            </main>
+                        </div>
                     </div>
-                </div>
-                <PropertyPanel />
-            </main>
+                    <PropertyPanel />
+                </main>
+            </ModalProvider>
         </CircuitProvider>
     );
 };
@@ -133,9 +135,7 @@ const EditorContainer = () => {
 export default function Editor() {
     return (
         <ProjectProvider>
-            <ModalProvider>
-                <EditorContainer />
-            </ModalProvider>
+            <EditorContainer />
         </ProjectProvider>
     );
 }

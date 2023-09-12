@@ -1,11 +1,10 @@
 import * as React from 'react';
 
 import { ProfileContainerProps } from './ProfileContainer.types';
-
 import { Avatar } from '~/components/Avatar/Avatar';
 import { Button } from '~/components/Button/Button';
 import { Spinner } from '~/components/Spinner/Spinner';
-import { useRelationshipAction } from '~/hooks/useRelationshipAction/useRelationshipAction';
+import { useProfileAction } from '~/hooks/useProfileAction/useProfileAction';
 import { Size } from '~/types';
 import { prettifyURL } from '~/utils/urls/urls';
 
@@ -18,7 +17,7 @@ export const ProfileContainer = ({
     website,
     loading
 }: ProfileContainerProps) => {
-    const relationshipAction = useRelationshipAction(profileId);
+    const profileAction = useProfileAction(profileId);
 
     return (
         <div className="relative">
@@ -37,7 +36,7 @@ export const ProfileContainer = ({
                             {prettifyURL(website)}
                         </a>
                     )}
-                    {relationshipAction && <Button className="w-full justify-center mt-12" {...relationshipAction} />}
+                    {profileAction && <Button className="w-full justify-center mt-12" {...profileAction} />}
                 </div>
             )}
         </div>

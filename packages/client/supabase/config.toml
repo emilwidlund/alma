@@ -50,10 +50,10 @@ jwt_expiry = 3600
 enable_signup = true
 # Use an external OAuth provider. The full list of providers are: `apple`, `azure`, `bitbucket`,
 # `discord`, `facebook`, `github`, `gitlab`, `google`, `twitch`, `twitter`, `slack`, `spotify`.
-[auth.external.google]
+[auth.external.github]
 enabled = true
-client_id = "86219534501-b0qri9b7168frrlispegvsarkmt5gmm6.apps.googleusercontent.com"
-secret = "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"
+client_id = "e462c022cddedd10c9bf"
+secret = "99885d5674e4aca13958582b9398f76660a820b8"
 
 [auth.email]
 # Allow/disallow new user signups via email to your project.

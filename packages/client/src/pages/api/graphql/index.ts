@@ -27,7 +27,7 @@ export default startServerAndCreateNextHandler<NextApiRequest, Context>(apolloSe
             res,
             db: prisma,
             profile: await prisma.profile.findFirst({
-                where: { userId: user?.id }
+                where: { id: user?.id }
             })
         };
     }

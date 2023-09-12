@@ -8,6 +8,11 @@ module.exports = {
     ],
     theme: {
         extend: {
+            height: {
+                112: '32rem',
+                128: '64rem',
+                256: '84rem'
+            },
             width: {
                 96: '22rem',
                 112: '32rem',

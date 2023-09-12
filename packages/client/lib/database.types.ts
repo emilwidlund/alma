@@ -165,7 +165,6 @@ export interface Database {
           image: string | null
           location: string | null
           updatedAt: string
-          userId: string
           username: string
           website: string | null
         }
@@ -176,7 +175,6 @@ export interface Database {
           image?: string | null
           location?: string | null
           updatedAt?: string
-          userId: string
           username: string
           website?: string | null
         }
@@ -187,7 +185,6 @@ export interface Database {
           image?: string | null
           location?: string | null
           updatedAt?: string
-          userId?: string
           username?: string
           website?: string | null
         }
@@ -201,7 +198,7 @@ export interface Database {
           layerOrder: string[] | null
           name: string
           originId: string | null
-          ownerId: string
+          profileId: string
           updatedAt: string
           visibility: Database["public"]["Enums"]["ProjectVisibility"]
         }
@@ -212,7 +209,7 @@ export interface Database {
           layerOrder?: string[] | null
           name: string
           originId?: string | null
-          ownerId: string
+          profileId: string
           updatedAt?: string
           visibility?: Database["public"]["Enums"]["ProjectVisibility"]
         }
@@ -223,7 +220,7 @@ export interface Database {
           layerOrder?: string[] | null
           name?: string
           originId?: string | null
-          ownerId?: string
+          profileId?: string
           updatedAt?: string
           visibility?: Database["public"]["Enums"]["ProjectVisibility"]
         }
@@ -235,8 +232,8 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "Project_ownerId_fkey"
-            columns: ["ownerId"]
+            foreignKeyName: "Project_profileId_fkey"
+            columns: ["profileId"]
             referencedRelation: "Profile"
             referencedColumns: ["id"]
           }

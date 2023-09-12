@@ -1,10 +1,12 @@
 import { useMutation, useQuery } from '@apollo/client';
 
+import { useEditProfileModal } from '../useEditProfileModal/useEditProfileModal';
 import { FOLLOW_PROFILE_MUTATION, UNFOLLOW_PROFILE_MUTATION } from '~/apollo/mutations';
 import { ME_QUERY } from '~/apollo/queries';
 import { ButtonProps, ButtonVariant } from '~/components/Button/Button.types';
 
-export const useRelationshipAction = (profileId: string): ButtonProps | undefined => {
+export const useProfileAction = (profileId: string): ButtonProps | undefined => {
+    const { open: openEditProfileModal } = useEditProfileModal();
     const { data = { me: undefined } } = useQuery(ME_QUERY);
     const [followProfile] = useMutation(FOLLOW_PROFILE_MUTATION, {
         variables: {
@@ -19,8 +21,16 @@ export const useRelationshipAction = (profileId: string): ButtonProps | undefine
         refetchQueries: [ME_QUERY]
     });
 
-    if (!data.me || data.me.id === profileId) {
+    if (!data.me) {
         return;
+    }
+
+    if (data.me.id === profileId) {
+        return {
+            children: 'Edit Profile',
+            variant: ButtonVariant.SECONDARY,
+            onClick: () => openEditProfileModal()
+        };
     }
 
     if (data.me?.following?.find(relationship => relationship?.targetProfile.id === profileId)) {

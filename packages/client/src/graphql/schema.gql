@@ -3,7 +3,6 @@ scalar GraphQLJSON
 
 type Profile {
     id: ID!
-    userId: String!
     username: String!
     image: String
     location: String

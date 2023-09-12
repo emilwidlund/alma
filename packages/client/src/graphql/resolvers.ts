@@ -58,7 +58,7 @@ export const resolvers: IResolvers<any, Context> = {
         },
         projects: async (parent, args, context) => {
             const projects = await context.db.project.findMany({
-                where: { ownerId: args.profileId, visibility: 'PUBLIC' },
+                where: { profileId: args.profileId, visibility: 'PUBLIC' },
                 include: { owner: true, likes: true, comments: { include: { profile: true } }, layers: true }
             });
 
@@ -71,7 +71,7 @@ export const resolvers: IResolvers<any, Context> = {
                 where: {
                     OR: [
                         { id: args.id, project: { visibility: 'PUBLIC' } },
-                        { id: args.id, project: { ownerId: context.profile.id } }
+                        { id: args.id, project: { profileId: context.profile.id } }
                     ]
                 }
             });
@@ -155,7 +155,7 @@ export const resolvers: IResolvers<any, Context> = {
             const project = await context.db.project.create({
                 data: {
                     name: 'Untitled',
-                    ownerId: context.profile.id
+                    profileId: context.profile.id
                 },
                 include: { owner: true, likes: true, comments: { include: { profile: true } }, layers: true }
             });
@@ -166,7 +166,7 @@ export const resolvers: IResolvers<any, Context> = {
         }),
         updateProject: withUserAuthorization(async (parent, { id, ...args }, context) => {
             const project = await context.db.project.update({
-                where: { id, ownerId: context.profile.id },
+                where: { id, profileId: context.profile.id },
                 data: args,
                 include: { owner: true, likes: true, comments: { include: { profile: true } }, layers: true }
             });
@@ -177,7 +177,7 @@ export const resolvers: IResolvers<any, Context> = {
         }),
         deleteProject: withUserAuthorization(async (parent, args, context) => {
             const project = await context.db.project.delete({
-                where: { id: args.id, ownerId: context.profile.id }
+                where: { id: args.id, profileId: context.profile.id }
             });
 
             return !!project;
@@ -185,7 +185,7 @@ export const resolvers: IResolvers<any, Context> = {
         createLayer: withUserAuthorization(async (parent, args, context) => {
             const project = await context.db.project.findUnique({ where: { id: args.projectId } });
 
-            if (project?.ownerId !== context.profile.id) {
+            if (project?.profileId !== context.profile.id) {
                 return new ApolloError({ errorMessage: 'User Authorization failed' });
             }
 
@@ -217,7 +217,7 @@ export const resolvers: IResolvers<any, Context> = {
         updateLayer: withUserAuthorization(async (parent, { id, projectId, ...args }, context) => {
             const project = await context.db.project.findUnique({ where: { id: projectId } });
 
-            if (project?.ownerId !== context.profile.id) {
+            if (project?.profileId !== context.profile.id) {
                 return new ApolloError({ errorMessage: 'User Authorization failed' });
             }
 
@@ -226,7 +226,7 @@ export const resolvers: IResolvers<any, Context> = {
                     id,
                     projectId,
                     project: {
-                        ownerId: context.profile.id
+                        profileId: context.profile.id
                     }
                 },
                 data: args
@@ -234,7 +234,7 @@ export const resolvers: IResolvers<any, Context> = {
         }),
         deleteLayer: withUserAuthorization(async (parent, args, context) => {
             const layer = await context.db.layer.delete({
-                where: { id: args.id, project: { ownerId: context.profile.id } }
+                where: { id: args.id, project: { profileId: context.profile.id } }
             });
 
             return !!layer;

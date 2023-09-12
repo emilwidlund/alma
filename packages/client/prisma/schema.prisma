@@ -7,11 +7,11 @@ datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+  schemas   = ["public", "auth", "storage"]
 }
 
 model Profile {
-  id              String          @id @default(uuid())
-  userId          String          @unique
+  id              String          @unique @id
   username        String          @unique
   image           String?
   location        String?
@@ -25,6 +25,8 @@ model Profile {
   subscription    Subscription?   @relation("subscription")
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt @default(now())
+
+  @@schema("public")
 }
 
 model Relationship {
@@ -37,6 +39,7 @@ model Relationship {
   updatedAt         DateTime    @updatedAt @default(now())
 
   @@unique([profileId, targetProfileId])
+  @@schema("public")
 }
 
 model Subscription {
@@ -49,11 +52,14 @@ model Subscription {
   updatedAt             DateTime          @updatedAt @default(now())
 
   @@unique([stripeCustomerId, stripeSubscriptionId])
+  @@schema("public")
 }
 
 enum LayerType {
   FRAGMENT
   CIRCUIT
+
+  @@schema("public")
 }
 
 enum BlendingMode {
@@ -63,6 +69,8 @@ enum BlendingMode {
   SCREEN
   MULTIPLY
   OVERLAY
+
+  @@schema("public")
 }
 
 model Layer {
@@ -77,10 +85,16 @@ model Layer {
   project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt @default(now())
+
+
+  @@schema("public")
 }
 
 enum UniformType {
   TEXTURE
+
+
+  @@schema("public")
 }
 
 model Uniform {
@@ -92,11 +106,17 @@ model Uniform {
   project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt @default(now())
+
+
+  @@schema("public")
 }
 
 enum ProjectVisibility {
   PUBLIC
   PRIVATE
+
+
+  @@schema("public")
 }
 
 model Project {
@@ -105,8 +125,8 @@ model Project {
   description   String?
   layers        Layer[]
   layerOrder    String[]            @default([])
-  ownerId       String    
-  owner         Profile             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  profileId       String    
+  owner         Profile             @relation(fields: [profileId], references: [id], onDelete: Cascade)
   uniforms      Uniform[]
   likes         Like[]
   comments      Comment[]
@@ -116,6 +136,8 @@ model Project {
   forks         Project[]           @relation("origin")
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt @default(now())
+
+  @@schema("public")
 }
 
 model Like {
@@ -128,6 +150,7 @@ model Like {
   updatedAt   DateTime  @updatedAt @default(now())
 
   @@unique([projectId, profileId])
+  @@schema("public")
 }
 
 model Comment {
@@ -139,4 +162,6 @@ model Comment {
   text        String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt @default(now())
+
+  @@schema("public")
 }

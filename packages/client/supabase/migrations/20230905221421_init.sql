@@ -1,6 +1,3 @@
--- CreateSchema
-CREATE SCHEMA IF NOT EXISTS "public";
-
 -- CreateEnum
 CREATE TYPE "public"."LayerType" AS ENUM ('FRAGMENT', 'CIRCUIT');
 
@@ -16,7 +13,6 @@ CREATE TYPE "public"."ProjectVisibility" AS ENUM ('PUBLIC', 'PRIVATE');
 -- CreateTable
 CREATE TABLE "public"."Profile" (
     "id" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "image" TEXT,
     "location" TEXT,
@@ -61,7 +57,6 @@ CREATE TABLE "public"."Layer" (
     "circuit" JSONB,
     "fragment" TEXT,
     "projectId" TEXT NOT NULL,
-    "index" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -85,7 +80,9 @@ CREATE TABLE "public"."Uniform" (
 CREATE TABLE "public"."Project" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "ownerId" TEXT NOT NULL,
+    "description" TEXT,
+    "layerOrder" TEXT[] DEFAULT ARRAY[]::TEXT[],
+    "profileId" TEXT NOT NULL,
     "visibility" "public"."ProjectVisibility" NOT NULL DEFAULT 'PUBLIC',
     "originId" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -116,9 +113,6 @@ CREATE TABLE "public"."Comment" (
 
     CONSTRAINT "Comment_pkey" PRIMARY KEY ("id")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "Profile_userId_key" ON "public"."Profile"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Profile_username_key" ON "public"."Profile"("username");
@@ -157,7 +151,7 @@ ALTER TABLE "public"."Layer" ADD CONSTRAINT "Layer_projectId_fkey" FOREIGN KEY (
 ALTER TABLE "public"."Uniform" ADD CONSTRAINT "Uniform_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "public"."Project"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."Project" ADD CONSTRAINT "Project_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "public"."Profile"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."Project" ADD CONSTRAINT "Project_profileId_fkey" FOREIGN KEY ("profileId") REFERENCES "public"."Profile"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "public"."Project" ADD CONSTRAINT "Project_originId_fkey" FOREIGN KEY ("originId") REFERENCES "public"."Project"("id") ON DELETE SET DEFAULT ON UPDATE CASCADE;
@@ -173,3 +167,25 @@ ALTER TABLE "public"."Comment" ADD CONSTRAINT "Comment_projectId_fkey" FOREIGN K
 
 -- AddForeignKey
 ALTER TABLE "public"."Comment" ADD CONSTRAINT "Comment_profileId_fkey" FOREIGN KEY ("profileId") REFERENCES "public"."Profile"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- inserts a row into public.Profile
+create function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  insert into "public"."Profile" (id, username, image)
+  values (
+    new.id, 
+    new.raw_user_meta_data ->> 'user_name', 
+    new.raw_user_meta_data ->> 'avatar_url'
+  );
+  return new;
+end;
+$$;
+
+-- trigger the function every time a user is created
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
