@@ -13,8 +13,9 @@
     "scripts": {
         "build": "tsc",
         "preinstall": "npx patch-package",
-        "prepare": "npm run build",
-        "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+        "prepare": "husky install && npm run build",
+        "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+        "lint": "eslint"
     },
     "keywords": [],
     "author": "",
@@ -28,6 +29,7 @@
         "eslint-config-prettier": "^8.5.0",
         "eslint-import-resolver-typescript": "^3.6.0",
         "eslint-plugin-unused-imports": "^2.0.0",
+        "husky": "^8.0.3",
         "typescript": "^4.8.3"
     },
     "dependencies": {

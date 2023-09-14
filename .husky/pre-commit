@@ -1,0 +1,7 @@
+#! /bin/bash
+
+# Lint changed files
+git diff --cached --name-only --diff-filter=ACMRTUXB | grep -E '\.(js|jsx|ts|tsx)$' | xargs npm run lint -- --fix
+
+# Test changed files
+git diff --cached --name-only --diff-filter=ACMRTUXB | grep -E '\.(js|jsx|ts|tsx)$' | xargs npm run test --bail --findRelatedTests
