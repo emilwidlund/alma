@@ -1,5 +1,5 @@
 import { GLSLVersion } from '@thi.ng/shader-ast-glsl';
-import {Fragment} from '../nodes/common/Fragment/Fragment';
+import {Fragment} from '../nodes/core/Fragment/Fragment';
 import {Vector4} from '../nodes/vectors/Vector4/Vector4';
 import {Addition} from '../nodes/math/Addition/Addition';
 import {compile} from './Compiler';
