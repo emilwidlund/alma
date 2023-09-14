@@ -38,5 +38,8 @@
         "ts-jest": "^29.1.1",
         "zod": "^3.22.2"
     },
-    "type": "module"
+    "type": "module",
+    "publishConfig": {
+        "access": "public"
+    }
 }
