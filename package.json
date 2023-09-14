@@ -1,8 +1,7 @@
 {
-    "name": "alma",
-    "version": "1.0.0",
+    "name": "@newfrgmnt/alma",
+    "version": "0.0.1",
     "description": "",
-    "private": true,
     "scripts": {
         "build": "tsc",
         "preinstall": "npx patch-package",
