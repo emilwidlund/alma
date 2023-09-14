@@ -1,6 +1,7 @@
 {
     "name": "@newfrgmnt/alma",
     "version": "0.0.1",
+    "main": "build/index.js",
     "description": "",
     "scripts": {
         "build": "tsc",
