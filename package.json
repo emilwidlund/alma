@@ -33,8 +33,8 @@
         "typescript": "^4.8.3"
     },
     "dependencies": {
-        "@nodl/core": "^1.0.7",
-        "@nodl/react": "^1.0.3",
+        "@nodl/core": "^1.0.8",
+        "@nodl/react": "^1.0.4",
         "@thi.ng/shader-ast": "^0.12.29",
         "@thi.ng/shader-ast-glsl": "^0.4.36",
         "@thi.ng/webgl": "^6.2.13",
