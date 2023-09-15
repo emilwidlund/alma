@@ -6,6 +6,11 @@
     "files": [
         "build/*"
     ],
+    "exports": {
+        ".": "./build/index.js",
+        "./nodes": "./build/nodes/index.js",
+        "./schemas": "./build/schemas/index.js"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/newfrgmnt/alma.git"
