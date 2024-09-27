@@ -1,0 +1,46 @@
+{
+    "name": "@bitspace/nodes",
+    "version": "0.1.0",
+    "private": true,
+    "exports": {
+        ".": "./src/index.ts",
+        "./descriptions": "./src/descriptions.ts",
+        "./3d": "./src/3d/index.ts",
+        "./ai": "./src/ai/index.ts",
+        "./math": "./src/math/index.ts",
+        "./color": "./src/color/index.ts",
+        "./primitives": "./src/primitives/index.ts",
+        "./utilities": "./src/utilities/index.ts"
+    },
+    "main": "./src/index.ts",
+    "scripts": {
+        "lint": "eslint . --max-warnings 0",
+        "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles"
+    },
+    "devDependencies": {
+        "@bitspace/eslint-config": "workspace:*",
+        "@bitspace/typescript-config": "workspace:*",
+        "@types/color-convert": "^2.0.3",
+        "@types/eslint": "^8.44.7",
+        "@types/jest": "^29.2.5",
+        "@types/node": "^20.5.2",
+        "@types/three": "^0.161.2",
+        "eslint": "^8.53.0",
+        "jest": "^29.3.1",
+        "ts-jest": "^29.0.3",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "@bitspace/circuit": "workspace:^",
+        "@bitspace/schemas": "workspace:^",
+        "color-convert": "^2.0.1",
+        "framer-motion": "^10.16.16",
+        "rxjs": "^7.8.1",
+        "three": "^0.161.0",
+        "zod": "^3.23.8"
+    },
+    "peerDependencies": {
+        "mobx": "^6.8.0"
+    },
+    "type": "module"
+}

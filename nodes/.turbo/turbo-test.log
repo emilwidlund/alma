@@ -1,0 +1,228 @@
+
+> @bitspace/nodes@0.1.0 test /Users/ewidlund/dev/bitspace/packages/nodes
+> NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles
+
+[1m[2mDetermining test suites to run...[22m[22m[999D[K
+[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/utilities/Timer/[22m[1mTimer.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/utilities/Timer/[22m[1mTimer.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/utilities/Timer/[22m[1mTimer.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/utilities/Timer/[22m[1mTimer.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/utilities/Timer/[22m[1mTimer.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/utilities/Timer/[22m[1mTimer.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/utilities/Timer/[22m[1mTimer.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/utilities/Timer/[22m[1mTimer.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/utilities/Timer/[22m[1mTimer.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/SquareRoot/[22m[1mSquareRoot.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/SquareRoot/[22m[1mSquareRoot.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/SquareRoot/[22m[1mSquareRoot.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/SquareRoot/[22m[1mSquareRoot.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/SquareRoot/[22m[1mSquareRoot.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/SquareRoot/[22m[1mSquareRoot.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Power/[22m[1mPower.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Power/[22m[1mPower.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Power/[22m[1mPower.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Power/[22m[1mPower.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Power/[22m[1mPower.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Logarithm2/[22m[1mLogarithm2.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Logarithm2/[22m[1mLogarithm2.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Logarithm2/[22m[1mLogarithm2.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Logarithm2/[22m[1mLogarithm2.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Logarithm2/[22m[1mLogarithm2.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Logarithm2/[22m[1mLogarithm2.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Max/[22m[1mMax.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Max/[22m[1mMax.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Max/[22m[1mMax.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Max/[22m[1mMax.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Max/[22m[1mMax.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Subtraction/[22m[1mSubtraction.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Subtraction/[22m[1mSubtraction.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Subtraction/[22m[1mSubtraction.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Subtraction/[22m[1mSubtraction.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Subtraction/[22m[1mSubtraction.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Subtraction/[22m[1mSubtraction.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/PI/[22m[1mPI.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/PI/[22m[1mPI.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/PI/[22m[1mPI.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/PI/[22m[1mPI.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/PI/[22m[1mPI.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Cosine/[22m[1mCosine.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Cosine/[22m[1mCosine.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Cosine/[22m[1mCosine.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Cosine/[22m[1mCosine.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Cosine/[22m[1mCosine.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Cosine/[22m[1mCosine.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Round/[22m[1mRound.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Round/[22m[1mRound.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Round/[22m[1mRound.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Round/[22m[1mRound.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Round/[22m[1mRound.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Min/[22m[1mMin.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Min/[22m[1mMin.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Min/[22m[1mMin.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Min/[22m[1mMin.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Min/[22m[1mMin.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Min/[22m[1mMin.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Addition/[22m[1mAddition.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Addition/[22m[1mAddition.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Addition/[22m[1mAddition.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Addition/[22m[1mAddition.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Addition/[22m[1mAddition.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Sine/[22m[1mSine.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Sine/[22m[1mSine.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Sine/[22m[1mSine.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Sine/[22m[1mSine.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Sine/[22m[1mSine.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Sine/[22m[1mSine.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Multiplication/[22m[1mMultiplication.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Multiplication/[22m[1mMultiplication.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Multiplication/[22m[1mMultiplication.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Multiplication/[22m[1mMultiplication.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Multiplication/[22m[1mMultiplication.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Logarithm/[22m[1mLogarithm.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Logarithm/[22m[1mLogarithm.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Logarithm/[22m[1mLogarithm.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Logarithm/[22m[1mLogarithm.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Logarithm/[22m[1mLogarithm.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Logarithm/[22m[1mLogarithm.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Euler/[22m[1mEuler.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Euler/[22m[1mEuler.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Euler/[22m[1mEuler.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Euler/[22m[1mEuler.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Euler/[22m[1mEuler.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Sign/[22m[1mSign.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Sign/[22m[1mSign.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Sign/[22m[1mSign.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Sign/[22m[1mSign.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Sign/[22m[1mSign.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Sign/[22m[1mSign.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Modulo/[22m[1mModulo.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Modulo/[22m[1mModulo.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Modulo/[22m[1mModulo.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Modulo/[22m[1mModulo.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Modulo/[22m[1mModulo.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Floor/[22m[1mFloor.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Floor/[22m[1mFloor.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Floor/[22m[1mFloor.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Floor/[22m[1mFloor.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Floor/[22m[1mFloor.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Floor/[22m[1mFloor.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Ceil/[22m[1mCeil.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Ceil/[22m[1mCeil.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Ceil/[22m[1mCeil.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Ceil/[22m[1mCeil.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Ceil/[22m[1mCeil.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Absolute/[22m[1mAbsolute.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Absolute/[22m[1mAbsolute.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Absolute/[22m[1mAbsolute.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Absolute/[22m[1mAbsolute.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Absolute/[22m[1mAbsolute.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Absolute/[22m[1mAbsolute.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Division/[22m[1mDivision.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Division/[22m[1mDivision.test.ts[22m
+[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Division/[22m[1mDivision.test.ts[22m
+[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/math/Division/[22m[1mDivision.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/math/Division/[22m[1mDivision.test.ts[22m
+[K[1A[K[1A[999D[K
+[1mTest Suites: [22m[1m[32m21 passed[39m[22m, 21 total
+[1mTests:       [22m[1m[32m43 passed[39m[22m, 43 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        [1m[33m4.149 s[39m[22m
+[2mRan all test suites[22m[2m.[22m
